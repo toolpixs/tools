@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>YouTube Thumbnail Downloader - Get High Quality Thumbnails in HD, HQ, MQ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Download YouTube video thumbnails in HD (max resolution), HQ, MQ quality instantly. Free online tool to extract thumbnails from any YouTube video URL.">
+    <meta name="keywords" content="YouTube thumbnail downloader, YouTube thumbnail extractor, get YouTube thumbnail, download YouTube thumbnail, YouTube thumbnail grabber, YouTube thumbnail saver, YouTube thumbnail finder">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="YouTube Thumbnail Downloader - Get High Quality Thumbnails">
+    <meta property="og:description" content="Download YouTube video thumbnails in HD, HQ, MQ quality instantly. Free online tool to extract thumbnails from any YouTube video.">
+    <meta property="og:image" content="https://raw.github.com/harsh98trivedi/YouTube-Thumbnail-Downloader/master/images/meta.jpg">
+    <meta property="og:url" content="https://harsh98trivedi.github.io/YouTube-Thumbnail-Downloader/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YouTube Thumbnail Downloader">
+    <meta name="twitter:description" content="Free tool to download YouTube thumbnails in HD, HQ, MQ quality with one click.">
+    <meta name="twitter:image" content="https://raw.github.com/harsh98trivedi/YouTube-Thumbnail-Downloader/master/images/meta.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #FF0000;
+            --secondary-color: #282828;
+            --accent-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Input Section */
+        .input-section {
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: var(--border-radius) !important;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            padding: 0.75rem 1.25rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.1);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #d40000;
+            border-color: #d40000;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        /* Thumbnail Preview */
+        .thumbnail-container {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .thumbnail-preview {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 3px solid white;
+        }
+        
+        .thumbnail-preview:hover {
+            transform: scale(1.02);
+        }
+        
+        .loading-spinner {
+            display: none;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 2rem 0;
+        }
+        
+        /* Download Options */
+        .download-options {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .quality-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quality-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-color);
+            border: 2px solid transparent;
+        }
+        
+        .quality-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .quality-btn i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quality-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quality-desc {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            text-align: center;
+        }
+        
+        /* Info Section */
+        .info-section {
+            margin-top: 3rem;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .quality-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Error Message */
+        .error-message {
+            display: none;
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            color: #28a745;
+            background: #d4edda;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70447982-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-70447982-2');
+    </script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fab fa-youtube"></i>
+                    YouTube Thumbnail Downloader
+                </a>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/harsh98trivedi" target="_blank" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.twitter.com/harsh98trivedi" target="_blank" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.github.com/harsh98trivedi" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Main Card -->
+            <div class="card animate__animated animate__fadeIn">
+                <h2 class="card-title">
+                    <i class="fas fa-download"></i> Download YouTube Thumbnails
+                </h2>
+                
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i> The URL you entered may be incorrect. Please check and try again.
+                </div>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Thumbnail loaded successfully! Choose your download option below.
+                </div>
+                
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="ytlink" placeholder="Paste YouTube video URL here..." autofocus>
+                        <button class="btn btn-primary" id="thumbdloadbtn">
+                            <i class="fas fa-search"></i> Fetch Thumbnail
+                        </button>
+                    </div>
+                    <p class="text-muted">
+                        <i class="fas fa-info-circle"></i> Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                    </p>
+                </div>
+                
+                <!-- Loading Spinner -->
+                <div class="text-center loading-spinner" id="loadingSpinner">
+                    <i class="fas fa-spinner fa-spin"></i> Loading thumbnail...
+                </div>
+                
+                <!-- Thumbnail Preview -->
+                <div class="thumbnail-container" id="thumbnailContainer" style="display: none;">
+                    <img src="" class="thumbnail-preview img-fluid" id="thumbnailpreview" alt="YouTube Thumbnail Preview">
+                </div>
+                
+                <!-- Download Options -->
+                <div class="download-options" id="downloadOptions">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-cloud-download-alt"></i> Download Options
+                    </h3>
+                    
+                    <div class="quality-options">
+                        <a href="#" class="quality-btn" id="thumbnailhq">
+                            <i class="fas fa-image"></i>
+                            <span class="quality-label">High Quality (HD)</span>
+                            <span class="quality-desc">1280×720 or higher</span>
+                        </a>
+                        <a href="#" class="quality-btn" id="thumbnailmq">
+                            <i class="fas fa-image"></i>
+                            <span class="quality-label">Medium Quality</span>
+                            <span class="quality-desc">480×360 pixels</span>
+                        </a>
+                        <a href="#" class="quality-btn" id="thumbnaillq">
+                            <i class="fas fa-image"></i>
+                            <span class="quality-label">Low Quality</span>
+                            <span class="quality-desc">320×180 pixels</span>
+                        </a>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-outline-secondary" id="resetBtn">
+                            <i class="fas fa-redo"></i> Start Over
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Info Section -->
+            <div class="info-section">
+                <div class="card info-card">
+                    <h3 class="info-title">
+                        <i class="fas fa-question-circle"></i> What is a YouTube Thumbnail?
+                    </h3>
+                    <p>
+                        A YouTube thumbnail is a small preview image that represents your video in YouTube's search results, recommendations, and playlists. 
+                        It's the first thing viewers see before deciding to click on your video, making it a crucial element for attracting viewers.
+                    </p>
+                    <p>
+                        YouTube automatically generates several thumbnail options for each video, but creators can also upload custom thumbnails. 
+                        Our tool helps you download these thumbnails in various resolutions for analysis, inspiration, or other legitimate purposes.
+                    </p>
+                </div>
+                
+                <div class="card info-card">
+                    <h3 class="info-title">
+                        <i class="fas fa-lightbulb"></i> Why Use Our YouTube Thumbnail Downloader?
+                    </h3>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Instant access</strong> to thumbnails from any public YouTube video
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> Download in <strong>multiple resolutions</strong> (HD, HQ, MQ)
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>No registration</strong> required - completely free to use
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> Works on <strong>all devices</strong> - mobile, tablet, and desktop
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Simple process</strong> - just paste the URL and download
+                        </li>
+                    </ul>
+                    <p>
+                        Whether you're a content creator looking for inspiration, a marketer analyzing competitors, or just need a thumbnail for reference, 
+                        our tool provides an easy solution to get YouTube thumbnails quickly.
+                    </p>
+                </div>
+                
+                <div class="card info-card">
+                    <h3 class="info-title">
+                        <i class="fas fa-graduation-cap"></i> How to Download YouTube Thumbnails
+                    </h3>
+                    <div class="steps">
+                        <div class="step mb-3">
+                            <h5><span class="badge bg-primary">1</span> Find the YouTube Video</h5>
+                            <p>Go to YouTube and copy the URL of the video whose thumbnail you want to download.</p>
+                        </div>
+                        <div class="step mb-3">
+                            <h5><span class="badge bg-primary">2</span> Paste the URL</h5>
+                            <p>Paste the YouTube video URL in the input field above.</p>
+                        </div>
+                        <div class="step mb-3">
+                            <h5><span class="badge bg-primary">3</span> Fetch Thumbnail</h5>
+                            <p>Click the "Fetch Thumbnail" button to load the thumbnail preview.</p>
+                        </div>
+                        <div class="step">
+                            <h5><span class="badge bg-primary">4</span> Download</h5>
+                            <p>Choose your preferred quality and click to download the thumbnail to your device.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card info-card">
+                    <h3 class="info-title">
+                        <i class="fas fa-exclamation-triangle"></i> Important Note
+                    </h3>
+                    <p>
+                        This tool is intended for legitimate purposes only. Please respect copyright laws and YouTube's terms of service. 
+                        The thumbnails downloaded through this service are property of their respective owners.
+                    </p>
+                    <p>
+                        We do not host any YouTube content on our servers. This tool simply provides a way to access thumbnails that are 
+                        already publicly available on YouTube's servers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/harsh98trivedi" target="_blank" class="social-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.twitter.com/harsh98trivedi" target="_blank" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.instagram.com/harsh98trivedi" target="_blank" class="social-link">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/harsh98trivedi" target="_blank" class="social-link">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://www.github.com/harsh98trivedi" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <p class="copyright">
+                Made with <span class="heart"><i class="fas fa-heart"></i></span> by <a href="https://harsh98trivedi.github.io" target="_blank" style="color: white;">Harsh Trivedi</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+    // Function to extract YouTube video ID from URL
+    function extractVideoId(url) {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        var match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    // Function to show error message
+    function showError(message) {
+        $('#errorMessage').text(message).fadeIn();
+        setTimeout(function() {
+            $('#errorMessage').fadeOut();
+        }, 5000);
+    }
+
+    // Function to show success message
+    function showSuccess(message) {
+        $('#successMessage').text(message).fadeIn();
+        setTimeout(function() {
+            $('#successMessage').fadeOut();
+        }, 5000);
+    }
+
+    // Function to reset the form
+    function resetForm() {
+        $('#ytlink').val('').focus();
+        $('#thumbnailContainer').hide();
+        $('#downloadOptions').hide();
+        $('#thumbdloadbtn').show();
+        $('#loadingSpinner').hide();
+        $('#errorMessage').hide();
+        $('#successMessage').hide();
+    }
+
+    // Function to trigger download
+    function triggerDownload(url, filename) {
+        fetch(url, { mode: 'cors' })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(() => {
+                // Fallback: open the image in a new tab if direct download fails
+                window.open(url, '_blank');
+            });
+    }
+
+    // YouTube Thumbnail Downloader function
+    function youtube_thumbnail_downloader(url) {
+        var videoId = extractVideoId(url);
+
+        if (!videoId) {
+            showError("The URL you entered may be incorrect. Please check and try again.");
+            return false;
+        }
+
+        // Show loading spinner
+        $('#loadingSpinner').show();
+        $('#thumbnailContainer').hide();
+        $('#errorMessage').hide();
+
+        // Generate thumbnail URLs
+        var thumbnailBase = 'https://img.youtube.com/vi/' + videoId + '/';
+        var thumbnailUrls = {
+            hq: thumbnailBase + 'maxresdefault.jpg', // Highest quality
+            mq: thumbnailBase + 'hqdefault.jpg',     // Medium quality
+            lq: thumbnailBase + 'mqdefault.jpg'      // Low quality
+        };
+
+        // Create new image to check if HD thumbnail exists
+        var img = new Image();
+        img.onload = function() {
+            // Check if the image is the default "no thumbnail" image
+            if (this.naturalWidth === 120 && this.naturalHeight === 90) {
+                // HD thumbnail doesn't exist, use HQ instead
+                thumbnailUrls.hq = thumbnailBase + 'hqdefault.jpg';
+            }
+
+            // Set the preview image
+            $('#thumbnailpreview').attr('src', thumbnailUrls.mq);
+
+            // Remove existing click handlers to prevent duplicates
+            $('#thumbnailhq, #thumbnailmq, #thumbnaillq').off('click');
+
+            // Set download links with click handlers
+            $('#thumbnailhq').on('click', function(e) {
+                e.preventDefault();
+                triggerDownload(thumbnailUrls.hq, 'thumbnail-hq.jpg');
+            });
+            $('#thumbnailmq').on('click', function(e) {
+                e.preventDefault();
+                triggerDownload(thumbnailUrls.mq, 'thumbnail-mq.jpg');
+            });
+            $('#thumbnaillq').on('click', function(e) {
+                e.preventDefault();
+                triggerDownload(thumbnailUrls.lq, 'thumbnail-lq.jpg');
+            });
+
+            // Show the thumbnail and download options
+            $('#loadingSpinner').hide();
+            $('#thumbnailContainer').fadeIn();
+            $('#downloadOptions').slideDown();
+            $('#thumbdloadbtn').hide();
+
+            // Show success message
+            showSuccess("Thumbnail loaded successfully! Choose your download option below.");
+        };
+
+        img.onerror = function() {
+            // If there's an error loading the HD thumbnail, fall back to HQ
+            thumbnailUrls.hq = thumbnailBase + 'hqdefault.jpg';
+
+            // Try loading the HQ thumbnail instead
+            var img2 = new Image();
+            img2.onload = function() {
+                $('#thumbnailpreview').attr('src', thumbnailUrls.mq);
+
+                // Remove existing click handlers to prevent duplicates
+                $('#thumbnailhq, #thumbnailmq, #thumbnaillq').off('click');
+
+                // Set download links with click handlers
+                $('#thumbnailhq').on('click', function(e) {
+                    e.preventDefault();
+                    triggerDownload(thumbnailUrls.hq, 'thumbnail-hq.jpg');
+                });
+                $('#thumbnailmq').on('click', function(e) {
+                    e.preventDefault();
+                    triggerDownload(thumbnailUrls.mq, 'thumbnail-mq.jpg');
+                });
+                $('#thumbnaillq').on('click', function(e) {
+                    e.preventDefault();
+                    triggerDownload(thumbnailUrls.lq, 'thumbnail-lq.jpg');
+                });
+
+                $('#loadingSpinner').hide();
+                $('#thumbnailContainer').fadeIn();
+                $('#downloadOptions').slideDown();
+                $('#thumbdloadbtn').hide();
+                showSuccess("Thumbnail loaded successfully! Choose your download option below.");
+            };
+
+            img2.onerror = function() {
+                $('#loadingSpinner').hide();
+                showError("Could not load thumbnail. The video may be private or unavailable.");
+            };
+
+            img2.src = thumbnailUrls.hq;
+        };
+
+        img.src = thumbnailUrls.hq;
+    }
+
+    // Event listener for fetch button
+    $('#thumbdloadbtn').click(function() {
+        var url = $('#ytlink').val().trim();
+        if (url) {
+            youtube_thumbnail_downloader(url);
+        } else {
+            showError("Please enter a YouTube video URL");
+        }
+    });
+
+    // Event listener for reset button
+    $('#resetBtn').click(function() {
+        resetForm();
+    });
+
+    // Event listener for Enter key
+    $('#ytlink').keypress(function(e) {
+        if (e.which === 13) { // Enter key
+            $('#thumbdloadbtn').click();
+        }
+    });
+
+    // Prevent form submission
+    $('form').submit(function(e) {
+        e.preventDefault();
+    });
+
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // Add animation to quality buttons on hover
+    $('.quality-btn').hover(
+        function() {
+            $(this).addClass('animate__animated animate__pulse');
+        },
+        function() {
+            $(this).removeClass('animate__animated animate__pulse');
+        }
+    );
+});
+    </script>
+</body>
+</html>

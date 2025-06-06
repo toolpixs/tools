@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online compiler and code editor for Python, Java, C++, JavaScript, HTML, SQL, and more. Write, compile, and run code in your browser with Tool Pix IDE.">
+    <meta name="keywords" content="online compiler, code editor, Python compiler, Java IDE, C++ compiler, JavaScript editor, HTML editor, SQL editor, web-based IDE, cloud programming, free online coding, learn programming online">
+    <meta name="author" content="Tool Pix">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Tool Pix IDE - Free Online Compiler & Editor for Python, Java, C++, and More">
+    <meta property="og:description" content="Free online compiler and code editor for multiple languages. Code, compile, and run programs instantly in your browser with Tool Pix IDE.">
+    <meta property="og:url" content="https://toolpixs.github.io/tools/compiler">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://toolpixs.github.io/tools/compiler">
+    <title>Tool Pix IDE - Free Online Compiler & Editor for Python, Java, C++, and More</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #6e48aa;
+            --primary-dark: #4b3080;
+            --secondary: #9d50bb;
+            --bg-dark: #1a1a2e;
+            --bg-darker: #16213e;
+            --text-light: #f1f1f1;
+            --text-lighter: #ffffff;
+            --accent: #64fcd9;
+            --border: #2d4059;
+            --success: #4ade80;
+            --error: #f87171;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--bg-darker);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-lighter);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title i {
+            color: var(--accent);
+        }
+
+        .compiler-list {
+            list-style: none;
+        }
+
+        .compiler-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .compiler-item a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .compiler-item:hover {
+            background: rgba(110, 72, 170, 0.2);
+        }
+
+        .compiler-item.active {
+            background: var(--primary);
+        }
+
+        .compiler-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: calc(100% - 280px);
+            overflow-x: hidden;
+        }
+
+        .sidebar-toggle {
+            display: none;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 101;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .hero-section {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-lighter);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .compiler-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .compiler-card {
+            background: var(--bg-darker);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .compiler-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .compiler-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .compiler-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-lighter);
+            margin-bottom: 10px;
+        }
+
+        .compiler-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .language-notes {
+            max-width: 1200px;
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--bg-darker);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .language-notes h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .language-notes h3 {
+            color: var(--text-lighter);
+            margin: 25px 0 10px;
+            font-size: 1.3rem;
+        }
+
+        .language-notes p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: block;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+            }
+
+            .sidebar-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .sidebar-toggle {
+                display: flex;
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .compiler-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .language-notes {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">
+                    <i class="fas fa-code"></i>
+                    <span>Tool Pix IDE</span>
+                </h1>
+            </div>
+            <ul class="compiler-list">
+                <li class="compiler-item">
+                    <a href="./compilers/python">
+                        <span class="compiler-icon"><i class="fab fa-python"></i></span>
+                        <span>Python</span>
+                    </a>
+                </li>
+                <li class="compiler-item">
+                    <a href="./compilers/sql">
+                        <span class="compiler-icon"><i class="fas fa-database"></i></span>
+                        <span>SQL</span>
+                    </a>
+                </li>
+                <li class="compiler-item">
+                    <a href="./compilers/html">
+                        <span class="compiler-icon"><i class="fab fa-html5"></i></span>
+                        <span>HTML</span>
+                    </a>
+                </li>
+                <li class="compiler-item">
+                    <a href="./compilers/java">
+                        <span class="compiler-icon"><i class="fab fa-java"></i></span>
+                        <span>Java</span>
+                    </a>
+                </li>
+                <li class="compiler-item">
+                    <a href="./compilers/c">
+                        <span class="compiler-icon"><i class="fas fa-copyright"></i></span>
+                        <span>C</span>
+                    </a>
+                </li>
+                <li class="compiler-item">
+                    <a href="./compilers/cpp">
+                        <span class="compiler-icon"><i class="fas fa-plus"></i></span>
+                        <span>C++</span>
+                    </a>
+                </li>
+                <li class="compiler-item">
+                    <a href="./compilers/javascript">
+                        <span class="compiler-icon"><i class="fab fa-js"></i></span>
+                        <span>JavaScript</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="hero-section">
+                <h1 class="hero-title">
+                    <i class="fas fa-code"></i>
+                    Tool Pix IDE
+                </h1>
+                <h2 class="hero-subtitle">Free Online Compiler & Editor for Python, Java, C++, and More</h2>
+                <p class="hero-description">
+                    Discover a powerful web-based IDE to write, compile, and run code instantly in your browser. Supports Python, Java, C++, JavaScript, HTML, SQL, and more—no setup required. Ideal for learning programming online, prototyping, and coding on the go.
+                </p>
+                <a href="#compilers" class="btn">
+                    <i class="fas fa-rocket"></i> Start Coding Now
+                </a>
+            </div>
+
+            <div class="compiler-grid" id="compilers">
+                <div class="compiler-card" onclick="window.location.href='./compiler/python'">
+                    <i class="fab fa-python"></i>
+                    <h3>Python Compiler</h3>
+                    <p>Run Python 3 code with our online Python compiler. Great for data science and learning Python.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compiler/sql'">
+                    <i class="fas fa-database"></i>
+                    <h3>SQL Editor</h3>
+                    <p>Practice SQL queries in our online SQL editor with a built-in database. Perfect for beginners.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compiler/html'">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML Editor</h3>
+                    <p>Build and preview web pages live with our online HTML editor for HTML, CSS, and JavaScript.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compiler/java'">
+                    <i class="fab fa-java"></i>
+                    <h3>Java Compiler</h3>
+                    <p>Compile and run Java code online with our free Java IDE. Supports Java 8 and beyond.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compiler/c'">
+                    <i class="fas fa-copyright"></i>
+                    <h3>C Compiler</h3>
+                    <p>Execute C programs with our web-based C compiler using GCC. Ideal for system programming.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compiler/cpp'">
+                    <i class="fas fa-plus"></i>
+                    <h3>C++ Compiler</h3>
+                    <p>Code and run C++ applications with our online C++ compiler. Fast and easy to use.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compiler/javascript'">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript Editor</h3>
+                    <p>Test JavaScript code instantly with our online JavaScript editor. Built for web development.</p>
+                </div>
+            </div>
+
+            <div class="language-notes">
+                <h2><i class="fas fa-info-circle"></i> Explore Online Compilers and Programming Languages</h2>
+            </div>
+
+            <div class="language-notes">
+                <section>
+                    <h3>What is an Online Compiler?</h3>
+                    <p>An online compiler is a cloud-based tool that lets you write, compile, and execute code directly in your browser, eliminating the need for local software installation. Tool Pix IDE offers a free online compiler and code editor with syntax highlighting, error checking, and instant results, supporting multiple languages for a seamless coding experience.</p>
+                </section>
+            </div>
+
+            <div class="language-notes">
+                <section>
+                    <h3>Python Programming</h3>
+                    <p>Python is a beginner-friendly, high-level language celebrated for its readability and versatility. Our online Python compiler runs Python 3, providing an interactive environment perfect for learning programming online, data science, machine learning, web development with frameworks like Django, and automation scripts. Features include real-time execution, a built-in interpreter, and support for popular libraries, making it a top choice for an online Python compiler.</p>
+                </section>
+                
+                <section>
+                    <h3>Java Development</h3>
+                    <p>Java, a robust object-oriented language, powers applications across platforms via the Java Virtual Machine (JVM). Our free Java IDE online compiles and runs Java code (Java 8+) in your browser, ideal for building enterprise software, Android apps, and mastering OOP concepts. With no setup needed, it’s perfect for students and developers seeking a web-based Java compiler for quick coding and debugging.</p>
+                </section>
+
+                <section>
+                    <h3>C and C++ Compilation</h3>
+                    <p>C and C++ are high-performance languages essential for system programming, game development, and embedded systems. Our web-based C++ compiler and C compiler use GCC to deliver fast, accurate compilation online. Beginners can learn programming fundamentals, while advanced users can prototype algorithms or develop performance-critical applications—all without local installations.</p>
+                </section>
+
+                <section>
+                    <h3>JavaScript Execution</h3>
+                    <p>JavaScript drives dynamic web experiences, making it the backbone of modern web development. Our online JavaScript editor lets you write and execute code instantly, leveraging the browser’s native engine for real-time feedback. It’s ideal for learning front-end development, testing scripts, or prototyping web apps, positioning it as a go-to cloud programming environment for JavaScript enthusiasts.</p>
+                </section>
+
+                <section>
+                    <h3>HTML, CSS, and Web Development</h3>
+                    <p>Our online HTML editor combines HTML, CSS, and JavaScript into a live-preview environment for web development. Whether you’re learning web design, crafting responsive layouts, or prototyping sites, this tool offers instant results without a server. It’s a favorite for beginners and pros alike, delivering a seamless online code editor for web projects.</p>
+                </section>
+
+                <section>
+                    <h3>SQL Database Programming</h3>
+                    <p>SQL (Structured Query Language) is the standard for managing relational databases. Our online SQL editor connects to a sample database, letting you practice queries, joins, and operations in a browser-based IDE. It’s excellent for learning database concepts, preparing for interviews, or testing SQL snippets, making it a valuable resource for database programming online.</p>
+                </section>
+
+                <section>
+                    <h3>Why Choose Tool Pix IDE?</h3>
+                    <p>Tool Pix IDE is a free, cloud-based programming environment that simplifies coding with no downloads or configurations. Accessible on any device, it offers syntax highlighting, error detection, and instant execution across multiple languages. Whether you’re a student learning programming online, a teacher sharing lessons, or a developer prototyping ideas, this web-based IDE is your all-in-one solution for free online coding.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById("sidebar");
+            const sidebarToggle = document.getElementById("sidebar-toggle");
+            const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+            function toggleSidebar() {
+                sidebar.classList.toggle("open");
+                sidebarOverlay.classList.toggle("open");
+                if (sidebar.classList.contains("open")) {
+                    sidebarToggle.style.display = "none";
+                } else {
+                    sidebarToggle.style.display = "flex";
+                }
+            }
+
+            sidebarToggle.addEventListener("click", toggleSidebar);
+            sidebarOverlay.addEventListener("click", toggleSidebar);
+        });
+    </script>
+</body>
+</html>

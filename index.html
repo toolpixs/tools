@@ -314,7 +314,7 @@
     }
 
     .logo img {
-      height: 36px;
+      height: 56px;
       width: auto;
     }
 
@@ -677,6 +677,7 @@
     .search input {
       padding: 0.75rem 1rem;
       padding-left: 3rem;
+      padding-right: 5rem;
       width: 100%;
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
@@ -714,6 +715,27 @@
       cursor: pointer;
       font-size: 0.9rem;
       transition: var(--transition);
+    }
+
+    #clearSearch {
+      position: absolute;
+      right: 3.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 2;
+      padding: 0 1rem;
+      display: none;
+    }
+
+
+    #clearSearch:focus {
+      outline: none;
+      color: var(--primary);
     }
 
     .search button:hover {
@@ -1672,16 +1694,12 @@
 <body>
   <header>
     <div class="header-container">
-      <a href="/" class="logo">
-<<<<<<< HEAD
-        <img src="./static/images/logo.png" alt="ToolPix Logo" width="120" height="36">
-=======
-        <img src="/images/pixtime-logo.svg" alt="ToolPix Logo" width="120" height="36">
->>>>>>> bbfec61376001db84f9a4f78b737af77b7038da9
+      <a href="./" class="logo">
+        <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
       </a>
       <nav class="desktop-nav">
         <div class="nav-item">
-          <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+          <a href="./" class="active"><i class="fas fa-home"></i> Home</a>
         </div>
         <div class="nav-item">
           <a href="#converters"><i class="fas fa-exchange-alt"></i> Converters</a>
@@ -1732,7 +1750,7 @@
     </div>
     <div class="sidebar">
       <nav>
-        <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="./" class="active"><i class="fas fa-home"></i> Home</a>
         
         <div class="sidebar-item has-dropdown">
           <a href="#converters"><i class="fas fa-exchange-alt"></i> Converters</a>
@@ -1787,7 +1805,7 @@
 
   <main>
     <div class="breadcrumbs">
-      <a href="/"><i class="fas fa-home"></i> Home</a>
+      <a href="./"><i class="fas fa-home"></i> Home</a>
     </div>
     
     <section class="hero">
@@ -1857,15 +1875,15 @@
 
     <div class="ad-container horizontal">
       <span class="ad-label">Advertisement</span>
-      <!-- Ad content would go here -->
       <img src="https://via.placeholder.com/728x90?text=ToolPix+Advertisement" alt="Advertisement" style="max-width: 100%;">
     </div>
 
     <section class="search-container">
       <div class="search">
         <i class="fas fa-search search-icon"></i>
-        <input type="search" id="mainSearch" placeholder="Search for tools (e.g., PNG to JPG, PDF Converter, AI Generator)..." aria-label="Search tools">
-        <button id="searchButton">Search</button>
+        <input type="text" id="mainSearch" placeholder="Search for tools (e.g., PNG to JPG, PDF Converter, AI Generator)..." aria-label="Search tools">
+        <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
+        <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
       </div>
     </section>
 
@@ -2231,20 +2249,29 @@
       <div class="footer-links">
         <h3>Company</h3>
         <ul>
-          <li><a href="/about"><i class="fas fa-info-circle"></i> About Us</a></li>
-          <li><a href="/blog"><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
-          <li><a href="/privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-          <li><a href="/terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+          <li><a href="./about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="./blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="./contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="./help"><i class="fas fa-question-circle"></i>Help Center</a></li>
+          <li><a href="./faq"><i class="fas fa-comments"></i>FAQs</a></li>
+          <li><a href="./report-bug"><i class="fas fa-bug"></i>Report a Bug</a></li>
+          <li><a href="./feature-request"><i class="fas fa-lightbulb"></i>Request Feature</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2023 ToolPix. All rights reserved.</p>
-      <a href="/sitemap.xml">Sitemap</a>
+      <a href="./sitemap.xml">Sitemap</a>
       <a href="./privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-      <a href="/contact">Contact Us</a>
+      <a href="./terms">Terms of Service</a>
+      <a href="./contact">Contact Us</a>
     </div>
   </footer>
 
@@ -2373,6 +2400,20 @@
     // Enhanced Search functionality
     const searchInput = document.getElementById('mainSearch');
     const searchButton = document.getElementById('searchButton');
+
+    const clearSearchBtn = document.getElementById('clearSearch');
+
+    searchInput.addEventListener('input', () => {
+      performSearch(searchInput.value);
+      clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      performSearch('');
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
+    });
     
     // All tools data for search
     const allTools = Array.from(document.querySelectorAll('.tool-card')).map(card => ({
