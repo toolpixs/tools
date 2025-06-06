@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Tools - ToolPix | 100+ Free Online Tools for Images, PDFs, AI & Code</title>
+  <meta name="description" content="Browse all 100+ free online tools from ToolPix. Convert, edit, compress images and PDFs. Generate AI content, edit code, and more. No registration required.">
+  
+  <!-- Use the same styles as the home page -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Reuse the same CSS variables and base styles from home page */
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --ai-color: #9C27B0;
+      --ai-dark: #7B1FA2;
+      --code-color: #607D8B;
+      --code-dark: #455A64;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    /* Header styles same as home page */
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 36px;
+      width: auto;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-item > a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      border-radius: var(--radius-sm);
+    }
+
+    .nav-item > a:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .nav-item > a.active {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--card-bg);
+      min-width: 220px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 5px 15px var(--shadow-lg);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+      padding: 0.5rem 0;
+    }
+
+    .nav-item:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .burger-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      padding: 0.5rem;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: var(--transition);
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar a:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+
+    .sidebar-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 1.5rem;
+    }
+
+    .sidebar-item.has-dropdown.active .sidebar-dropdown {
+      max-height: 500px;
+    }
+
+    .sidebar-item.has-dropdown > a::after {
+      content: '+';
+      margin-left: auto;
+      transition: var(--transition);
+    }
+
+    .sidebar-item.has-dropdown.active > a::after {
+      content: '-';
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .breadcrumbs {
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumbs a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--secondary-dark);
+      text-decoration: underline;
+    }
+
+    .breadcrumbs .separator {
+      color: var(--text-lighter);
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Enhanced Search Container */
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .search input {
+      padding: 0.75rem 1rem;
+      padding-left: 3rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .search button {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .search button:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover {
+      background: var(--primary-light);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Tools Grid */
+    .tools-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card.ai-tool .icon {
+      color: var(--ai-color);
+    }
+
+    .tool-card.code-tool .icon {
+      color: var(--code-color);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      text-align: center;
+      margin-top: auto;
+      font-size: 0.9rem;
+    }
+
+    .tool-card.ai-tool .btn {
+      background: var(--ai-color);
+    }
+
+    .tool-card.ai-tool .btn:hover {
+      background: var(--ai-dark);
+    }
+
+    .tool-card.code-tool .btn {
+      background: var(--code-color);
+    }
+
+    .tool-card.code-tool .btn:hover {
+      background: var(--code-dark);
+    }
+
+    .tool-card .btn:hover {
+      background: var(--secondary-dark);
+    }
+
+    /* Category Sections */
+    .category-section {
+      margin-bottom: 3rem;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .category-header h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    .category-header .count {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* No Results Message */
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+      grid-column: 1 / -1;
+    }
+
+    /* Footer same as home page */
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .tools-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav { display: none; }
+      .burger-icon { display: block; }
+      
+      main { padding: 1rem; }
+      
+      .tools-container {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-container {
+        padding: 1rem;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+      
+      .tools-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .category-filter {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="/" class="logo">
+        <img src="/images/pixtime-logo.svg" alt="ToolPix Logo" width="120" height="36">
+      </a>
+      <nav class="desktop-nav">
+        <div class="nav-item">
+          <a href="/"><i class="fas fa-home"></i> Home</a>
+        </div>
+        <div class="nav-item">
+          <a href="/all-tools" class="active"><i class="fas fa-th"></i> All Tools</a>
+        </div>
+        <div class="nav-item">
+          <a href="#converters"><i class="fas fa-exchange-alt"></i> Converters</a>
+          <div class="dropdown-menu">
+            <a href="/png-to-jpg"><i class="fas fa-image"></i> PNG to JPG</a>
+            <a href="/jpg-to-png"><i class="fas fa-image"></i> JPG to PNG</a>
+            <a href="/webp-to-jpg"><i class="fas fa-image"></i> WebP to JPG</a>
+            <a href="/jpg-to-pdf"><i class="fas fa-file-pdf"></i> JPG to PDF</a>
+            <a href="/pdf-to-jpg"><i class="fas fa-image"></i> PDF to JPG</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#editors"><i class="fas fa-edit"></i> Editors</a>
+          <div class="dropdown-menu">
+            <a href="/image-editor"><i class="fas fa-crop-alt"></i> Image Editor</a>
+            <a href="/photo-enhancer"><i class="fas fa-magic"></i> Photo Enhancer</a>
+            <a href="/background-remover"><i class="fas fa-eraser"></i> Background Remover</a>
+            <a href="/watermark-remover"><i class="fas fa-water"></i> Watermark Remover</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#ai-tools"><i class="fas fa-robot"></i> AI Tools</a>
+          <div class="dropdown-menu">
+            <a href="/ai-image-generator"><i class="fas fa-paint-brush"></i> AI Image Generator</a>
+            <a href="/ai-photo-enhancer"><i class="fas fa-magic"></i> AI Photo Enhancer</a>
+            <a href="/ai-background-remover"><i class="fas fa-eraser"></i> AI Background Remover</a>
+          </div>
+        </div>
+      </nav>
+      <button class="burger-icon" aria-label="Menu">☰</button>
+    </div>
+    <div class="sidebar">
+      <nav>
+        <a href="/"><i class="fas fa-home"></i> Home</a>
+        <a href="/all-tools" class="active"><i class="fas fa-th"></i> All Tools</a>
+        
+        <div class="sidebar-item has-dropdown">
+          <a href="#converters"><i class="fas fa-exchange-alt"></i> Converters</a>
+          <div class="sidebar-dropdown">
+            <a href="/png-to-jpg"><i class="fas fa-image"></i> PNG to JPG</a>
+            <a href="/jpg-to-png"><i class="fas fa-image"></i> JPG to PNG</a>
+            <a href="/webp-to-jpg"><i class="fas fa-image"></i> WebP to JPG</a>
+            <a href="/jpg-to-pdf"><i class="fas fa-file-pdf"></i> JPG to PDF</a>
+          </div>
+        </div>
+        
+        <div class="sidebar-item has-dropdown">
+          <a href="#editors"><i class="fas fa-edit"></i> Editors</a>
+          <div class="sidebar-dropdown">
+            <a href="/image-editor"><i class="fas fa-crop-alt"></i> Image Editor</a>
+            <a href="/photo-enhancer"><i class="fas fa-magic"></i> Photo Enhancer</a>
+            <a href="/background-remover"><i class="fas fa-eraser"></i> Background Remover</a>
+          </div>
+        </div>
+        
+        <div class="sidebar-item has-dropdown">
+          <a href="#ai-tools"><i class="fas fa-robot"></i> AI Tools</a>
+          <div class="sidebar-dropdown">
+            <a href="/ai-image-generator"><i class="fas fa-paint-brush"></i> AI Image Generator</a>
+            <a href="/ai-photo-enhancer"><i class="fas fa-magic"></i> AI Photo Enhancer</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </header>
+
+  <main>
+    <div class="breadcrumbs">
+      <a href="/"><i class="fas fa-home"></i> Home</a>
+      <span class="separator">/</span>
+      <span>All Tools</span>
+    </div>
+    
+    <div class="page-header">
+      <h1>All Tools (120+)</h1>
+      <p>Browse our complete collection of free online tools for images, PDFs, AI generation, and coding. No registration required.</p>
+    </div>
+
+    <div class="search-container">
+      <div class="search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="search" id="toolSearch" placeholder="Search for tools (e.g., PNG to JPG, PDF Converter, AI Generator)..." aria-label="Search all tools">
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+    <div class="category-filter">
+      <button class="filter-btn active" data-category="all">All Tools</button>
+      <button class="filter-btn" data-category="converters">Converters</button>
+      <button class="filter-btn" data-category="editors">Editors</button>
+      <button class="filter-btn" data-category="ai">AI Tools</button>
+      <button class="filter-btn" data-category="code">Code Tools</button>
+      <button class="filter-btn" data-category="pdf">PDF Tools</button>
+      <button class="filter-btn" data-category="video">Video Tools</button>
+    </div>
+
+    <!-- Converters Section -->
+    <section id="converters" class="category-section">
+      <div class="category-header">
+        <h2><i class="fas fa-exchange-alt"></i> Converters</h2>
+        <span class="count">24 tools</span>
+      </div>
+      <div class="tools-container">
+        <div class="tool-card" data-name="PNG to JPG" data-category="converters" data-keywords="convert png jpg image format">
+          <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+          <h3>PNG to JPG</h3>
+          <p>Convert PNG images to JPG format with high quality</p>
+          <a href="/png-to-jpg" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="JPG to PNG" data-category="converters" data-keywords="convert jpg png image format">
+          <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+          <h3>JPG to PNG</h3>
+          <p>Convert JPG images to PNG format with transparency</p>
+          <a href="/jpg-to-png" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="WebP to JPG" data-category="converters" data-keywords="convert webp jpg image format">
+          <div class="icon"><i class="fas fa-image"></i></div>
+          <h3>WebP to JPG</h3>
+          <p>Convert WebP images to JPG format</p>
+          <a href="/webp-to-jpg" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="JPG to PDF" data-category="converters" data-keywords="convert jpg pdf document">
+          <div class="icon"><i class="fas fa-file-pdf"></i></div>
+          <h3>JPG to PDF</h3>
+          <p>Convert JPG images to PDF documents</p>
+          <a href="/jpg-to-pdf" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF to JPG" data-category="converters" data-keywords="convert pdf jpg image">
+          <div class="icon"><i class="fas fa-file-image"></i></div>
+          <h3>PDF to JPG</h3>
+          <p>Convert PDF pages to JPG images</p>
+          <a href="/pdf-to-jpg" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="HEIC to JPG" data-category="converters" data-keywords="convert heic jpg image format">
+          <div class="icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>HEIC to JPG</h3>
+          <p>Convert iPhone HEIC images to JPG format</p>
+          <a href="/heic-to-jpg" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="GIF to MP4" data-category="converters" data-keywords="convert gif mp4 video format">
+          <div class="icon"><i class="fas fa-film"></i></div>
+          <h3>GIF to MP4</h3>
+          <p>Convert animated GIFs to MP4 video files</p>
+          <a href="/gif-to-mp4" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="MP4 to GIF" data-category="converters" data-keywords="convert mp4 gif video format">
+          <div class="icon"><i class="fas fa-film"></i></div>
+          <h3>MP4 to GIF</h3>
+          <p>Convert video clips to animated GIFs</p>
+          <a href="/mp4-to-gif" class="btn">Convert Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editors Section -->
+    <section id="editors" class="category-section">
+      <div class="category-header">
+        <h2><i class="fas fa-edit"></i> Image Editors</h2>
+        <span class="count">18 tools</span>
+      </div>
+      <div class="tools-container">
+        <div class="tool-card" data-name="Image Editor" data-category="editors" data-keywords="edit photo filter adjust">
+          <div class="icon"><i class="fas fa-edit"></i></div>
+          <h3>Image Editor</h3>
+          <p>Edit photos with powerful tools</p>
+          <a href="/image-editor" class="btn">Edit Now</a>
+        </div>
+        <div class="tool-card" data-name="Photo Enhancer" data-category="editors" data-keywords="enhance improve quality photo">
+          <div class="icon"><i class="fas fa-magic"></i></div>
+          <h3>Photo Enhancer</h3>
+          <p>Improve photo quality automatically</p>
+          <a href="/photo-enhancer" class="btn">Enhance Now</a>
+        </div>
+        <div class="tool-card" data-name="Background Remover" data-category="editors" data-keywords="remove background transparent">
+          <div class="icon"><i class="fas fa-eraser"></i></div>
+          <h3>Background Remover</h3>
+          <p>Remove backgrounds from images</p>
+          <a href="/background-remover" class="btn">Remove Now</a>
+        </div>
+        <div class="tool-card" data-name="Image Cropper" data-category="editors" data-keywords="crop image resize dimensions">
+          <div class="icon"><i class="fas fa-crop-alt"></i></div>
+          <h3>Image Cropper</h3>
+          <p>Crop images to any aspect ratio</p>
+          <a href="/image-cropper" class="btn">Crop Now</a>
+        </div>
+        <div class="tool-card" data-name="Watermark Remover" data-category="editors" data-keywords="remove watermark logo">
+          <div class="icon"><i class="fas fa-water"></i></div>
+          <h3>Watermark Remover</h3>
+          <p>Remove watermarks from images</p>
+          <a href="/watermark-remover" class="btn">Remove Now</a>
+        </div>
+        <div class="tool-card" data-name="Image Compressor" data-category="editors" data-keywords="compress reduce size image">
+          <div class="icon"><i class="fas fa-compress-alt"></i></div>
+          <h3>Image Compressor</h3>
+          <p>Reduce image file size without losing quality</p>
+          <a href="/image-compressor" class="btn">Compress Now</a>
+        </div>
+        <div class="tool-card" data-name="Image Resizer" data-category="editors" data-keywords="resize image dimensions scale">
+          <div class="icon"><i class="fas fa-expand-alt"></i></div>
+          <h3>Image Resizer</h3>
+          <p>Resize images to any dimension</p>
+          <a href="/image-resizer" class="btn">Resize Now</a>
+        </div>
+        <div class="tool-card" data-name="Photo Collage Maker" data-category="editors" data-keywords="create collage photo grid">
+          <div class="icon"><i class="fas fa-th"></i></div>
+          <h3>Photo Collage Maker</h3>
+          <p>Create beautiful photo collages</p>
+          <a href="/photo-collage-maker" class="btn">Create Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Tools Section -->
+    <section id="ai-tools" class="category-section">
+      <div class="category-header">
+        <h2><i class="fas fa-robot"></i> AI Tools</h2>
+        <span class="count">12 tools</span>
+      </div>
+      <div class="tools-container">
+        <div class="tool-card ai-tool" data-name="AI Image Generator" data-category="ai" data-keywords="generate create ai art image">
+          <div class="icon"><i class="fas fa-robot"></i></div>
+          <h3>AI Image Generator</h3>
+          <p>Create images from text prompts with AI</p>
+          <a href="/ai-image-generator" class="btn">Generate Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Photo Enhancer" data-category="ai" data-keywords="enhance improve quality ai photo">
+          <div class="icon"><i class="fas fa-magic"></i></div>
+          <h3>AI Photo Enhancer</h3>
+          <p>Improve photo quality using AI</p>
+          <a href="/ai-photo-enhancer" class="btn">Enhance Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Background Remover" data-category="ai" data-keywords="remove background ai transparent">
+          <div class="icon"><i class="fas fa-eraser"></i></div>
+          <h3>AI Background Remover</h3>
+          <p>Remove backgrounds instantly with AI</p>
+          <a href="/ai-background-remover" class="btn">Remove Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Art Generator" data-category="ai" data-keywords="generate create ai art painting">
+          <div class="icon"><i class="fas fa-palette"></i></div>
+          <h3>AI Art Generator</h3>
+          <p>Create unique AI-generated artwork</p>
+          <a href="/ai-art-generator" class="btn">Create Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Photo Colorizer" data-category="ai" data-keywords="colorize black white photo ai">
+          <div class="icon"><i class="fas fa-fill-drip"></i></div>
+          <h3>AI Photo Colorizer</h3>
+          <p>Colorize black & white photos with AI</p>
+          <a href="/ai-photo-colorizer" class="btn">Colorize Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Image Upscaler" data-category="ai" data-keywords="upscale enlarge ai image quality">
+          <div class="icon"><i class="fas fa-expand-arrows-alt"></i></div>
+          <h3>AI Image Upscaler</h3>
+          <p>Enlarge images without losing quality</p>
+          <a href="/ai-image-upscaler" class="btn">Upscale Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Face Generator" data-category="ai" data-keywords="generate create ai face portrait">
+          <div class="icon"><i class="fas fa-user-circle"></i></div>
+          <h3>AI Face Generator</h3>
+          <p>Create realistic human faces with AI</p>
+          <a href="/ai-face-generator" class="btn">Generate Now</a>
+        </div>
+        <div class="tool-card ai-tool" data-name="AI Text to Image" data-category="ai" data-keywords="generate create ai image from text">
+          <div class="icon"><i class="fas fa-font"></i></div>
+          <h3>AI Text to Image</h3>
+          <p>Generate images from text descriptions</p>
+          <a href="/ai-text-to-image" class="btn">Generate Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PDF Tools Section -->
+    <section id="pdf-tools" class="category-section">
+      <div class="category-header">
+        <h2><i class="fas fa-file-pdf"></i> PDF Tools</h2>
+        <span class="count">16 tools</span>
+      </div>
+      <div class="tools-container">
+        <div class="tool-card" data-name="PDF Compressor" data-category="pdf" data-keywords="compress reduce size pdf">
+          <div class="icon"><i class="fas fa-file-archive"></i></div>
+          <h3>PDF Compressor</h3>
+          <p>Reduce PDF file size without losing quality</p>
+          <a href="/pdf-compressor" class="btn">Compress Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF Merger" data-category="pdf" data-keywords="combine join merge pdf">
+          <div class="icon"><i class="fas fa-object-group"></i></div>
+          <h3>PDF Merger</h3>
+          <p>Combine multiple PDFs into one document</p>
+          <a href="/pdf-merger" class="btn">Merge Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF Splitter" data-category="pdf" data-keywords="split divide separate pdf">
+          <div class="icon"><i class="fas fa-cut"></i></div>
+          <h3>PDF Splitter</h3>
+          <p>Split PDF into multiple documents</p>
+          <a href="/pdf-splitter" class="btn">Split Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF to Word" data-category="pdf" data-keywords="convert pdf word doc document">
+          <div class="icon"><i class="fas fa-file-word"></i></div>
+          <h3>PDF to Word</h3>
+          <p>Convert PDF documents to editable Word files</p>
+          <a href="/pdf-to-word" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="Word to PDF" data-category="pdf" data-keywords="convert word doc pdf document">
+          <div class="icon"><i class="fas fa-file-pdf"></i></div>
+          <h3>Word to PDF</h3>
+          <p>Convert Word documents to PDF format</p>
+          <a href="/word-to-pdf" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF to Excel" data-category="pdf" data-keywords="convert pdf excel spreadsheet">
+          <div class="icon"><i class="fas fa-file-excel"></i></div>
+          <h3>PDF to Excel</h3>
+          <p>Convert PDF tables to editable Excel sheets</p>
+          <a href="/pdf-to-excel" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF to PPT" data-category="pdf" data-keywords="convert pdf powerpoint ppt presentation">
+          <div class="icon"><i class="fas fa-file-powerpoint"></i></div>
+          <h3>PDF to PowerPoint</h3>
+          <p>Convert PDF to editable PowerPoint slides</p>
+          <a href="/pdf-to-ppt" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="PDF to Text" data-category="pdf" data-keywords="convert pdf txt extract text">
+          <div class="icon"><i class="fas fa-file-alt"></i></div>
+          <h3>PDF to Text</h3>
+          <p>Extract text from PDF documents</p>
+          <a href="/pdf-to-text" class="btn">Convert Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Tools Section -->
+    <section id="code-tools" class="category-section">
+      <div class="category-header">
+        <h2><i class="fas fa-code"></i> Code Tools</h2>
+        <span class="count">14 tools</span>
+      </div>
+      <div class="tools-container">
+        <div class="tool-card code-tool" data-name="HTML Editor" data-category="code" data-keywords="html editor test run code">
+          <div class="icon"><i class="fab fa-html5"></i></div>
+          <h3>HTML Editor</h3>
+          <p>Write and test HTML code online</p>
+          <a href="/html-editor" class="btn">Try Editor</a>
+        </div>
+        <div class="tool-card code-tool" data-name="CSS Editor" data-category="code" data-keywords="css editor test run code">
+          <div class="icon"><i class="fab fa-css3-alt"></i></div>
+          <h3>CSS Editor</h3>
+          <p>Write and test CSS code online</p>
+          <a href="/css-editor" class="btn">Try Editor</a>
+        </div>
+        <div class="tool-card code-tool" data-name="JavaScript Editor" data-category="code" data-keywords="javascript editor test run code">
+          <div class="icon"><i class="fab fa-js"></i></div>
+          <h3>JavaScript Editor</h3>
+          <p>Write and test JavaScript code online</p>
+          <a href="/javascript-editor" class="btn">Try Editor</a>
+        </div>
+        <div class="tool-card code-tool" data-name="JSON Formatter" data-category="code" data-keywords="json format beautify validate">
+          <div class="icon"><i class="fas fa-brackets-curly"></i></div>
+          <h3>JSON Formatter</h3>
+          <p>Format and validate JSON data</p>
+          <a href="/json-formatter" class="btn">Format Now</a>
+        </div>
+        <div class="tool-card code-tool" data-name="Base64 Encoder" data-category="code" data-keywords="base64 encode decode text">
+          <div class="icon"><i class="fas fa-key"></i></div>
+          <h3>Base64 Encoder</h3>
+          <p>Encode and decode Base64 strings</p>
+          <a href="/base64-encoder" class="btn">Encode Now</a>
+        </div>
+        <div class="tool-card code-tool" data-name="Markdown Editor" data-category="code" data-keywords="markdown editor preview write">
+          <div class="icon"><i class="fas fa-markdown"></i></div>
+          <h3>Markdown Editor</h3>
+          <p>Write and preview Markdown online</p>
+          <a href="/markdown-editor" class="btn">Try Editor</a>
+        </div>
+        <div class="tool-card code-tool" data-name="SQL Formatter" data-category="code" data-keywords="sql format beautify query">
+          <div class="icon"><i class="fas fa-database"></i></div>
+          <h3>SQL Formatter</h3>
+          <p>Format and beautify SQL queries</p>
+          <a href="/sql-formatter" class="btn">Format Now</a>
+        </div>
+        <div class="tool-card code-tool" data-name="XML Formatter" data-category="code" data-keywords="xml format beautify validate">
+          <div class="icon"><i class="fas fa-code"></i></div>
+          <h3>XML Formatter</h3>
+          <p>Format and validate XML data</p>
+          <a href="/xml-formatter" class="btn">Format Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Tools Section -->
+    <section id="video-tools" class="category-section">
+      <div class="category-header">
+        <h2><i class="fas fa-video"></i> Video Tools</h2>
+        <span class="count">8 tools</span>
+      </div>
+      <div class="tools-container">
+        <div class="tool-card" data-name="Video Compressor" data-category="video" data-keywords="compress reduce size video">
+          <div class="icon"><i class="fas fa-compress-alt"></i></div>
+          <h3>Video Compressor</h3>
+          <p>Reduce video file size without losing quality</p>
+          <a href="/video-compressor" class="btn">Compress Now</a>
+        </div>
+        <div class="tool-card" data-name="Video Converter" data-category="video" data-keywords="convert video format mp4 avi mov">
+          <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+          <h3>Video Converter</h3>
+          <p>Convert between video formats</p>
+          <a href="/video-converter" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="Video Trimmer" data-category="video" data-keywords="cut trim edit video">
+          <div class="icon"><i class="fas fa-cut"></i></div>
+          <h3>Video Trimmer</h3>
+          <p>Cut and trim video clips</p>
+          <a href="/video-trimmer" class="btn">Trim Now</a>
+        </div>
+        <div class="tool-card" data-name="Video Merger" data-category="video" data-keywords="combine join merge video">
+          <div class="icon"><i class="fas fa-object-group"></i></div>
+          <h3>Video Merger</h3>
+          <p>Combine multiple videos into one</p>
+          <a href="/video-merger" class="btn">Merge Now</a>
+        </div>
+        <div class="tool-card" data-name="MP4 to MP3" data-category="video" data-keywords="convert mp4 mp3 audio extract">
+          <div class="icon"><i class="fas fa-music"></i></div>
+          <h3>MP4 to MP3</h3>
+          <p>Extract audio from video files</p>
+          <a href="/mp4-to-mp3" class="btn">Convert Now</a>
+        </div>
+        <div class="tool-card" data-name="Video to GIF" data-category="video" data-keywords="convert video gif animation">
+          <div class="icon"><i class="fas fa-film"></i></div>
+          <h3>Video to GIF</h3>
+          <p>Convert video clips to animated GIFs</p>
+          <a href="/video-to-gif" class="btn">Convert Now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="/" class="logo">ToolPix</a>
+          <p>Free online tools for images, PDFs, AI and code</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/all-tools"><i class="fas fa-th"></i> All Tools</a></li>
+          <li><a href="/popular-tools"><i class="fas fa-fire"></i> Popular Tools</a></li>
+          <li><a href="/new-tools"><i class="fas fa-star"></i> New Tools</a></li>
+          <li><a href="/featured"><i class="fas fa-bolt"></i> Featured Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="#converters"><i class="fas fa-exchange-alt"></i> Converters</a></li>
+          <li><a href="#editors"><i class="fas fa-edit"></i> Editors</a></li>
+          <li><a href="#ai-tools"><i class="fas fa-robot"></i> AI Tools</a></li>
+          <li><a href="#code-tools"><i class="fas fa-code"></i> Code Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="/about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="/blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="/privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms of Service</a>
+      <a href="/contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const burgerIcon = document.querySelector('.burger-icon');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+    
+    burgerIcon.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+      burgerIcon.setAttribute('aria-expanded', sidebar.classList.contains('open'));
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+    });
+    
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      burgerIcon.textContent = '☰';
+      burgerIcon.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = 'auto';
+    });
+
+    // Sidebar dropdown functionality
+    document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const parent = item.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+
+    // Enhanced Search Functionality
+    const toolSearch = document.getElementById('toolSearch');
+    const searchBtn = document.getElementById('searchBtn');
+    const toolCards = document.querySelectorAll('.tool-card');
+    const categorySections = document.querySelectorAll('.category-section');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    function performSearch(query) {
+      const normalizedQuery = query.toLowerCase().trim();
+      let hasResults = false;
+
+      // If empty query, show all tools
+      if (!normalizedQuery) {
+        toolCards.forEach(card => card.style.display = 'flex');
+        categorySections.forEach(section => section.style.display = 'block');
+        return;
+      }
+
+      // Hide all tools initially
+      toolCards.forEach(card => card.style.display = 'none');
+
+      // Show matching tools
+      toolCards.forEach(card => {
+        const name = card.getAttribute('data-name').toLowerCase();
+        const keywords = card.getAttribute('data-keywords').toLowerCase();
+        const category = card.getAttribute('data-category').toLowerCase();
+
+        if (name.includes(normalizedQuery) || 
+            keywords.includes(normalizedQuery) || 
+            category.includes(normalizedQuery)) {
+          card.style.display = 'flex';
+          hasResults = true;
+        }
+      });
+
+      // Show/hide category sections based on whether they have visible tools
+      categorySections.forEach(section => {
+        const sectionId = section.getAttribute('id');
+        const hasVisibleTools = Array.from(section.querySelectorAll('.tool-card'))
+          .some(card => card.style.display !== 'none');
+        
+        section.style.display = hasVisibleTools ? 'block' : 'none';
+      });
+
+      // Show no results message if no matches
+      const noResults = document.querySelector('.no-results');
+      if (!hasResults) {
+        if (!noResults) {
+          const noResultsMsg = document.createElement('div');
+          noResultsMsg.className = 'no-results';
+          noResultsMsg.innerHTML = `
+            <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+            <h3>No tools found</h3>
+            <p>Try different keywords or browse by category</p>
+          `;
+          document.querySelector('main').appendChild(noResultsMsg);
+        }
+      } else if (noResults) {
+        noResults.remove();
+      }
+    }
+
+    // Category Filter Functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+
+        // Show all if "All Tools" is selected
+        if (category === 'all') {
+          toolCards.forEach(card => card.style.display = 'flex');
+          categorySections.forEach(section => section.style.display = 'block');
+          return;
+        }
+
+        // Filter by category
+        toolCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          card.style.display = cardCategory === category ? 'flex' : 'none';
+        });
+
+        // Show/hide category sections
+        categorySections.forEach(section => {
+          const sectionId = section.getAttribute('id');
+          section.style.display = 
+            (category === 'all' || sectionId.includes(category)) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // Event listeners for search
+    toolSearch.addEventListener('input', () => performSearch(toolSearch.value));
+    searchBtn.addEventListener('click', () => performSearch(toolSearch.value));
+    toolSearch.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') performSearch(toolSearch.value);
+    });
+
+    // Highlight current category in sidebar when scrolling
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          const sidebarLink = document.querySelector(`.sidebar a[href="#${sectionId}"]`);
+          
+          // Remove active class from all sidebar links
+          document.querySelectorAll('.sidebar a').forEach(link => {
+            link.classList.remove('active');
+          });
+          
+          // Add active class to current section link
+          if (sidebarLink) {
+            sidebarLink.classList.add('active');
+            
+            // Open dropdown if it's closed
+            const dropdownItem = sidebarLink.closest('.sidebar-item.has-dropdown');
+            if (dropdownItem && !dropdownItem.classList.contains('active')) {
+              dropdownItem.classList.add('active');
+            }
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all category sections
+    categorySections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

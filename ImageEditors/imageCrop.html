@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="PixTime by Time Load - Free online image cropper tool. Crop, rotate & resize JPG/PNG images instantly. No registration required. Perfect for social media, websites & marketing materials.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="keywords" content="free image cropper, online photo editor, crop images online, image resizer, photo cropping tool, jpg cropper, png cropper, social media image tool, web image editor">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load">
+  <meta property="og:title" content="PixTime - Free Online Image Cropper Tool">
+  <meta property="og:description" content="Crop, rotate & resize your images online for free with PixTime. Perfect for social media, websites & marketing materials.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pixtime.example.com">
+  <meta property="og:image" content="https://pixtime.example.com/images/og-image.jpg">
+  <meta property="og:site_name" content="PixTime">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PixTime - Free Online Image Cropper Tool">
+  <meta name="twitter:description" content="Crop, rotate & resize your images online for free with PixTime. Perfect for social media, websites & marketing materials.">
+  <meta name="twitter:image" content="https://pixtime.example.com/images/twitter-card.jpg">
+  <link rel="canonical" href="https://pixtime.example.com">
+  <title>Free Online Image Cropper Tool - Crop Photos Instantly | PixTime</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PixTime Image Cropper",
+      "url": "https://pixtime.example.com",
+      "description": "Free online tool for cropping and editing images instantly without registration",
+      "applicationCategory": "ImageEditor",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Time Load"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.7",
+        "ratingCount": "400"
+      }
+    }
+  </script>
+  <style>
+    /* Define theme variables */
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --danger: #f44336;
+      --danger-dark: #d32f2f;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    /* Adjust variables for dark mode based on device preference */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --shadow: rgba(0,0,0,0.3);
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease;
+    }
+    
+    header {
+      background: var(--secondary);
+      padding: 1.5rem 2rem;
+      color: var(--text);
+      box-shadow: 0 4px 12px var(--shadow);
+      text-align: center;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    main {
+      flex: 1;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    
+    .upload-container {
+      background: var(--card-bg);
+      border: 2px dashed var(--secondary);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    
+    .upload-container:hover {
+      border-color: var(--danger);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .upload-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .upload-subtext {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+    
+    .browse-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    
+    .browse-btn:hover {
+      background: var(--danger);
+      transform: translateY(-2px);
+    }
+    
+    .upload-container input {
+      display: none;
+    }
+    
+    .crop-section {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .crop-header {
+      background: var(--secondary);
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    
+    .back-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+        
+    .back-btn:hover {
+      background: var(--danger);
+      transform: translateY(-2px);
+    }
+    
+    .crop-container {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 20px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #cropImage {
+      max-width: 100%;
+      border-radius: 5px;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    
+    .controls {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .control-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background: var(--danger);
+      transform: translateY(-2px);
+    }
+    
+    .save-btn {
+      background: var(--primary);
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .save-btn:hover {
+      background: var(--primary-dark);
+    }
+    
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+    
+    .modal h2 {
+      color: var(--text);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .modal-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0 0.5rem;
+    }
+    
+    .modal-btn:hover {
+      background: var(--danger);
+    }
+    
+    footer {
+      background: var(--secondary);
+      color: var(--text-light);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--danger);
+    }
+    
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 0.8rem;
+    }
+    
+    .feature-title {
+      color: var(--text);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-desc {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    
+    .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .testimonial-card p {
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    
+    .testimonial-card span {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .faq-section {
+      color: var(--text);
+    }
+    
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .faq-item h3 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .faq-item p {
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    
+    .trust-section {
+      color: var(--text);
+    }
+    
+    .trust-section p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    /* Remaining styles unchanged */
+    .feature-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 0.5rem;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .testimonial-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 0.5rem;
+    }
+    
+    .faq-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 0.5rem;
+    }
+    
+    .faq-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .trust-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 0.5rem;
+      text-align: center;
+    }
+    
+    .trust-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cropper-wrapper {
+      width: 100%;
+      height: 50vh;
+      position: relative;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      .upload-container {
+        padding: 0.5rem;
+        max-width: 100%;
+      }
+      .crop-section {
+        flex-direction: column;
+      }
+      .crop-container {
+        padding: 1rem;
+      }
+      .cropper-wrapper {
+        height: 40vh;
+        min-height: 200px;
+        max-height: 300px;
+      }
+      .controls, .browse-btn, .control-btn, .save-btn, .back-btn, .modal-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        min-width: 120px;
+        margin: 0.5rem 0;
+      }
+      .controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .feature-section, .testimonial-section {
+        grid-template-columns: 1fr;
+        padding: 0 0.5rem;
+      }
+      .feature-card, .testimonial-card {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+      }
+      .faq-section, .trust-section {
+        padding: 0.5rem;
+        margin: 1rem 0;
+      }
+      .faq-item {
+        padding: 0.8rem;
+      }
+      .modal {
+        max-width: 90%;
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+      .faq-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .faq-item {
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        min-height: 2.5rem;
+      }
+      .faq-item h3 {
+        font-size: 0.9rem;
+        word-break: break-word;
+        line-height: 1.2;
+        margin-bottom: 0.25rem;
+      }
+      .faq-item p {
+        font-size: 0.75rem;
+        word-break: break-word;
+        line-height: 1.3;
+      }
+      .faq-section {
+        min-height: 70vh;
+        overflow-y: auto;
+      }
+      .trust-section {
+        display: block;
+      }
+      .trust-section .review-card {
+        width: 100%;
+        margin-bottom: 1rem;
+        box-sizing: border-box;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .cropper-wrapper {
+        height: 30vh;
+        min-height: 150px;
+        max-height: 250px;
+      }
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .upload-text {
+        font-size: 1rem;
+      }
+      .upload-subtext {
+        font-size: 0.7rem;
+      }
+      .controls .control-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      .save-btn {
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+      .feature-desc, .testimonial-card p, .faq-item p {
+        font-size: 0.75rem;
+        line-height: 1.3;
+      }
+      .feature-icon, .upload-icon {
+        font-size: 2rem;
+      }
+      .footer-links li {
+        display: block;
+        margin: 0.3rem 0;
+      }
+    }
+
+    .crop-container {
+      overflow: auto;
+    }
+
+    .cropper-wrapper img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* New Footer Responsiveness */
+    @media (max-width: 768px) {
+      footer {
+        padding: 1rem;
+      }
+      footer > div {
+        flex-direction: column;
+        align-items: center;
+      }
+      footer > div > div {
+        width: 100%;
+        text-align: center;
+      }
+      footer > div > div:nth-child(4) { /* App Button */
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 400px) {
+      footer {
+        padding: 0.5rem;
+      }
+      footer > div > div {
+        margin-bottom: 0.5rem;
+      }
+      footer > div > div:first-child p { /* Review Section */
+        font-size: 0.9rem;
+      }
+      footer > div > div:nth-child(4) a { /* App Button */
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header itemscope itemtype="https://schema.org/WPHeader">
+    <h1 itemprop="headline">Free Online Image Cropper - Perfectly Crop Photos in Seconds</h1>
+    <meta itemprop="description" content="PixTime's free online image cropper helps you crop photos to perfect dimensions for social media, websites, and marketing materials.">
+  </header>
+
+  <main>
+    <section aria-label="Image upload section">
+      <div class="upload-container" id="uploadArea">
+        <div class="upload-icon">📸</div>
+        <h2 class="upload-text">Drag & Drop an Image Here</h2>
+        <button class="browse-btn" aria-label="Browse files to upload">Browse</button>
+        <p class="upload-subtext">or click to select a single image (JPEG, PNG)</p>
+        <input type="file" id="fileInput" accept="image/jpeg, image/png" multiple="false">
+      </div>
+    </section>
+
+    <div class="crop-section" id="cropSection">
+      <div class="crop-header">
+        <button class="back-btn" id="backBtn">Back</button>
+      </div>
+      <div class="crop-container">
+        <div class="cropper-wrapper">
+          <img id="cropImage" src="" alt="Cropped image preview">
+        </div>
+        <div class="controls">
+          <button class="control-btn" id="rotateLeft" aria-label="Rotate image counter-clockwise">Rotate Left</button>
+          <button class="control-btn" id="rotateRight" aria-label="Rotate image clockwise">Rotate Right</button>
+        </div>
+        <button class="control-btn save-btn" id="saveBtn" aria-label="Save cropped image">Save</button>
+      </div>
+    </div>
+
+    <section class="feature-section" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="visually-hidden">Key Features</h2>
+      <div class="feature-card" itemscope itemtype="https://schema.org/WebApplication">
+        <div class="feature-icon">✂️</div>
+        <div class="feature-title" itemprop="featureList">Customizable Cropping</div>
+        <div class="feature-desc" itemprop="description">Choose from predefined aspect ratios or customize your own to fit your needs. Perfect for Instagram stories, Facebook banners, or unique dimensions.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Secure Cropping</div>
+        <div class="feature-desc">We ensure every cropped image maintains the highest quality. Your data remains confidential with local processing - no images are uploaded to our servers.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Precise Results</div>
+        <div class="feature-desc">Adjust your photos with precision using our tool. Tailor every picture to fit exactly where you need it, ensuring pixel-perfect crops for professional results.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Versatile Format Support</div>
+        <div class="feature-desc">Handles JPEG, PNG, and more. Crop and adjust your photos without worrying about compatibility. Works with all modern browsers.</div>
+      </div>
+    </section>
+
+    <section class="testimonial-section" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading" class="visually-hidden">User Testimonials</h2>
+      <div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
+        <p itemprop="reviewBody">"Great tool for cropping images quickly. No hassle at all! Saved me hours of work."</p>
+        <span itemprop="author">Jane Doe</span>
+        <meta itemprop="itemReviewed" content="PixTime Image Cropper">
+        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+          <meta itemprop="ratingValue" content="5">
+          <meta itemprop="bestRating" content="5">
+        </div>
+      </div>
+      <div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
+        <p itemprop="reviewBody">"Love the precision and ease of use. Highly recommend for social media managers!"</p>
+        <span itemprop="author">John Smith</span>
+        <meta itemprop="itemReviewed" content="PixTime Image Cropper">
+        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+          <meta itemprop="ratingValue" content="5">
+          <meta itemprop="bestRating" content="5">
+        </div>
+      </div>
+      <div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
+        <p itemprop="reviewBody">"Perfect for my social media edits. Fast, efficient, and no watermarks!"</p>
+        <span itemprop="author">Emily Johnson</span>
+        <meta itemprop="itemReviewed" content="PixTime Image Cropper">
+        <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+          <meta itemprop="ratingValue" content="4">
+          <meta itemprop="bestRating" content="5">
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq" itemscope itemtype="https://schema.org/FAQPage">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">How do I crop an image with PixTime?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Simply drag and drop your image or click 'Browse' to upload. Use the crop tool to adjust and save your edited image. The process takes just seconds!</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Is my data safe with PixTime?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes! We process images locally in your browser, ensuring your data remains confidential and secure. No images are uploaded to our servers.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Which image formats are supported?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">PixTime supports JPEG and PNG formats for cropping and editing. We'll be adding more formats in future updates.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Is PixTime really free to use?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Absolutely! PixTime is 100% free with no hidden costs. You can crop as many images as you need without any watermarks or limitations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" itemscope itemtype="https://schema.org/Product">
+      <h2 itemprop="name">Trusted by Over 10 Million Users Monthly</h2>
+      <p itemprop="description">Join a thriving community of creators who rely on PixTime for their image cropping needs. Rated <span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"><span itemprop="ratingValue">4.7</span>/5 based on <span itemprop="reviewCount">400+</span> reviews.</span></p>
+    </section>
+  </main>
+
+  <footer style="background-color: var(--secondary-dark); color: #f0f0f0; padding: 1.5rem; text-align: left;" itemscope itemtype="https://schema.org/WPFooter">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
+      <!-- Review Section -->
+      <div style="width: 100%; margin-bottom: 1rem; text-align: center;">
+        <p style="margin: 0;">"Very efficient to use, no boring ads, all that annoying stuff there's like a million... Burn Noodles"</p>
+        <p style="margin: 0.5rem 0 0;">Rated 4.7/5 based on 400+ reviews. Showing our latest reviews, <span style="color: red;">★ Trustpilot</span></p>
+      </div>
+
+      <!-- Image Tools Column -->
+      <div>
+        <h3 style="margin-bottom: 0.5rem;">Image Tools</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/image-resizer" style="color: #f0f0f0; text-decoration: none;">Image Resizer</a></li>
+          <li><a href="/bulk-resizer" style="color: #f0f0f0; text-decoration: none;">Bulk Image Resizer</a></li>
+          <li><a href="/image-compressor" style="color: #f0f0f0; text-decoration: none;">Image Compressor</a></li>
+          <li><a href="/crop-image" style="color: #f0f0f0; text-decoration: none;">Crop Image</a></li>
+          <li><a href="/collage-maker" style="color: #f0f0f0; text-decoration: none;">Collage Maker</a></li>
+          <li><a href="/flip-image" style="color: #f0f0f0; text-decoration: none;">Flip Image</a></li>
+          <li><a href="/rotate-image" style="color: #f0f0f0; text-decoration: none;">Rotate Image</a></li>
+          <li><a href="/image-enlarger" style="color: #f0f0f0; text-decoration: none;">Image Enlarger</a></li>
+          <li><a href="/color-picker" style="color: #f0f0f0; text-decoration: none;">Color Picker</a></li>
+          <li><a href="/meme-generator" style="color: #f0f0f0; text-decoration: none;">Meme Generator</a></li>
+        </ul>
+      </div>
+
+      <!-- Convert Column -->
+      <div>
+        <h3 style="margin-bottom: 0.5rem;">Convert</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/image-converter" style="color: #f0f0f0; text-decoration: none;">Image Converter</a></li>
+          <li><a href="/pdf-to-jpg" style="color: #f0f0f0; text-decoration: none;">PDF to JPG</a></li>
+          <li><a href="/heic-to-jpg" style="color: #f0f0f0; text-decoration: none;">HEIC to JPG</a></li>
+          <li><a href="/svg-converter" style="color: #f0f0f0; text-decoration: none;">SVG Converter</a></li>
+          <li><a href="/pdf-to-png" style="color: #f0f0f0; text-decoration: none;">PDF to PNG</a></li>
+          <li><a href="/png-to-svg" style="color: #f0f0f0; text-decoration: none;">PNG to SVG</a></li>
+          <li><a href="/webp-to-jpg" style="color: #f0f0f0; text-decoration: none;">WebP to JPG</a></li>
+          <li><a href="/png-to-jpg" style="color: #f0f0f0; text-decoration: none;">PNG to JPG</a></li>
+          <li><a href="/jpg-to-png" style="color: #f0f0f0; text-decoration: none;">JPG to PNG</a></li>
+        </ul>
+      </div>
+
+      <!-- PDF Tools Column -->
+      <div>
+        <h3 style="margin-bottom: 0.5rem;">PDF Tools</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/compress-pdf" style="color: #f0f0f0; text-decoration: none;">Compress PDF</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Info -->
+      <div style="width: 100%; margin-top: 1rem; text-align: center;">
+        <p>&copy; <span itemprop="copyrightYear">2023</span> <span itemprop="copyrightHolder">Time Load</span>. All rights reserved.</p>
+        <p><a href="/privacy" style="color: #f0f0f0; text-decoration: none;">Privacy Policy</a> | <a href="/terms" style="color: #f0f0f0; text-decoration: none;">Terms of Service</a> | <a href="/contact" style="color: #f0f0f0; text-decoration: none;">Contact Us</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2>One Image at a Time</h2>
+      <p>Please select only one image to crop. Multiple selections are not supported.</p>
+      <button class="modal-btn" id="modalClose">OK</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+  <script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const cropSection = document.getElementById('cropSection');
+    const cropImage = document.getElementById('cropImage');
+    const backBtn = document.getElementById('backBtn');
+    const rotateLeft = document.getElementById('rotateLeft');
+    const rotateRight = document.getElementById('rotateRight');
+    const saveBtn = document.getElementById('saveBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+
+    let cropper;
+    let currentImage;
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#ff006e';
+      uploadArea.style.background = 'rgba(255, 0, 110, 0.1)';
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = '#3a86ff';
+      uploadArea.style.background = 'transparent';
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#3a86ff';
+      uploadArea.style.background = 'transparent';
+      handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+    function handleFiles(files) {
+      if (files.length > 1) {
+        modalOverlay.style.display = 'flex';
+        return;
+      }
+      const file = files[0];
+      if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+        const url = URL.createObjectURL(file);
+        currentImage = { file, url };
+        cropImage.src = url;
+        cropSection.style.display = 'flex';
+        uploadArea.style.display = 'none';
+        if (cropper) cropper.destroy();
+        let minWidth = window.innerWidth < 400 ? window.innerWidth - 40 : 300;
+        let minHeight = window.innerWidth < 400 ? window.innerWidth - 40 : 300;
+        cropper = new Cropper(cropImage, {
+          aspectRatio: NaN,
+          viewMode: 2,
+          autoCropArea: 0.8,
+          background: false,
+          zoomable: true,
+          rotatable: true,
+          scalable: true,
+          minContainerWidth: minWidth,
+          minContainerHeight: minHeight,
+        });
+      }
+    }
+
+    modalClose.addEventListener('click', () => {
+      modalOverlay.style.display = 'none';
+      fileInput.value = '';
+    });
+
+    backBtn.addEventListener('click', () => {
+      cropSection.style.display = 'none';
+      uploadArea.style.display = 'block';
+      if (cropper) cropper.destroy();
+      cropImage.src = '';
+    });
+
+    rotateLeft.addEventListener('click', () => {
+      if (cropper) cropper.rotate(-90);
+    });
+
+    rotateRight.addEventListener('click', () => {
+      if (cropper) cropper.rotate(90);
+    });
+
+    saveBtn.addEventListener('click', () => {
+      if (cropper) {
+        const canvas = cropper.getCroppedCanvas();
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = currentImage.file.name.replace(/\.[^/.]+$/, '') + '_cropped.jpg';
+          a.click();
+          URL.revokeObjectURL(url);
+        }, 'image/jpeg');
+      }
+    });
+  </script>
+</body>
+</html>

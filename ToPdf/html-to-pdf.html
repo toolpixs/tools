@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="PixTime by Time Load offers a free online HTML to PDF converter. Easily convert your HTML files to PDF format in bulk with our fast, user-friendly tool. No software installation required – perfect for quick document conversion.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="HTML to PDF converter, convert HTML to PDF online, free document converter, bulk document conversion, online HTML to PDF tool, document to PDF converter, PixTime, Time Load">
+  <title>HTML to PDF Converter - PixTime Free Online Tool</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --danger: #f44336;
+      --danger-dark: #d32f2f;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --shadow: rgba(0,0,0,0.3);
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .desktop-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: opacity 0.2s;
+    }
+    
+    .desktop-nav a:hover {
+      opacity: 0.9;
+    }
+    
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: white;
+    }
+    
+    .burger-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    
+    .burger-icon:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: left 0.3s ease;
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+    }
+    
+    .sidebar.open {
+      left: 0;
+    }
+    
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    
+    .sidebar a:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+    
+    @media (min-width: 769px) {
+      .burger-icon {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      .burger-icon {
+        display: flex;
+      }
+      main {
+        padding: 1rem;
+      }
+      .card, .upload-container, .file-table-container {
+        max-width: 100%;
+        margin: 0 0 1.5rem;
+        padding: 1rem;
+      }
+      .upload-container {
+        padding: 0.75rem;
+        margin: 0 0 1.5rem;
+      }
+      .upload-area {
+        padding: 0.75rem;
+        min-height: 100px;
+      }
+      .browse-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      .floating-btn-container {
+        max-width: 100%;
+        padding: 0 15px;
+        gap: 15px;
+        justify-content: center;
+      }
+      .floating-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 100px;
+      }
+    }
+    
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .card, .upload-container, .file-table-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      box-sizing: border-box;
+    }
+            
+    .card {
+      width: 100%;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    p, li {
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    ol, ul {
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .upload-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      box-sizing: border-box;
+    }
+
+    .upload-area {
+      background: var(--card-bg);
+      border: 2px dashed var(--border);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+    }
+
+    .browse-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 0.5rem;
+    }
+
+    .browse-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+        
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.05);
+    }
+    
+    .upload-area.dragover {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.1);
+      transform: scale(1.01);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .upload-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .upload-subtext {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .upload-area input {
+      display: none;
+    }
+    
+    .file-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      background: var(--card-bg);
+      margin-bottom: 2rem;
+      display: none;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    table thead {
+      background: rgba(0,0,0,0.03);
+    }
+    
+    table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    
+    .file-name {
+      font-weight: 500;
+      color: var(--text);
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .file-size {
+      color: var(--text-light);
+    }
+    
+    .file-format {
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: none;
+      font-size: 0.9rem;
+    }
+    
+    .preview-btn {
+      background: none;
+      color: var(--text);
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .preview-btn:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .remove-btn {
+      background: none;
+      color: var(--danger);
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .remove-btn:hover {
+      background: rgba(244, 67, 54, 0.1);
+    }
+    
+    .download-btn {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .download-btn:hover {
+      background: var(--secondary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    
+    .floating-btn-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      max-width: 800px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }
+
+    .floating-btn {
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--shadow);
+      display: none;
+      transition: all 0.3s ease;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    .floating-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px var(--shadow);
+    }
+    
+    #convertBtn {
+      background: var(--primary);
+    }
+    
+    #convertBtn:hover {
+      background: var(--primary-dark);
+    }
+    
+    #downloadSeparateBtn {
+      background: var(--secondary);
+    }
+    
+    #downloadSeparateBtn:hover {
+      background: var(--secondary-dark);
+    }
+    
+    #downloadCombinedBtn {
+      background: #ff9800;
+    }
+    
+    #downloadCombinedBtn:hover {
+      background: #f57c00;
+    }
+    
+    /* Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal {
+      background: var(--card-bg);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px var(--shadow);
+      padding: 1.5rem;
+      position: relative;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .modal-close:hover {
+      color: var(--text);
+    }
+    
+    .image-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+    }
+    
+    .image-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      background: var(--card-bg);
+      cursor: move;
+      transition: background 0.2s;
+      position: relative;
+    }
+    
+    .image-item.dragging {
+      opacity: 0.5;
+      background: rgba(76, 175, 80, 0.1);
+    }
+    
+    .image-item.drop-target::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+    }
+    
+    .image-item.drop-target-bottom::before {
+      top: auto;
+      bottom: -2px;
+    }
+    
+    .image-item:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    
+    .drag-handle {
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      color: var(--text-light);
+      cursor: grab;
+    }
+    
+    .image-info {
+      flex: 1;
+    }
+    
+    .image-info .page-number {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .image-info .file-name {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    
+    .modal-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .modal-btn.cancel {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .modal-btn.cancel:hover {
+      background: var(--danger-dark);
+    }
+    
+    .modal-btn.confirm {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .modal-btn.confirm:hover {
+      background: var(--primary-dark);
+    }
+    
+    @media (max-width: 768px) {
+      .modal {
+        width: 95%;
+        padding: 1rem;
+      }
+      .image-item {
+        padding: 0.5rem;
+      }
+      .drag-handle {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+      }
+      .image-info .file-name {
+        font-size: 0.8rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .modal-header h2 {
+        font-size: 1.2rem;
+      }
+      .modal-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .ad-space {
+      font-size: 14px;
+      margin-top: 1rem;
+      background: rgba(0,0,0,0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 800px;
+      color: var(--text-light);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <h1>HTML to PDF Converter</h1>
+    <nav class="desktop-nav">
+      <a href="#" class="active">HTML to PDF</a>
+      <a href="#">PNG to JPG</a>
+      <a href="#">JPG to PNG</a>
+      <a href="#">WebP to PNG</a>
+      <a href="#">Chat with AI</a>
+    </nav>
+    <button class="burger-icon">☰</button>
+  </div>
+  <div class="sidebar">
+    <nav>
+      <a href="#" class="active">HTML to PDF</a>
+      <a href="#">PNG to JPG</a>
+      <a href="#">JPG to PNG</a>
+      <a href="#">WebP to PNG</a>
+      <a href="#">Chat with AI</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="upload-container">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📄</div>
+      <p class="upload-text">Drag & Drop HTML Files Here</p>
+      <button class="browse-btn">Browse</button>
+      <p class="upload-subtext">or click to browse files</p>
+      <input type="file" id="fileInput" accept=".html,.htm" multiple>
+    </div>
+  </div>
+
+  <div class="file-table-container" id="fileTableContainer">
+    <table id="fileTable">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Size</th>
+          <th>Convert To</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="fileTableBody">
+        <!-- Files will be added here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card introduction">
+    <h2>Convert HTML to PDF Online with PixTime</h2>
+    <p>Welcome to <strong>PixTime's HTML to PDF Converter</strong>, a free online tool by Time Load. Effortlessly convert your HTML files to PDF format in bulk with just a few clicks. Download your documents as separate PDFs or combine them into a single PDF with customizable order. Ideal for creating professional documents, archiving web content, or preparing files for sharing, our fast and reliable tool supports bulk conversion without any software installation. Start converting your HTML files to PDF today!</p>
+  </div>
+
+  <div class="card features">
+    <h2>Why Use PixTime's Free HTML to PDF Converter?</h2>
+    <ul>
+      <li><strong>Bulk Conversion:</strong> Convert multiple HTML files to PDF at once, saving time and effort.</li>
+      <li><strong>Flexible Output:</strong> Download as separate PDFs or a single combined PDF with drag-and-drop reordering.</li>
+      <li><strong>No Software Needed:</strong> Use our online tool directly in your browser – no downloads required.</li>
+      <li><strong>Fast and Secure:</strong> Quick conversions with all processing done locally on your device.</li>
+      <li><strong>User-Friendly:</strong> Simple interface designed for all skill levels.</li>
+      <li><strong>High Quality:</strong> Preserve HTML content in professional PDF documents.</li>
+    </ul>
+  </div>
+
+  <div class="card how-to-use">
+    <h2>How to Use Our Online HTML to PDF Converter</h2>
+    <ol>
+      <li>Click the upload area or drag and drop your HTML files into it.</li>
+      <li>View your uploaded HTML files in the table below and preview them if needed.</li>
+      <li>Click the 'Convert All' button to transform your HTML files into PDFs.</li>
+      <li>Download your converted PDF files using 'Download Separately' for individual PDFs or 'Download Combined' to arrange the order and download a single PDF.</li>
+    </ol>
+  </div>
+
+  <div class="card about">
+    <h2>About Time Load and PixTime</h2>
+    <p>At <strong>Time Load</strong>, we're dedicated to simplifying your digital tasks with innovative online tools. <strong>PixTime</strong> is our suite of processing solutions, designed to make file conversion fast, reliable, and accessible. Whether you're a developer, professional, or casual user, PixTime's HTML to PDF converter offers a seamless experience for converting HTML to documents online. Our mission is to save you time and enhance your workflow with tools you can trust.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <p>© 2023 Time Load. All rights reserved.</p>
+    <div class="ad-space">Advertisement Space</div>
+  </div>
+</footer>
+
+<div class="floating-btn-container">
+  <button class="floating-btn" id="convertBtn">Convert All</button>
+  <button class="floating-btn" id="downloadSeparateBtn">Download Separately</button>
+  <button class="floating-btn" id="downloadCombinedBtn">Download Combined</button>
+</div>
+
+<!-- Modal for Page Order -->
+<div class="modal-overlay" id="pageOrderModal" role="dialog" aria-labelledby="pageOrderModalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="pageOrderModalTitle">Arrange PDF Order</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
+    </div>
+    <p>Drag and drop files to reorder them in the combined PDF.</p>
+    <ul class="image-list" id="imageList"></ul>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="modalCancel">Cancel</button>
+      <button class="modal-btn confirm" id="modalConfirm">Confirm & Download</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for HTML Preview -->
+<div class="modal-overlay" id="htmlPreviewModal" role="dialog" aria-labelledby="htmlPreviewModalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="htmlPreviewModalTitle">HTML Preview</h2>
+      <button class="modal-close" id="htmlPreviewClose" aria-label="Close modal">×</button>
+    </div>
+    <iframe id="htmlPreviewIframe" style="width: 100%; height: 500px; border: none;"></iframe>
+  </div>
+</div>
+
+<script>
+  const uploadArea = document.getElementById('uploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const fileTableContainer = document.getElementById('fileTableContainer');
+  const fileTableBody = document.getElementById('fileTableBody');
+  const convertBtn = document.getElementById('convertBtn');
+  const downloadSeparateBtn = document.getElementById('downloadSeparateBtn');
+  const downloadCombinedBtn = document.getElementById('downloadCombinedBtn');
+  const burgerIcon = document.querySelector('.burger-icon');
+  const sidebar = document.querySelector('.sidebar');
+  const pageOrderModal = document.getElementById('pageOrderModal');
+  const imageList = document.getElementById('imageList');
+  const modalClose = document.getElementById('modalClose');
+  const modalCancel = document.getElementById('modalCancel');
+  const modalConfirm = document.getElementById('modalConfirm');
+  const htmlPreviewModal = document.getElementById('htmlPreviewModal');
+  const htmlPreviewIframe = document.getElementById('htmlPreviewIframe');
+  const htmlPreviewClose = document.getElementById('htmlPreviewClose');
+
+  let selectedFiles = [];
+  let combinedPdfUrl = null;
+  let previewUrls = new Map(); // Track ObjectURLs for cleanup
+
+  // Navigation bar toggle for mobile
+  burgerIcon.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    if (sidebar.classList.contains('open')) {
+      burgerIcon.textContent = '×';
+      document.body.style.overflow = 'hidden';
+    } else {
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close sidebar when clicking outside
+  document.addEventListener('click', (e) => {
+    if (
+      sidebar.classList.contains('open') &&
+      !sidebar.contains(e.target) &&
+      e.target !== burgerIcon
+    ) {
+      sidebar.classList.remove('open');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+
+  uploadArea.addEventListener('click', () => fileInput.click());
+
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    const files = Array.from(e.dataTransfer.files);
+    handleFiles(files);
+  });
+
+  fileInput.addEventListener('change', () => {
+    const files = Array.from(fileInput.files);
+    handleFiles(files);
+  });
+
+  function handleFiles(files) {
+    const validFiles = files.filter(file => file.type === 'text/html' || file.name.match(/\.(html|htm)$/i));
+    
+    if (validFiles.length === 0 && files.length > 0) {
+      alert('Please select only HTML files (.html or .htm).');
+      return;
+    }
+    
+    validFiles.forEach(file => {
+      selectedFiles.push({
+        file,
+        converted: false,
+        downloadUrl: null,
+        pdfBlob: null,
+        id: Date.now() + Math.random().toString(36).substr(2, 9)
+      });
+    });
+    
+    renderTable();
+  }
+
+  function renderTable() {
+    fileTableBody.innerHTML = '';
+    
+    if (selectedFiles.length === 0) {
+      fileTableContainer.style.display = 'none';
+      convertBtn.style.display = 'none';
+      downloadSeparateBtn.style.display = 'none';
+      downloadCombinedBtn.style.display = 'none';
+      cleanupUrls();
+      return;
+    }
+    
+    fileTableContainer.style.display = 'block';
+    
+    selectedFiles.forEach((item, index) => {
+      const { file, converted, downloadUrl } = item;
+      const fileUrl = URL.createObjectURL(file);
+      previewUrls.set(item.id, fileUrl); // Track for cleanup
+      const fileName = file.name;
+      const fileSize = (file.size / 1024).toFixed(2);
+      const shortName = fileName.length > 20 ? fileName.substring(0, 17) + '...' : fileName;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="file-name" title="${fileName}">${shortName}</td>
+        <td class="file-size">${fileSize} KB</td>
+        <td class="file-format">PDF</td>
+        <td>
+          <button class="action-btn preview-btn" onclick="previewFile(${index})" title="Preview">👁️</button>
+          ${
+            converted
+              ? `<a href="${downloadUrl}" download="${fileName.replace(/\.[^/.]+$/, '')}.pdf" class="action-btn download-btn">Download</a>`
+              : `<button class="action-btn remove-btn" onclick="removeFile(${index})" title="Remove">×</button>`
+          }
+        </td>
+      `;
+      fileTableBody.appendChild(row);
+    });
+
+    convertBtn.style.display = selectedFiles.some(f => !f.converted) ? 'inline-block' : 'none';
+    setupDownloadButtons();
+  }
+
+  function removeFile(index) {
+    const item = selectedFiles[index];
+    if (previewUrls.has(item.id)) {
+      URL.revokeObjectURL(previewUrls.get(item.id));
+      previewUrls.delete(item.id);
+    }
+    if (item.downloadUrl) URL.revokeObjectURL(item.downloadUrl);
+    selectedFiles.splice(index, 1);
+    combinedPdfUrl = null; // Reset combined PDF when files change
+    renderTable();
+  }
+
+  function cleanupUrls() {
+    previewUrls.forEach(url => URL.revokeObjectURL(url));
+    previewUrls.clear();
+  }
+
+  async function convertHtmlToPdf(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = async function(event) {
+        const htmlContent = event.target.result;
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
+        
+        iframe.onload = async function() {
+          try {
+            const opt = {
+              margin: 0,
+              filename: file.name.replace(/\.[^/.]+$/, '') + '.pdf',
+              image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            const pdf = await html2pdf().from(iframe.contentWindow.document.body).set(opt).toPdf().output('blob');
+            const pdfUrl = URL.createObjectURL(pdf);
+            resolve({ pdfUrl, pdfBlob: pdf });
+          } catch (error) {
+            reject(error);
+          } finally {
+            document.body.removeChild(iframe);
+            URL.revokeObjectURL(url);
+          }
+        };
+        iframe.onerror = () => reject(new Error('Failed to load iframe'));
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsText(file);
+    });
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    convertBtn.disabled = true;
+    convertBtn.textContent = 'Converting...';
+    combinedPdfUrl = null;
+    
+    try {
+      await Promise.all(selectedFiles.map(async (item, index) => {
+        if (item.converted) return;
+        const { pdfUrl, pdfBlob } = await convertHtmlToPdf(item.file);
+        selectedFiles[index].converted = true;
+        selectedFiles[index].downloadUrl = pdfUrl;
+        selectedFiles[index].pdfBlob = pdfBlob; // Store for combined PDF
+      }));
+      
+      renderTable();
+      convertBtn.textContent = '✓ Converted!';
+      setTimeout(() => {
+        convertBtn.textContent = 'Convert All';
+      }, 2000);
+    } catch (error) {
+      alert('An error occurred during conversion. Please try again.');
+      console.error(error);
+    } finally {
+      convertBtn.disabled = false;
+      convertBtn.textContent = 'Convert All';
+    }
+  });
+
+  function setupDownloadButtons() {
+    const convertedItems = selectedFiles.filter(item => item.converted);
+    
+    if (convertedItems.length === 0) {
+      downloadSeparateBtn.style.display = 'none';
+      downloadCombinedBtn.style.display = 'none';
+      return;
+    }
+    
+    downloadSeparateBtn.style.display = convertedItems.length > 1 ? 'inline-block' : 'none';
+    downloadCombinedBtn.style.display = 'inline-block';
+    
+    downloadSeparateBtn.textContent = `Download Separately (${convertedItems.length})`;
+    downloadSeparateBtn.onclick = () => {
+      convertedItems.forEach((item) => {
+        const link = document.createElement('a');
+        link.href = item.downloadUrl;
+        link.download = item.file.name.replace(/\.[^/.]+$/, '') + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    };
+    
+    downloadCombinedBtn.textContent = convertedItems.length === 1 ? 'Download' : 'Download Combined';
+    downloadCombinedBtn.onclick = () => {
+      const convertedItems = selectedFiles.filter(item => item.converted);
+      if (convertedItems.length === 0) return;
+      
+      if (convertedItems.length === 1) {
+        const link = document.createElement('a');
+        link.href = convertedItems[0].downloadUrl;
+        link.download = convertedItems[0].file.name.replace(/\.[^/.]+$/, '') + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
+      
+      renderImageList();
+      pageOrderModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+  }
+
+  function renderImageList() {
+    imageList.innerHTML = '';
+    const convertedItems = selectedFiles.filter(item => item.converted);
+    
+    convertedItems.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.className = 'image-item';
+      li.draggable = true;
+      li.dataset.id = item.id;
+      
+      const fileName = item.file.name;
+      const shortName = fileName.length > 20 ? fileName.substring(0, 17) + '...' : fileName;
+      
+      li.innerHTML = `
+        <span class="drag-handle">☰</span>
+        <div class="image-info">
+          <span class="page-number">File ${index + 1}</span>
+          <span class="file-name">${shortName}</span>
+        </div>
+      `;
+      
+      li.addEventListener('dragstart', (e) => {
+        e.target.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', item.id);
+      });
+      
+      li.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+        Array.from(imageList.children).forEach(child => {
+          child.classList.remove('drop-target', 'drop-target-bottom');
+        });
+      });
+      
+      li.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector('.dragging');
+        if (draggingItem === li) return;
+        
+        const rect = li.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+        const isAbove = e.clientY < midpoint;
+        
+        Array.from(imageList.children).forEach(child => {
+          child.classList.remove('drop-target', 'drop-target-bottom');
+        });
+        
+        li.classList.add(isAbove ? 'drop-target' : 'drop-target-bottom');
+      });
+      
+      li.addEventListener('dragleave', () => {
+        li.classList.remove('drop-target', 'drop-target-bottom');
+      });
+      
+      li.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const draggedId = e.dataTransfer.getData('text/plain');
+        const draggedItem = imageList.querySelector(`[data-id="${draggedId}"]`);
+        if (draggedItem === li) return;
+        
+        const rect = li.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+        const isAbove = e.clientY < midpoint;
+        
+        if (isAbove) {
+          imageList.insertBefore(draggedItem, li);
+        } else {
+          imageList.insertBefore(draggedItem, li.nextSibling);
+        }
+        
+        Array.from(imageList.children).forEach(child => {
+          child.classList.remove('drop-target', 'drop-target-bottom');
+        });
+        
+        updateFileOrder();
+      });
+      
+      imageList.appendChild(li);
+    });
+  }
+
+  function updateFileOrder() {
+    const newOrder = Array.from(imageList.children).map(item => item.dataset.id);
+    const reorderedFiles = [];
+    
+    newOrder.forEach(id => {
+      const file = selectedFiles.find(f => f.id === id);
+      if (file) reorderedFiles.push(file);
+    });
+    
+    selectedFiles = reorderedFiles;
+    renderImageList(); // Update file numbers
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalCancel.addEventListener('click', closeModal);
+
+  function closeModal() {
+    pageOrderModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  modalConfirm.addEventListener('click', async () => {
+    try {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const orderedFiles = Array.from(imageList.children).map(item => selectedFiles.find(f => f.id === item.dataset.id));
+      
+      for (const item of orderedFiles) {
+        if (!item.converted) continue;
+        const existingPdfBytes = await fetch(item.downloadUrl).then(res => res.arrayBuffer());
+        const existingPdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+        const copiedPages = await pdfDoc.copyPages(existingPdfDoc, existingPdfDoc.getPageIndices());
+        copiedPages.forEach(page => pdfDoc.addPage(page));
+      }
+      
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'combined.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      closeModal();
+    } catch (error) {
+      alert('An error occurred while generating the PDF. Please try again.');
+      console.error(error);
+      closeModal();
+    }
+  });
+
+  function previewFile(index) {
+    const item = selectedFiles[index];
+    const url = URL.createObjectURL(item.file);
+    htmlPreviewIframe.src = url;
+    htmlPreviewModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    htmlPreviewIframe.onload = () => URL.revokeObjectURL(url);
+  }
+
+  htmlPreviewClose.addEventListener('click', () => {
+    htmlPreviewModal.style.display = 'none';
+    htmlPreviewIframe.src = '';
+    document.body.style.overflow = pageOrderModal.style.display === 'flex' ? 'hidden' : '';
+  });
+
+  htmlPreviewModal.addEventListener('click', (e) => {
+    if (e.target === htmlPreviewModal) {
+      htmlPreviewModal.style.display = 'none';
+      htmlPreviewIframe.src = '';
+      document.body.style.overflow = pageOrderModal.style.display === 'flex' ? 'hidden' : '';
+    }
+  });
+
+  window.removeFile = removeFile;
+  window.previewFile = previewFile;
+
+  // Keyboard accessibility for modals
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (htmlPreviewModal.style.display === 'flex') {
+        htmlPreviewModal.style.display = 'none';
+        htmlPreviewIframe.src = '';
+        document.body.style.overflow = '';
+      } else if (pageOrderModal.style.display === 'flex') {
+        closeModal();
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

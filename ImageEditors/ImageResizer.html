@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="PixTime by Time Load - Free online image resizer tool. Resize JPG/PNG images instantly. No registration required. Perfect for social media, websites & marketing materials.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="keywords" content="free image resizer, online photo resizer, resize images online, image resizer tool, jpg resizer, png resizer, social media image tool, web image editor">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load">
+  <meta property="og:title" content="PixTime - Free Online Image Resizer Tool">
+  <meta property="og:description" content="Resize your images online for free with PixTime. Perfect for social media, websites & marketing materials.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pixtime.example.com/resizer">
+  <meta property="og:image" content="https://pixtime.example.com/images/og-image-resizer.jpg">
+  <meta property="og:site_name" content="PixTime">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PixTime - Free Online Image Resizer Tool">
+  <meta name="twitter:description" content="Resize your images online for free with PixTime. Perfect for social media, websites & marketing materials.">
+  <meta name="twitter:image" content="https://pixtime.example.com/images/twitter-card-resizer.jpg">
+  <link rel="canonical" href="https://pixtime.example.com/resizer">
+  <title>Free Online Image Resizer Tool - Resize Photos Instantly | PixTime</title>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --danger: #f44336;
+      --danger-dark: #d32f2f;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --shadow: rgba(0,0,0,0.3);
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease;
+    }
+    
+    header {
+      background: var(--secondary);
+      padding: 1.5rem 2rem;
+      color: var(--text);
+      box-shadow: 0 4px 12px var(--shadow);
+      text-align: center;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    main {
+      flex: 1;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+    
+    .upload-container {
+      background: var(--card-bg);
+      border: 2px dashed var(--secondary);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      max-width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    
+    .upload-container:hover {
+      border-color: var(--danger);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .upload-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .upload-subtext {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+    
+    .browse-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    
+    .browse-btn:hover {
+      background: var(--danger);
+      transform: translateY(-2px);
+    }
+    
+    .upload-container input {
+      display: none;
+    }
+    
+    .resize-section {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .resize-header {
+      background: var(--secondary);
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    
+    .back-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background: var(--danger);
+      transform: translateY(-2px);
+    }
+    
+    .resize-container {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 20px var(--shadow);
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .sidebar {
+      width: 300px;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-right: 1px solid var(--border);
+    }
+    
+    .sidebar h2 {
+      color: var(--text);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tab {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .tab.active {
+      background: var(--primary);
+    }
+    
+    .tab:hover {
+      background: var(--danger);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .sidebar label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    
+    .sidebar input[type="number"],
+    .sidebar input[type="range"],
+    .sidebar select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    
+    .sidebar input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+    
+    #percentage-value {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .control-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    
+    .control-btn:hover {
+      background: var(--danger);
+      transform: translateY(-2px);
+    }
+    
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .image-preview {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    
+    #resizeImage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    
+    .save-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .save-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+    
+    .modal h2 {
+      color: var(--text);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .modal-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-btn:hover {
+      background: var(--danger);
+    }
+    
+    .feature-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 0.5rem;
+    }
+    
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 0.8rem;
+    }
+    
+    .feature-title {
+      color: var(--text);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-desc {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    
+    .testimonial-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 0.5rem;
+    }
+    
+    .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .testimonial-card p {
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    
+    .testimonial-card span {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .faq-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 0.5rem;
+    }
+    
+    .faq-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .faq-item h3 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .faq-item p {
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    
+    .trust-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 0.5rem;
+      text-align: center;
+    }
+    
+    .trust-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    
+    .trust-section p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+    
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      .upload-container {
+        padding: 0.5rem;
+      }
+      .resize-section {
+        flex-direction: column;
+      }
+      .resize-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      .sidebar {
+        width: 90%; /* Reduced width for mobile */
+        max-width: 300px; /* Prevent it from getting too wide */
+        margin: 0 auto; /* Center the sidebar */
+        padding: 0.5rem; /* Reduced padding */
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .sidebar h2 {
+        font-size: 1rem; /* Smaller heading */
+        margin-bottom: 0.5rem;
+      }
+      .sidebar label {
+        font-size: 0.8rem; /* Smaller labels */
+        margin-bottom: 0.3rem;
+      }
+      .sidebar input[type="number"],
+      .sidebar input[type="range"],
+      .sidebar select {
+        padding: 0.3rem; /* Reduced padding for inputs */
+        font-size: 0.8rem; /* Smaller font size */
+      }
+      .tabs {
+        gap: 0.3rem;
+        margin-bottom: 0.5rem;
+      }
+      .tab {
+        padding: 0.3rem 0.8rem; /* Smaller tab buttons */
+        font-size: 0.8rem;
+      }
+      .control-btn {
+        padding: 0.4rem 1rem; /* Smaller button */
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+      }
+      #percentage-value {
+        font-size: 0.8rem;
+      }
+      .image-preview {
+        padding-top: 75%; /* Adjust for smaller screens */
+      }
+      .controls, .browse-btn, .control-btn, .save-btn, .back-btn, .modal-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        min-width: 120px;
+        margin: 0.5rem 0;
+      }
+      .feature-section, .testimonial-section {
+        grid-template-columns: 1fr;
+        padding: 0 0.5rem;
+      }
+      .faq-section h2, .trust-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .upload-text {
+        font-size: 1rem;
+      }
+      .upload-subtext {
+        font-size: 0.7rem;
+      }
+      .control-btn, .save-btn {
+        width: 100%;
+      }
+      .image-preview {
+        padding-top: 100%; /* Square aspect ratio for very small screens */
+      }
+      .sidebar {
+        width: 85%; /* Further reduced width for very small screens */
+        padding: 0.4rem;
+      }
+      .sidebar h2 {
+        font-size: 0.9rem;
+      }
+      .sidebar label {
+        font-size: 0.75rem;
+      }
+      .sidebar input[type="number"],
+      .sidebar input[type="range"],
+      .sidebar select {
+        padding: 0.25rem;
+        font-size: 0.75rem;
+      }
+      .tab {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.75rem;
+      }
+      .control-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Free Online Image Resizer - Perfectly Resize Photos in Seconds</h1>
+  </header>
+
+  <main>
+    <section aria-label="Image upload section">
+      <div class="upload-container" id="uploadArea">
+        <div class="upload-icon">📸</div>
+        <h2 class="upload-text">Drag & Drop an Image Here</h2>
+        <button class="browse-btn" aria-label="Browse files to upload">Browse</button>
+        <p class="upload-subtext">or click to select a single image (JPEG, PNG)</p>
+        <input type="file" id="fileInput" accept="image/jpeg, image/png" multiple="false">
+      </div>
+    </section>
+
+    <div class="resize-section" id="resizeSection">
+      <div class="resize-header">
+        <button class="back-btn" id="backBtn">Back</button>
+      </div>
+      <div class="resize-container">
+        <div class="sidebar">
+          <h2>Resize Settings</h2>
+          <div class="tabs">
+            <button class="tab active" data-tab="dimensions">By Dimensions</button>
+            <button class="tab" data-tab="percentage">By Percentage</button>
+          </div>
+          <div class="tab-content active" id="dimensions-tab">
+            <label>Unit: 
+              <select id="unit">
+                <option value="px">px</option>
+                <option value="%">%</option>
+              </select>
+            </label>
+            <label>Width: <input type="number" id="width" min="1"></label>
+            <label>Height: <input type="number" id="height" min="1"></label>
+            <label><input type="checkbox" id="lock-aspect" checked> Lock Aspect Ratio</label>
+          </div>
+          <div class="tab-content" id="percentage-tab">
+            <label>Size: <input type="range" id="percentage-slider" min="1" max="200" value="100"> <span id="percentage-value">100%</span></label>
+          </div>
+          <button class="control-btn" id="resizeBtn">Resize</button>
+          <h2>Export Settings</h2>
+          <label>Save Image As: 
+            <select id="output-format">
+              <option value="jpeg">JPEG</option>
+              <option value="png">PNG</option>
+            </select>
+          </label>
+        </div>
+        <div class="main-content">
+          <div class="image-preview">
+            <img id="originalImage" style="display: none;">
+            <img id="resizeImage" src="" alt="Image to resize">
+          </div>
+          <button class="save-btn" id="saveBtn">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="feature-section" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="visually-hidden">Key Features</h2>
+      <div class="feature-card">
+        <div class="feature-icon">📏</div>
+        <div class="feature-title">Customizable Resizing</div>
+        <div class="feature-desc">Resize by pixels or percentage with options to lock aspect ratio.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Secure Processing</div>
+        <div class="feature-desc">Images are resized locally in your browser, ensuring privacy.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Precise Control</div>
+        <div class="feature-desc">Adjust dimensions with pixel-perfect accuracy.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Format Support</div>
+        <div class="feature-desc">Supports JPEG and PNG for versatile resizing.</div>
+      </div>
+    </section>
+
+    <section class="testimonial-section" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading" class="visually-hidden">User Testimonials</h2>
+      <div class="testimonial-card">
+        <p>"Quick and easy image resizing. A must-have tool!"</p>
+        <span>Jane Doe</span>
+      </div>
+      <div class="testimonial-card">
+        <p>"Perfect for my website images. Super intuitive."</p>
+        <span>John Smith</span>
+      </div>
+      <div class="testimonial-card">
+        <p>"No watermarks and fast resizing. Love it!"</p>
+        <span>Emily Johnson</span>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>How do I resize an image?</h3>
+        <p>Upload your image, set your desired dimensions or percentage, click 'Resize', then 'Save'.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my data safe?</h3>
+        <p>Yes, all resizing is done locally. No uploads to servers.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Which formats are supported?</h3>
+        <p>JPEG and PNG are supported for resizing.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is it free?</h3>
+        <p>Yes, completely free with no watermarks.</p>
+      </div>
+    </section>
+
+    <section class="trust-section">
+      <h2>Trusted by Over 10 Million Users Monthly</h2>
+      <p>Rated 4.7/5 based on 400+ reviews.</p>
+    </section>
+  </main>
+
+  <footer style="background-color: var(--secondary-dark); color: #f0f0f0; padding: 1.5rem; text-align: left;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
+      <div style="width: 100%; margin-bottom: 1rem; text-align: center;">
+        <p style="margin: 0;">"Very efficient to use, no boring ads, all that annoying stuff there's like a million... Burn Noodles"</p>
+        <p style="margin: 0.5rem 0 0;">Rated 4.7/5 based on 400+ reviews. Showing our latest reviews, <span style="color: red;">★ Trustpilot</span></p>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 0.5rem;">Image Tools</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/image-resizer" style="color: #f0f0f0; text-decoration: none;">Image Resizer</a></li>
+          <li><a href="/bulk-resizer" style="color: #f0f0f0; text-decoration: none;">Bulk Image Resizer</a></li>
+          <li><a href="/image-compressor" style="color: #f0f0f0; text-decoration: none;">Image Compressor</a></li>
+          <li><a href="/crop-image" style="color: #f0f0f0; text-decoration: none;">Crop Image</a></li>
+          <li><a href="/collage-maker" style="color: #f0f0f0; text-decoration: none;">Collage Maker</a></li>
+          <li><a href="/flip-image" style="color: #f0f0f0; text-decoration: none;">Flip Image</a></li>
+          <li><a href="/rotate-image" style="color: #f0f0f0; text-decoration: none;">Rotate Image</a></li>
+          <li><a href="/image-enlarger" style="color: #f0f0f0; text-decoration: none;">Image Enlarger</a></li>
+          <li><a href="/color-picker" style="color: #f0f0f0; text-decoration: none;">Color Picker</a></li>
+          <li><a href="/meme-generator" style="color: #f0f0f0; text-decoration: none;">Meme Generator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 0.5rem;">Convert</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/image-converter" style="color: #f0f0f0; text-decoration: none;">Image Converter</a></li>
+          <li><a href="/pdf-to-jpg" style="color: #f0f0f0; text-decoration: none;">PDF to JPG</a></li>
+          <li><a href="/heic-to-jpg" style="color: #f0f0f0; text-decoration: none;">HEIC to JPG</a></li>
+          <li><a href="/svg-converter" style="color: #f0f0f0; text-decoration: none;">SVG Converter</a></li>
+          <li><a href="/pdf-to-png" style="color: #f0f0f0; text-decoration: none;">PDF to PNG</a></li>
+          <li><a href="/png-to-svg" style="color: #f0f0f0; text-decoration: none;">PNG to SVG</a></li>
+          <li><a href="/webp-to-jpg" style="color: #f0f0f0; text-decoration: none;">WebP to JPG</a></li>
+          <li><a href="/png-to-jpg" style="color: #f0f0f0; text-decoration: none;">PNG to JPG</a></li>
+          <li><a href="/jpg-to-png" style="color: #f0f0f0; text-decoration: none;">JPG to PNG</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom: 0.5rem;">PDF Tools</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="/compress-pdf" style="color: #f0f0f0; text-decoration: none;">Compress PDF</a></li>
+        </ul>
+      </div>
+      <div style="width: 100%; margin-top: 1rem; text-align: center;">
+        <p>© 2023 Time Load. All rights reserved.</p>
+        <p><a href="/privacy" style="color: #f0f0f0; text-decoration: none;">Privacy Policy</a> | <a href="/terms" style="color: #f0f0f0; text-decoration: none;">Terms of Service</a> | <a href="/contact" style="color: #f0f0f0; text-decoration: none;">Contact Us</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2>One Image at a Time</h2>
+      <p>Please select only one image to resize. Multiple selections are not supported.</p>
+      <button class="modal-btn" id="modalClose">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const resizeSection = document.getElementById('resizeSection');
+    const originalImage = document.getElementById('originalImage');
+    const resizeImage = document.getElementById('resizeImage');
+    const backBtn = document.getElementById('backBtn');
+    const resizeBtn = document.getElementById('resizeBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    const lockAspect = document.getElementById('lock-aspect');
+    const unitSelect = document.getElementById('unit');
+    const percentageSlider = document.getElementById('percentage-slider');
+    const percentageValue = document.getElementById('percentage-value');
+    const outputFormat = document.getElementById('output-format');
+
+    let originalWidth, originalHeight;
+    let currentImage;
+    let isUpdating = false;
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#ff006e';
+      uploadArea.style.background = 'rgba(255, 0, 110, 0.1)';
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = '#3a86ff';
+      uploadArea.style.background = 'transparent';
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#3a86ff';
+      uploadArea.style.background = 'transparent';
+      handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+    function handleFiles(files) {
+      if (files.length > 1) {
+        modalOverlay.style.display = 'flex';
+        return;
+      }
+      const file = files[0];
+      if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+        const url = URL.createObjectURL(file);
+        currentImage = { file, url };
+        originalImage.src = url;
+        resizeImage.src = url;
+        originalImage.onload = () => {
+          originalWidth = originalImage.naturalWidth;
+          originalHeight = originalImage.naturalHeight;
+          widthInput.value = originalWidth;
+          heightInput.value = originalHeight;
+          percentageSlider.value = 100;
+          percentageValue.textContent = '100%';
+        };
+        resizeSection.style.display = 'flex';
+        uploadArea.style.display = 'none';
+      }
+    }
+
+    modalClose.addEventListener('click', () => {
+      modalOverlay.style.display = 'none';
+      fileInput.value = '';
+    });
+
+    backBtn.addEventListener('click', () => {
+      resizeSection.style.display = 'none';
+      uploadArea.style.display = 'block';
+      resizeImage.src = '';
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        tabContents.forEach(content => content.classList.remove('active'));
+        document.getElementById(tab.dataset.tab + '-tab').classList.add('active');
+      });
+    });
+
+    widthInput.addEventListener('input', (e) => {
+      if (!isUpdating && lockAspect.checked) {
+        isUpdating = true;
+        const unit = unitSelect.value;
+        if (unit === 'px') {
+          const newWidth = parseFloat(e.target.value);
+          if (!isNaN(newWidth)) {
+            heightInput.value = Math.round((newWidth / originalWidth) * originalHeight);
+          }
+        } else {
+          heightInput.value = e.target.value;
+        }
+        isUpdating = false;
+      }
+    });
+
+    heightInput.addEventListener('input', (e) => {
+      if (!isUpdating && lockAspect.checked) {
+        isUpdating = true;
+        const unit = unitSelect.value;
+        if (unit === 'px') {
+          const newHeight = parseFloat(e.target.value);
+          if (!isNaN(newHeight)) {
+            widthInput.value = Math.round((newHeight / originalHeight) * originalWidth);
+          }
+        } else {
+          widthInput.value = e.target.value;
+        }
+        isUpdating = false;
+      }
+    });
+
+    percentageSlider.addEventListener('input', (e) => {
+      percentageValue.textContent = e.target.value + '%';
+    });
+
+    resizeBtn.addEventListener('click', () => {
+      const activeTab = document.querySelector('.tab.active').dataset.tab;
+      let newWidth, newHeight;
+      if (activeTab === 'dimensions') {
+        const unit = unitSelect.value;
+        const widthValue = parseFloat(widthInput.value);
+        const heightValue = parseFloat(heightInput.value);
+        if (unit === 'px') {
+          newWidth = widthValue;
+          newHeight = heightValue;
+        } else {
+          newWidth = originalWidth * (widthValue / 100);
+          newHeight = originalHeight * (heightValue / 100);
+        }
+      } else {
+        const percentage = parseFloat(percentageSlider.value) / 100;
+        newWidth = originalWidth * percentage;
+        newHeight = originalHeight * percentage;
+      }
+      if (isNaN(newWidth) || isNaN(newHeight) || newWidth <= 0 || newHeight <= 0) {
+        alert('Please enter valid dimensions.');
+        return;
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+      resizeImage.src = canvas.toDataURL();
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const activeTab = document.querySelector('.tab.active').dataset.tab;
+      let newWidth, newHeight;
+      if (activeTab === 'dimensions') {
+        const unit = unitSelect.value;
+        const widthValue = parseFloat(widthInput.value);
+        const heightValue = parseFloat(heightInput.value);
+        if (unit === 'px') {
+          newWidth = widthValue;
+          newHeight = heightValue;
+        } else {
+          newWidth = originalWidth * (widthValue / 100);
+          newHeight = originalHeight * (heightValue / 100);
+        }
+      } else {
+        const percentage = parseFloat(percentageSlider.value) / 100;
+        newWidth = originalWidth * percentage;
+        newHeight = originalHeight * percentage;
+      }
+      if (isNaN(newWidth) || isNaN(newHeight) || newWidth <= 0 || newHeight <= 0) {
+        alert('Please enter valid dimensions.');
+        return;
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(originalImage, 0, 0, newWidth, newHeight);
+      const format = outputFormat.value;
+      const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = currentImage.file.name.replace(/\.[^/.]+$/, '') + '_resized.' + format;
+        a.click();
+        URL.revokeObjectURL(url);
+      }, mimeType);
+    });
+  </script>
+</body>
+</html>

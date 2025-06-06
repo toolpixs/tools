@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="PixTime by Time Load offers a free online PPT to PDF converter. Convert PowerPoint (PPT, PPTX) files to PDF with our fast, user-friendly tool. No software installation required.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="PPT to PDF, PowerPoint to PDF, online converter, PixTime, Time Load">
+  <title>PPT or PPTX to PDF Converter - PixTime Free Online Tool</title>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --danger: #f44336;
+      --danger-dark: #d32f2f;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --shadow: rgba(0,0,0,0.3);
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .desktop-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: opacity 0.2s;
+    }
+    
+    .desktop-nav a:hover {
+      opacity: 0.9;
+    }
+    
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: white;
+    }
+    
+    .burger-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    
+    .burger-icon:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: left 0.3s ease;
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+    }
+    
+    .sidebar.open {
+      left: 0;
+    }
+    
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    
+    .sidebar a:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+    
+    @media (min-width: 769px) {
+      .burger-icon {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      .burger-icon {
+        display: flex;
+      }
+      main {
+        padding: 1rem;
+      }
+      .card, .upload-container, .file-table-container {
+        max-width: 100%;
+        margin: 0 0 1.5rem;
+        padding: 1rem;
+      }
+      .upload-container {
+        padding: 0.75rem;
+        margin: 0 0 1.5rem;
+      }
+      .upload-area {
+        padding: 0.75rem;
+        min-height: 100px;
+      }
+      .browse-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      .floating-btn-container {
+        max-width: 100%;
+        padding: 0 15px;
+        gap: 15px;
+        justify-content: center;
+      }
+      .floating-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 100px;
+      }
+    }
+    
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .card, .upload-container, .file-table-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      box-sizing: border-box;
+    }
+    
+    .card {
+      width: 100%;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    p, li {
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    ol, ul {
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .upload-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      box-sizing: border-box;
+    }
+
+    .upload-area {
+      background: var(--card-bg);
+      border: 2px dashed var(--border);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+    }
+
+    .browse-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 0.5rem;
+    }
+
+    .browse-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+        
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.05);
+    }
+    
+    .upload-area.dragover {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.1);
+      transform: scale(1.01);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .upload-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .upload-subtext {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .upload-area input {
+      display: none;
+    }
+    
+    .file-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      background: var(--card-bg);
+      margin-bottom: 2rem;
+      display: none;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    table thead {
+      background: rgba(0,0,0,0.03);
+    }
+    
+    table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    
+    .file-preview {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    
+    .file-name {
+      font-weight: 500;
+      color: var(--text);
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .file-size {
+      color: var(--text-light);
+    }
+    
+    .file-format {
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: none;
+      font-size: 0.9rem;
+    }
+    
+    .remove-btn {
+      background: none;
+      color: var(--danger);
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .remove-btn:hover {
+      background: rgba(244, 67, 54, 0.1);
+    }
+    
+    .download-btn {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .download-btn:hover {
+      background: var(--secondary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    
+    .floating-btn-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      max-width: 800px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }
+
+    .floating-btn {
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--shadow);
+      display: none;
+      transition: all 0.3s ease;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    .floating-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px var(--shadow);
+    }
+    
+    #convertBtn {
+      background: var(--primary);
+    }
+    
+    #convertBtn:hover {
+      background: var(--primary-dark);
+    }
+    
+    #downloadSeparateBtn {
+      background: var(--secondary);
+    }
+    
+    #downloadSeparateBtn:hover {
+      background: var(--secondary-dark);
+    }
+    
+    #downloadCombinedBtn {
+      background: #ff9800;
+    }
+    
+    #downloadCombinedBtn:hover {
+      background: #f57c00;
+    }
+    
+    /* Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal {
+      background: var(--card-bg);
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px var(--shadow);
+      padding: 1.5rem;
+      position: relative;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .modal-close:hover {
+      color: var(--text);
+    }
+    
+    .image-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+    }
+    
+    .image-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      background: var(--card-bg);
+      cursor: move;
+      transition: background 0.2s;
+      position: relative;
+    }
+    
+    .image-item.dragging {
+      opacity: 0.5;
+      background: rgba(76, 175, 80, 0.1);
+    }
+    
+    .image-item.drop-target::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+    }
+    
+    .image-item.drop-target-bottom::before {
+      top: auto;
+      bottom: -2px;
+    }
+    
+    .image-item:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    
+    .drag-handle {
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      color: var(--text-light);
+      cursor: grab;
+    }
+    
+    .image-preview {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-right: 1rem;
+      cursor: pointer;
+    }
+    
+    .image-info {
+      flex: 1;
+    }
+    
+    .image-info .page-number {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .image-info .file-name {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    
+    .modal-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .modal-btn.cancel {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .modal-btn.cancel:hover {
+      background: var(--danger-dark);
+    }
+    
+    .modal-btn.confirm {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .modal-btn.confirm:hover {
+      background: var(--primary-dark);
+    }
+    
+    /* Image Preview Modal */
+    .image-preview-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 300;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .image-preview-container {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      padding: 1rem;
+    }
+    
+    .image-preview-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    
+    .image-preview-close {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--card-bg);
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text);
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    
+    .image-preview-close:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    @media (max-width: 768px) {
+      .modal {
+        width: 95%;
+        padding: 1rem;
+      }
+      .image-item {
+        padding: 0.5rem;
+      }
+      .image-preview {
+        width: 40px;
+        height: 40px;
+      }
+      .drag-handle {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+      }
+      .image-info .file-name {
+        font-size: 0.8rem;
+      }
+      .image-preview-container {
+        padding: 0.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .modal-header h2 {
+        font-size: 1.2rem;
+      }
+      .modal-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      .image-preview-close {
+        top: -5px;
+        right: -5px;
+        width: 25px;
+        height: 25px;
+        font-size: 1.2rem;
+      }
+    }
+    
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+    
+    .footer-content {
+
+
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .ad-space {
+      font-size: 14px;
+      margin-top: 1rem;
+      background: rgba(0,0,0,0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 800px;
+      color: var(--text-light);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <h1>PPT to PDF Converter</h1>
+    <nav class="desktop-nav">
+      <a href="#" class="active">To PDF</a>
+    </nav>
+    <button class="burger-icon">☰</button>
+  </div>
+  <div class="sidebar">
+    <nav>
+      <a href="#" class="active">To PDF</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="upload-container">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📂</div>
+      <p class="upload-text">Drag & Drop Files Here</p>
+      <button class="browse-btn">Browse</button>
+      <p class="upload-subtext">Supports PPT, PPTX</p>
+      <input type="file" id="fileInput" accept=".ppt,.pptx" multiple>
+    </div>
+  </div>
+
+  <div class="file-table-container" id="fileTableContainer">
+    <table id="fileTable">
+      <thead>
+        <tr>
+          <th>Preview</th>
+          <th>File Name</th>
+          <th>Size</th>
+          <th>Convert To</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="fileTableBody">
+        <!-- Files will be added here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card introduction">
+    <h2>Convert PPT to PDF with PixTime</h2>
+    <p>Welcome to <strong>PixTime's PPT to PDF Converter</strong>, a free online tool by Time Load. Convert PowerPoint (PPT, PPTX) files to PDF with ease. Download as separate PDFs or combine into a single PDF with customizable page order. No software installation required – perfect for quick presentation conversion!</p>
+  </div>
+
+  <div class="card features">
+    <h2>Why Use PixTime's Converter?</h2>
+    <ul>
+      <li><strong>PPT Support:</strong> Convert PowerPoint (PPT, PPTX) files to PDF.</li>
+      <li><strong>Bulk Conversion:</strong> Process multiple files at once.</li>
+      <li><strong>Flexible Output:</strong> Download separate PDFs or a combined PDF with drag-and-drop reordering.</li>
+      <li><strong>No Software Needed:</strong> Fully browser-based.</li>
+      <li><strong>Fast and Secure:</strong> Local processing ensures speed and privacy.</li>
+      <li><strong>User-Friendly:</strong> Intuitive interface for all users.</li>
+    </ul>
+  </div>
+
+  <div class="card how-to-use">
+    <h2>How to Use the Converter</h2>
+    <ol>
+      <li>Drag and drop or browse to upload your files (PPT, PPTX).</li>
+      <li>View uploaded files in the table below.</li>
+      <li>Click 'Convert All' to transform files to PDFs.</li>
+      <li>Download individually ('Download Separately') or as a single PDF ('Download Combined') with page reordering.</li>
+    </ol>
+  </div>
+
+  <div class="card about">
+    <h2>About Time Load and PixTime</h2>
+    <p><strong>Time Load</strong> creates innovative tools to simplify digital tasks. <strong>PixTime</strong> is our suite of file processing solutions, offering seamless conversion for PPT files to PDF. Designed for professionals and casual users alike, our tools save time and enhance productivity.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <p>© 2025 Time Load. All rights reserved.</p>
+    <div class="ad-space">Advertisement Space</div>
+  </div>
+</footer>
+
+<div class="floating-btn-container">
+  <button class="floating-btn" id="convertBtn">Convert All</button>
+  <button class="floating-btn" id="downloadSeparateBtn">Download Separately</button>
+  <button class="floating-btn" id="downloadCombinedBtn">Download Combined</button>
+</div>
+
+<!-- Modal for Page Order -->
+<div class="modal-overlay" id="pageOrderModal" role="dialog" aria-labelledby="pageOrderModalTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="pageOrderModalTitle">Arrange PDF Page Order</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close modal">×</button>
+    </div>
+    <p>Drag and drop files to reorder pages in the combined PDF. Click images to preview.</p>
+    <ul class="image-list" id="imageList"></ul>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="modalCancel">Cancel</button>
+      <button class="modal-btn confirm" id="modalConfirm">Confirm & Download</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Image Preview -->
+<div class="image-preview-overlay" id="imagePreviewModal" role="dialog" aria-labelledby="imagePreviewModalTitle">
+  <div class="image-preview-container">
+    <img src="" alt="Image Preview" class="image-preview-img" id="previewImage">
+    <button class="image-preview-close" id="imagePreviewClose" aria-label="Close image preview">×</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+  const uploadArea = document.getElementById('uploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const fileTableContainer = document.getElementById('fileTableContainer');
+  const fileTableBody = document.getElementById('fileTableBody');
+  const convertBtn = document.getElementById('convertBtn');
+  const downloadSeparateBtn = document.getElementById('downloadSeparateBtn');
+  const downloadCombinedBtn = document.getElementById('downloadCombinedBtn');
+  const burgerIcon = document.querySelector('.burger-icon');
+  const sidebar = document.querySelector('.sidebar');
+  const pageOrderModal = document.getElementById('pageOrderModal');
+  const imageList = document.getElementById('imageList');
+  const modalClose = document.getElementById('modalClose');
+  const modalCancel = document.getElementById('modalCancel');
+  const modalConfirm = document.getElementById('modalConfirm');
+  const imagePreviewModal = document.getElementById('imagePreviewModal');
+  const previewImage = document.getElementById('previewImage');
+  const imagePreviewClose = document.getElementById('imagePreviewClose');
+
+  let selectedFiles = [];
+  let combinedPdfUrl = null;
+  let previewUrls = new Map();
+
+  // Navigation bar toggle for mobile
+  burgerIcon.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    if (sidebar.classList.contains('open')) {
+      burgerIcon.textContent = '×';
+      document.body.style.overflow = 'hidden';
+    } else {
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close sidebar when clicking outside
+  document.addEventListener('click', (e) => {
+    if (
+      sidebar.classList.contains('open') &&
+      !sidebar.contains(e.target) &&
+      e.target !== burgerIcon
+    ) {
+      sidebar.classList.remove('open');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+
+  uploadArea.addEventListener('click', () => fileInput.click());
+
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    const files = Array.from(e.dataTransfer.files);
+    handleFiles(files);
+  });
+
+  fileInput.addEventListener('change', () => {
+    const files = Array.from(fileInput.files);
+    handleFiles(files);
+  });
+
+  function handleFiles(files) {
+    const validTypes = [
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+    ];
+    const validExtensions = ['ppt', 'pptx'];
+
+    const validFiles = files.filter(file => {
+      const extension = file.name.split('.').pop().toLowerCase();
+      return validTypes.includes(file.type) || validExtensions.includes(extension);
+    });
+
+    if (validFiles.length === 0 && files.length > 0) {
+      alert('Please select valid files (PPT, PPTX).');
+      return;
+    }
+
+    validFiles.forEach(file => {
+      selectedFiles.push({
+        file,
+        converted: false,
+        downloadUrl: null,
+        id: Date.now() + Math.random().toString(36).substr(2, 9)
+      });
+    });
+
+    renderTable();
+  }
+
+  function renderTable() {
+    fileTableBody.innerHTML = '';
+
+    if (selectedFiles.length === 0) {
+      fileTableContainer.style.display = 'none';
+      convertBtn.style.display = 'none';
+      downloadSeparateBtn.style.display = 'none';
+      downloadCombinedBtn.style.display = 'none';
+      cleanupUrls();
+      return;
+    }
+
+    fileTableContainer.style.display = 'block';
+
+    selectedFiles.forEach((item, index) => {
+      const { file, converted, downloadUrl } = item;
+      const fileName = file.name;
+      const fileSize = (file.size / 1024).toFixed(2);
+      const shortName = fileName.length > 20 ? fileName.substring(0, 17) + '...' : fileName;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><span class="empty-icon">📄</span></td>
+        <td class="file-name" title="${fileName}">${shortName}</td>
+        <td class="file-size">${fileSize} KB</td>
+        <td class="file-format">PDF</td>
+        <td>
+          ${
+            converted
+              ? `<a href="${downloadUrl}" download="${fileName.replace(/\.[^/.]+$/, '')}.pdf" class="action-btn download-btn">Download</a>`
+              : `<button class="action-btn remove-btn" onclick="removeFile(${index})" title="Remove">×</button>`
+          }
+        </td>
+      `;
+      fileTableBody.appendChild(row);
+    });
+
+    convertBtn.style.display = selectedFiles.some(f => !f.converted) ? 'inline-block' : 'none';
+    setupDownloadButtons();
+  }
+
+  function removeFile(index) {
+    const item = selectedFiles[index];
+    selectedFiles.splice(index, 1);
+    combinedPdfUrl = null;
+    renderTable();
+  }
+
+  function cleanupUrls() {
+    previewUrls.forEach(url => URL.revokeObjectURL(url));
+    previewUrls.clear();
+    if (combinedPdfUrl) {
+      URL.revokeObjectURL(combinedPdfUrl);
+      combinedPdfUrl = null;
+    }
+  }
+
+  async function convertPptToPDF(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('https://byteai.pythonanywhere.com/docx_to_pdf', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+      return { blob, width: 595, height: 842 }; // Assuming A4 size as default
+    } catch (error) {
+      throw new Error(`Failed to convert PPT/PPTX file ${file.name}: ${error.message}`);
+    }
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    convertBtn.disabled = true;
+    convertBtn.textContent = 'Converting...';
+    combinedPdfUrl = null;
+    const errors = [];
+
+    try {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const item = selectedFiles[i];
+        if (item.converted) continue;
+
+        try {
+          let result;
+          const file = item.file;
+          const isPpt = file.type === 'application/vnd.ms-powerpoint' ||
+                        file.type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ||
+                        /\.(ppt|pptx)$/i.test(file.name);
+
+          if (isPpt) {
+            result = await convertPptToPDF(file);
+          } else {
+            throw new Error('Unsupported file type');
+          }
+
+          const { blob, width, height } = result;
+          selectedFiles[i].converted = true;
+          selectedFiles[i].downloadUrl = URL.createObjectURL(blob);
+
+          const externalPdfBytes = await (await fetch(selectedFiles[i].downloadUrl)).arrayBuffer();
+          const externalDoc = await PDFLib.PDFDocument.load(externalPdfBytes);
+          const copiedPages = await pdfDoc.copyPages(externalDoc, externalDoc.getPageIndices());
+          copiedPages.forEach(page => pdfDoc.addPage(page));
+        } catch (error) {
+          errors.push(error.message);
+          console.error(error);
+        }
+      }
+
+      if (errors.length > 0) {
+        alert(`Some files failed to convert:\n${errors.join('\n')}\nSuccessfully converted files are available for download.`);
+      }
+
+      if (selectedFiles.some(item => item.converted)) {
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        combinedPdfUrl = URL.createObjectURL(blob);
+      }
+
+      renderTable();
+      convertBtn.textContent = '✓ Converted!';
+      setTimeout(() => {
+        convertBtn.textContent = 'Convert All';
+      }, 2000);
+    } catch (error) {
+      alert(`An unexpected error occurred: ${error.message}`);
+      console.error(error);
+    } finally {
+      convertBtn.disabled = false;
+      convertBtn.textContent = 'Convert All';
+    }
+  });
+
+  function setupDownloadButtons() {
+    const convertedItems = selectedFiles.filter(item => item.converted);
+
+    if (convertedItems.length === 0) {
+      downloadSeparateBtn.style.display = 'none';
+      downloadCombinedBtn.style.display = 'none';
+      return;
+    }
+
+    downloadSeparateBtn.style.display = convertedItems.length > 1 ? 'inline-block' : 'none';
+    downloadCombinedBtn.style.display = 'inline-block';
+
+    downloadSeparateBtn.textContent = `Download Separately (${convertedItems.length})`;
+    downloadSeparateBtn.onclick = () => {
+      convertedItems.forEach((item) => {
+        const link = document.createElement('a');
+        link.href = item.downloadUrl;
+        link.download = item.file.name.replace(/\.[^/.]+$/, '') + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    };
+
+    downloadCombinedBtn.textContent = convertedItems.length === 1 ? 'Download' : 'Download Combined';
+    downloadCombinedBtn.onclick = () => {
+      const convertedItems = selectedFiles.filter(item => item.converted);
+      if (convertedItems.length === 0) return;
+
+      if (convertedItems.length === 1) {
+        const link = document.createElement('a');
+        link.href = convertedItems[0].downloadUrl;
+        link.download = convertedItems[0].file.name.replace(/\.[^/.]+$/, '') + '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return;
+      }
+
+      renderImageList();
+      pageOrderModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+  }
+
+  function renderImageList() {
+    imageList.innerHTML = '';
+    const convertedItems = selectedFiles.filter(item => item.converted);
+
+    convertedItems.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.className = 'image-item';
+      li.draggable = true;
+      li.dataset.id = item.id;
+
+      const fileName = item.file.name;
+      const shortName = fileName.length > 20 ? fileName.substring(0, 17) + '...' : fileName;
+
+      li.innerHTML = `
+        <span class="drag-handle">☰</span>
+        <span class="empty-icon">📄</span>
+        <div class="image-info">
+          <span class="page-number">Page ${index + 1}</span>
+          <span class="file-name">${shortName}</span>
+        </div>
+      `;
+
+      li.addEventListener('dragstart', (e) => {
+        e.target.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', item.id);
+      });
+
+      li.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+        Array.from(imageList.children).forEach(child => {
+          child.classList.remove('drop-target', 'drop-target-bottom');
+        });
+      });
+
+      li.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector('.dragging');
+        if (draggingItem === li) return;
+
+        const rect = li.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+        const isAbove = e.clientY < midpoint;
+
+        Array.from(imageList.children).forEach(child => {
+          child.classList.remove('drop-target', 'drop-target-bottom');
+        });
+
+        li.classList.add(isAbove ? 'drop-target' : 'drop-target-bottom');
+      });
+
+      li.addEventListener('dragleave', () => {
+        li.classList.remove('drop-target', 'drop-target-bottom');
+      });
+
+      li.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const draggedId = e.dataTransfer.getData('text/plain');
+        const draggedItem = imageList.querySelector(`[data-id="${draggedId}"]`);
+        if (draggedItem === li) return;
+
+        const rect = li.getBoundingClientRect();
+        const midpoint = rect.top + rect.height / 2;
+        const isAbove = e.clientY < midpoint;
+
+        if (isAbove) {
+          imageList.insertBefore(draggedItem, li);
+        } else {
+          imageList.insertBefore(draggedItem, li.nextSibling);
+        }
+
+        Array.from(imageList.children).forEach(child => {
+          child.classList.remove('drop-target', 'drop-target-bottom');
+        });
+
+        updateFileOrder();
+      });
+
+      imageList.appendChild(li);
+    });
+  }
+
+  function updateFileOrder() {
+    const newOrder = Array.from(imageList.children).map(item => item.dataset.id);
+    const reorderedFiles = [];
+
+    newOrder.forEach(id => {
+      const file = selectedFiles.find(f => f.id === id);
+      if (file) reorderedFiles.push(file);
+    });
+
+    selectedFiles = reorderedFiles;
+    renderImageList();
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modalCancel.addEventListener('click', closeModal);
+
+  function closeModal() {
+    pageOrderModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  imagePreviewClose.addEventListener('click', closeImagePreview);
+  imagePreviewModal.addEventListener('click', (e) => {
+    if (e.target === imagePreviewModal) closeImagePreview();
+  });
+
+  function closeImagePreview() {
+    imagePreviewModal.style.display = 'none';
+    previewImage.src = '';
+    document.body.style.overflow = pageOrderModal.style.display === 'flex' ? 'hidden' : '';
+  }
+
+  modalConfirm.addEventListener('click', async () => {
+    try {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      await Promise.all(selectedFiles.map(async (item) => {
+        if (!item.converted) return;
+
+        const externalPdfBytes = await (await fetch(item.downloadUrl)).arrayBuffer();
+        const externalDoc = await PDFLib.PDFDocument.load(externalPdfBytes);
+        const copiedPages = await pdfDoc.copyPages(externalDoc, externalDoc.getPageIndices());
+        copiedPages.forEach(page => pdfDoc.addPage(page));
+      }));
+
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      combinedPdfUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = combinedPdfUrl;
+      link.download = 'combined.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      closeModal();
+    } catch (error) {
+      alert(`An error occurred while generating the combined PDF: ${error.message}`);
+      console.error(error);
+      closeModal();
+    }
+  });
+
+  window.removeFile = removeFile;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (imagePreviewModal.style.display === 'flex') {
+        closeImagePreview();
+      } else if (pageOrderModal.style.display === 'flex') {
+        closeModal();
+      }
+    }
+  });
+</script>
+</body>
+</html>

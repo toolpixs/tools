@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="PixTime by Time Load offers a free online image to JPG converter. Easily convert your images to JPG format in bulk with our fast, user-friendly tool. No software installation required – perfect for quick image format conversion.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="image to JPG converter, convert images to JPG online, free image converter, bulk image conversion, online image to JPG tool, image format converter, PixTime, Time Load">
+  <title>Image to JPG Converter - PixTime Free Online Tool</title>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --danger: #f44336;
+      --danger-dark: #d32f2f;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --shadow: rgba(0,0,0,0.3);
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .desktop-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: opacity 0.2s;
+    }
+    
+    .desktop-nav a:hover {
+      opacity: 0.9;
+    }
+    
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: white;
+    }
+    
+    .burger-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    
+    .burger-icon:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: left 0.3s ease;
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+    }
+    
+    .sidebar.open {
+      left: 0;
+    }
+    
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    
+    .sidebar a:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+    
+    
+    @media (min-width: 769px) {
+      .burger-icon {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      .burger-icon {
+        display: flex;
+      }
+      main {
+        padding: 1rem;
+      }
+      .card, .upload-container, .file-table-container {
+        max-width: 100%;
+        margin: 0 0 1.5rem;
+        padding: 1rem;
+      }
+      .upload-container {
+        padding: 0.75rem;
+        margin: 0 0 1.5rem;
+      }
+      .upload-area {
+        padding: 0.75rem;
+        min-height: 100px;
+      }
+      .browse-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      .floating-btn-container {
+        max-width: 100%;
+        padding: 0 15px;
+        gap: 15px;
+        justify-content: center;
+      }
+      .floating-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 100px;
+      }
+    }
+    
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .card, .upload-container, .file-table-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      box-sizing: border-box;
+    }
+            
+    .card {
+      width: 100%;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    p, li {
+      line-height: 1.6;
+      color: var(--text-light);
+    }
+    
+    ol, ul {
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .upload-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      box-sizing: border-box;
+    }
+
+    .upload-area {
+      background: var(--card-bg);
+      border: 2px dashed var(--border);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+    }
+
+    .browse-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 0.5rem;
+    }
+
+    .browse-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+        
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.05);
+    }
+    
+    .upload-area.dragover {
+      border-color: var(--primary);
+      background: rgba(76, 175, 80, 0.1);
+      transform: scale(1.01);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .upload-text {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .upload-subtext {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .upload-area input {
+      display: none;
+    }
+    
+    .file-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px var(--shadow);
+      background: var(--card-bg);
+      margin-bottom: 2rem;
+      display: none;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    table thead {
+      background: rgba(0,0,0,0.03);
+    }
+    
+    table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    
+    .file-preview {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    
+    .file-name {
+      font-weight: 500;
+      color: var(--text);
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .file-size {
+      color: var(--text-light);
+    }
+    
+    .file-format {
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: none;
+      font-size: 0.9rem;
+    }
+    
+    .remove-btn {
+      background: none;
+      color: var(--danger);
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .remove-btn:hover {
+      background: rgba(244, 67, 54, 0.1);
+    }
+    
+    .download-btn {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .download-btn:hover {
+      background: var(--secondary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    
+    .floating-btn-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      max-width: 800px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }
+
+    .floating-btn {
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--shadow);
+      display: none;
+      transition: all 0.3s ease;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    .floating-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px var(--shadow);
+    }
+    
+    #convertBtn {
+      background: var(--primary);
+    }
+    
+    #convertBtn:hover {
+      background: var(--primary-dark);
+    }
+    
+    #downloadBtn {
+      background: var(--secondary);
+    }
+    
+    #downloadBtn:hover {
+      background: var(--secondary-dark);
+    }
+    
+    @media (max-width: 768px) {
+      .floating-btn-container {
+        left: 0;
+        right: 0;
+        transform: none;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+      main {
+        padding: 1rem;
+      }
+      .card {
+        padding: 1rem;
+      }
+      .upload-area {
+        padding: 2rem 1rem;
+      }
+      table th, table td {
+        padding: 0.75rem;
+      }
+      .floating-btn {
+        padding: 12px 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header-container {
+        padding: 0.75rem 1rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .upload-icon {
+        font-size: 2.5rem;
+      }
+      .upload-text {
+        font-size: 1rem;
+      }
+      table th, table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+      .file-preview {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .ad-space {
+      font-size: 14px;
+      margin-top: 1rem;
+      background: rgba(0,0,0,0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 800px;
+      color: var(--text-light);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <h1>Image to JPG Converter</h1>
+    <nav class="desktop-nav">
+      <a href="#" class="active">Image to JPG</a>
+      <a href="#">PNG to WebP</a>
+      <a href="#">JPG to PNG</a>
+      <a href="#">WebP to PNG</a>
+      <a href="#">Chat with AI</a>
+    </nav>
+    <button class="burger-icon">☰</button>
+  </div>
+  <div class="sidebar">
+    <nav>
+      <a href="#" class="active">Image to JPG</a>
+      <a href="#">PNG to WebP</a>
+      <a href="#">JPG to PNG</a>
+      <a href="#">WebP to PNG</a>
+      <a href="#">Chat with AI</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="upload-container">
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📂</div>
+      <p class="upload-text">Drag & Drop Image Files Here</p>
+      <button class="browse-btn">Browse</button>
+      <p class="upload-subtext">or click to browse image files</p>
+      <input type="file" id="fileInput" accept="image/*" multiple>
+    </div>
+  </div>
+
+  <div class="file-table-container" id="fileTableContainer">
+    <table id="fileTable">
+      <thead>
+        <tr>
+          <th>Preview</th>
+          <th>File Name</th>
+          <th>Size</th>
+          <th>Convert To</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="fileTableBody">
+        <!-- Files will be added here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card introduction">
+    <h2>Convert Images to JPG Online with PixTime</h2>
+    <p>Welcome to <strong>PixTime's Image to JPG Converter</strong>, a free online tool by Time Load. Effortlessly convert your image files to JPG format in bulk with just a few clicks. Whether you're optimizing images for web use, reducing file sizes, or preparing photos for printing, our fast and reliable tool supports bulk image conversion without requiring any software installation. Start converting your image files to JPG today and experience seamless image format conversion!</p>
+  </div>
+
+  <div class="card features">
+    <h2>Why Use PixTime's Free Image to JPG Converter?</h2>
+    <ul>
+      <li><strong>Bulk Conversion:</strong> Convert multiple image files to JPG at once, saving time and effort.</li>
+      <li><strong>No Software Needed:</strong> Use our online tool directly in your browser – no downloads required.</li>
+      <li><strong>Fast and Secure:</strong> Quick conversions with all processing done locally on your device.</li>
+      <li><strong>User-Friendly:</strong> Simple interface designed for all skill levels.</li>
+      <li><strong>High Quality:</strong> Maintain image quality while reducing file size.</li>
+    </ul>
+  </div>
+
+  <div class="card how-to-use">
+    <h2>How to Use Our Online Image to JPG Converter</h2>
+    <ol>
+      <li>Click the upload area or drag and drop your image files into it</li>
+      <li>Watch as your uploaded image files appear in the table below</li>
+      <li>Click the 'Convert All' button to transform your images into JPGs</li>
+      <li>Download your converted JPG images individually or all at once with the 'Download All' button</li>
+    </ol>
+  </div>
+
+  <div class="card about">
+    <h2>About Time Load and PixTime</h2>
+    <p>At <strong>Time Load</strong>, we're passionate about simplifying your digital tasks with innovative online tools. <strong>PixTime</strong> is our flagship suite of image processing solutions, designed to make image conversion, resizing, and optimization fast, reliable, and accessible to everyone. Whether you're a professional designer or a casual user, PixTime's Image to JPG converter offers a seamless experience for converting image formats online. Our mission is to save you time and enhance your workflow with tools you can trust.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <p>© 2023 Time Load. All rights reserved.</p>
+    <div class="ad-space">Advertisement Space</div>
+  </div>
+</footer>
+
+<div class="floating-btn-container">
+  <button class="floating-btn" id="convertBtn">Convert All</button>
+  <button class="floating-btn" id="downloadBtn">Download All</button>
+</div>
+
+<script>
+  const uploadArea = document.getElementById('uploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const fileTableContainer = document.getElementById('fileTableContainer');
+  const fileTable = document.getElementById('fileTable');
+  const fileTableBody = document.getElementById('fileTableBody');
+  const convertBtn = document.getElementById('convertBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const burgerIcon = document.querySelector('.burger-icon');
+  const sidebar = document.querySelector('.sidebar');
+
+  const acceptedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp', 'image/webp'];
+  let selectedFiles = [];
+
+  // Navigation bar toggle for mobile
+  burgerIcon.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    if (sidebar.classList.contains('open')) {
+      burgerIcon.textContent = '×';
+      document.body.style.overflow = 'hidden';
+    } else {
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close sidebar when clicking outside
+  document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('open') && 
+        !sidebar.contains(e.target) && 
+        e.target !== burgerIcon) {
+      sidebar.classList.remove('open');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+
+  uploadArea.addEventListener('click', () => fileInput.click());
+
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('dragover');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    const files = Array.from(e.dataTransfer.files);
+    handleFiles(files);
+  });
+
+  fileInput.addEventListener('change', () => {
+    const files = Array.from(fileInput.files);
+    handleFiles(files);
+  });
+
+  function handleFiles(files) {
+    const validFiles = files.filter(file => acceptedTypes.includes(file.type));
+    
+    if (validFiles.length === 0 && files.length > 0) {
+      alert('Please select only image files (PNG, JPEG, GIF, BMP, WebP).');
+      return;
+    }
+    
+    validFiles.forEach(file => {
+      selectedFiles.push({
+        file, 
+        converted: false, 
+        downloadUrl: null,
+        id: Date.now() + Math.random().toString(36).substr(2, 9)
+      });
+    });
+    
+    // Reset convert button state
+    convertBtn.textContent = 'Convert All';
+    convertBtn.disabled = false;
+    
+    renderTable();
+  }
+
+  function renderTable() {
+    fileTableBody.innerHTML = '';
+    
+    if (selectedFiles.length === 0) {
+      fileTableContainer.style.display = 'none';
+      convertBtn.style.display = 'none';
+      downloadBtn.style.display = 'none';
+      return;
+    }
+    
+    fileTableContainer.style.display = 'block';
+    
+    selectedFiles.forEach((item, index) => {
+      const { file, converted, downloadUrl } = item;
+      const fileUrl = URL.createObjectURL(file);
+      const fileName = file.name;
+      const fileSize = (file.size / 1024).toFixed(2);
+      const shortName = fileName.length > 20 ? fileName.substring(0, 17) + '...' : fileName;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><img src="${fileUrl}" alt="Preview" class="file-preview"></td>
+        <td class="file-name" title="${fileName}">${shortName}</td>
+        <td class="file-size">${fileSize} KB</td>
+        <td class="file-format">JPG</td>
+        <td>
+          ${
+            converted 
+              ? `<a href="${downloadUrl}" download="${fileName.replace(/\.[^/.]+$/, '.jpg')}" class="action-btn download-btn">Download</a>`
+              : `<button class="action-btn remove-btn" onclick="removeFile(${index})" title="Remove">×</button>`
+          }
+        </td>
+      `;
+      fileTableBody.appendChild(row);
+    });
+
+    convertBtn.style.display = selectedFiles.some(f => !f.converted) ? 'inline-block' : 'none';
+    setupDownloadButton();
+  }
+
+  function removeFile(index) {
+    selectedFiles.splice(index, 1);
+    renderTable();
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    convertBtn.disabled = true;
+    convertBtn.textContent = 'Converting...';
+    
+    try {
+      await Promise.all(selectedFiles.map(async (item, index) => {
+        if (item.converted) return;
+        
+        const reader = new FileReader();
+        const imagePromise = new Promise((resolve, reject) => {
+          reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext('2d');
+              
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0);
+              
+              canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                selectedFiles[index].converted = true;
+                selectedFiles[index].downloadUrl = url;
+                renderTable();
+                resolve();
+              }, 'image/jpeg', 0.92);
+            };
+            img.onerror = reject;
+            img.src = event.target.result;
+          };
+          reader.onerror = reject;
+        });
+        reader.readAsDataURL(item.file);
+        return imagePromise;
+      }));
+      
+      convertBtn.textContent = '✓ Converted!';
+      setTimeout(() => {
+        convertBtn.textContent = 'Convert All';
+      }, 2000);
+    } catch (error) {
+      alert('An error occurred during conversion. Please try again.');
+      console.error(error);
+    } finally {
+      convertBtn.disabled = false;
+      convertBtn.textContent = 'Convert All';
+    }
+  });
+
+  function setupDownloadButton() {
+    const convertedItems = selectedFiles.filter(item => item.converted);
+    
+    if (convertedItems.length > 0) {
+      downloadBtn.style.display = 'inline-block';
+      
+      if (convertedItems.length === 1) {
+        downloadBtn.textContent = 'Download';
+        downloadBtn.onclick = () => {
+          const link = document.createElement('a');
+          link.href = convertedItems[0].downloadUrl;
+          link.download = convertedItems[0].file.name.replace(/\.[^/.]+$/, '.jpg');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+      } else {
+        downloadBtn.textContent = `Download All (${convertedItems.length})`;
+        downloadBtn.onclick = () => {
+          convertedItems.forEach((item) => {
+            const link = document.createElement('a');
+            link.href = item.downloadUrl;
+            link.download = item.file.name.replace(/\.[^/.]+$/, '.jpg');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        };
+      }
+    } else {
+      downloadBtn.style.display = 'none';
+    }
+  }
+  
+  window.removeFile = removeFile;
+</script>
+
+</body>
+</html>
