@@ -350,6 +350,37 @@
                 padding: 20px;
             }
         }
+
+         /* Footer */
+        .footer {
+            background: var(--bg-darker);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -428,40 +459,45 @@
             </div>
 
             <div class="compiler-grid" id="compilers">
-                <div class="compiler-card" onclick="window.location.href='./compiler/python'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/python'">
                     <i class="fab fa-python"></i>
                     <h3>Python Compiler</h3>
                     <p>Run Python 3 code with our online Python compiler. Great for data science and learning Python.</p>
                 </div>
-                <div class="compiler-card" onclick="window.location.href='./compiler/sql'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/sql'">
                     <i class="fas fa-database"></i>
                     <h3>SQL Editor</h3>
                     <p>Practice SQL queries in our online SQL editor with a built-in database. Perfect for beginners.</p>
                 </div>
-                <div class="compiler-card" onclick="window.location.href='./compiler/html'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/html'">
                     <i class="fab fa-html5"></i>
                     <h3>HTML Editor</h3>
                     <p>Build and preview web pages live with our online HTML editor for HTML, CSS, and JavaScript.</p>
                 </div>
-                <div class="compiler-card" onclick="window.location.href='./compiler/java'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/java'">
                     <i class="fab fa-java"></i>
                     <h3>Java Compiler</h3>
                     <p>Compile and run Java code online with our free Java IDE. Supports Java 8 and beyond.</p>
                 </div>
-                <div class="compiler-card" onclick="window.location.href='./compiler/c'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/c'">
                     <i class="fas fa-copyright"></i>
                     <h3>C Compiler</h3>
                     <p>Execute C programs with our web-based C compiler using GCC. Ideal for system programming.</p>
                 </div>
-                <div class="compiler-card" onclick="window.location.href='./compiler/cpp'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/cpp'">
                     <i class="fas fa-plus"></i>
                     <h3>C++ Compiler</h3>
                     <p>Code and run C++ applications with our online C++ compiler. Fast and easy to use.</p>
                 </div>
-                <div class="compiler-card" onclick="window.location.href='./compiler/javascript'">
+                <div class="compiler-card" onclick="window.location.href='./compilers/javascript'">
                     <i class="fab fa-js"></i>
                     <h3>JavaScript Editor</h3>
                     <p>Test JavaScript code instantly with our online JavaScript editor. Built for web development.</p>
+                </div>
+                <div class="compiler-card" onclick="window.location.href='./compilers/text-editor'">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Text Editor</h3>
+                    <p>Use our simple online text editor to jot down notes, write drafts, or edit documents from any device.</p>
                 </div>
             </div>
 
@@ -514,6 +550,19 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer">
+                <div class="footer-links">
+                    <a href="./about">About</a>
+                    <a href="./privacy">Privacy Policy</a>
+                    <a href="./terms">Terms of Service</a>
+                    <a href="./contact">Contact</a>
+                    <a href="./blog">Blog</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 Tool Pix. All rights reserved.
+                </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

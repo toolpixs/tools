@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goal Tracker Tool - Free Productivity Tool | ToolPix</title>
+  <meta name="description" content="Achieve your dreams with ToolPix's free Goal Tracker tool. Define goals, set milestones, link tasks, and track progress by day with local storage. No registration required!">
+  <meta name="keywords" content="goal tracker, productivity tools, goal setting, milestone tracking, task linking, free goal tracker app, progress tracker, daily goal log, time management, productivity app, task planner, AI productivity tool, local storage goals, efficiency tools, personal development, work planner, success planning, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+  <link rel="canonical" href="https://toolpixs.github.io/tools/goal-tracker" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Goal Tracker Tool - Free Productivity Tool | ToolPix">
+  <meta property="og:description" content="Plan and succeed with ToolPix's free Goal Tracker tool. Define goals, add milestones, link tasks, and track progress by day with local storage. Start now, no sign-up needed!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/goal-tracker">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/goal-tracker-social.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Goal Tracker Tool - Free Productivity Tool | ToolPix">
+  <meta name="twitter:description" content="Discover ToolPix's free Goal Tracker tool to define goals, set milestones, link tasks, and track progress by day with local storage for ultimate productivity.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/goal-tracker-twitter.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://toolpixs.github.io/tools/#website",
+        "name": "ToolPix",
+        "url": "https://toolpixs.github.io/tools/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://toolpixs.github.io/tools/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://toolpixs.github.io/tools/goal-tracker/#webpage",
+        "name": "Goal Tracker Tool - Free Productivity Tool | ToolPix",
+        "description": "Use ToolPix's free Goal Tracker tool to define goals, set milestones, link tasks, and track progress by day with local storage for enhanced productivity.",
+        "url": "https://toolpixs.github.io/tools/goal-tracker",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://toolpixs.github.io/tools/goal-tracker"
+        },
+        "author": {
+          "@id": "https://droq.pythonanywhere.com#organization"
+        },
+        "publisher": {
+          "@id": "https://droq.pythonanywhere.com#organization"
+        },
+        "keywords": "goal tracker, productivity tools, goal setting, milestone tracking, task linking, progress tracker, daily goal log",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolpixs.github.io/tools/"},
+            {"@type": "ListItem", "position": 2, "name": "Productivity Tools", "item": "https://toolpixs.github.io/tools/productivity"},
+            {"@type": "ListItem", "position": 3, "name": "Goal Tracker", "item": "https://toolpixs.github.io/tools/goal-tracker"}
+          ]
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://droq.pythonanywhere.com#organization",
+        "name": "Time Load",
+        "url": "https://droq.pythonanywhere.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://droq.pythonanywhere.com/static/images/logo.jpg"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the Goal Tracker tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ToolPix's Goal Tracker tool is a free productivity tool that helps you define goals, set milestones, link tasks, and track progress, with data stored locally for privacy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the Goal Tracker tool free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, the Goal Tracker tool is completely free to use on ToolPix with no registration required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are goals and tasks linked?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can link existing tasks from the To-Do List to goals or milestones, or create new tasks directly in the Goal Tracker, syncing with the To-Do List for seamless management."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --ai-color: #9C27B0;
+      --ai-dark: #7B1FA2;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right { flex: 1; }
+
+    .header-center { text-align: center; }
+
+    .header-right { display: flex; justify-content: flex-end; }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .burger-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: left 0.3s ease-in-out;
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+      overflow-y: auto;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar a:hover { background: rgba(0,0,0,0.05); }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+
+    .sidebar-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 1.5rem;
+    }
+
+    .sidebar-dropdown a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-item.has-dropdown.active .sidebar-dropdown { max-height: 500px; }
+
+    .sidebar-item.has-dropdown > a::after {
+      content: '+';
+      margin-left: auto;
+      transition: var(--transition);
+    }
+
+    .sidebar-item.has-dropdown.active > a::after { content: '-'; }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .breadcrumbs {
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumbs a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--secondary-dark);
+      text-decoration: underline;
+    }
+
+    .breadcrumbs .separator { color: var(--text-lighter); }
+
+    .tool-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .tool-container h1 {
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .tool-container p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .goal-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .goal-input input, .goal-input textarea, .goal-input select {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .goal-input input:focus, .goal-input textarea:focus, .goal-input select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .goal-input textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .goal-input button {
+      padding: 0.75rem 1.5rem;
+      background: var(--ai-color);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .goal-input button:hover {
+      background: var(--ai-dark);
+      transform: translateY(-2px);
+    }
+
+    .goal-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .goal-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      transition: var(--transition);
+    }
+
+    .goal-item:hover {
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .goal-header h3 {
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .goal-details {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      background: var(--border-light);
+      border-radius: var(--radius-sm);
+      height: 8px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      background: var(--primary);
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .milestone-list, .task-list {
+      list-style: none;
+      padding-left: 1rem;
+    }
+
+    .milestone-item, .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .milestone-item:last-child, .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .milestone-item span, .task-item span {
+      color: var(--text-light);
+      flex: 1;
+    }
+
+    .milestone-item button, .task-item button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .milestone-item button:hover, .task-item button:hover {
+      background: var(--accent-dark);
+    }
+
+    .add-milestone, .add-task {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .add-milestone input, .add-task input, .add-task select {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .completed-goals-container {
+      margin-top: 2rem;
+    }
+
+    .completed-goals-container h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .completed-day {
+      margin-bottom: 1.5rem;
+    }
+
+    .completed-day h3 {
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .completed-goal-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: var(--primary-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+    }
+
+    .completed-goal-item span {
+      color: var(--text-light);
+    }
+
+    .faq {
+      margin-top: 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .faq h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      transition: var(--transition);
+    }
+
+    .faq-question:hover { color: var(--primary); }
+
+    .faq-question span {
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .faq-answer {
+      margin-top: 0.5rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer { max-height: 500px; }
+
+    .faq-item.active .faq-question span { transform: rotate(45deg); }
+
+    .productivity-info {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-top: 2rem;
+    }
+
+    .productivity-info h2 {
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .productivity-info h3 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .productivity-info p {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .productivity-info ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .productivity-info li {
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .similar-tools {
+      margin-top: 2rem;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .similar-tools h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      border: 1px solid var(--border-light);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--ai-color);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .btn {
+      background: var(--ai-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background: var(--ai-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul { list-style: none; padding: 0; }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (min-width: 992px) {
+      .sidebar { left: 0; }
+      main { margin-left: 280px; }
+      .burger-icon { display: none; }
+      .sidebar-overlay { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .tool-card { padding: 1rem 0.75rem; }
+      .goal-input { flex-direction: column; }
+    }
+
+    @media (max-width: 576px) {
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .tool-card h3 { font-size: 1rem; }
+      .goal-input input, .goal-input textarea, .goal-input select { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="./" class="logo">
+          <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">TOOL PIX</span>
+      </div>
+      <div class="header-right">
+        <button class="burger-icon" aria-label="Menu">☰</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <nav>
+        <a href="./"><i class="fas fa-home"></i> Home</a>
+        <div class="sidebar-item has-dropdown active">
+          <a href="/productivity"><i class="fas fa-tasks"></i> Productivity Tools</a>
+          <div class="sidebar-dropdown">
+            <a href="/to-do-list"><i class="fas fa-list"></i> To-Do List</a>
+            <a href="/not-to-do-list"><i class="fas fa-ban"></i> Not To Do List</a>
+            <a href="/smart-task-suggestions"><i class="fas fa-lightbulb"></i> Smart Task Suggestions</a>
+            <a href="/pomodoro-timer"><i class="fas fa-stopwatch"></i> Task Timer (Pomodoro)</a>
+            <a href="/recurring-tasks"><i class="fas fa-sync"></i> Recurring Tasks</a>
+            <a href="/subtasks"><i class="fas fa-tasks"></i> Subtasks</a>
+            <a href="/task-dependencies"><i class="fas fa-link"></i> Task Dependencies</a>
+            <a href="/priority-labels"><i class="fas fa-tags"></i> Priority & Labels</a>
+            <a href="/calendar-view"><i class="fas fa-calendar"></i> Calendar View</a>
+            <a href="/daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a>
+            <a href="/weekly-agenda"><i class="fas fa-calendar-week"></i> Weekly Agenda Builder</a>
+            <a href="/habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a>
+            <a href="/routine-scheduler"><i class="fas fa-clock"></i> Routine Scheduler</a>
+            <a href="/event-planner"><i class="fas fa-calendar-plus"></i> Event Planner</a>
+            <a href="/distraction-blocker"><i class="fas fa-ban"></i> Distraction Blocker</a>
+            <a href="/mind-map-creator"><i class="fas fa-project-diagram"></i> Mind Map Creator</a>
+            <a href="/notes-editor"><i class="fas fa-sticky-note"></i> Notes + Markdown Editor</a>
+            <a href="/focus-music"><i class="fas fa-music"></i> Focus Music</a>
+            <a href="/zen-mode"><i class="fas fa-expand"></i> Zen Mode</a>
+            <a href="/gratitude-journal"><i class="fas fa-heart"></i> Gratitude Journal</a>
+            <a href="/checklist-generator"><i class="fas fa-clipboard-list"></i> Checklist Generator</a>
+            <a href="/kanban-board"><i class="fas fa-columns"></i> Kanban Board</a>
+            <a href="/goal-tracker" class="active"><i class="fas fa-bullseye"></i> Goal Tracker</a>
+            <a href="/idea-board"><i class="fas fa-lightbulb"></i> Idea Board</a>
+            <a href="/priority-matrix"><i class="fas fa-th-list"></i> Priority Matrix</a>
+            <a href="/document-organizer"><i class="fas fa-folder"></i> Document Organizer</a>
+            <a href="/productivity-stats"><i class="fas fa-chart-bar"></i> Productivity Stats</a>
+            <a href="/time-tracker"><i class="fas fa-hourglass-half"></i> Time Tracker</a>
+            <a href="/heatmap-view"><i class="fas fa-fire"></i> Heatmap View</a>
+            <a href="/goal-progress"><i class="fas fa-chart-line"></i> Goal Progress Graphs</a>
+            <a href="/pomodoro-stats"><i class="fas fa-chart-pie"></i> Pomodoro Stats</a>
+            <a href="/mood-tracker"><i class="fas fa-smile"></i> Mood Tracker</a>
+          </div>
+        </div>
+        <a href="/all-tools"><i class="fas fa-th"></i> All Tools</a>
+      </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </header>
+
+  <main>
+    <div class="breadcrumbs">
+      <a href="./"><i class="fas fa-home"></i> Home</a>
+      <span class="separator">></span>
+      <a href="/productivity">Productivity Tools</a>
+      <span class="separator">></span>
+      <span>Goal Tracker</span>
+    </div>
+
+    <div class="tool-container">
+      <h1>Goal Tracker - Free Productivity Tool</h1>
+      <p>Plan your success with ToolPix's free Goal Tracker tool. Define goals, set milestones, link tasks, and track progress by day, all stored locally for seamless organization.</p>
+
+      <div class="goal-input">
+        <input type="text" id="goalTitle" placeholder="Goal title (e.g., Launch a business)..." aria-label="Goal title">
+        <textarea id="goalDescription" placeholder="Goal description..." aria-label="Goal description"></textarea>
+        <input type="date" id="goalDueDate" aria-label="Goal due date">
+        <select id="goalPriority" aria-label="Goal priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <select id="goalStatus" aria-label="Goal status">
+          <option value="not started">Not Started</option>
+          <option value="in progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+        <button id="addGoal" aria-label="Add goal">Add Goal</button>
+      </div>
+
+      <div class="goals-container">
+        <h2>Active Goals</h2>
+        <ul id="goalList" class="goal-list"></ul>
+      </div>
+
+      <div class="completed-goals-container">
+        <h2>Completed Goals by Day</h2>
+        <div id="completedGoals" class="completed-goals"></div>
+      </div>
+    </div>
+
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-question">What is the Goal Tracker tool? <span>+</span></div>
+        <div class="faq-answer">ToolPix's Goal Tracker tool is a free productivity tool that helps you define goals, set milestones, link tasks, and track progress, with data stored locally for privacy.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is the Goal Tracker tool free? <span>+</span></div>
+        <div class="faq-answer">Yes, the Goal Tracker tool is completely free to use on ToolPix with no registration required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How are goals and tasks linked? <span>+</span></div>
+        <div class="faq-answer">You can link existing tasks from the To-Do List to goals or milestones, or create new tasks directly in the Goal Tracker, syncing with the To-Do List for seamless management.</div>
+      </div>
+    </section>
+
+    <section class="productivity-info">
+      <h2>Understanding the Goal Tracker Tool</h2>
+
+      <h3>What is the Goal Tracker Tool?</h3>
+      <p>ToolPix's Goal Tracker tool is a free, intuitive solution designed to help you plan and achieve your ambitions. Define long-term goals, break them into milestones, link related tasks, and track your progress by day, all stored securely in your browser's local storage.</p>
+
+      <h3>Why Use the Goal Tracker Tool?</h3>
+      <p>This tool enhances your productivity by:</p>
+      <ul>
+        <li>Providing a structured way to define and prioritize goals</li>
+        <li>Breaking goals into manageable milestones</li>
+        <li>Linking tasks from the To-Do List for integrated task management</li>
+        <li>Tracking completed goals and milestones by day</li>
+        <li>Integrating with other ToolPix tools like <a href="/to-do-list">To-Do List</a> and <a href="/pomodoro-timer">Pomodoro Timer</a></li>
+      </ul>
+
+      <h3>How Does It Work?</h3>
+      <p>The Goal Tracker tool:</p>
+      <ul>
+        <li>Stores goals, milestones, and linked tasks in local storage</li>
+        <li>Calculates goal progress based on completed milestones and tasks</li>
+        <li>Logs completed goals and milestones by day for historical tracking</li>
+        <li>Syncs tasks with the To-Do List for unified productivity</li>
+        <li>Updates dynamically as you add, edit, or complete goals and tasks</li>
+      </ul>
+
+      <h3>Benefits of Using ToolPix's Goal Tracker</h3>
+      <ul>
+        <li><strong>Free to Use:</strong> No cost or sign-up required.</li>
+        <li><strong>Privacy-Focused:</strong> All data stays on your device.</li>
+        <li><strong>Flexible:</strong> Edit goals, milestones, and tasks anytime.</li>
+        <li><strong>Progress Tracking:</strong> Visualize progress with progress bars and daily logs.</li>
+        <li><strong>Seamless Integration:</strong> Works with other ToolPix productivity tools.</li>
+      </ul>
+
+      <h3>Tips for Maximizing Productivity</h3>
+      <ul>
+        <li>Set SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound).</li>
+        <li>Break goals into small, actionable milestones.</li>
+        <li>Link high-priority tasks from the To-Do List to focus on critical steps.</li>
+        <li>Review completed goals regularly to stay motivated.</li>
+        <li>Use <a href="/pomodoro-timer">Pomodoro Timer</a> to work on linked tasks efficiently.</li>
+      </ul>
+
+      <h3>Conclusion</h3>
+      <p>ToolPix's Goal Tracker tool is your ultimate companion for achieving big dreams. With features like milestone setting, task linking, and progress tracking, it empowers you to stay organized and motivated. Start planning your success today!</p>
+    </section>
+
+    <section class="similar-tools">
+      <h2>Explore Similar Productivity Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>To-Do List</h3>
+          <p>Organize tasks with priorities and track completion by day.</p>
+          <a href="/to-do-list" class="btn" aria-label="Use To-Do List tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-ban"></i></div>
+          <h3>Not To Do List</h3>
+          <p>Identify and avoid unproductive tasks or habits.</p>
+          <a href="/not-to-do-list" class="btn" aria-label="Use Not To Do List tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Task Timer (Pomodoro)</h3>
+          <p>Custom work/break intervals with auto-start cycles.</p>
+          <a href="/pomodoro-timer" class="btn" aria-label="Use Task Timer tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-calendar-day"></i></div>
+          <h3>Daily Planner</h3>
+          <p>Schedule your day with time-blocked tasks and goals.</p>
+          <a href="/daily-planner" class="btn" aria-label="Use Daily Planner tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="/" class="logo">ToolPix</a>
+          <p>Free online tools for productivity, YouTube, images, code, and more</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Productivity Tools</h3>
+        <ul>
+          <li><a href="/to-do-list"><i class="fas fa-list"></i> To-Do List</a></li>
+          <li><a href="/not-to-do-list"><i class="fas fa-ban"></i> Not To Do List</a></li>
+          <li><a href="/pomodoro-timer"><i class="fas fa-stopwatch"></i> Pomodoro Timer</a></li>
+          <li><a href="/goal-tracker"><i class="fas fa-bullseye"></i> Goal Tracker</a></li>
+          <li><a href="/daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="/about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="/blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="/contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="/privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="/terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const burgerIcon = document.querySelector('.burger-icon');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+
+    burgerIcon.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = '';
+    });
+
+    // Sidebar dropdown
+    document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.parentElement.classList.toggle('active');
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        faqItem.classList.toggle('active');
+      });
+    });
+
+    // Goal Manager Class
+    class GoalManager {
+      constructor() {
+        this.goalsData = JSON.parse(localStorage.getItem('goalTrackerData')) || { goals: [] };
+        this.todoTasks = JSON.parse(localStorage.getItem('todoTasks')) || [];
+      }
+
+      saveGoals() {
+        localStorage.setItem('goalTrackerData', JSON.stringify(this.goalsData));
+      }
+
+      saveTasks() {
+        localStorage.setItem('todoTasks', JSON.stringify(this.todoTasks));
+      }
+
+      addGoal(title, description, priority, dueDate, status) {
+        const goal = {
+          id: Date.now(),
+          title,
+          description,
+          priority,
+          dueDate,
+          status,
+          milestones: [],
+          linkedTasks: [],
+          completedDate: null,
+          created: new Date().toISOString()
+        };
+        this.goalsData.goals.push(goal);
+        this.saveGoals();
+        return goal;
+      }
+
+      editGoal(id, title, description, priority, dueDate, status) {
+        const goal = this.getGoalById(id);
+        if (goal) {
+          goal.title = title;
+          goal.description = description;
+          goal.priority = priority;
+          goal.dueDate = dueDate;
+          goal.status = status;
+          if (status === 'completed' && !goal.completedDate) {
+            goal.completedDate = new Date().toISOString();
+          }
+          this.saveGoals();
+        }
+      }
+
+      deleteGoal(id) {
+        this.goalsData.goals = this.goalsData.goals.filter(g => g.id !== id);
+        this.saveGoals();
+      }
+
+      addMilestone(goalId, title, dueDate) {
+        const goal = this.getGoalById(goalId);
+        if (goal) {
+          const milestone = {
+            id: Date.now(),
+            title,
+            dueDate,
+            completed: false,
+            completedDate: null
+          };
+          goal.miles.push(milestone);
+          this.saveGoals();
+        }
+      }
+
+      editMilestone(goalId, milestoneId, title, dueDate, completed) {
+        const goal = this.getGoalById(goalId);
+        if (goal) {
+          const milestone = goal.milestones.find(m => m.id === milestoneId);
+          if (milestone) {
+            milestone.title = title;
+            milestone.dueDate = dueDate;
+            milestone.completed = completed;
+            milestone.completedDate = completed ? new Date().toISOString() : null;
+            this.saveGoals();
+          }
+        }
+      }
+
+      deleteMilestone(goalId, milestoneId) {
+        const goal = this.getGoalById(goalId);
+        if (goal) {
+          goal.milestones = goal.milestones.filter(m => m.id !== milestoneId);
+          this.saveGoals();
+        }
+      }
+
+      linkTask(goalId, milestoneId, taskId) {
+        const goal = this.getGoalById(goalId);
+        if (goal) {
+          const task = this.todoTasks.find(t => t.id === taskId);
+          if (task) {
+            const link = { taskId, milestoneId: milestoneId || null };
+            goal.linkedTasks.push(link);
+            this.saveGoals();
+          }
+        }
+      }
+
+      addNewTask(goalId, milestoneId, title, priority) {
+        const task = {
+          id: Date.now(),
+          text: title,
+          priority,
+          completed: false,
+          created: new Date().toISOString(),
+          completedDate: null
+        };
+        this.todoTasks.push(task);
+        this.saveTasks();
+        this.linkTask(goalId, milestoneId, task.id);
+        return task;
+      }
+
+      getGoalById(id) {
+        return this.goalsData.goals.find(g => g.id === id);
+      }
+
+      calculateProgress(goal) {
+        const totalItems = goal.miles.length + goal.linkedTasks.length;
+        if (totalItems === 0) return 0;
+        const completedItems = goal.miles.filter(m => m.completed).length + 
+                              goal.linkedTasks.filter(t => this.todoTasks.find(t2 => t2.id === t.taskId && t2.completed)).length;
+        return Math.round((completedItems / totalItems) * 100);
+      }
+
+      getCompletedGoalsByDay() {
+        const completedGoals = this.goalsData.goals.filter(g => g.status === 'completed' && g.completedDate);
+        const goalsByDay = {};
+        completedGoals.forEach(goal => {
+          const date = new Date(goal.completedDate).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          if (!goalsByDay[date]) goalsByDay[date] = [];
+          goalsByDay[date].push(goal);
+        });
+        return goalsByDay;
+      }
+    }
+
+    // Goal Management Logic
+    const goalTracker = new GoalManager();
+    const goalTitleInput = document.getElementById('goalTitle');
+    const goalDescriptionInput = document.getElementById('goalDescription');
+    const goalDueDateInput = document.getElementById('goalDueDate');
+    const goalPriorityInput = document.getElementById('goalPriority');
+    const goalStatusInput = document.getElementById('goalStatus');
+    const addGoalButton = document.getElementById('addGoal');
+    const goalListElement = document.getElementById('goalList');
+    const completedGoalsContainer = document.getElementById('completedGoals');
+
+    function renderGoals() {
+      goalListElement.innerHTML = '';
+      completedGoalsContainer.innerHTML = '';
+
+      // Render active goals
+      const activeGoals = goalTracker.goalsData.goals.filter(g => g.status !== 'completed');
+      if (activeGoals.length > 0) {
+        activeGoals.forEach(goal => {
+          const li = document.createElement('li');
+          li.className = 'goal-item';
+          const progress = goalTracker.calculateProgress(goal);
+          li.innerHTML = `
+            <div class="goal-header">
+              <h3>${goal.title} (${goal.priority})</h3>
+              <div>
+                <button class="edit-goal-btn" data-id="${goal.id}" aria-label="Edit goal">Edit</button>
+                <button class="delete-goal-btn" data-id="${goal.id}" aria-label="Delete goal">Delete</button>
+              </div>
+            </div>
+            <div class="goal-details">
+              <p>${goal.description || 'No description'}</p>
+              <p>Due: ${goal.dueDate ? new Date(goal.dueDate).toLocaleDateString() : 'N/A'} | Status: ${goal.status}</p>
+            </div>
+            <div class="progress-bar"><div class="progress-bar-fill" style="width: ${progress}%"></div></div>
+            <h4>Milestones</h4>
+            <ul class="milestone-list">
+              ${goal.milestones.map(m => `
+                <li class="milestone-item">
+                  <span class="${m.completed ? 'completed' : ''}">${m.title} (Due: ${m.dueDate ? new Date(m.dueDate).toLocaleDateString() : 'N/A'})</span>
+                  <div>
+                    <button class="edit-milestone-btn" data-goal-id="${goal.id}" data-id="${m.id}" aria-label="Edit milestone">Edit</button>
+                    <button class="toggle-milestone-btn" data-goal-id="${goal.id}" data-id="${m.id}" aria-label="${m.completed ? 'Mark as done' : 'Mark as undone'}">${m.completed ? 'Undo' : 'Done'}</button>
+                    <button class="delete-milestone-btn" data-goal-id="${goal.id}" data-id="${m.id}" aria-label="Delete milestone">Delete</button>
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+            <div class="add-milestone">
+              <input type="text" placeholder="New milestone..." aria-label="New milestone title">
+              <input type="date" aria-label="New milestone due date">
+              <button class="add-milestone-btn" data-goal-id="${goal.id}" aria-label="Add milestone">Add</button>
+            </div>
+            <h4>Linked Tasks</h4>
+            <ul class="task-list">
+              ${goal.linkedTasks.map(t => {
+                const task = goalTracker.todoTasks.find(t2 => t2.id === t.taskId);
+                return task ? `
+                  <li class="task-item">
+                    <span class="${task.completed ? 'completed' : ''}">${task.text} (${task.priority})</span>
+                    <div></div>
+                  </li>
+                ` : '';
+              }).join('')}
+            </ul>
+            <div class="add-task">
+              <select aria-label="Select task to link">
+                <option value="">Link existing task...</option>
+                ${goalTracker.todoTasks.filter(t => !t.completed && !goal.linkedTasks.find(lt => lt.taskId === t.id)).map(t => `
+                  <option value="${t.id}">${t.text} (${t.priority})</option>
+                `).join('')}
+              </select>
+              <button class="link-task-btn" data-goal-id="${goal.id}" aria-label="Link task">Link Task</button>
+              <input type="text" placeholder="Or create new task..." aria-label="New task title">
+              <select class="new-task-priority" aria-label="New task priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+              <button class="add-new-task-btn" data-goal-id="${goal.id}" aria-label="Add new task">Add New</button>
+            </div>
+          `;
+          goalListElement.appendChild(li);
+        });
+      } else {
+        goalListElement.innerHTML = '<li>No active goals. Add a goal to get started!</li>';
+      }
+
+      // Render completed goals by day
+      const goalsByDay = goalTracker.getCompletedGoalsByDay();
+      if (Object.keys(goalsByDay).length > 0) {
+        Object.keys(goalsByDay).sort((a, b) => new Date(b) - new Date(a)).forEach(date => {
+          const dayDiv = document.createElement('div');
+          dayDiv.className = 'completed-day';
+          dayDiv.innerHTML = `<h3>${date}</h3>`;
+          const ul = document.createElement('ul');
+          ul.className = 'completed-goals';
+          goalsByDay[date].forEach(goal => {
+            const li = document.createElement('li');
+            li.className = 'completed-goal-item';
+            li.innerHTML = `<span>${goal.title} (${goal.priority})</span>`;
+            ul.appendChild(li);
+          });
+          dayDiv.appendChild(ul);
+          completedGoalsContainer.appendChild(dayDiv);
+        });
+      } else {
+        completedGoalsContainer.innerHTML = '<p>No completed goals yet.</p>';
+      }
+
+      // Event listeners
+      document.querySelectorAll('.edit-goal-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.id);
+          const goal = goalTracker.getGoalById(id);
+          if (goal) {
+            const li = btn.closest('.goal-item');
+            li.innerHTML = `
+              <div class="goal-input">
+                <input type="text" value="${goal.title}" class="edit-title" aria-label="Edit goal title">
+                <textarea class="edit-description" aria-label="Edit goal description">${goal.description || ''}</textarea>
+                <input type="date" value="${goal.dueDate || ''}" class="edit-due-date" aria-label="Edit due date">
+                <select class="edit-priority" aria-label="Edit priority">
+                  <option value="low" ${goal.priority === 'low' ? 'selected' : ''}>Low</option>
+                  <option value="medium" ${goal.priority === 'medium' ? 'selected' : ''}>Medium</option>
+                  <option value="high" ${goal.priority === 'high' ? 'selected' : ''}>High</option>
+                </select>
+                <select class="edit-status" aria-label="Edit status">
+                  <option value="not started" ${goal.status === 'not started' ? 'selected' : ''}>Not Started</option>
+                  <option value="in progress" ${goal.status === 'in progress' ? 'selected' : ''}>In Progress</option>
+                  <option value="completed" ${goal.status === 'completed' ? 'selected' : ''}>Completed</option>
+                </select>
+                <button class="save-goal-btn" data-id="${id}" aria-label="Save goal">Save</button>
+                <button class="cancel-goal-btn" aria-label="Cancel edit">Cancel</button>
+              </div>
+            `;
+            li.querySelector('.save-goal-btn').addEventListener('click', () => {
+              const title = li.querySelector('.edit-title').value.trim();
+              if (title) {
+                goalTracker.editGoal(
+                  id,
+                  title,
+                  li.querySelector('.edit-description').value.trim(),
+                  li.querySelector('.edit-priority').value,
+                  li.querySelector('.edit-due-date').value,
+                  li.querySelector('.edit-status').value
+                );
+                renderGoals();
+              }
+            });
+            li.querySelector('.cancel-goal-btn').addEventListener('click', () => renderGoals());
+          }
+        });
+      });
+
+      document.querySelectorAll('.delete-goal-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Delete this goal?')) {
+            goalTracker.deleteGoal(parseInt(btn.dataset.id));
+            renderGoals();
+          }
+        });
+      });
+
+      document.querySelectorAll('.add-milestone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const goalId = parseInt(btn.dataset.goalId);
+          const li = btn.closest('.add-milestone');
+          const title = li.querySelector('input[type="text"]').value.trim();
+          const dueDate = li.querySelector('input[type="date"]').value;
+          if (title) {
+            goalTracker.addMilestone(goalId, title, dueDate);
+            li.querySelector('input[type="text"]').value = '';
+            li.querySelector('input[type="date"]').value = '';
+            renderGoals();
+          }
+        });
+      });
+
+      document.querySelectorAll('.edit-milestone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const goalId = parseInt(btn.dataset.goalId);
+          const id = parseInt(btn.dataset.id);
+          const goal = goalTracker.getGoalById(goalId);
+          const milestone = goal.milestones.find(m => m.id === id);
+          if (milestone) {
+            const li = btn.closest('.milestone-item');
+            li.innerHTML = `
+              <input type="text" value="${milestone.title}" class="edit-title" aria-label="Edit milestone title">
+              <input type="date" value="${milestone.dueDate || ''}" class="edit-due-date" aria-label="Edit milestone due date">
+              <div>
+                <button class="save-milestone-btn" data-goal-id="${goalId}" data-id="${id}" aria-label="Save milestone">Save</button>
+                <button class="cancel-milestone-btn" aria-label="Cancel edit">Cancel</button>
+              </div>
+            `;
+            li.querySelector('.save-milestone-btn').addEventListener('click', () => {
+              const title = li.querySelector('.edit-title').value.trim();
+              if (title) {
+                goalTracker.editMilestone(
+                  goalId,
+                  id,
+                  title,
+                  li.querySelector('.edit-due-date').value,
+                  milestone.completed
+                );
+                renderGoals();
+              }
+            });
+            li.querySelector('.cancel-milestone-btn').addEventListener('click', () => renderGoals());
+          }
+        });
+      });
+
+      document.querySelectorAll('.toggle-milestone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const goalId = parseInt(btn.dataset.goalId);
+          const id = parseInt(btn.dataset.id);
+          const goal = goalTracker.getGoalById(goalId);
+          const milestone = goal.milestones.find(m => m.id === id);
+          if (milestone) {
+            goalTracker.editMilestone(goalId, id, milestone.title, milestone.dueDate, !milestone.completed);
+            renderGoals();
+          }
+        });
+      });
+
+      document.querySelectorAll('.delete-milestone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (confirm('Delete this milestone?')) {
+            goalTracker.deleteMilestone(parseInt(btn.dataset.goalId), parseInt(btn.dataset.id));
+            renderGoals();
+          }
+        });
+      });
+
+      document.querySelectorAll('.link-task-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const goalId = parseInt(btn.dataset.goalId);
+          const li = btn.closest('.add-task');
+          const taskId = parseInt(li.querySelector('select').value);
+          if (taskId) {
+            goalTracker.linkTask(goalId, null, taskId);
+            renderGoals();
+          }
+        });
+      });
+
+      document.querySelectorAll('.add-new-task-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const goalId = parseInt(btn.dataset.goalId);
+          const li = btn.closest('.add-task');
+          const title = li.querySelector('input[type="text"]').value.trim();
+          const priority = li.querySelector('.new-task-priority').value;
+          if (title) {
+            goalTracker.addNewTask(goalId, null, title, priority);
+            li.querySelector('input[type="text"]').value = '';
+            renderGoals();
+          }
+        });
+      });
+    }
+
+    addGoalButton.addEventListener('click', () => {
+      const title = goalTitleInput.value.trim();
+      if (title) {
+        goalTracker.addGoal(
+          title,
+          goalDescriptionInput.value.trim(),
+          goalPriorityInput.value,
+          goalDueDateInput.value,
+          goalStatusInput.value
+        );
+        goalTitleInput.value = '';
+        goalDescriptionInput.value = '';
+        goalDueDateInput.value = '';
+        renderGoals();
+      }
+    });
+
+    goalTitleInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addGoalButton.click();
+    });
+
+    // Initial render
+    renderGoals();
+  </script>
+</body>
+</html>

@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online HTML Editor - Run HTML Code Online | Tool Pix</title>
-    <meta name="description" content="Free online HTML editor. Write, edit and run HTML code online with our powerful HTML editor. Perfect for beginners and experts with real-time preview.">
-    <meta name="keywords" content="HTML editor, online HTML editor, run HTML online, HTML programming, edit HTML online, HTML IDE, HTML code editor">
-    <meta name="author" content="Tool Pix">
+    <title>Online JSON Formatter - Format JSON Online | Dev Tool Pix</title>
+    <meta name="description" content="Free online JSON formatter. Beautify, validate, and format JSON code online with our powerful JSON formatter. Perfect for developers with real-time output.">
+    <meta name="keywords" content="JSON formatter, online JSON formatter, format JSON online, JSON beautifier, JSON validator, JSON editor">
+    <meta name="author" content="Dev Tool Pix">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Online HTML Editor - Run HTML Code Online | Tool Pix">
-    <meta property="og:description" content="Free online HTML editor. Write, edit and run HTML code online with our powerful HTML editor.">
+    <meta property="og:title" content="Online JSON Formatter - Format JSON Online | Dev Tool Pix">
+    <meta property="og:description" content="Free online JSON formatter. Beautify, validate, and format JSON code online with our powerful JSON formatter.">
     <meta property="og:type" content="website">
-    <link rel="canonical" href="https://yourdomain.com/html">
+    <link rel="canonical" href="https://yourdomain.com/json-formatter">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -121,7 +120,6 @@
             text-align: center;
         }
 
-        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: 280px;
@@ -130,7 +128,6 @@
             overflow-x: hidden;
         }
 
-        /* Mobile Sidebar Toggle */
         .sidebar-toggle {
             display: none;
             position: fixed;
@@ -158,7 +155,6 @@
             z-index: 99;
         }
 
-        /* Editor Container */
         .container {
             display: flex;
             flex-direction: column;
@@ -167,7 +163,6 @@
             overflow-x: hidden;
         }
 
-        /* Header Styles */
         .header {
             padding: 15px 24px;
             background: rgba(0, 0, 0, 0.2);
@@ -229,7 +224,6 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* Editor and Output Layout */
         .editor-output-container {
             display: flex;
             flex: 1;
@@ -252,7 +246,6 @@
             border-right: 1px solid var(--border);
         }
 
-        /* Editor Styles */
         .editor-wrapper {
             position: relative;
             flex: 1;
@@ -278,7 +271,6 @@
             word-break: break-all;
         }
 
-        /* Output Styles */
         .output-section {
             flex: 1;
             display: flex;
@@ -324,9 +316,10 @@
         }
 
         .output-content {
-            padding: 0;
-            background: white;
+            padding: 20px;
+            background: #0f0f1a;
             font-family: 'JetBrains Mono', monospace;
+            font-size: var(--output-font-size);
             white-space: pre-wrap;
             overflow-wrap: break-word;
             word-break: break-word;
@@ -339,11 +332,11 @@
             box-sizing: border-box;
         }
 
-        .output-content iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: white;
+        .output-content span {
+            overflow-wrap: break-word;
+            word-break: break-word;
+            max-width: 100%;
+            display: inline;
         }
 
         #output {
@@ -355,42 +348,6 @@
             white-space: pre-wrap;
         }
 
-        /* Input Dialog Styles */
-        .input-group {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .user-input {
-            width: 100%;
-            padding: 10px 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-light);
-            font-family: 'JetBrains Mono', monospace;
-            transition: all 0.2s;
-        }
-
-        .user-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(110, 72, 170, 0.3);
-        }
-
-        .submit-btn {
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        /* Status Indicator */
         .status-indicator {
             display: inline-block;
             width: 10px;
@@ -418,7 +375,6 @@
             100% { opacity: 1; }
         }
 
-        /* Copy Button */
         .copy-btn {
             display: flex;
             align-items: center;
@@ -438,7 +394,6 @@
             transform: translateY(-1px);
         }
 
-        /* Tooltip */
         .tooltip {
             position: relative;
         }
@@ -466,7 +421,6 @@
             opacity: 1;
         }
 
-        /* Mobile Run Button */
         .mobile-run-btn {
             display: none;
             position: fixed;
@@ -492,7 +446,6 @@
             transform: translateY(-2px);
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -511,7 +464,6 @@
             background: var(--primary-dark);
         }
 
-        /* Responsive Styles */
         @media (max-width: 992px) {
             .editor-output-container {
                 flex-direction: column;
@@ -605,7 +557,6 @@
             }
         }
 
-        /* SEO Content Section */
         .seo-content {
             background: var(--bg-darker);
             padding: 40px 20px;
@@ -663,7 +614,6 @@
             border-radius: 0 4px 4px 0;
         }
 
-        /* Ad Containers */
         .ad-container {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
@@ -696,7 +646,6 @@
             letter-spacing: 1px;
         }
 
-        /* FAQ Section */
         .faq-item {
             margin-bottom: 20px;
             border-bottom: 1px solid var(--border);
@@ -710,7 +659,6 @@
             font-size: 1.1rem;
         }
 
-        /* Footer */
         .footer {
             background: var(--bg-darker);
             padding: 30px 20px;
@@ -742,7 +690,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="app-container">
         <button class="sidebar-toggle" id="sidebar-toggle">
@@ -754,66 +701,41 @@
             <div class="sidebar-header">
                 <h1 class="sidebar-title">
                     <i class="fas fa-code"></i>
-                    <span>Tool Pix</span>
+                    <span>Dev Tool Pix</span>
                 </h1>
             </div>
             <ul class="compiler-list">
                 <li class="compiler-item">
-                    <a href="../compilers/python">
-                        <span class="compiler-icon"><i class="fab fa-python"></i></span>
-                        <span>Python</span>
+                    <a href="../dev-tools/js-obfuscator">
+                        <span class="compiler-icon"><i class="fab fa-js"></i></span>
+                        <span>JS Obfuscator</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="../compilers/sql">
-                        <span class="compiler-icon"><i class="fas fa-database"></i></span>
-                        <span>SQL</span>
+                    <a href="../dev-tools/css-obfuscator">
+                        <span class="compiler-icon"><i class="fab fa-css3-alt"></i></span>
+                        <span>CSS Obfuscator</span>
                     </a>
                 </li>
                 <li class="compiler-item active">
-                    <span class="compiler-icon"><i class="fab fa-html5"></i></span>
-                    <span>HTML</span>
+                    <span class="compiler-icon"><i class="fas fa-file-code"></i></span>
+                    <span>JSON Formatter</span>
                 </li>
                 <li class="compiler-item">
-                    <a href="../compilers/java">
-                        <span class="compiler-icon"><i class="fab fa-java"></i></span>
-                        <span>Java</span>
+                    <a href="../dev-tools/base64-encoder">
+                        <span class="compiler-icon"><i class="fas fa-lock"></i></span>
+                        <span>Base64 Encoder</span>
                     </a>
                 </li>
-                <li class="compiler-item">
-                    <a href="../compilers/c">
-                        <span class="compiler-icon"><i class="fas fa-copyright"></i></span>
-                        <span>C</span>
-                    </a>
-                </li>
-                <li class="compiler-item">
-                    <a href="../compilers/cpp">
-                        <span class="compiler-icon"><i class="fas fa-plus"></i></span>
-                        <span>C++</span>
-                    </a>
-                </li>
-                <li class="compiler-item">
-                    <a href="../compilers/js">
-                        <span class="compiler-icon"><i class="fab fa-js"></i></span>
-                        <span>JavaScript</span>
-                    </a>
-                </li>
-                <li class="compiler-item">
-                    <a href="../compilers/text-editor">
-                        <span class="compiler-icon"><i class="fas fa-file-alt"></i></span>
-                        <span>Text Editor</span>
-                    </a>
-                </li>
-            </ul>            
+            </ul>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
             <div class="container">
                 <div class="header">
                     <h1 class="title">
-                        <i class="fab fa-html5"></i>
-                        <span>HTML Online Editor</span>
+                        <i class="fas fa-file-code"></i>
+                        <span>JSON Formatter</span>
                     </h1>
                     <div class="controls">
                         <button class="btn btn-secondary tooltip" id="copy-btn">
@@ -825,344 +747,180 @@
                             <i class="fas fa-trash-alt"></i>
                             <span>Clear</span>
                         </button>
-                        <button class="btn btn-primary" id="run-btn" title="Run">
-                            <i class="fas fa-play"></i>
-                            <span>Run</span>
+                        <button class="btn btn-primary" id="format-btn" title="Format">
+                            <i class="fas fa-align-left"></i>
+                            <span>Format</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="editor-output-container">
-                    <!-- Editor Section -->
                     <div class="editor-section">
                         <div class="editor-wrapper">
-                            <textarea id="code"><!DOCTYPE html>
-<html>
-<head>
-    <title>My HTML Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #6e48aa;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to ToolPix HTML Editor</h1>
-        <p>Edit this HTML code and see the live preview on the right.</p>
-        <p>Try changing the text, colors, or adding new elements!</p>
-    </div>
-</body>
-</html></textarea>
+                            <textarea id="code">{"name":"John Doe","age":30,"city":"New York","hobbies":["reading","coding","hiking"]}</textarea>
                         </div>
                     </div>
 
-                    <!-- Output Section -->
                     <div class="output-section">
                         <div class="output-container">
                             <div class="output-header">
                                 <h2 class="output-title">
                                     <span class="status-indicator status-success"></span>
-                                    Live Preview
+                                    Formatted Output
                                 </h2>
                             </div>
                             <div class="output-content">
-                                <iframe id="output" sandbox="allow-scripts allow-same-origin"></iframe>
+                                <pre id="output">{
+    "name": "John Doe",
+    "age": 30,
+    "city": "New York",
+    "hobbies": [
+        "reading",
+        "coding",
+        "hiking"
+    ]
+}</pre>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- First Ad Container -->
             <div class="ad-container horizontal">
-                
+                <span class="ad-label">Advertisement</span>
             </div>
 
-            <!-- SEO Content Section -->
             <section class="seo-content">
-                <h2>Online HTML Editor - Write, Edit & Preview HTML Instantly</h2>
-                
-                <p>Our <strong>online HTML editor</strong> provides a powerful and convenient way to write, edit, and preview HTML code directly in your browser. Whether you're a beginner learning web development or an experienced developer testing code snippets, our editor offers a seamless coding experience with real-time preview.</p>
-                
-                <h3>Why Use Our Online HTML Editor?</h3>
+                <h2>Online JSON Formatter - Beautify & Validate JSON Code Instantly</h2>
+                <p>Our <strong>online JSON formatter</strong> provides a fast and user-friendly way to beautify, validate, and format JSON code directly in your browser. Whether you're a developer debugging APIs or a beginner learning JSON, our formatter ensures your JSON is clean, readable, and error-free.</p>
+
+                <h3>Why Use Our JSON Formatter?</h3>
                 <ul>
-                    <li><strong>No installation required</strong> - Code and preview HTML directly from your browser</li>
-                    <li><strong>Real-time preview</strong> - See changes immediately as you type</li>
-                    <li><strong>User-friendly interface</strong> - Clean, intuitive design with syntax highlighting</li>
-                    <li><strong>Free to use</strong> - No registration or subscription needed</li>
-                    <li><strong>Mobile-friendly</strong> - Code on the go from any device</li>
-                    <li><strong>Share code easily</strong> - Generate shareable links to your code for collaboration or getting help</li>
-                    <li><strong>Supports HTML5</strong> - Work with the latest HTML standards</li>
+                    <li><strong>No installation needed</strong> - Format JSON directly in your browser</li>
+                    <li><strong>Real-time validation</strong> - Instantly check for JSON syntax errors</li>
+                    <li><strong>Beautification</strong> - Convert minified JSON to a readable, indented format</li>
+                    <li><strong>User-friendly interface</strong> - Intuitive design with syntax highlighting</li>
+                    <li><strong>Free to use</strong> - No registration or subscription required</li>
+                    <li><strong>Mobile-friendly</strong> - Format JSON on any device</li>
+                    <li><strong>Shareable output</strong> - Easily copy and share formatted JSON</li>
                 </ul>
 
                 <div class="ad-container vertical">
-
+                    <span class="ad-label">Advertisement</span>
                 </div>
 
-                <h3>Getting Started with HTML</h3>
-                <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It provides the structure of a webpage and is used in conjunction with CSS (for styling) and JavaScript (for interactivity). HTML uses elements, represented by tags, to structure content.</p>
-                
-                <h4>Basic HTML Document Structure</h4>
-                <pre>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Page Title&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;My First Heading&lt;/h1&gt;
-    &lt;p&gt;My first paragraph.&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
-                
-                <p>Let's break down each part of this document:</p>
+                <h3>Getting Started with JSON</h3>
+                <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format that's easy for humans to read and write, and for machines to parse and generate. It's widely used in APIs, configuration files, and data storage.</p>
+
+                <h4>Basic JSON Structure</h4>
+                <pre>{
+    "name": "John Doe",
+    "age": 30,
+    "isStudent": false,
+    "hobbies": ["reading", "coding"],
+    "address": {
+        "city": "New York",
+        "zip": "10001"
+    }
+}</pre>
+                <p>Key components of JSON:</p>
                 <ul>
-                    <li><code>&lt;!DOCTYPE html&gt;</code>: Declares the document type and HTML version (HTML5)</li>
-                    <li><code>&lt;html&gt;</code>: The root element of an HTML page</li>
-                    <li><code>&lt;head&gt;</code>: Contains meta information about the document</li>
-                    <li><code>&lt;title&gt;</code>: Specifies a title for the document (shown in browser tab)</li>
-                    <li><code>&lt;body&gt;</code>: Contains the visible page content</li>
-                    <li><code>&lt;h1&gt;</code>: Defines a large heading</li>
-                    <li><code>&lt;p&gt;</code>: Defines a paragraph</li>
+                    <li><strong>Objects</strong>: Enclosed in curly braces <code>{}</code>, containing key-value pairs</li>
+                    <li><strong>Arrays</strong>: Enclosed in square brackets <code>[]</code>, containing ordered lists</li>
+                    <li><strong>Values</strong>: Strings, numbers, booleans, null, objects, or arrays</li>
+                    <li><strong>Keys</strong>: Strings enclosed in double quotes</li>
                 </ul>
 
                 <div class="note-box">
-                    <p><strong>Note:</strong> HTML tags normally come in pairs like <code>&lt;p&gt;</code> and <code>&lt;/p&gt;</code>. The first tag is the start tag, the second is the end tag (with a forward slash).</p>
+                    <p><strong>Note:</strong> JSON requires double quotes for strings and keys, and values must be valid JSON types. Our formatter validates these rules automatically.</p>
                 </div>
 
-                <h3>HTML Basics</h3>
-                <h4>Common HTML Elements</h4>
-                <p>Here are some essential HTML elements you'll use frequently:</p>
+                <h3>JSON Formatting Basics</h3>
+                <p>Formatting JSON involves converting minified or unreadable JSON into a structured, indented format. For example:</p>
+                <h4>Minified JSON</h4>
+                <pre>{"name":"John","age":30,"city":"New York"}</pre>
+                <h4>Formatted JSON</h4>
+                <pre>{
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+}</pre>
+
+                <h3>Common JSON Operations</h3>
                 <ul>
-                    <li><code>&lt;div&gt;</code>: A container for other elements</li>
-                    <li><code>&lt;a href="url"&gt;</code>: Creates a hyperlink</li>
-                    <li><code>&lt;img src="image.jpg"&gt;</code>: Embeds an image</li>
-                    <li><code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code>: Creates unordered lists and list items</li>
-                    <li><code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code>: Creates tables, rows, and cells</li>
-                    <li><code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>: Creates forms and input fields</li>
+                    <li><strong>Beautify</strong>: Adds indentation and line breaks for readability</li>
+                    <li><strong>Minify</strong>: Removes unnecessary whitespace to reduce size</li>
+                    <li><strong>Validate</strong>: Checks for syntax errors like missing commas or brackets</li>
+                    <li><strong>Tree View</strong>: Visualizes JSON structure hierarchically (available in advanced formatters)</li>
                 </ul>
-                
-                <h4>Example of HTML with Common Elements</h4>
-                <pre>&lt;div class="container"&gt;
-    &lt;h1&gt;Welcome&lt;/h1&gt;
-    &lt;p&gt;This is a paragraph with a &lt;a href="#"&gt;link&lt;/a&gt;.&lt;/p&gt;
-    &lt;ul&gt;
-        &lt;li&gt;First item&lt;/li&gt;
-        &lt;li&gt;Second item&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;img src="image.jpg" alt="Sample image"&gt;
-&lt;/div&gt;</pre>
-
-                <h3>HTML Attributes</h3>
-                <p>Attributes provide additional information about HTML elements:</p>
-                <ul>
-                    <li>Always specified in the start tag</li>
-                    <li>Usually come in name/value pairs like: name="value"</li>
-                    <li>Common attributes include:
-                        <ul>
-                            <li><code>id</code> - Specifies a unique id for an element</li>
-                            <li><code>class</code> - Specifies one or more class names</li>
-                            <li><code>style</code> - Specifies inline CSS styles</li>
-                            <li><code>src</code> - Specifies the source for images, scripts, etc.</li>
-                            <li><code>href</code> - Specifies the URL for links</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <div class="ad-container horizontal">
-                    
-                </div>
-
-                <h3>HTML5 Semantic Elements</h3>
-                <p>HTML5 introduced semantic elements that clearly describe their meaning:</p>
-                <ul>
-                    <li><code>&lt;header&gt;</code> - Represents introductory content</li>
-                    <li><code>&lt;nav&gt;</code> - Contains navigation links</li>
-                    <li><code>&lt;section&gt;</code> - Defines sections in a document</li>
-                    <li><code>&lt;article&gt;</code> - Contains independent, self-contained content</li>
-                    <li><code>&lt;footer&gt;</code> - Represents a footer for its section</li>
-                    <li><code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> - Represents self-contained content with caption</li>
-                </ul>
-                <p>Example of semantic HTML5 structure:</p>
-                <pre>&lt;header&gt;
-    &lt;h1&gt;Website Title&lt;/h1&gt;
-    &lt;nav&gt;
-        &lt;a href="#"&gt;Home&lt;/a&gt;
-        &lt;a href="#"&gt;About&lt;/a&gt;
-    &lt;/nav&gt;
-&lt;/header&gt;
-&lt;main&gt;
-    &lt;article&gt;
-        &lt;h2&gt;Article Title&lt;/h2&gt;
-        &lt;p&gt;Article content...&lt;/p&gt;
-    &lt;/article&gt;
-&lt;/main&gt;
-&lt;footer&gt;
-    &lt;p&gt;Copyright information&lt;/p&gt;
-&lt;/footer&gt;</pre>
-
-                <h3>HTML Forms</h3>
-                <p>Forms allow users to enter data that is sent to a server for processing:</p>
-                <pre>&lt;form action="/submit" method="post"&gt;
-    &lt;label for="name"&gt;Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
-    
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
-    
-    &lt;label for="message"&gt;Message:&lt;/label&gt;
-    &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
-    
-    &lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;</pre>
-                <p>Common input types include text, email, password, checkbox, radio, date, file, etc.</p>
-
-                <div class="note-box">
-                    <p><strong>Tip:</strong> Always include <code>&lt;label&gt;</code> elements for form inputs to improve accessibility. Use the <code>for</code> attribute to associate labels with their inputs.</p>
-                </div>
 
                 <h3>Frequently Asked Questions</h3>
-                
                 <div class="faq-item">
-                    <div class="faq-question">How do I add CSS to my HTML?</div>
-                    <p>You can add CSS in three ways:</p>
-                    <ol>
-                        <li><strong>Inline:</strong> Using the style attribute: <code>&lt;p style="color:red;"&gt;</code></li>
-                        <li><strong>Internal:</strong> Using a <code>&lt;style&gt;</code> element in the <code>&lt;head&gt;</code> section</li>
-                        <li><strong>External:</strong> Linking to an external .css file: <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></li>
-                    </ol>
+                    <div class="faq-question">What is JSON used for?</div>
+                    <p>JSON is used for data exchange between servers and clients, storing configuration data, and serializing data in applications. It's popular in REST APIs and web development.</p>
                 </div>
-                
                 <div class="faq-item">
-                    <div class="faq-question">How do I add JavaScript to my HTML?</div>
-                    <p>You can add JavaScript in two ways:</p>
-                    <ol>
-                        <li><strong>Internal:</strong> Using a <code>&lt;script&gt;</code> element</li>
-                        <li><strong>External:</strong> Linking to an external .js file: <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></li>
-                    </ol>
+                    <div class="faq-question">How do I validate JSON?</div>
+                    <p>Paste your JSON into our formatter and click "Format." If there are errors, they'll be highlighted in the output section with details.</p>
                 </div>
-                
                 <div class="faq-item">
-                    <div class="faq-question">What's the difference between HTML and HTML5?</div>
-                    <p>HTML5 is the latest version of HTML with new elements, attributes, and APIs. Key differences include:</p>
-                    <ul>
-                        <li>New semantic elements like <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code></li>
-                        <li>New form input types like date, time, email, etc.</li>
-                        <li>Native support for audio and video (<code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>)</li>
-                        <li>Canvas and SVG for drawing</li>
-                        <li>Better support for mobile devices</li>
-                    </ul>
+                    <div class="faq-question">Can I minify JSON?</div>
+                    <p>Yes, our tool can minify JSON by removing whitespace. Use the output section to copy the minified result after formatting.</p>
                 </div>
-                
                 <div class="faq-item">
-                    <div class="faq-question">How do I make my HTML page responsive?</div>
-                    <p>To make your page responsive (work well on all devices):</p>
-                    <ol>
-                        <li>Add the viewport meta tag: <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></li>
-                        <li>Use relative units (%, vw, vh) instead of fixed units (px) for widths</li>
-                        <li>Use CSS media queries to apply different styles at different screen sizes</li>
-                        <li>Use flexible layouts with Flexbox or CSS Grid</li>
-                    </ol>
+                    <div class="faq-question">What are common JSON errors?</div>
+                    <p>Common errors include missing commas, unmatched brackets, single quotes instead of double quotes, and invalid value types.</p>
                 </div>
-                
                 <div class="faq-item">
-                    <div class="faq-question">How do I center elements in HTML?</div>
-                    <p>Centering depends on what you're centering:</p>
-                    <ul>
-                        <li><strong>Text:</strong> <code>text-align: center;</code></li>
-                        <li><strong>Block elements:</strong> <code>margin: 0 auto;</code> (with defined width)</li>
-                        <li><strong>Flexbox:</strong> <code>display: flex; justify-content: center; align-items: center;</code></li>
-                        <li><strong>Grid:</strong> <code>display: grid; place-items: center;</code></li>
-                    </ul>
+                    <div class="faq-question">How does JSON differ from XML?</div>
+                    <p>JSON is lighter, easier to read, and faster to parse than XML. It uses a simpler structure with key-value pairs and arrays, while XML uses tags.</p>
                 </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">How do I add comments in HTML?</div>
-                    <p>HTML comments are not displayed in the browser but can help document your code:</p>
-                    <pre>&lt;!-- This is a comment --&gt;</pre>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">What is the difference between &lt;div&gt; and &lt;span&gt;?</div>
-                    <p><code>&lt;div&gt;</code> is a block-level element used to group other elements, while <code>&lt;span&gt;</code> is an inline element used to group text or other inline elements for styling.</p>
-                </div>
-
-                <h3>Advanced HTML Features</h3>
-                <p>Once you've mastered the basics, you can explore these advanced HTML features:</p>
-                <ul>
-                    <li><strong>HTML5 APIs:</strong> Geolocation, Drag and Drop, Web Storage, etc.</li>
-                    <li><strong>Canvas:</strong> For drawing graphics programmatically</li>
-                    <li><strong>SVG:</strong> Scalable Vector Graphics</li>
-                    <li><strong>Web Components:</strong> Create reusable custom elements</li>
-                    <li><strong>Accessibility (ARIA):</strong> Make your content accessible to all users</li>
-                    <li><strong>Microdata:</strong> Add semantic meaning to your content for search engines</li>
-                </ul>
 
                 <div class="note-box">
-                    <p><strong>Remember:</strong> Our online HTML editor is perfect for practicing all these concepts. Try writing code examples for each topic to reinforce your learning!</p>
+                    <p><strong>Tip:</strong> Always validate your JSON before using it in production to avoid runtime errors in your applications.</p>
                 </div>
+
+                <h3>Advanced JSON Usage</h3>
+                <p>Explore these advanced JSON concepts:</p>
+                <ul>
+                    <li><strong>Nested Objects</strong>: JSON supports nested objects for complex data structures</li>
+                    <pre>{
+    "user": {
+        "profile": {
+            "name": "John",
+            "age": 30
+        }
+    }
+}</pre>
+                    <li><strong>JSON Schema</strong>: Define and validate JSON structure</li>
+                    <li><strong>JSONP</strong>: JSON with padding for cross-domain requests</li>
+                    <li><strong>Streaming JSON</strong>: Process large JSON datasets incrementally</li>
+                </ul>
 
                 <div class="ad-container vertical">
-                    
+                    <span class="ad-label">Advertisement</span>
                 </div>
 
-                <h3>Common HTML Mistakes</h3>
-                <p>Be aware of these common pitfalls when working with HTML:</p>
+                <h3>Common JSON Mistakes</h3>
                 <ul>
-                    <li>Forgetting to close tags</li>
-                    <li>Nesting tags incorrectly (e.g., <code>&lt;p&gt;&lt;div&gt;&lt;/p&gt;&lt;/div&gt;</code>)</li>
-                    <li>Using deprecated elements like <code>&lt;center&gt;</code> or <code>&lt;font&gt;</code></li>
-                    <li>Not using semantic elements when appropriate</li>
-                    <li>Forgetting the viewport meta tag for mobile</li>
-                    <li>Not including alt text for images (hurts accessibility)</li>
-                    <li>Using tables for layout instead of tabular data</li>
+                    <li>Missing commas between key-value pairs or array elements</li>
+                    <li>Using single quotes instead of double quotes</li>
+                    <li>Incorrect nesting of objects or arrays</li>
+                    <li>Trailing commas in objects or arrays</li>
+                    <li>Invalid number formats (e.g., leading zeros)</li>
                 </ul>
-                <p>Tip: Always validate your HTML using the W3C Validator.</p>
-
-                <h3>HTML Best Practices</h3>
-                <p>Follow these best practices for clean, maintainable HTML:</p>
-                <ul>
-                    <li>Use proper document structure with DOCTYPE, html, head, and body</li>
-                    <li>Use semantic HTML5 elements where appropriate</li>
-                    <li>Separate content (HTML), presentation (CSS), and behavior (JavaScript)</li>
-                    <li>Use lowercase for element and attribute names</li>
-                    <li>Quote all attribute values</li>
-                    <li>Close all elements properly</li>
-                    <li>Include alt attributes for images</li>
-                    <li>Validate your HTML regularly</li>
-                </ul>
-
-                <div class="ad-container horizontal">
-                    
-                </div>
 
                 <h3>Learning Resources</h3>
-                <p>To continue your HTML learning journey, check out these resources:</p>
+                <p>Enhance your JSON skills with these resources:</p>
                 <ul>
-                    <li><strong>Official documentation:</strong> MDN Web Docs (developer.mozilla.org)</li>
-                    <li><strong>Books:</strong> "HTML and CSS: Design and Build Websites" by Jon Duckett</li>
-                    <li><strong>Online courses:</strong> freeCodeCamp, Codecademy, Udemy</li>
-                    <li><strong>Practice projects:</strong> Build small websites, clone existing pages</li>
-                    <li><strong>Community:</strong> Stack Overflow, dev.to, CSS-Tricks</li>
+                    <li><strong>Official JSON Site</strong>: json.org for the JSON specification</li>
+                    <li><strong>Tutorials</strong>: MDN Web Docs, W3Schools</li>
+                    <li><strong>Practice</strong>: Build APIs with tools like Postman or create JSON-based projects</li>
+                    <li><strong>Books</strong>: "JSON at Work" by Tom Marrs</li>
                 </ul>
-                <p>Our online HTML editor is the perfect tool to practice what you learn from these resources. The more you code, the better you'll become!</p>
+                <p>Use our JSON formatter to practice and validate your JSON code as you learn!</p>
             </section>
 
-            <!-- Footer -->
             <footer class="footer">
                 <div class="footer-links">
                     <a href="../about">About</a>
@@ -1172,57 +930,48 @@
                     <a href="../blog">Blog</a>
                 </div>
                 <div class="copyright">
-                    &copy; 2023 Tool Pix. All rights reserved.
+                    © 2023 Dev Tool Pix. All rights reserved.
                 </div>
             </footer>
         </div>
 
         <button class="mobile-run-btn" id="mobile-run-btn">
-            <i class="fas fa-play"></i>
+            <i class="fas fa-align-left"></i>
         </button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/xml/xml.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/css/css.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize CodeMirror with Syntax Highlighting for HTML
             const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-                mode: "htmlmixed",
+                mode: "application/json",
                 theme: "dracula",
                 lineNumbers: true,
                 indentUnit: 4,
                 tabSize: 4,
                 smartIndent: true,
                 matchBrackets: true,
-                autoCloseTags: true,
+                autoCloseBrackets: true,
                 lineWrapping: true,
                 extraKeys: {
-                    "Ctrl-Enter": runCode,
-                    "Cmd-Enter": runCode
+                    "Ctrl-Enter": formatJSON,
+                    "Cmd-Enter": formatJSON
                 }
             });
 
-            // DOM Elements
-            const runButton = document.getElementById("run-btn");
+            const formatButton = document.getElementById("format-btn");
             const mobileRunButton = document.getElementById("mobile-run-btn");
             const clearButton = document.getElementById("clear-btn");
             const copyButton = document.getElementById("copy-btn");
             const outputElement = document.getElementById("output");
             const statusIndicator = document.querySelector(".status-indicator");
-
-            // Sidebar elements
             const sidebar = document.getElementById("sidebar");
             const sidebarToggle = document.getElementById("sidebar-toggle");
             const sidebarOverlay = document.getElementById("sidebar-overlay");
 
-            // Set initial status
             updateStatus("ready");
 
-            // Sidebar Toggle Functionality
             function toggleSidebar() {
                 sidebar.classList.toggle("open");
                 sidebarOverlay.classList.toggle("open");
@@ -1231,7 +980,6 @@
             sidebarToggle.addEventListener("click", toggleSidebar);
             sidebarOverlay.addEventListener("click", toggleSidebar);
 
-            // Function to update status indicator
             function updateStatus(status) {
                 statusIndicator.className = "status-indicator";
                 switch (status) {
@@ -1247,31 +995,38 @@
                 }
             }
 
-            // Function to run code
-            function runCode() {
+            function preprocessOutput(text) {
+                const viewportWidth = window.innerWidth;
+                const maxLineLength = viewportWidth <= 768 ? Math.floor(viewportWidth / 10) : 80;
+                return text.split('\n').map(line => {
+                    if (line.length <= maxLineLength) return line;
+                    let result = '';
+                    for (let i = 0; i < line.length; i += maxLineLength) {
+                        result += line.slice(i, i + maxLineLength) + '\n';
+                    }
+                    return result.trimEnd();
+                }).join('\n');
+            }
+
+            function formatJSON() {
+                const jsonString = editor.getValue();
                 updateStatus("running");
-                const code = editor.getValue();
-                
+                outputElement.innerHTML = '<span style="color: #fbbf24;"><i class="fas fa-spinner fa-spin"></i> Formatting JSON...</span>';
+
                 try {
-                    // Get the iframe's document
-                    const iframeDoc = outputElement.contentDocument || outputElement.contentWindow.document;
-                    
-                    // Write the HTML to the iframe
-                    iframeDoc.open();
-                    iframeDoc.write(code);
-                    iframeDoc.close();
-                    
+                    const jsonObject = JSON.parse(jsonString);
+                    const formattedJSON = JSON.stringify(jsonObject, null, 4);
                     updateStatus("success");
+                    outputElement.innerHTML = preprocessOutput(formattedJSON);
                 } catch (error) {
                     updateStatus("error");
-                    console.error("Error rendering HTML:", error);
+                    outputElement.innerHTML = `<span style="color: #f87171;">Error: ${preprocessOutput(error.message)}</span>`;
                 }
             }
 
-            // Function to copy code to clipboard
             function copyToClipboard() {
-                const code = editor.getValue();
-                navigator.clipboard.writeText(code).then(() => {
+                const text = outputElement.innerText;
+                navigator.clipboard.writeText(text).then(() => {
                     const originalText = copyButton.innerHTML;
                     copyButton.innerHTML = '<i class="fas fa-check"></i> <span>Copied!</span>';
                     setTimeout(() => {
@@ -1282,48 +1037,35 @@
                 });
             }
 
-            // Function to clear editor
             function clearEditor() {
                 if (confirm("Are you sure you want to clear the editor?")) {
                     editor.setValue("");
+                    outputElement.innerHTML = "Ready to format JSON...";
                     editor.focus();
                 }
             }
 
-            // Event Listeners
-            runButton.addEventListener('click', runCode);
-            mobileRunButton.addEventListener('click', runCode);
+            formatButton.addEventListener('click', formatJSON);
+            mobileRunButton.addEventListener('click', formatJSON);
             clearButton.addEventListener('click', clearEditor);
             copyButton.addEventListener('click', copyToClipboard);
 
-            // Run the initial code
-            runCode();
-
-            // Track editor focus for analytics
             editor.on('focus', () => {
                 console.log('Editor focused');
-                // You can add analytics tracking here
             });
 
-            // Track code execution for analytics
-            function trackExecution() {
-                console.log('Code executed');
-                // You can add analytics tracking here
+            function trackFormatting() {
+                console.log('JSON formatted');
             }
 
-            // Add tracking to run functions
-            const originalRunCode = runCode;
-            runCode = function() {
-                trackExecution();
-                return originalRunCode.apply(this, arguments);
+            const originalFormatJSON = formatJSON;
+            formatJSON = function() {
+                trackFormatting();
+                return originalFormatJSON.apply(this, arguments);
             };
 
-            // Track page view for analytics
-            console.log('HTML Editor page loaded');
-            // You can add analytics tracking here
+            console.log('JSON Formatter page loaded');
         });
-
- 
     </script>
 </body>
 </html>

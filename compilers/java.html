@@ -4,7 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Compiler | Time IDE</title>
+    <title>Online Java Compiler - Run Java Code Online | Tool Pix IDE</title>
+    <meta name="description" content="Free online Java compiler. Write, compile, and run Java programs online with our powerful Java compiler. Ideal for beginners and experts with real-time output.">
+    <meta name="keywords" content="Java compiler, online Java compiler, run Java online, Java programming, compile Java online, Java IDE, Java code editor">
+    <meta name="author" content="Tool Pix IDE">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Online Java Compiler - Run Java Code Online | Tool Pix IDE">
+    <meta property="og:description" content="Free online Java compiler. Write, compile, and run Java programs online with our powerful Java compiler.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://yourdomain.com/images/java-compiler.png">
+    <link rel="canonical" href="https://yourdomain.com/java">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,6 +33,7 @@
             --success: #4ade80;
             --error: #f87171;
             --output-font-size: 14px;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -57,6 +67,7 @@
             position: fixed;
             height: 100vh;
             z-index: 100;
+            box-shadow: var(--shadow);
         }
 
         .sidebar-header {
@@ -106,6 +117,7 @@
 
         .compiler-item.active {
             background: var(--primary);
+            color: var(--text-lighter);
         }
 
         .compiler-icon {
@@ -135,6 +147,7 @@
             font-size: 18px;
             cursor: pointer;
             z-index: 101;
+            box-shadow: var(--shadow);
         }
 
         .sidebar-overlay {
@@ -164,6 +177,7 @@
             justify-content: space-between;
             align-items: center;
             max-width: 100%;
+            box-shadow: var(--shadow);
         }
 
         .title {
@@ -195,6 +209,7 @@
             align-items: center;
             gap: 6px;
             font-size: 14px;
+            box-shadow: var(--shadow);
         }
 
         .btn-primary {
@@ -205,6 +220,7 @@
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         .btn-secondary {
@@ -215,6 +231,7 @@
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
         }
 
         .editor-output-container {
@@ -341,6 +358,15 @@
             white-space: pre-wrap;
         }
 
+        .input-dialog {
+            background: var(--bg-darker);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
         .input-group {
             width: 100%;
             margin-bottom: 15px;
@@ -461,8 +487,7 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            z-index: 50;
+            box-shadow: var(--shadow);
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
@@ -489,6 +514,138 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-dark);
+        }
+
+        .seo-content {
+            background: var(--bg-darker);
+            padding: 40px 20px;
+            margin: 0 auto;
+        }
+
+        .seo-content h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .seo-content h3 {
+            color: var(--text-lighter);
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+        }
+
+        .seo-content p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .seo-content ul, .seo-content ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .seo-content li {
+            margin-bottom: 8px;
+        }
+
+        .seo-content code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .seo-content pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .note-box {
+            background: rgba(110, 72, 170, 0.2);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .ad-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin: 20px auto;
+            text-align: center;
+            border-radius: 6px;
+        }
+
+        .ad-container.horizontal {
+            width: 100%;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-container.vertical {
+            width: 300px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-lighter);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: var(--bg-darker);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
         }
 
         @media (max-width: 992px) {
@@ -597,60 +754,56 @@
             <div class="sidebar-header">
                 <h1 class="sidebar-title">
                     <i class="fas fa-code"></i>
-                    <span>Time IDE</span>
+                    <span>Tool Pix IDE</span>
                 </h1>
             </div>
             <ul class="compiler-list">
                 <li class="compiler-item">
-                    <a href="/compiler/python">
+                    <a href="../compilers/python">
                         <span class="compiler-icon"><i class="fab fa-python"></i></span>
                         <span>Python</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="/compiler/sql">
+                    <a href="../compilers/sql">
                         <span class="compiler-icon"><i class="fas fa-database"></i></span>
                         <span>SQL</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="/compiler/html">
+                    <a href="../compilers/html">
                         <span class="compiler-icon"><i class="fab fa-html5"></i></span>
                         <span>HTML</span>
                     </a>
                 </li>
                 <li class="compiler-item active">
-                    <span class="compiler-icon"><i class="fab fa-java"></i></span>
-                    <span>Java</span>
+                    <a href="../compilers/java">
+                        <span class="compiler-icon"><i class="fab fa-java"></i></span>
+                        <span>Java</span>
+                    </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="/compiler/c">
+                    <a href="../compilers/c">
                         <span class="compiler-icon"><i class="fas fa-copyright"></i></span>
                         <span>C</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="/compiler/cpp">
+                    <a href="../compilers/cpp">
                         <span class="compiler-icon"><i class="fas fa-plus"></i></span>
                         <span>C++</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="/compiler/csharp">
-                        <span class="compiler-icon"><i class="fas fa-hashtag"></i></span>
-                        <span>C#</span>
-                    </a>
-                </li>
-                <li class="compiler-item">
-                    <a href="/compiler/javascript">
+                    <a href="../compilers/js">
                         <span class="compiler-icon"><i class="fab fa-js"></i></span>
                         <span>JavaScript</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="/compiler/php">
-                        <span class="compiler-icon"><i class="fab fa-php"></i></span>
-                        <span>PHP</span>
+                    <a href="../compilers/text-editor">
+                        <span class="compiler-icon"><i class="fas fa-file-alt"></i></span>
+                        <span>Text Editor</span>
                     </a>
                 </li>
             </ul>
@@ -683,11 +836,13 @@
                 <div class="editor-output-container">
                     <div class="editor-section">
                         <div class="editor-wrapper">
-                            <textarea id="code">public class Main {
+                            <textarea id="code">import java.util.Scanner;
+
+public class Main {
     public static void main(String[] args) {
         // Online Java compiler to run Java program online
         // Write Java code in this online editor and run it
-        System.out.println("Hello, Time Exec");
+        System.out.println("Hello, Tool Pix IDE!");
     }
 }</textarea>
                         </div>
@@ -709,6 +864,277 @@
                     </div>
                 </div>
             </div>
+
+            <div class="ad-container horizontal">
+                <span class="ad-label">Advertisement</span>
+            </div>
+
+            <section class="seo-content">
+                <h2>Online Java Compiler - Write, Run & Share Java Code Instantly</h2>
+                <p>Our <strong>online Java compiler</strong> offers a seamless way to write, compile, and run Java programs directly in your browser. Perfect for beginners learning Java or experienced developers testing code snippets, our compiler provides real-time output with a user-friendly interface.</p>
+
+                <h3>Why Use Our Online Java Compiler?</h3>
+                <ul>
+                    <li><strong>No installation required</strong> - Code and run Java programs without setting up a local environment.</li>
+                    <li><strong>Fast compilation</strong> - Powered by an optimized backend for quick execution.</li>
+                    <li><strong>Real-time output</strong> - View results instantly after running your code.</li>
+                    <li><strong>Syntax highlighting</strong> - Enhanced code readability with CodeMirror and Dracula theme.</li>
+                    <li><strong>Mobile-friendly</strong> - Code on any device, anywhere, anytime.</li>
+                    <li><strong>Free and accessible</strong> - No subscription or login required.</li>
+                    <li><strong>Shareable code</strong> - Easily share your Java code for collaboration or debugging.</li>
+                </ul>
+
+                <div class="ad-container vertical">
+                    <span class="ad-label">Advertisement</span>
+                </div>
+
+                <h3>Getting Started with Java Programming</h3>
+                <p>Java is a versatile, object-oriented programming language developed by Sun Microsystems in 1995. Known for its portability ("write once, run anywhere"), Java is widely used for web development, mobile apps (Android), enterprise applications, and more.</p>
+
+                <h4>Basic Java Program Structure</h4>
+                <pre>import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</pre>
+                <p>Key components:</p>
+                <ul>
+                    <li><code>import java.util.Scanner;</code>: Imports the Scanner class for user input.</li>
+                    <li><code>public class Main</code>: Defines a class named Main (must match the file name).</li>
+                    <li><code>public static void main(String[] args)</code>: The entry point of the program.</li>
+                    <li><code>System.out.println</code>: Prints output to the console.</li>
+                </ul>
+
+                <div class="note-box">
+                    <p><strong>Note:</strong> Every Java program requires a class with a <code>main</code> method as the entry point. Ensure the class name matches the file name (e.g., <code>Main.java</code>).</p>
+                </div>
+
+                <h3>Java Programming Basics</h3>
+                <h4>Variables and Data Types</h4>
+                <p>Java is strongly typed, with several primitive and reference types:</p>
+                <ul>
+                    <li><code>int</code>: 4 bytes, stores integers (-2,147,483,648 to 2,147,483,647).</li>
+                    <li><code>double</code>: 8 bytes, stores floating-point numbers.</li>
+                    <li><code>char</code>: 2 bytes, stores single Unicode characters.</li>
+                    <li><code>String</code>: A reference type for text (e.g., <code>String name = "John";</code>).</li>
+                    <li><code>boolean</code>: Stores <code>true</code> or <code>false</code>.</li>
+                </ul>
+                <pre>int age = 25;
+double price = 19.99;
+char grade = 'A';
+String name = "John";
+boolean isActive = true;</pre>
+
+                <h4>Control Structures</h4>
+                <p>Java supports standard control structures for decision-making and loops:</p>
+
+                <h5>If-Else Statement</h5>
+                <pre>if (age >= 18) {
+    System.out.println("Adult");
+} else {
+    System.out.println("Minor");
+}</pre>
+
+                <h5>For Loop</h5>
+                <pre>for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}</pre>
+
+                <h5>While Loop</h5>
+                <pre>int i = 0;
+while (i < 5) {
+    System.out.println(i);
+    i++;
+}</pre>
+
+                <h5>Switch Statement</h5>
+                <pre>switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    default:
+        System.out.println("Invalid day");
+}</pre>
+
+                <h3>Object-Oriented Programming in Java</h3>
+                <p>Java’s core strength is its object-oriented programming (OOP) features:</p>
+                <ul>
+                    <li><strong>Classes and Objects</strong>: Blueprint and instances for creating structured programs.</li>
+                    <li><strong>Inheritance</strong>: Reuse code with <code>extends</code>.</li>
+                    <li><strong>Encapsulation</strong>: Protect data with access modifiers (<code>private</code>, <code>public</code>).</li>
+                    <li><strong>Polymorphism</strong>: Method overriding and overloading.</li>
+                </ul>
+                <pre>class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void display() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person person = new Person("John", 30);
+        person.display();
+    }
+}</pre>
+
+                <div class="ad-container horizontal">
+                    <span class="ad-label">Advertisement</span>
+                </div>
+
+                <h3>Handling User Input</h3>
+                <p>Use the <code>Scanner</code> class to read user input:</p>
+                <pre>import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+        System.out.println("Hello, " + name + "!");
+        scanner.close();
+    }
+}</pre>
+                <div class="note-box">
+                    <p><strong>Tip:</strong> Always close the Scanner object with <code>scanner.close()</code> to prevent resource leaks.</p>
+                </div>
+
+                <h3>Arrays and Collections</h3>
+                <p>Java supports arrays and dynamic collections like <code>ArrayList</code>:</p>
+                <pre>// Array
+int[] numbers = {1, 2, 3, 4, 5};
+for (int num : numbers) {
+    System.out.println(num);
+}
+
+// ArrayList
+import java.util.ArrayList;
+ArrayList<String> names = new ArrayList<>();
+names.add("Alice");
+names.add("Bob");
+System.out.println(names);</pre>
+
+                <h3>Exception Handling</h3>
+                <p>Use <code>try-catch</code> to handle runtime errors:</p>
+                <pre>try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Error: " + e.getMessage());
+}</pre>
+
+                <h3>File Handling</h3>
+                <p>Java provides classes like <code>File</code> and <code>Files</code> for file operations:</p>
+                <pre>import java.io.File;
+import java.io.FileWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            FileWriter writer = new FileWriter("output.txt");
+            writer.write("Hello, Java!");
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}</pre>
+
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-item">
+                    <div class="faq-question">How do I take user input in Java?</div>
+                    <p>Use the <code>Scanner</code> class: <code>Scanner scanner = new Scanner(System.in);</code> followed by methods like <code>nextLine()</code> or <code>nextInt()</code>.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What is the difference between Java and C++?</div>
+                    <p>Java is platform-independent with automatic memory management (garbage collection), while C++ offers manual memory control and is platform-specific.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I compile Java code locally?</div>
+                    <p>Install the JDK, save your code as <code>Main.java</code>, and run: <code>javac Main.java</code> to compile, then <code>java Main</code> to execute.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Why learn Java?</div>
+                    <p>Java is widely used in enterprise applications, Android development, and web servers, with strong community support and robust libraries.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I debug Java programs?</div>
+                    <p>Use print statements, IDE debuggers (e.g., IntelliJ, Eclipse), or our online compiler to view compilation errors and runtime output.</p>
+                </div>
+
+                <h3>Advanced Java Concepts</h3>
+                <ul>
+                    <li><strong>Interfaces</strong>: Define contracts for classes.</li>
+                    <pre>interface Animal {
+    void makeSound();
+}
+class Dog implements Animal {
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}</pre>
+                    <li><strong>Generics</strong>: Type-safe collections.</li>
+                    <li><strong>Multithreading</strong>: Run tasks concurrently with <code>Thread</code> or <code>Runnable</code>.</li>
+                    <li><strong>Lambda Expressions</strong>: Simplify functional programming.</li>
+                    <pre>List<Integer> numbers = Arrays.asList(1, 2, 3);
+numbers.forEach(n -> System.out.println(n));</pre>
+                </ul>
+
+                <div class="note-box">
+                    <p><strong>Tip:</strong> Experiment with these concepts using our online Java compiler to solidify your understanding!</p>
+                </div>
+
+                <h3>Common Java Programming Mistakes</h3>
+                <ul>
+                    <li>Not closing resources (e.g., <code>Scanner</code>, <code>FileWriter</code>).</li>
+                    <li>Case sensitivity in class/file names.</li>
+                    <li>Missing <code>break</code> in switch statements.</li>
+                    <li>Null pointer exceptions (e.g., accessing null objects).</li>
+                    <li>Incorrect use of <code>==</code> for String comparison (use <code>.equals()</code>).</li>
+                </ul>
+
+                <h3>Java Standard Library</h3>
+                <p>Key packages include:</p>
+                <ul>
+                    <li><code>java.util</code>: Collections, Scanner, etc.</li>
+                    <li><code>java.io</code>: File handling.</li>
+                    <li><code>java.net</code>: Networking.</li>
+                    <li><code>java.time</code>: Date and time utilities.</li>
+                </ul>
+
+                <div class="ad-container horizontal">
+                    <span class="ad-label">Advertisement</span>
+                </div>
+
+                <h3>Learning Resources</h3>
+                <ul>
+                    <li><strong>Books</strong>: "Effective Java" by Joshua Bloch, "Head First Java" by Kathy Sierra.</li>
+                    <li><strong>Online Courses</strong>: Coursera, Udemy, Oracle’s Java tutorials.</li>
+                    <li><strong>Practice Platforms</strong>: LeetCode, HackerRank, Codewars.</li>
+                    <li><strong>Community</strong>: Join Java forums on Stack Overflow or Reddit.</li>
+                </ul>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-links">
+                    <a href="../about">About</a>
+                    <a href="../privacy">Privacy Policy</a>
+                    <a href="../terms">Terms of Service</a>
+                    <a href="../contact">Contact</a>
+                    <a href="../blog">Blog</a>
+                </div>
+                <div class="copyright">
+                    © 2025 Tool Pix IDE. All rights reserved.
+                </div>
+            </footer>
         </div>
 
         <button class="mobile-run-btn" id="mobile-run-btn">
@@ -796,7 +1222,7 @@
                 updateStatus("running");
 
                 // Check if Scanner input is needed
-                const inputPattern = /Scanner\s*\w*\s*=\s*new\s*Scanner\s*\(\s*System\.in\s*\)/g;
+                const inputPattern = /Scanner\s+\w+\s*=\s*new\s+Scanner\s*\(\s*System\.in\s*\)/g;
                 const inputPrompts = [...code.matchAll(inputPattern)].map(match => "Enter input");
 
                 if (inputPrompts.length > 0) {
@@ -849,21 +1275,19 @@
                         body: JSON.stringify({
                             language: "java",
                             version: "15.0.2",
-                            files: [{ content: code }],
+                            files: [{ name: "Main.java", content: code }],
                             stdin: inputs.join("\n")
                         })
                     });
 
-                    if (!response.ok) throw new Error("Network response was not ok");
+                    if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
 
                     const result = await response.json();
 
                     if (result.run.stderr) {
-                        // Error case
                         updateStatus("error");
                         outputElement.innerHTML = `<span style="color: #f87171;">${preprocessOutput(result.run.stderr)}</span>`;
                     } else {
-                        // Success case
                         updateStatus("success");
                         const output = result.run.output || "Program executed successfully (no output)";
                         const formattedOutput = preprocessOutput(output).split('\n').map(line => {
@@ -880,7 +1304,13 @@
                     }
                 } catch (error) {
                     updateStatus("error");
-                    outputElement.innerHTML = `<span style="color: #f87171;">Error: ${preprocessOutput(error.message)}</span>`;
+                    let errorMessage = error.message;
+                    if (error.message.includes("timeout")) {
+                        errorMessage = "Request timed out. Please try again later.";
+                    } else if (error.message.includes("network")) {
+                        errorMessage = "Network error. Please check your connection.";
+                    }
+                    outputElement.innerHTML = `<span style="color: #f87171;">Error: ${preprocessOutput(errorMessage)}</span>`;
                 }
             }
 
@@ -911,7 +1341,52 @@
             mobileRunButton.addEventListener('click', runCode);
             clearButton.addEventListener('click', clearEditor);
             copyButton.addEventListener('click', copyToClipboard);
+
+            // Track editor focus for analytics
+            editor.on('focus', () => {
+                console.log('Editor focused');
+            });
+
+            // Track code execution for analytics
+            function trackExecution() {
+                console.log('Code executed');
+            }
+
+            const originalRunCode = runCode;
+            runCode = function() {
+                trackExecution();
+                return originalRunCode.apply(this, arguments);
+            };
+
+            // Track page view for analytics
+            console.log('Java Compiler page loaded');
         });
+
+        // Schema.org structured data for SEO
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Online Java Compiler - Tool Pix IDE",
+            "url": "https://yourdomain.com/java",
+            "description": "Free online Java compiler. Write, compile, and run Java programs online with our powerful Java compiler. Ideal for beginners and experts with real-time output.",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "creator": {
+                "@type": "Organization",
+                "name": "Tool Pix IDE"
+            },
+            "keywords": "Java compiler, online Java compiler, Java IDE, Java programming, run Java online"
+        };
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(structuredData);
+        document.head.appendChild(script);
     </script>
 </body>
 </html>
