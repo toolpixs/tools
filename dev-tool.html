@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Tool Pix - Free Online Developer Tools</title>
+    <meta name="description" content="Dev Tool Pix offers free, powerful online tools for developers. Format JSON, obfuscate JS/CSS, encode Base64, and more with our user-friendly suite.">
+    <meta name="keywords" content="developer tools, online JSON formatter, JS obfuscator, CSS obfuscator, Base64 encoder, free dev tools">
+    <meta name="author" content="Dev Tool Pix">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Dev Tool Pix - Free Online Developer Tools">
+    <meta property="og:description" content="Explore Dev Tool Pix's free online tools for developers. Format JSON, obfuscate code, encode Base64, and more with ease.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://yourdomain.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #6e48aa;
+            --primary-dark: #4b3080;
+            --secondary: #9d50bb;
+            --bg-dark: #1a1a2e;
+            --bg-darker: #16213e;
+            --text-light: #f1f1f1;
+            --text-lighter: #ffffff;
+            --accent: #64fcd9;
+            --border: #2d4059;
+            --success: #4ade80;
+            --error: #f87171;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            max-width: 100%;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-lighter);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title span {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: #4ae8c2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .features-section {
+            padding: 60px 20px;
+            background: var(--bg-darker);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 100%;
+        }
+
+        .feature-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-lighter);
+            margin-bottom: 10px;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .tool-cta-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--bg-dark);
+        }
+
+        .tool-cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tool-cta-title {
+            font-size: 2rem;
+            color: var(--text-lighter);
+            margin-bottom: 20px;
+        }
+
+        .tool-cta-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        .ad-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin: 20px auto;
+            text-align: center;
+            border-radius: 6px;
+            max-width: 728px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            background: var(--bg-darker);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .tool-cta-title {
+                font-size: 1.6rem;
+            }
+
+            .tool-cta-description {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to <span>Dev Tool Pix</span></h1>
+                <p class="hero-subtitle">Your go-to suite of free online developer tools. Format JSON, obfuscate code, encode Base64, and more with ease.</p>
+                <div class="hero-cta">
+                    <a href="./dev-tools/json-formatter" class="btn btn-primary"><i class="fas fa-file-code"></i> Try JSON Formatter</a>
+                    <a href="#features" class="btn btn-secondary"><i class="fas fa-tools"></i> Explore Tools</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+        </div>
+
+        <section class="features-section" id="features">
+            <h2 class="section-title">Powerful Developer Tools</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-file-code feature-icon"></i>
+                    <h3 class="feature-title">JSON Formatter</h3>
+                    <p class="feature-description">Beautify and validate JSON code with real-time syntax highlighting and error detection.</p>
+                    <a href="./dev-tools/json-formatter" class="btn btn-primary">Try Now</a>
+                </div>
+                <div class="feature-card">
+                    <i class="fab fa-js feature-icon"></i>
+                    <h3 class="feature-title">JS Obfuscator</h3>
+                    <p class="feature-description">Protect your JavaScript code by making it unreadable while maintaining functionality.</p>
+                    <a href="./dev-tools/js-obfuscator" class="btn btn-primary">Try Now</a>
+                </div>
+                <div class="feature-card">
+                    <i class="fab fa-css3-alt feature-icon"></i>
+                    <h3 class="feature-title">CSS Obfuscator</h3>
+                    <p class="feature-description">Obfuscate your CSS code to secure your stylesheets without affecting performance.</p>
+                    <a href="./dev-tools/css-obfuscator" class="btn btn-primary">Try Now</a>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <h3 class="feature-title">Base64 Encoder</h3>
+                    <p class="feature-description">Encode and decode Base64 strings quickly and securely in your browser.</p>
+                    <a href="./dev-tools/base64-encoder" class="btn btn-primary">Try Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tool-cta-section">
+            <div class="tool-cta-content">
+                <h2 class="tool-cta-title">Boost Your Productivity</h2>
+                <p class="tool-cta-description">Dev Tool Pix is designed for developers who need quick, reliable tools. No sign-ups, no downloads—just instant results.</p>
+                <a href="#features" class="btn btn-primary"><i class="fas fa-rocket"></i> Get Started</a>
+            </div>
+        </section>
+
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="./about">About</a>
+                <a href="./privacy">Privacy Policy</a>
+                <a href="./terms">Terms of Service</a>
+                <a href="./contact">Contact</a>
+                <a href="./blog">Blog</a>
+            </div>
+            <div class="copyright">
+                © 2023 Dev Tool Pix. All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
