@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play Tic Tac Toe online for free at Toolpix Games! Enjoy single-player mode against a smart bot or challenge a friend in two-player mode. No downloads needed, playable on any device.">
+  <meta name="keywords" content="Tic Tac Toe online, free Tic Tac Toe, play Tic Tac Toe, single-player Tic Tac Toe, two-player Tic Tac Toe, Toolpix Games, online puzzle games, browser games, strategy games">
+  <meta name="author" content="Toolpix Games">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Play Tic Tac Toe Online - Free Single & Multiplayer at Toolpix Games">
+  <meta property="og:description" content="Enjoy Tic Tac Toe online with single-player mode against a bot or two-player mode with a friend. Play instantly on any device at Toolpix Games, no installation required!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpix.com/games/tic-tac-toe">
+  <meta property="og:image" content="https://toolpix.com/images/tic-tac-toe-og.jpg">
+  <meta property="og:site_name" content="Toolpix Games">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tic Tac Toe Online - Free Single & Multiplayer at Toolpix Games">
+  <meta name="twitter:description" content="Play Tic Tac Toe online for free at Toolpix Games. Challenge a bot in single-player or compete with a friend in two-player mode on any device.">
+  <meta name="twitter:image" content="https://toolpix.com/images/tic-tac-toe-og.jpg">
+  <title>Play Tic Tac Toe Online - Free Single & Multiplayer | Toolpix Games</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Tic Tac Toe Online",
+    "description": "Play Tic Tac Toe online for free at Toolpix Games. Enjoy single-player mode against a bot or two-player mode with a friend on any device, no downloads needed.",
+    "url": "https://toolpix.com/games/tic-tac-toe",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Toolpix",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://toolpix.com/images/logo.png"
+      }
+    },
+    "mainEntity": {
+      "@type": "Game",
+      "name": "Tic Tac Toe",
+      "description": "Classic Tic Tac Toe game with single-player mode with difficulty settings or two-player mode.",
+      "gamePlatform": "Web Browser",
+      "genre": ["Puzzle", "Strategy"],
+      "url": "https://toolpix.com/games/tic-tac-toe"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolpix.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Games",
+          "item": "https://toolpix.com/games"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tic Tac Toe",
+          "item": "https://toolpix.com/games/tic-tac-toe"
+        }
+      ]
+    }
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: monospace, sans-serif;
+    }
+
+    body {
+      background-color: #1a1a2e;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: #16213e;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      animation: slideInLeft 1s ease-out;
+    }
+
+    .header h1 img {
+      width: 40px;
+      margin-right: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .header h1 img:hover {
+      transform: rotate(360deg);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #0f3460;
+      padding: 10px 20px;
+      border-radius: 25px;
+      width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    .search-bar:hover {
+      transform: scale(1.05);
+    }
+
+    .search-bar input {
+      background: none;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .search-bar .search-icon {
+      margin-right: 10px;
+      font-size: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    .banner {
+      position: relative;
+      background: linear-gradient(135deg, #e94560, #1a1a2e);
+      padding: 40px;
+      text-align: center;
+      margin: 20px 50px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 1s ease-in-out;
+      overflow: hidden;
+    }
+
+    .banner canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    .banner h2, .banner p {
+      position: relative;
+      z-index: 1;
+    }
+
+    .banner h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      animation: bounceIn 1.5s ease;
+    }
+
+    .banner p {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes bounceIn {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-30px); }
+      60% { transform: translateY(-15px); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .welcome-screen {
+      text-align: center;
+      padding: 50px;
+      background-color: #16213e;
+      margin: 20px 50px;
+      border-radius: 15px;
+      animation: fadeIn 1s ease-in-out;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-screen::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(233, 69, 96, 0.1) 0%, transparent 70%);
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .welcome-screen h3, .welcome-screen .mode-selection, .welcome-screen .difficulty-selection {
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome-screen h3 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      animation: bounceIn 1s ease;
+    }
+
+    .mode-selection {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .difficulty-selection {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .difficulty-selection select {
+      background-color: #0f3460;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      width: 200px;
+      text-align: center;
+    }
+
+    .difficulty-selection select:hover {
+      transform: scale(1.1);
+      background-color: #e94560;
+    }
+
+    .difficulty-selection select:focus {
+      outline: none;
+      background-color: #e94560;
+    }
+
+    .mode-button, .difficulty-button, .back-button {
+      background-color: #0f3460;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .mode-button:hover, .difficulty-button:hover, .back-button:hover {
+      transform: scale(1.1);
+      background-color: #e94560;
+      box-shadow: 0 6px 15px rgba(233, 69, 96, 0.5);
+    }
+
+    .game-section {
+      padding: 20px 50px;
+      text-align: center;
+      display: none;
+      min-height: 400px;
+    }
+
+    .game-section h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 8px;
+      margin: 20px auto;
+      background-color: #0f3460;
+      padding: 15px;
+      border-radius: 15px;
+      width: fit-content;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .cell {
+      width: 100px;
+      height: 100px;
+      background-color: #1a1a2e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cell:hover {
+      background-color: #2a2a4e;
+      transform: scale(1.05);
+    }
+
+    .cell::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(233, 69, 96, 0.2) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cell:hover::before {
+      opacity: 1;
+    }
+
+    .cell.X, .cell.O {
+      animation: popIn 0.3s ease;
+    }
+
+    .game-info {
+      margin: 20px 0;
+      font-size: 20px;
+      font-weight: bold;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .back-button-container {
+      margin-top: 20px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #16213e;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      z-index: 2000;
+      animation: popIn 0.4s ease;
+    }
+
+    .popup h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .popup-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .popup-button {
+      background-color: #e94560;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .popup-button:hover {
+      transform: scale(1.1);
+      background-color: #ff6b81;
+    }
+
+    .suggested-games {
+      padding: 20px 50px;
+    }
+
+    .suggested-games h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .game-card {
+      background-color: #0f3460;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .game-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .game-card .game-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .game-card h4 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .game-card:hover h4 {
+      color: #e94560;
+    }
+
+    .game-card p {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    .seo-content {
+      padding: 30px 50px;
+      background-color: #16213e;
+      margin: 20px 0;
+      border-radius: 10px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .seo-content h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .seo-content h3 {
+      font-size: 24px;
+      margin: 20px 0 10px;
+    }
+
+    .seo-content p {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      color: #e0e0e0;
+    }
+
+    .seo-content a {
+      color: #e94560;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .seo-content a:hover {
+      color: #ff6b81;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #e94560;
+      color: #fff;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .fab:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    footer {
+      background-color: #0f3460;
+      padding: 20px 50px;
+      text-align: center;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+      }
+
+      .search-bar {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .banner, .welcome-screen, .seo-content {
+        margin: 15px;
+        padding: 20px;
+      }
+
+      .banner h2, .welcome-screen h3 {
+        font-size: 24px;
+      }
+
+      .banner p {
+        font-size: 16px;
+      }
+
+      .game-section, .suggested-games {
+        padding: 15px;
+      }
+
+      .game-board {
+        grid-template-columns: repeat(3, 80px);
+      }
+
+      .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 36px;
+      }
+
+      .popup {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .popup h3 {
+        font-size: 22px;
+      }
+
+      .popup-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .welcome-screen, .game-section {
+        min-height: 300px;
+      }
+
+      .difficulty-selection select {
+        width: 180px;
+        padding: 12px 20px;
+      }
+
+      .back-button {
+        padding: 12px 20px;
+        font-size: 16px;
+      }
+
+      footer {
+        padding: 15px;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .fab {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>
+      <img src="../static/images/icon.png" alt="Toolpix Logo" width="40" height="40">
+      Toolpix Games
+    </h1>
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search games..." aria-label="Search games">
+    </div>
+  </div>
+
+  <div class="banner">
+    <canvas id="particles"></canvas>
+    <h2>Welcome to Tic Tac Toe!</h2>
+    <p>Choose your game mode and start playing instantly!</p>
+  </div>
+
+  <div class="welcome-screen" id="welcomeScreen">
+    <h3 id="welcomeTitle">Choose Your Game Mode</h3>
+    <div class="mode-selection" id="modeSelection">
+      <button class="mode-button" onclick="showDifficultySelection()" aria-label="Start single-player game against bot">Single Player (vs Bot)</button>
+      <button class="mode-button" onclick="startGame('multi', 'none')" aria-label="Start two-player game">Two Players</button>
+    </div>
+    <div class="difficulty-selection" id="difficultySelection">
+      <select id="difficultyLevel" aria-label="Select difficulty level">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard" selected>Hard</option>
+      </select>
+      <div class="difficulty-buttons">
+        <button class="difficulty-button" onclick="startGame('single', document.getElementById('difficultyLevel').value)" aria-label="Start single-player game">Start Game</button>
+        <button class="difficulty-button" onclick="backToModeSelection()" aria-label="Back to mode selection">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-section" id="gameSection">
+    <h3>Tic Tac Toe</h3>
+    <div class="game-board" id="gameBoard">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+    <div class="game-info" id="gameInfo">Player X's turn</div>
+    <div class="back-button-container">
+      <button class="back-button" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+    </div>
+  </div>
+
+  <div class="popup" id="gamePopup">
+    <h3 id="popupMessage"></h3>
+    <div class="popup-buttons">
+      <button class="popup-button" onclick="restartGame()" aria-label="Restart the game">Restart Game</button>
+      <button class="popup-button" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+    </div>
+  </div>
+
+  <div class="suggested-games">
+    <h3>Explore More Games</h3>
+    <div class="games-grid">
+      <div class="game-card" onclick="window.location.href='https://toolpix.com/games/sudoku'">
+        <img src="https://i.ibb.co/Kp8zBJQm/Leonardo-Phoenix-10-A-stunning-digital-illustration-of-a-Sudok-3.jpg" alt="Sudoku Puzzle Game" width="200" height="150">
+        <div class="game-info">
+          <h4>Sudoku</h4>
+          <p>Classic number puzzle game with multiple difficulty levels</p>
+        </div>
+      </div>
+      <div class="game-card" onclick="window.location.href='https://toolpix.com/games/chess'">
+        <img src="https://i.ibb.co/j9gJPQyM/Leonardo-Phoenix-10-A-dramatic-cinematic-depiction-of-a-chessb-0.jpg" alt="Chess Strategy Game" width="200" height="150">
+        <div class="game-info">
+          <h4>Chess</h4>
+          <p>Play chess against the computer or a friend</p>
+        </div>
+      </div>
+      <div class="game-card" onclick="window.location.href='https://toolpix.com/games/2048'">
+        <img src="https://i.ibb.co/YTZNN85d/Leonardo-Phoenix-10-A-vibrant-energetic-illustration-of-the-20-1.jpg" alt="2048 Number Puzzle Game" width="200" height="150">
+        <div class="game-info">
+          <h4>2048</h4>
+          <p>Addictive number merging puzzle game</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="seo-content">
+    <h2>Play Tic Tac Toe Online for Free in 2025 at Toolpix Games</h2>
+    <p>Welcome to <strong>Tic Tac Toe online</strong> at Toolpix Games, the ultimate destination for classic puzzle and strategy games. Whether you’re looking to challenge a smart bot in <strong>single-player Tic Tac Toe</strong> or compete with a friend in <strong>two-player Tic Tac Toe</strong>, our platform offers a seamless, no-download experience on any device. Optimized for fun and accessibility, Toolpix Games is your go-to site for <strong>free online Tic Tac Toe</strong> in 2025.</p>
+    <h3>Why Play Tic Tac Toe Online at Toolpix Games?</h3>
+    <p>Tic Tac Toe, also known as Noughts and Crosses or Xs and Os, is a timeless game that combines simplicity with strategic depth. At Toolpix Games, we’ve elevated this classic with:
+      <ul>
+        <li><strong>Single-Player Mode:</strong> Face off against a smart bot with adjustable difficulty levels (Easy, Medium, Hard).</li>
+        <li><strong>Two-Player Mode:</strong> Challenge a friend on the same device for fast-paced, competitive fun.</li>
+        <li><strong>Instant Access:</strong> Play <a href="/games/tic-tac-toe">Tic Tac Toe online</a> without downloads or sign-ups.</li>
+        <li><strong>Cross-Device Compatibility:</strong> Enjoy smooth gameplay on smartphones, tablets, or desktops.</li>
+        <li><strong>Engaging Design:</strong> Our vibrant visuals and smooth animations make every match a delight.</li>
+      </ul>
+    </p>
+    <h3>The Benefits of Playing Tic Tac Toe</h3>
+    <p>Beyond entertainment, Tic Tac Toe offers cognitive benefits. This <strong>strategy game</strong> enhances:
+      <ul>
+        <li><strong>Critical Thinking:</strong> Plan your moves to outsmart your opponent.</li>
+        <li><strong>Problem-Solving:</strong> Anticipate and block your opponent’s strategies.</li>
+        <li><strong>Focus and Concentration:</strong> Stay sharp with quick, engaging matches.</li>
+      </ul>
+    Research shows that strategy games like Tic Tac Toe can improve mental agility, making it an excellent choice for players of all ages. Whether you’re a beginner or a seasoned player, our <strong>free Tic Tac Toe game</strong> is designed to keep you challenged and entertained.
+    </p>
+    <h3>How to Play Tic Tac Toe Online</h3>
+    <p>Getting started is easy:
+      <ol>
+        <li>Choose your mode: <strong>Single Player</strong> to play against our bot (select Easy, Medium, or Hard) or <strong>Two Players</strong> to compete with a friend.</li>
+        <li>Click on a cell to place your “X” or “O”.</li>
+        <li>Aim to get three of your symbols in a row—horizontally, vertically, or diagonally.</li>
+        <li>Use the back button or popup to return to mode selection at any time.</li>
+      </ol>
+    Our bot in single-player mode uses smart algorithms tailored to your chosen difficulty, ensuring every match is exciting.
+    </p>
+    <h3>Why Toolpix Games is the Best Platform for Tic Tac Toe in 2025</h3>
+    <p>Toolpix Games stands out as the premier platform for <strong>online puzzle games</strong> and <strong>strategy games</strong>. Our commitment to quality means:
+      <ul>
+        <li><strong>Fast-Loading Games:</strong> No lag, just instant fun.</li>
+        <li><strong>Free Access:</strong> Enjoy Tic Tac Toe and other games like <a href="/games/sudoku">Sudoku</a>, <a href="/games/chess">Chess</a>, and <a href="/games/2048">2048</a> at no cost.</li>
+        <li><strong>Regular Updates:</strong> We’re always adding new features and games to keep the experience fresh.</li>
+        <li><strong>Community Focus:</strong> Join millions of players worldwide who trust Toolpix Games for their gaming needs.</li>
+      </ul>
+    </p>
+    <h3>Tips to Master Tic Tac Toe</h3>
+    <p>Want to dominate the board? Try these strategies:
+      <ul>
+        <li><strong>Take the Center:</strong> Starting in the center gives you more winning opportunities.</li>
+        <li><strong>Block Opponents:</strong> Watch for your opponent’s potential winning lines and block them.</li>
+        <li><strong>Create Forks:</strong> Set up moves that give you multiple ways to win.</li>
+        <li><strong>Practice:</strong> Play regularly in single-player mode to sharpen your skills against the bot.</li>
+      </ul>
+    </p>
+    <h3>Explore More Games at Toolpix Games</h3>
+    <p>Love Tic Tac Toe? Check out our other <strong>free online games</strong>:
+      <ul>
+        <li><a href="/games/sudoku">Sudoku</a>: Solve number puzzles with varying difficulty levels.</li>
+        <li><a href="/games/chess">Chess</a>: Test your strategy against the computer or a friend.</li>
+        <li><a href="/games/2048">2048</a>: Merge tiles in this addictive number game.</li>
+        <li><a href="/games/wordle">Wordle</a>: Guess the daily word in this viral puzzle.</li>
+        <li><a href="/games/memory-game">Memory Game</a>: Sharpen your memory with card-matching fun.</li>
+      </ul>
+    Visit our <a href="/games">games page</a> to discover more and keep the fun going!
+    </p>
+    <p>Ready to play? Dive into <strong>Tic Tac Toe online</strong> at Toolpix Games and experience classic fun with a modern twist. Whether you’re playing solo or with a friend, endless entertainment awaits!</p>
+  </section>
+
+  <div class="fab" onclick="scrollToTop()" aria-label="Scroll to top">↑</div>
+
+  <footer>
+    <a href="/" class="tooltip">Home<span class="tooltiptext">Back to Homepage</span></a>
+    <a href="/converter" class="tooltip">Converters<span class="tooltiptext">Explore All Tools</span></a>
+    <a href="/terms" class="tooltip">Terms<span class="tooltiptext">Terms of Service</span></a>
+    <a href="/privacy" class="tooltip">Policy<span class="tooltiptext">Privacy Policy</span></a>
+    <a href="/blog" class="tooltip">Blog<span class="tooltiptext">Read Our Blog</span></a>
+    <a href="/contact" class="tooltip">Contact<span class="tooltiptext">Get in Touch</span></a>
+  </footer>
+
+  <script>
+    let board = ['', '', '', '', '', '', '', '', ''];
+    let currentPlayer = 'X';
+    let gameActive = false;
+    let gameMode = '';
+    let difficulty = 'hard';
+    const winningCombinations = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+
+    function showDifficultySelection() {
+      const modeSelection = document.getElementById('modeSelection');
+      const difficultySelection = document.getElementById('difficultySelection');
+      const welcomeTitle = document.getElementById('welcomeTitle');
+      if (modeSelection && difficultySelection && welcomeTitle) {
+        modeSelection.style.display = 'none';
+        difficultySelection.style.display = 'flex';
+        welcomeTitle.textContent = 'Select Difficulty';
+      }
+    }
+
+    function backToModeSelection() {
+      const modeSelection = document.getElementById('modeSelection');
+      const difficultySelection = document.getElementById('difficultySelection');
+      const welcomeTitle = document.getElementById('welcomeTitle');
+      if (modeSelection && difficultySelection && welcomeTitle) {
+        modeSelection.style.display = 'flex';
+        difficultySelection.style.display = 'none';
+        welcomeTitle.textContent = 'Choose Your Game Mode';
+      }
+    }
+
+    function startGame(mode, diff) {
+      gameMode = mode;
+      difficulty = diff || 'none';
+      gameActive = true;
+      board = ['', '', '', '', '', '', '', '', ''];
+      currentPlayer = 'X';
+      const welcomeScreen = document.getElementById('welcomeScreen');
+      const gameSection = document.getElementById('gameSection');
+      const gameInfo = document.getElementById('gameInfo');
+      
+      if (welcomeScreen) welcomeScreen.style.display = 'none';
+      if (gameSection) gameSection.style.display = 'block';
+      if (gameInfo) gameInfo.textContent = `Player ${currentPlayer}'s turn`;
+
+      document.querySelectorAll('.cell').forEach(cell => {
+        cell.textContent = '';
+        cell.classList.remove('X', 'O');
+        cell.style.pointerEvents = 'auto';
+      });
+
+      const gamePopup = document.getElementById('gamePopup');
+      if (gamePopup) gamePopup.style.display = 'none';
+
+      if (mode === 'single' && currentPlayer === 'O' && gameActive) {
+        setTimeout(botMove, 500);
+      }
+    }
+
+    function handleCellClick(event) {
+      const index = event.target.dataset.index;
+      if (board[index] !== '' || !gameActive) return;
+
+      board[index] = currentPlayer;
+      event.target.textContent = currentPlayer;
+      event.target.classList.add(currentPlayer);
+
+      if (checkWin()) {
+        showPopup(`Player ${currentPlayer} Wins!`);
+        gameActive = false;
+        disableBoard();
+        return;
+      }
+
+      if (board.every(cell => cell !== '')) {
+        showPopup("It's a Tie!");
+        gameActive = false;
+        disableBoard();
+        return;
+      }
+
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      const gameInfo = document.getElementById('gameInfo');
+      if (gameInfo) gameInfo.textContent = `Player ${currentPlayer}'s turn`;
+
+      if (gameMode === 'single' && currentPlayer === 'O' && gameActive) {
+        setTimeout(botMove, 500);
+      }
+    }
+
+    function botMove() {
+      if (!gameActive || board.every(cell => cell !== '')) return;
+
+      let move = null;
+      if (difficulty === 'easy') {
+        const emptyCells = board.reduce((acc, cell, idx) => cell === '' ? [...acc, idx] : acc, []);
+        if (emptyCells.length > 0) {
+          move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        }
+      } else if (difficulty === 'medium') {
+        if (Math.random() < 0.5) {
+          const emptyCells = board.reduce((acc, cell, idx) => cell === '' ? [...acc, idx] : acc, []);
+          if (emptyCells.length > 0) {
+            move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+          }
+        } else {
+          let bestScore = -Infinity;
+          for (let i = 0; i < 9; i++) {
+            if (board[i] === '') {
+              board[i] = 'O';
+              let score = minimax(board, 0, false);
+              board[i] = '';
+              if (score > bestScore) {
+                bestScore = score;
+                move = i;
+              }
+            }
+          }
+        }
+      } else if (difficulty === 'hard') {
+        let bestScore = -Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (board[i] === '') {
+            board[i] = 'O';
+            let score = minimax(board, 0, false);
+            board[i] = '';
+            if (score > bestScore) {
+              bestScore = score;
+              move = i;
+            }
+          }
+        }
+      }
+
+      if (move === null) return;
+
+      board[move] = 'O';
+      const cell = document.querySelector(`.cell[data-index="${move}"]`);
+      if (cell) {
+        cell.textContent = 'O';
+        cell.classList.add('O');
+      }
+
+      if (checkWin()) {
+        showPopup(gameMode === 'single' ? 'Bot Wins!' : 'Player O Wins!');
+        gameActive = false;
+        disableBoard();
+        return;
+      }
+
+      if (board.every(cell => cell !== '')) {
+        showPopup("It's a Tie!");
+        gameActive = false;
+        disableBoard();
+        return;
+      }
+
+      currentPlayer = 'X';
+      const gameInfo = document.getElementById('gameInfo');
+      if (gameInfo) gameInfo.textContent = `Player ${currentPlayer}'s turn`;
+    }
+
+    function minimax(board, depth, isMaximizing) {
+      if (checkWinFor('O')) return 10 - depth;
+      if (checkWinFor('X')) return depth - 10;
+      if (board.every(cell => cell !== '')) return 0;
+
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (board[i] === '') {
+            board[i] = 'O';
+            let score = minimax(board, depth + 1, false);
+            board[i] = '';
+            bestScore = Math.max(score, bestScore);
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (board[i] === '') {
+            board[i] = 'X';
+            let score = minimax(board, depth + 1, true);
+            board[i] = '';
+            bestScore = Math.min(score, bestScore);
+          }
+        }
+        return bestScore;
+      }
+    }
+
+    function checkWin() {
+      return winningCombinations.some(combination => {
+        return combination.every(index => board[index] === currentPlayer);
+      });
+    }
+
+    function checkWinFor(player) {
+      return winningCombinations.some(combination => {
+        return combination.every(index => board[index] === player);
+      });
+    }
+
+    function disableBoard() {
+      document.querySelectorAll('.cell').forEach(cell => {
+        cell.style.pointerEvents = 'none';
+      });
+    }
+
+    function showPopup(message) {
+      const popupMessage = document.getElementById('popupMessage');
+      const gamePopup = document.getElementById('gamePopup');
+      if (popupMessage && gamePopup) {
+        popupMessage.textContent = message;
+        gamePopup.style.display = 'block';
+      }
+    }
+
+    function restartGame() {
+      startGame(gameMode, difficulty);
+    }
+
+    function backToWelcome() {
+      gameActive = false;
+      const gameSection = document.getElementById('gameSection');
+      const welcomeScreen = document.getElementById('welcomeScreen');
+      const gamePopup = document.getElementById('gamePopup');
+      const modeSelection = document.getElementById('modeSelection');
+      const difficultySelection = document.getElementById('difficultySelection');
+      const welcomeTitle = document.getElementById('welcomeTitle');
+
+      if (gameSection) gameSection.style.display = 'none';
+      if (welcomeScreen) welcomeScreen.style.display = 'block';
+      if (gamePopup) gamePopup.style.display = 'none';
+      if (modeSelection && difficultySelection && welcomeTitle) {
+        modeSelection.style.display = 'flex';
+        difficultySelection.style.display = 'none';
+        welcomeTitle.textContent = 'Choose Your Game Mode';
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.cell').forEach(cell => {
+      cell.addEventListener('click', handleCellClick);
+    });
+
+    // Particle animation for banner
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const particlesArray = [];
+    const numberOfParticles = 50;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.color = ['#e94560', '#ff6b81', '#0f3460'][Math.floor(Math.random() * 3)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.05;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+        if (particlesArray[i].size <= 0.2) {
+          particlesArray.splice(i, 1);
+          particlesArray.push(new Particle());
+          i--;
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    });
+  </script>
+</body>
+</html>

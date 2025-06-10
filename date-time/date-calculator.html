@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Calculator - ToolPix</title>
+  <meta name="description" content="Calculate the difference between dates, add/subtract days, or determine future/past dates with precision. No registration required.">
+  <meta name="keywords" content="date calculator, time difference, date arithmetic, day counter, calendar tool">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/date-calculator" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Date Calculator - ToolPix">
+  <meta property="og:description" content="Easily calculate date differences, add/subtract days, or find future/past dates. Free and user-friendly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/date-calculator">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/datecalc-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Date Calculator - ToolPix">
+  <meta name="twitter:description" content="Calculate date differences or add/subtract days with ease.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/datecalc-twitter-card.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="./static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="./static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="./static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center { text-align: center; }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .burger-icon, .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .burger-icon:hover, .search-icon-btn:hover {
+      color: var(--primary-light);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: var(--transition);
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+      overflow-y: auto;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar a:hover { background: rgba(0,0,0,0.05); }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+
+    .sidebar-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 1.5rem;
+    }
+
+    .sidebar-dropdown a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-item.has-dropdown.active .sidebar-dropdown {
+      max-height: 500px;
+    }
+
+    .sidebar-item.has-dropdown > a::after {
+      content: '+';
+      margin-left: auto;
+      transition: var(--transition);
+    }
+
+    .sidebar-item.has-dropdown.active > a::after {
+      content: '-';
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .main-container {
+      display: flex;
+      margin: 0;
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .right-sidebar {
+      width: 350px;
+      padding: 2rem 1rem 2rem 0;
+      margin-right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    .date-calculator-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 15px var(--shadow-md);
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s ease;
+    }
+
+    .date-calculator-container:hover {
+      transform: scale(1.02);
+    }
+
+    .date-inputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .date-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .date-input-group label {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .date-input-group input {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-family: 'Roboto Mono', monospace;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .date-input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .calculation-mode {
+      margin-bottom: 1rem;
+    }
+
+    .calculation-mode select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .result-display {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 1rem 0;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    .date-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .date-controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .date-controls button:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+    }
+
+    .date-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: -1;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      animation: bg-shift 10s infinite;
+    }
+
+    @keyframes bg-shift {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .settings-panel {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .settings-panel h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .widget {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .widget h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .widget-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .widget-list li {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .widget-list li:last-child { border-bottom: none; }
+
+    .widget-list a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .widget-list a:hover {
+      color: var(--secondary-dark);
+      text-decoration: underline;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: auto;
+      box-shadow: 0 -2px 5px var(--shadow);
+      width: 100%;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .right-sidebar { display: none; }
+      .main-container { 
+        flex-direction: column;
+        padding: 0;
+      }
+      main { 
+        max-width: 100%; 
+        padding: 2rem;
+      }
+      .result-display { font-size: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .date-calculator-container { padding: 1.5rem; }
+      .result-display { font-size: 1.2rem; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 576px) {
+      .header-container { padding: 1rem; }
+      .header-title { font-size: 1.2rem; }
+      .logo { font-size: 1.5rem; }
+      .result-display { font-size: 1rem; }
+      .footer-container { grid-template-columns: 1fr; }
+      .date-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+    }
+
+    @media (min-width: 992px) {
+      .sidebar { left: 0; }
+      .main-container { margin-left: 280px; }
+      .burger-icon { display: none; }
+      .sidebar-overlay { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="./" class="logo">
+          <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">TOOL PIX</span>
+      </div>
+      <div class="header-right">
+        <button class="search-icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+        <button class="burger-icon" aria-label="Menu">☰</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <nav>
+        <a href="../"><i class="fas fa-home"></i> Home</a>
+        <div class="sidebar-item has-dropdown active">
+          <a href="./" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
+          <div class="sidebar-dropdown">
+            <a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="../date-time/date-calculator" class="active"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
+          </div>
+        </div>
+        <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
+      </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </header>
+
+  <div class="main-container">
+    <main>
+      <section class="category-intro">
+        <h1>Date Calculator</h1>
+        <p>Calculate the difference between two dates, add or subtract days, or determine future and past dates with ease. Perfect for planning and scheduling.</p>
+      </section>
+
+      <section class="date-calculator-container">
+        <div class="date-background"></div>
+        <div class="calculation-mode">
+          <select id="calculationMode">
+            <option value="difference">Difference Between Dates</option>
+            <option value="addSubtract">Add/Subtract Days</option>
+          </select>
+        </div>
+        <div class="date-inputs" id="dateInputs">
+          <div class="date-input-group">
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" required>
+          </div>
+          <div class="date-input-group" id="endDateGroup">
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" required>
+          </div>
+          <div class="date-input-group" id="daysGroup" style="display: none;">
+            <label for="days">Days (+/-)</label>
+            <input type="number" id="days" placeholder="Enter number of days">
+          </div>
+        </div>
+        <div class="result-display" id="resultDisplay">Select dates to calculate</div>
+        <div class="date-controls">
+          <button id="calculateBtn" aria-label="Calculate">Calculate</button>
+          <button id="resetBtn" aria-label="Reset">Reset</button>
+        </div>
+      </section>
+
+      <section class="settings-panel">
+        <h2>Using Your Date Calculator</h2>
+        <p>Choose a calculation mode, input your dates or days, and click "Calculate" to see results. Use "Reset" to clear inputs. Switch between modes to perform different calculations.</p>
+      </section>
+    </main>
+
+    <aside class="right-sidebar">
+      <div class="widget">
+        <h3>Related Tools</h3>
+        <ul class="widget-list">
+          <li><a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>Quick Tips</h3>
+        <ul class="widget-list">
+          <li>Select "Difference" to find days between dates.</li>
+          <li>Use "Add/Subtract" to calculate future/past dates.</li>
+          <li>Enter negative days to subtract.</li>
+          <li>Reset to clear all inputs.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code, and time management</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Time & Date Tools</h3>
+        <ul>
+          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa"></i> Contact</li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+    const burgerIcon = document.querySelector('.burger-icon');
+    const calculationMode = document.querySelector('#calculationMode');
+    const dateInputs = document.querySelector('#dateInputs');
+    const startDateInput = document.querySelector('#startDate');
+    const endDateInput = document.querySelector('#endDate');
+    const daysInput = document.querySelector('#days');
+    const endDateGroup = document.querySelector('#endDateGroup');
+    const daysGroup = document.querySelector('#daysGroup');
+    const calculateBtn = document.querySelector('#calculateBtn');
+    const resetBtn = document.querySelector('#resetBtn');
+    const resultDisplay = document.querySelector('#resultDisplay');
+
+    function toggleCalculationMode() {
+      const mode = calculationMode.value;
+      if (mode === 'difference') {
+        endDateGroup.style.display = 'flex';
+        daysGroup.style.display = 'none';
+        daysInput.value = '';
+      } else {
+        endDateGroup.style.display = 'none';
+        daysGroup.style.display = 'flex';
+        endDateInput.value = '';
+      }
+      resultDisplay.textContent = '';
+    }
+
+    function calculateDifference(startDate, endDate) {
+      const diffMs = endDate - startDate;
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      return diffDays >= 0 
+        ? `${diffDays} day${diffDays === 1 ? '' : 's'}`
+        : `${Math.abs(diffDays)} day${Math.abs(diffDays) === 1 ? '' : 's'} ago`;
+    }
+
+    function addSubtractDays(startDate, days) {
+      const resultDate = new Date(startDate);
+      resultDate.setDate(startDate.getDate() + parseInt(days));
+      return resultDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    function validateInputs() {
+      if (calculationMode.value === 'difference') {
+        return startDateInput.value && endDateInput.value;
+      } else {
+        return startDateInput.value && daysInput.value && !isNaN(parseInt(daysInput.value));
+      }
+    }
+
+    function calculate() {
+      if (!validateInputs()) {
+        resultDisplay.textContent = 'Please fill all required fields';
+        return;
+      }
+
+      const startDate = new Date(startDateInput.value);
+      if (calculationMode.value === 'difference') {
+        const endDate = new Date(endDateInput.value);
+        resultDisplay.textContent = calculateDifference(startDate, endDate);
+      } else {
+        const days = parseInt(daysInput.value);
+        resultDisplay.textContent = addSubtractDays(startDate, days);
+      }
+    }
+
+    function reset() {
+      startDateInput.value = '';
+      endDateInput.value = '';
+      daysInput.value = '';
+      resultDisplay.textContent = 'Select dates to calculate';
+      calculationMode.value = 'difference';
+      toggleCalculationMode();
+    }
+
+    calculationMode.addEventListener('change', toggleCalculationMode);
+    calculateBtn.addEventListener('click', calculate);
+    resetBtn.addEventListener('click', reset);
+
+    burgerIcon.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = 'auto';
+    });
+
+    document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.parentElement.classList.toggle('active');
+      });
+    });
+
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      if (window.matchMedia('(prefers-color: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+
+    // Initialize
+    toggleCalculationMode();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Clock - ToolPix</title>
+  <meta name="description" content="Interactive world clock to track time across multiple cities and timezones. Search countries, customize formats, and view in full-screen mode.">
+  <meta name="keywords" content="world clock, timezone, digital clock, time, 12-hour clock, 24-hour clock">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/world-clock" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="World Clock - ToolPix">
+  <meta property="og:description" content="Track time in multiple cities with our customizable world clock. Free and easy to use.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/world-clock">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixtime-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="World Clock - ToolPix">
+  <meta name="twitter:description" content="Track time in multiple cities with our customizable world clock.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixtime-twitter-card.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+      --scrollbar-bg: #e0e0e0;
+      --scrollbar-thumb: #4CAF50;
+      --scrollbar-thumb-hover: #45a049;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+      --scrollbar-bg: #333;
+      --scrollbar-thumb: #4CAF50;
+      --scrollbar-thumb-hover: #45a049;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+        --scrollbar-bg: #333;
+        --scrollbar-thumb: #4CAF50;
+        --scrollbar-thumb-hover: #45a049;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center { text-align: center; }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .burger-icon, .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .burger-icon:hover, .search-icon-btn:hover {
+      color: var(--primary-light);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: var(--transition);
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+      overflow-y: auto;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar a:hover { background: rgba(0,0,0,0.05); }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+
+    .sidebar-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 1.5rem;
+    }
+
+    .sidebar-dropdown a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-item.has-dropdown.active .sidebar-dropdown {
+      max-height: 500px;
+    }
+
+    .sidebar-item.has-dropdown > a::after {
+      content: '+';
+      margin-left: auto;
+      transition: var(--transition);
+    }
+
+    .sidebar-item.has-dropdown.active > a::after {
+      content: '-';
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .main-container {
+      display: flex;
+      margin: 0;
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .right-sidebar {
+      width: 350px;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    .world-clock-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 15px var(--shadow-md);
+      max-width: 1200px;
+      width: 100%;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 80vh; /* Ensure container doesn't grow too tall */
+    }
+
+    .world-clock-container::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .world-clock-container::-webkit-scrollbar-track {
+      background: var(--scrollbar-bg);
+      border-radius: 5px;
+      margin: 5px 0;
+    }
+
+    .world-clock-container::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 5px;
+      border: 2px solid var(--scrollbar-bg);
+    }
+
+    .world-clock-container::-webkit-scrollbar-thumb:hover {
+      background: var(--scrollbar-thumb-hover);
+    }
+
+    .world-clock-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--card-bg);
+      padding: 1rem 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .world-clock-controls input, .world-clock-controls select, .world-clock-controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .world-clock-controls input:hover, .world-clock-controls select:hover, .world-clock-controls button:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+    }
+
+    .timezone-search-container {
+      position: relative;
+      width: 250px;
+      max-width: 100%;
+    }
+
+    #timezoneSearch {
+      width: 100%;
+      padding-right: 2rem;
+      box-sizing: border-box;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .timezone-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 10;
+      display: none;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .timezone-dropdown.show {
+      display: block;
+    }
+
+    .timezone-dropdown::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .timezone-dropdown::-webkit-scrollbar-track {
+      background: var(--scrollbar-bg);
+      border-radius: 4px;
+    }
+
+    .timezone-dropdown::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 4px;
+    }
+
+    .timezone-dropdown::-webkit-scrollbar-thumb:hover {
+      background: var(--scrollbar-thumb-hover);
+    }
+
+    .timezone-option {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .timezone-option:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .world-clock-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .clock-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .clock-card:hover {
+      transform: scale(1.05);
+    }
+
+    .clock-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .clock-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .clock-card-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .zoom-icon, .delete-icon {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .zoom-icon:hover, .delete-icon:hover {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .clock-display {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+      letter-spacing: 1px;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+
+    .clock-date {
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    .clock-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: -1;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      animation: bg-shift 10s infinite;
+    }
+
+    @keyframes bg-shift {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .clock-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--card-bg);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .clock-popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .clock-popup .clock-display {
+      font-size: 6rem;
+      margin-bottom: 2rem;
+    }
+
+    .clock-popup .clock-date {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-popup:hover {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .settings-panel {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .settings-panel h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .widget {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .widget h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .widget-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .widget-list li {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .widget-list li:last-child { border-bottom: none; }
+
+    .widget-list a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .widget-list a:hover {
+      color: var(--secondary-dark);
+      text-decoration: underline;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+      width: 100%;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .right-sidebar { display: none; }
+      .main-container { flex-direction: column; }
+      main { max-width: 100%; }
+      .world-clock-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+      .clock-display { font-size: 2rem; }
+      .clock-date { font-size: 0.9rem; }
+      .clock-popup .clock-display { font-size: 4rem; }
+      .clock-popup .clock-date { font-size: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .world-clock-container { padding: 1.5rem; }
+      .clock-display { font-size: 1.8rem; }
+      .clock-date { font-size: 0.8rem; }
+      .clock-popup .clock-display { font-size: 3rem; }
+      .clock-popup .clock-date { font-size: 1.2rem; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+      .timezone-search-container { width: 200px; }
+    }
+
+    @media (max-width: 576px) {
+      .header-container { padding: 1rem; }
+      .header-title { font-size: 1.2rem; }
+      .logo { font-size: 1.5rem; }
+      .world-clock-grid { grid-template-columns: 1fr; }
+      .clock-display { font-size: 1.5rem; }
+      .clock-date { font-size: 0.7rem; }
+      .clock-popup .clock-display { font-size: 2.5rem; }
+      .clock-popup .clock-date { font-size: 1rem; }
+      .footer-container { grid-template-columns: 1fr; }
+      .world-clock-controls input, .world-clock-controls select, .world-clock-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+      .timezone-search-container { width: 100%; }
+    }
+
+    @media (min-width: 992px) {
+      .sidebar { left: 0; }
+      .main-container { margin-left: 280px; }
+      .burger-icon { display: none; }
+      .sidebar-overlay { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">TOOL PIX</span>
+      </div>
+      <div class="header-right">
+        <button class="search-icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+        <button class="burger-icon" aria-label="Menu">☰</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <nav>
+        <a href="../"><i class="fas fa-home"></i> Home</a>
+        <div class="sidebar-item has-dropdown active">
+          <a href="./" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
+          <div class="sidebar-dropdown">
+            <a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="../date-time/world-clock" class="active"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
+          </div>
+        </div>
+        <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
+      </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </header>
+
+  <div class="main-container">
+    <main>
+      <section class="category-intro">
+        <h1>World Clock</h1>
+        <p>Track time across all countries and timezones with our interactive world clock. Search by country or city to add more, customize time formats, and view in full-screen mode.</p>
+      </section>
+
+      <section class="world-clock-container">
+        <div class="clock-background"></div>
+        <div class="world-clock-controls">
+          <div class="timezone-search-container">
+            <input type="text" id="timezoneSearch" placeholder="Search country or city" aria-label="Search timezone">
+            <i class="fas fa-search search-icon"></i>
+            <div class="timezone-dropdown" id="timezoneDropdown"></div>
+          </div>
+          <select id="timeFormat" aria-label="Select time format">
+            <option value="24">24-Hour</option>
+            <option value="12">12-Hour</option>
+          </select>
+          <button id="toggleSeconds" aria-label="Toggle seconds display">Hide Seconds</button>
+        </div>
+        <div class="world-clock-grid" id="worldClockGrid">
+          <!-- Clocks will be dynamically added here -->
+        </div>
+      </section>
+
+      <div class="clock-popup" id="clockPopup">
+        <button class="close-popup" aria-label="Close popup"><i class="fas fa-times"></i></button>
+        <div class="clock-background"></div>
+        <div class="clock-display" id="popupClockDisplay">00:00:00</div>
+        <div class="clock-date" id="popupDateDisplay">January 1, 2025</div>
+        <div class="clock-card-title" id="popupClockTitle">City</div>
+      </div>
+
+      <section class="settings-panel">
+        <h2>Customize Your World Clock</h2>
+        <p>View all countries' timezones, search to add more, choose between 12-hour or 24-hour formats, toggle seconds display, or click the zoom icon to view a clock in full-screen mode.</p>
+      </section>
+    </main>
+
+    <aside class="right-sidebar">
+      <div class="widget">
+        <h3>Related Tools</h3>
+        <ul class="widget-list">
+          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>Quick Tips</h3>
+        <ul class="widget-list">
+          <li>Scroll to view all country timezones.</li>
+          <li>Search for a country or city to add its time.</li>
+          <li>Remove a clock by clicking the trash icon.</li>
+          <li>Toggle seconds for a cleaner display.</li>
+          <li>Click the zoom icon for a full-screen clock view.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code, and time management</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Time & Date Tools</h3>
+        <ul>
+          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+    const burgerIcon = document.querySelector('.burger-icon');
+    const searchIconBtn = document.querySelector('.search-icon-btn');
+    const timezoneSearch = document.getElementById('timezoneSearch');
+    const timezoneDropdown = document.getElementById('timezoneDropdown');
+    const timeFormatSelect = document.getElementById('timeFormat');
+    const toggleSecondsBtn = document.getElementById('toggleSeconds');
+    const worldClockGrid = document.getElementById('worldClockGrid');
+    const clockPopup = document.getElementById('clockPopup');
+    const closePopup = document.querySelector('.close-popup');
+    const popupClockDisplay = document.getElementById('popupClockDisplay');
+    const popupDateDisplay = document.getElementById('popupDateDisplay');
+    const popupClockTitle = document.getElementById('popupClockTitle');
+
+    let showSeconds = true;
+    let selectedTimezones = [];
+
+    // Comprehensive timezone list with country and city
+    const timezones = [
+      { timezone: 'Africa/Abidjan', label: 'Abidjan, Ivory Coast' },
+      { timezone: 'Africa/Accra', label: 'Accra, Ghana' },
+      { timezone: 'Africa/Addis_Ababa', label: 'Addis Ababa, Ethiopia' },
+      { timezone: 'Africa/Algiers', label: 'Algiers, Algeria' },
+      { timezone: 'Africa/Asmara', label: 'Asmara, Eritrea' },
+      { timezone: 'Africa/Bamako', label: 'Bamako, Mali' },
+      { timezone: 'Africa/Bangui', label: 'Bangui, Central African Republic' },
+      { timezone: 'Africa/Banjul', label: 'Banjul, Gambia' },
+      { timezone: 'Africa/Bissau', label: 'Bissau, Guinea-Bissau' },
+      { timezone: 'Africa/Blantyre', label: 'Blantyre, Malawi' },
+      { timezone: 'Africa/Brazzaville', label: 'Brazzaville, Congo' },
+      { timezone: 'Africa/Bujumbura', label: 'Bujumbura, Burundi' },
+      { timezone: 'Africa/Cairo', label: 'Cairo, Egypt' },
+      { timezone: 'Africa/Casablanca', label: 'Casablanca, Morocco' },
+      { timezone: 'Africa/Conakry', label: 'Conakry, Guinea' },
+      { timezone: 'Africa/Dakar', label: 'Dakar, Senegal' },
+      { timezone: 'Africa/Dar_es_Salaam', label: 'Dar es Salaam, Tanzania' },
+      { timezone: 'Africa/Djibouti', label: 'Djibouti, Djibouti' },
+      { timezone: 'Africa/Douala', label: 'Douala, Cameroon' },
+      { timezone: 'Africa/Freetown', label: 'Freetown, Sierra Leone' },
+      { timezone: 'Africa/Gaborone', label: 'Gaborone, Botswana' },
+      { timezone: 'Africa/Harare', label: 'Harare, Zimbabwe' },
+      { timezone: 'Africa/Johannesburg', label: 'Johannesburg, South Africa' },
+      { timezone: 'Africa/Kampala', label: 'Kampala, Uganda' },
+      { timezone: 'Africa/Khartoum', label: 'Khartoum, Sudan' },
+      { timezone: 'Africa/Kigali', label: 'Kigali, Rwanda' },
+      { timezone: 'Africa/Kinshasa', label: 'Kinshasa, DR Congo' },
+      { timezone: 'Africa/Lagos', label: 'Lagos, Nigeria' },
+      { timezone: 'Africa/Libreville', label: 'Libreville, Gabon' },
+      { timezone: 'Africa/Lome', label: 'Lome, Togo' },
+      { timezone: 'Africa/Luanda', label: 'Luanda, Angola' },
+      { timezone: 'Africa/Lusaka', label: 'Lusaka, Zambia' },
+      { timezone: 'Africa/Malabo', label: 'Malabo, Equatorial Guinea' },
+      { timezone: 'Africa/Maputo', label: 'Maputo, Mozambique' },
+      { timezone: 'Africa/Maseru', label: 'Maseru, Lesotho' },
+      { timezone: 'Africa/Mbabane', label: 'Mbabane, Eswatini' },
+      { timezone: 'Africa/Mogadishu', label: 'Mogadishu, Somalia' },
+      { timezone: 'Africa/Monrovia', label: 'Monrovia, Liberia' },
+      { timezone: 'Africa/Nairobi', label: 'Nairobi, Kenya' },
+      { timezone: 'Africa/Ndjamena', label: 'Ndjamena, Chad' },
+      { timezone: 'Africa/Niamey', label: 'Niamey, Niger' },
+      { timezone: 'Africa/Nouakchott', label: 'Nouakchott, Mauritania' },
+      { timezone: 'Africa/Ouagadougou', label: 'Ouagadougou, Burkina Faso' },
+      { timezone: 'Africa/Porto-Novo', label: 'Porto-Novo, Benin' },
+      { timezone: 'Africa/Sao_Tome', label: 'Sao Tome, Sao Tome and Principe' },
+      { timezone: 'Africa/Tripoli', label: 'Tripoli, Libya' },
+      { timezone: 'Africa/Tunis', label: 'Tunis, Tunisia' },
+      { timezone: 'Africa/Windhoek', label: 'Windhoek, Namibia' },
+      { timezone: 'America/Anchorage', label: 'Anchorage, USA' },
+      { timezone: 'America/Anguilla', label: 'The Valley, Anguilla' },
+      { timezone: 'America/Antigua', label: 'St. John\'s, Antigua and Barbuda' },
+      { timezone: 'America/Araguaina', label: 'Araguaina, Brazil' },
+      { timezone: 'America/Argentina/Buenos_Aires', label: 'Buenos Aires, Argentina' },
+      { timezone: 'America/Aruba', label: 'Oranjestad, Aruba' },
+      { timezone: 'America/Asuncion', label: 'Asuncion, Paraguay' },
+      { timezone: 'America/Barbados', label: 'Bridgetown, Barbados' },
+      { timezone: 'America/Belize', label: 'Belmopan, Belize' },
+      { timezone: 'America/Bogota', label: 'Bogota, Colombia' },
+      { timezone: 'America/Caracas', label: 'Caracas, Venezuela' },
+      { timezone: 'America/Cayman', label: 'George Town, Cayman Islands' },
+      { timezone: 'America/Chicago', label: 'Chicago, USA' },
+      { timezone: 'America/Costa_Rica', label: 'San Jose, Costa Rica' },
+      { timezone: 'America/Curacao', label: 'Willemstad, Curacao' },
+      { timezone: 'America/Dominica', label: 'Roseau, Dominica' },
+      { timezone: 'America/El_Salvador', label: 'San Salvador, El Salvador' },
+      { timezone: 'America/Grenada', label: 'St. George\'s, Grenada' },
+      { timezone: 'America/Guatemala', label: 'Guatemala City, Guatemala' },
+      { timezone: 'America/Guyana', label: 'Georgetown, Guyana' },
+      { timezone: 'America/Havana', label: 'Havana, Cuba' },
+      { timezone: 'America/Jamaica', label: 'Kingston, Jamaica' },
+      { timezone: 'America/La_Paz', label: 'La Paz, Bolivia' },
+      { timezone: 'America/Lima', label: 'Lima, Peru' },
+      { timezone: 'America/Los_Angeles', label: 'Los Angeles, USA' },
+      { timezone: 'America/Managua', label: 'Managua, Nicaragua' },
+      { timezone: 'America/Mexico_City', label: 'Mexico City, Mexico' },
+      { timezone: 'America/Montevideo', label: 'Montevideo, Uruguay' },
+      { timezone: 'America/Nassau', label: 'Nassau, Bahamas' },
+      { timezone: 'America/New_York', label: 'New York, USA' },
+      { timezone: 'America/Panama', label: 'Panama City, Panama' },
+      { timezone: 'America/Port-au-Prince', label: 'Port-au-Prince, Haiti' },
+      { timezone: 'America/Port_of_Spain', label: 'Port of Spain, Trinidad and Tobago' },
+      { timezone: 'America/Puerto_Rico', label: 'San Juan, Puerto Rico' },
+      { timezone: 'America/Santiago', label: 'Santiago, Chile' },
+      { timezone: 'America/Santo_Domingo', label: 'Santo Domingo, Dominican Republic' },
+      { timezone: 'America/Sao_Paulo', label: 'Sao Paulo, Brazil' },
+      { timezone: 'America/Tegucigalpa', label: 'Tegucigalpa, Honduras' },
+      { timezone: 'America/Toronto', label: 'Toronto, Canada' },
+      { timezone: 'Antarctica/McMurdo', label: 'McMurdo Station, Antarctica' },
+      { timezone: 'Asia/Amman', label: 'Amman, Jordan' },
+      { timezone: 'Asia/Baghdad', label: 'Baghdad, Iraq' },
+      { timezone: 'Asia/Baku', label: 'Baku, Azerbaijan' },
+      { timezone: 'Asia/Bangkok', label: 'Bangkok, Thailand' },
+      { timezone: 'Asia/Beirut', label: 'Beirut, Lebanon' },
+      { timezone: 'Asia/Colombo', label: 'Colombo, Sri Lanka' },
+      { timezone: 'Asia/Damascus', label: 'Damascus, Syria' },
+      { timezone: 'Asia/Dhaka', label: 'Dhaka, Bangladesh' },
+      { timezone: 'Asia/Dubai', label: 'Dubai, UAE' },
+      { timezone: 'Asia/Ho_Chi_Minh', label: 'Ho Chi Minh City, Vietnam' },
+      { timezone: 'Asia/Hong_Kong', label: 'Hong Kong, Hong Kong' },
+      { timezone: 'Asia/Jakarta', label: 'Jakarta, Indonesia' },
+      { timezone: 'Asia/Jerusalem', label: 'Jerusalem, Israel' },
+      { timezone: 'Asia/Kabul', label: 'Kabul, Afghanistan' },
+      { timezone: 'Asia/Kathmandu', label: 'Kathmandu, Nepal' },
+      { timezone: 'Asia/Kolkata', label: 'Mumbai, India' },
+      { timezone: 'Asia/Kuala_Lumpur', label: 'Kuala Lumpur, Malaysia' },
+      { timezone: 'Asia/Kuwait', label: 'Kuwait City, Kuwait' },
+      { timezone: 'Asia/Manila', label: 'Manila, Philippines' },
+      { timezone: 'Asia/Muscat', label: 'Muscat, Oman' },
+      { timezone: 'Asia/Phnom_Penh', label: 'Phnom Penh, Cambodia' },
+      { timezone: 'Asia/Qatar', label: 'Doha, Qatar' },
+      { timezone: 'Asia/Riyadh', label: 'Riyadh, Saudi Arabia' },
+      { timezone: 'Asia/Seoul', label: 'Seoul, South Korea' },
+      { timezone: 'Asia/Shanghai', label: 'Shanghai, China' },
+      { timezone: 'Asia/Singapore', label: 'Singapore, Singapore' },
+      { timezone: 'Asia/Taipei', label: 'Taipei, Taiwan' },
+      { timezone: 'Asia/Tashkent', label: 'Tashkent, Uzbekistan' },
+      { timezone: 'Asia/Tbilisi', label: 'Tbilisi, Georgia' },
+      { timezone: 'Asia/Tehran', label: 'Tehran, Iran' },
+      { timezone: 'Asia/Thimphu', label: 'Thimphu, Bhutan' },
+      { timezone: 'Asia/Tokyo', label: 'Tokyo, Japan' },
+      { timezone: 'Asia/Ulaanbaatar', label: 'Ulaanbaatar, Mongolia' },
+      { timezone: 'Asia/Yangon', label: 'Yangon, Myanmar' },
+      { timezone: 'Asia/Yerevan', label: 'Yerevan, Armenia' },
+      { timezone: 'Australia/Adelaide', label: 'Adelaide, Australia' },
+      { timezone: 'Australia/Brisbane', label: 'Brisbane, Australia' },
+      { timezone: 'Australia/Darwin', label: 'Darwin, Australia' },
+      { timezone: 'Australia/Melbourne', label: 'Melbourne, Australia' },
+      { timezone: 'Australia/Perth', label: 'Perth, Australia' },
+      { timezone: 'Australia/Sydney', label: 'Sydney, Australia' },
+      { timezone: 'Europe/Amsterdam', label: 'Amsterdam, Netherlands' },
+      { timezone: 'Europe/Athens', label: 'Athens, Greece' },
+      { timezone: 'Europe/Belgrade', label: 'Belgrade, Serbia' },
+      { timezone: 'Europe/Berlin', label: 'Berlin, Germany' },
+      { timezone: 'Europe/Brussels', label: 'Brussels, Belgium' },
+      { timezone: 'Europe/Bucharest', label: 'Bucharest, Romania' },
+      { timezone: 'Europe/Budapest', label: 'Budapest, Hungary' },
+      { timezone: 'Europe/Copenhagen', label: 'Copenhagen, Denmark' },
+      { timezone: 'Europe/Dublin', label: 'Dublin, Ireland' },
+      { timezone: 'Europe/Helsinki', label: 'Helsinki, Finland' },
+      { timezone: 'Europe/Istanbul', label: 'Istanbul, Turkey' },
+      { timezone: 'Europe/Kiev', label: 'Kyiv, Ukraine' },
+      { timezone: 'Europe/Lisbon', label: 'Lisbon, Portugal' },
+      { timezone: 'Europe/London', label: 'London, UK' },
+      { timezone: 'Europe/Madrid', label: 'Madrid, Spain' },
+      { timezone: 'Europe/Minsk', label: 'Minsk, Belarus' },
+      { timezone: 'Europe/Moscow', label: 'Moscow, Russia' },
+      { timezone: 'Europe/Oslo', label: 'Oslo, Norway' },
+      { timezone: 'Europe/Paris', label: 'Paris, France' },
+      { timezone: 'Europe/Prague', label: 'Prague, Czech Republic' },
+      { timezone: 'Europe/Riga', label: 'Riga, Latvia' },
+      { timezone: 'Europe/Rome', label: 'Rome, Italy' },
+      { timezone: 'Europe/Stockholm', label: 'Stockholm, Sweden' },
+      { timezone: 'Europe/Tallinn', label: 'Tallinn, Estonia' },
+      { timezone: 'Europe/Vienna', label: 'Vienna, Austria' },
+      { timezone: 'Europe/Warsaw', label: 'Warsaw, Poland' },
+      { timezone: 'Europe/Zurich', label: 'Zurich, Switzerland' },
+      { timezone: 'Pacific/Auckland', label: 'Auckland, New Zealand' },
+      { timezone: 'Pacific/Fiji', label: 'Suva, Fiji' },
+      { timezone: 'Pacific/Guam', label: 'Hagatna, Guam' },
+      { timezone: 'Pacific/Honolulu', label: 'Honolulu, USA' },
+      { timezone: 'Pacific/Noumea', label: 'Noumea, New Caledonia' },
+      { timezone: 'Pacific/Pago_Pago', label: 'Pago Pago, American Samoa' },
+      { timezone: 'Pacific/Port_Moresby', label: 'Port Moresby, Papua New Guinea' },
+      { timezone: 'Pacific/Tongatapu', label: 'Nuku\'alofa, Tonga' }
+    ];
+
+    function createClockCard(timezone, label) {
+      const clockCard = document.createElement('div');
+      clockCard.className = 'clock-card';
+      clockCard.dataset.timezone = timezone;
+      clockCard.innerHTML = `
+        <div class="clock-background"></div>
+        <div class="clock-card-header">
+          <div class="clock-card-title">${label}</div>
+          <div class="clock-card-actions">
+            <button class="zoom-icon" aria-label="Zoom clock"><i class="fas fa-expand"></i></button>
+            <button class="delete-icon" aria-label="Remove clock"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+        <div class="clock-display">00:00:00</div>
+        <div class="clock-date">January 1, 2025</div>
+      `;
+      worldClockGrid.insertBefore(clockCard, worldClockGrid.firstChild); // Add at the top
+
+      // Add event listeners
+      clockCard.querySelector('.zoom-icon').addEventListener('click', () => {
+        popupClockTitle.textContent = label;
+        clockPopup.dataset.timezone = timezone;
+        clockPopup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        updatePopupClock();
+      });
+
+      clockCard.querySelector('.delete-icon').addEventListener('click', () => {
+        worldClockGrid.removeChild(clockCard);
+        selectedTimezones = selectedTimezones.filter(tz => tz.timezone !== timezone);
+      });
+    }
+
+    function updateClocks() {
+      const is12Hour = timeFormatSelect.value === '12';
+      worldClockGrid.querySelectorAll('.clock-card').forEach(card => {
+        const timezone = card.dataset.timezone;
+        const now = new Date(new Date().toLocaleString('en-US', { timeZone: timezone }));
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        card.querySelector('.clock-date').textContent = now.toLocaleDateString('en-US', options);
+
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = is12Hour ? (hours % 12) || 12 : hours;
+
+        const timeString = showSeconds
+          ? `${displayHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}${is12Hour ? ' ' + ampm : ''}`
+          : `${displayHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}${is12Hour ? ' ' + ampm : ''}`;
+
+        card.querySelector('.clock-display').textContent = timeString;
+      });
+
+      if (clockPopup.classList.contains('active')) {
+        updatePopupClock();
+      }
+    }
+
+    function updatePopupClock() {
+      const timezone = clockPopup.dataset.timezone;
+      if (!timezone) return;
+      const now = new Date(new Date().toLocaleString('en-US', { timeZone: timezone }));
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      popupDateDisplay.textContent = now.toLocaleDateString('en-US', options);
+
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      const is12Hour = timeFormatSelect.value === '12';
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const displayHours = is12Hour ? (hours % 12) || 12 : hours;
+
+      const timeString = showSeconds
+        ? `${displayHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}${is12Hour ? ' ' + ampm : ''}`
+        : `${displayHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}${is12Hour ? ' ' + ampm : ''}`;
+
+      popupClockDisplay.textContent = timeString;
+    }
+
+    function filterTimezones(query) {
+      return timezones.filter(tz => 
+        tz.label.toLowerCase().includes(query.toLowerCase()) &&
+        !selectedTimezones.some(st => st.timezone === tz.timezone)
+      );
+    }
+
+    function updateTimezoneDropdown(query = '') {
+      const filtered = filterTimezones(query);
+      timezoneDropdown.innerHTML = '';
+      if (filtered.length === 0) {
+        timezoneDropdown.classList.remove('show');
+        return;
+      }
+      filtered.forEach(tz => {
+        const option = document.createElement('div');
+        option.className = 'timezone-option';
+        option.textContent = tz.label;
+        option.dataset.timezone = tz.timezone;
+        option.addEventListener('click', () => {
+          selectedTimezones.push({ timezone: tz.timezone, label: tz.label });
+          createClockCard(tz.timezone, tz.label);
+          timezoneSearch.value = '';
+          timezoneDropdown.classList.remove('show');
+          updateClocks();
+        });
+        timezoneDropdown.appendChild(option);
+      });
+      timezoneDropdown.classList.add('show');
+    }
+
+    // Initialize with only Zurich and Warsaw
+    selectedTimezones = [
+      { timezone: 'Europe/Zurich', label: 'Zurich, Switzerland' },
+      { timezone: 'Europe/Warsaw', label: 'Warsaw, Poland' }
+    ];
+
+    // Create clock cards for selected timezones
+    selectedTimezones.forEach(tz => createClockCard(tz.timezone, tz.label));
+    setInterval(updateClocks, 1000);
+    updateClocks();
+
+    // Search functionality
+    timezoneSearch.addEventListener('input', () => {
+      updateTimezoneDropdown(timezoneSearch.value);
+    });
+
+    timezoneSearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && timezoneDropdown.firstChild) {
+        const firstOption = timezoneDropdown.firstChild;
+        selectedTimezones.push({ 
+          timezone: firstOption.dataset.timezone, 
+          label: firstOption.textContent 
+        });
+        createClockCard(firstOption.dataset.timezone, firstOption.textContent);
+        timezoneSearch.value = '';
+        timezoneDropdown.classList.remove('show');
+        updateClocks();
+      }
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!timezoneSearch.contains(e.target) && !timezoneDropdown.contains(e.target)) {
+        timezoneDropdown.classList.remove('show');
+      }
+    });
+
+    // Time format and seconds toggle
+    timeFormatSelect.addEventListener('change', updateClocks);
+    toggleSecondsBtn.addEventListener('click', () => {
+      showSeconds = !showSeconds;
+      toggleSecondsBtn.textContent = showSeconds ? 'Hide Seconds' : 'Show Seconds';
+      updateClocks();
+    });
+
+    // Popup close
+    closePopup.addEventListener('click', () => {
+      clockPopup.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    // Sidebar functionality
+    burgerIcon.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = 'auto';
+    });
+
+    document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.parentElement.classList.toggle('active');
+      });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

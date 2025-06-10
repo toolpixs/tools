@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Convert PNG, WebP, GIF, BMP, TIFF to ICO online for free with ToolPix's image converter. Fast, secure, and no software required. Perfect for bulk PNG to ICO, WebP to ICO, TIFF to ICO conversions, and more. Create favicons for websites or applications.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="convert PNG to ICO, WebP to ICO, GIF to ICO, BMP to ICO, TIFF to ICO, online image converter, free ICO converter, PNG to ICO online, WebP to ICO online, TIFF to ICO online, bulk image converter, favicon generator, free image to ICO tool, ToolPix converter, Time Load image tools, online favicon converter, high-quality ICO conversion, image optimization tool">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load">
+  <meta name="googlebot" content="index, follow">
+  <meta name="revisit-after" content="7 days">
+  <meta name="distribution" content="global">
+  <meta property="og:title" content="Convert PNG to ICO, WebP to ICO, TIFF to ICO - Free Online Image Converter | ToolPix">
+  <meta property="og:description" content="Convert PNG, WebP, GIF, BMP, TIFF to ICO for free with ToolPix. Fast, secure, no software needed. Ideal for bulk favicon conversions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.toolpix.com">
+  <meta property="og:image" content="https://www.toolpix.com/images/toolpix-og-image.jpg">
+  <meta property="og:site_name" content="ToolPix">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ToolPix - Free PNG, WebP, TIFF to ICO Converter">
+  <meta name="twitter:description" content="Effortlessly convert images to ICO with ToolPix. Supports PNG, WebP, GIF, BMP, TIFF. Fast, secure, and free with no downloads needed.">
+  <meta name="twitter:image" content="https://www.toolpix.com/images/toolpix-og-image.jpg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>Convert PNG to ICO, WebP to ICO, TIFF to ICO - Free Online Image Converter | ToolPix</title>
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ToolPix Image Converter",
+    "description": "Free online tool to convert PNG, WebP, GIF, BMP, and TIFF images to ICO. Fast, secure, and no software required. Ideal for bulk favicon conversions.",
+    "url": "https://www.toolpix.com",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Time Load",
+      "url": "https://www.toolpix.com"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1200"
+    },
+    "featureList": [
+      "Bulk image conversion",
+      "PNG to ICO",
+      "WebP to ICO",
+      "TIFF to ICO",
+      "Secure local processing",
+      "No software installation"
+    ],
+    "sameAs": [
+      "https://twitter.com/toolpix",
+      "https://www.facebook.com/toolpix"
+    ]
+  }
+  </script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2ecc71;
+      --primary-dark: #27ae60;
+      --secondary: #3498db;
+      --secondary-dark: #2980b9;
+      --danger: #e74c3c;
+      --danger-dark: #c0392b;
+      --text: #2c3e50;
+      --text-light: #7f8c8d;
+      --bg: #ecf0f1;
+      --card-bg: #ffffff;
+      --border: #dfe6e9;
+      --shadow: rgba(0,0,0,0.15);
+      --accent: #f1c40f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #ecf0f1;
+        --text-light: #b0b5b5;
+        --bg: #2c3e50;
+        --card-bg: #34495e;
+        --border: #4b5e7a;
+        --shadow: rgba(0,0,0,0.4);
+      }
+      .file-card {
+        background: var(--card-bg);
+      }
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      background-color: var(--bg);
+      padding: var(--header-padding, 1.5rem 2rem);
+      color: var(--text);
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .desktop-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .desktop-nav a:hover {
+      transform: translateY(-2px);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .burger-icon {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .burger-icon:hover {
+      background: rgba(0,0,0,0.15);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: left 0.3s ease;
+      z-index: 101;
+      box-shadow: 4px 0 15px var(--shadow);
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: rgba(0,0,0,0.1);
+      transform: translateX(5px);
+    }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(46,204,113,0.15);
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      .burger-icon {
+        display: flex;
+      }
+      main {
+        padding: 1rem;
+      }
+      .card, .upload-container, .file-table-container {
+        max-width: 100%;
+        margin: 0 0 1rem;
+        padding: 0.8rem;
+      }
+      .upload-area {
+        padding: 0.8rem;
+        min-height: 60px;
+        font-size: 0.8rem;
+      }
+      .upload-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+      }
+      .upload-subtext {
+        font-size: 0.7rem;
+      }
+      .upload-icon {
+        font-size: 2rem;
+        margin-bottom: 0.4rem;
+      }
+      .browse-btn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
+        margin-top: 0.4rem;
+      }
+      .floating-btn-container {
+        max-width: 100%;
+        padding: 0 8px;
+        gap: 8px;
+        justify-content: center;
+      }
+      .floating-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        min-width: 90px;
+      }
+      table {
+        display: block;
+      }
+      table thead {
+        display: none;
+      }
+      table tbody {
+        display: block;
+      }
+      table tr {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
+        background: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 6px var(--shadow);
+        padding: 0.6rem;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInRow 0.4s ease forwards;
+      }
+      table tr:nth-child(1) { animation-delay: 0.1s; }
+      table tr:nth-child(2) { animation-delay: 0.2s; }
+      table tr:nth-child(3) { animation-delay: 0.3s; }
+      table tr:nth-child(4) { animation-delay: 0.4s; }
+      table tr:nth-child(5) { animation-delay: 0.5s; }
+      table td {
+        display: flex;
+        align-items: center;
+        padding: 0.2rem 0;
+        text-align: left;
+        position: relative;
+        font-size: 0.8rem;
+      }
+      .file-preview {
+        width: 50px;
+        height: 50px;
+        margin-right: 0.5rem;
+        border-radius: 6px;
+      }
+      .file-name {
+        font-size: 0.85rem;
+        max-width: 100%;
+        padding-bottom: 0;
+        flex: 1;
+      }
+      .file-size, .source-format {
+        font-size: 0.75rem;
+        color: var(--text-light);
+      }
+      .file-format {
+        display: none;
+      }
+      .action-btn {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+      }
+      .remove-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+      }
+      .row-progress {
+        bottom: 0;
+        height: 2px;
+      }
+      .file-size, .source-format {
+        margin-right: 0.5rem;
+      }
+      table td:nth-child(1) {
+        width: auto;
+      }
+      table td:nth-child(2) {
+        flex: 1;
+        margin-bottom: 0.2rem;
+      }
+      table td:nth-child(3), table td:nth-child(4) {
+        flex: 0 0 auto;
+      }
+      table td:nth-child(5) {
+        display: none;
+      }
+      table td:nth-child(6) {
+        margin-top: 0.3rem;
+        text-align: right;
+        width: 100%;
+      }
+      .tooltip .tooltiptext {
+        font-size: 0.7rem;
+        width: 100px;
+        bottom: 120%;
+      }
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .card, .upload-container, .file-table-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    p, li {
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    ol, ul {
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    .upload-area {
+      background: var(--card-bg);
+      border: 3px dashed var(--border);
+      padding: 1.5rem;
+      border-radius: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      position: relative;
+    }
+
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: rgba(46,204,113,0.1);
+      transform: scale(1.02);
+    }
+
+    .upload-area.dragover {
+      border-color: var(--primary);
+      background: rgba(46,204,113,0.15);
+      transform: scale(1.03);
+    }
+
+    .browse-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-top: 1rem;
+    }
+
+    .browse-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .upload-text {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .upload-subtext {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .upload-area input {
+      display: none;
+    }
+
+    .file-table-container {
+      overflow-x: auto;
+      display: none;
+      position: relative;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table thead {
+      background: rgba(0,0,0,0.05);
+    }
+
+    table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 2px solid var(--border);
+    }
+
+    table tr {
+      border-bottom: 1px solid var(--border);
+      transition: all 0.2s ease;
+    }
+
+    @keyframes fadeInRow {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    table tr:hover {
+      background: rgba(0,0,0,0.05);
+    }
+
+    table td {
+      padding: 1rem;
+      text-align: left;
+      vertical-align: middle;
+      position: relative;
+    }
+
+    .file-preview {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .file-name {
+      font-weight: 500;
+      color: var(--text);
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-bottom: 0.5rem;
+    }
+
+    .file-size {
+      color: var(--text-light);
+    }
+
+    .file-format, .source-format {
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      font-size: 0.9rem;
+    }
+
+    .remove-btn {
+      background: none;
+      color: var(--danger);
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+
+    .remove-btn:hover {
+      background: rgba(231,76,60,0.15);
+    }
+
+    .download-btn {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .download-btn:hover {
+      background: var(--secondary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px var(--shadow);
+    }
+
+    .row-progress {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(0,0,0,0.1);
+      display: none;
+      z-index: 1;
+    }
+
+    .row-progress-bar {
+      width: 0%;
+      height: 4px;
+      background: var(--primary);
+      transition: width 0.3s ease-in-out;
+    }
+
+    .floating-btn-container {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      max-width: 900px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }
+
+    .floating-btn {
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--shadow);
+      display: none;
+      transition: all 0.3s ease;
+      min-width: 140px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .floating-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px var(--shadow);
+    }
+
+    #convertBtn {
+      background: var(--primary);
+    }
+
+    #convertBtn:hover {
+      background: var(--primary-dark);
+    }
+
+    #downloadBtn {
+      background: var(--secondary);
+    }
+
+    #downloadBtn:hover {
+      background: var(--secondary-dark);
+    }
+
+    #progressContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: none;
+    }
+
+    #progressBar {
+      width: 0%;
+      height: 5px;
+      background: var(--primary);
+      transition: width 0.2s ease;
+    }
+
+    .ad-top, .ad-bottom {
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.05);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    @media (min-width: 769px) {
+      .ad-top, .ad-bottom {
+        max-width: 900px;
+        margin: 1.5rem auto;
+      }
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 -4px 10px var(--shadow);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 900px;
+      margin: 1rem auto;
+      flex-wrap: wrap;
+    }
+
+    footer nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    footer nav a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 480px) {
+      footer nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .ad-space {
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      background: rgba(0,0,0,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 900px;
+      color: var(--text-light);
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background: var(--text);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 2;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      margin-bottom: 5px;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    .dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .dialog-overlay.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .dialog-box {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px var(--shadow);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .dialog-box.show {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .dialog-box h3 {
+      margin: 0 0 1rem;
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .dialog-box p {
+      margin: 0 0 1.5rem;
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    .dialog-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .dialog-btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .dialog-btn.confirm {
+      background: var(--primary);
+      color: white;
+    }
+
+    .dialog-btn.confirm:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .dialog-btn.cancel {
+      background: var(--danger);
+      color: white;
+    }
+
+    .dialog-btn.cancel:hover {
+      background: var(--danger-dark);
+      transform: translateY(-2px);
+    }
+
+    .dialog-btn.alert {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .dialog-btn.alert:hover {
+      background: var(--secondary-dark);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .dialog-box {
+        width: 95%;
+        padding: 1rem;
+      }
+      .dialog-box h3 {
+        font-size: 1.2rem;
+      }
+      .dialog-box p {
+        font-size: 0.9rem;
+      }
+      .dialog-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo">ToolPix</div>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#" class="active">to ICO</a>
+      <a href="../converters/to-png">to PNG</a>
+      <a href="../converters/to-pdf">to PDF</a>
+      <a href="../converters/to-jpeg">to JPEG</a>
+      <a href="../converters/to-webp">to WEBP</a>
+    </nav>
+    <button class="burger-icon" aria-label="Toggle menu">☰</button>
+  </div>
+  <div class="sidebar">
+    <nav aria-label="Mobile navigation">
+      <a href="#" class="active">to ICO</a>
+      <a href="../converters/to-png">to PNG</a>
+      <a href="../converters/to-pdf">to PDF</a>
+      <a href="../converters/to-jpeg">to JPEG</a>
+      <a href="../converters/to-webp">to WEBP</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Convert PNG, WebP, TIFF to ICO Online - Free Tool by ToolPix</h1>
+  <div class="ad-top">Advertisement</div>
+  <div class="upload-container">
+    <div class="upload-area pulse" id="uploadArea" role="button" tabindex="0" aria-label="Upload image files">
+      <div class="upload-icon">📂</div>
+      <p class="upload-text">Drag & Drop Your Images</p>
+      <button class="browse-btn">Browse Images</button>
+      <p class="upload-subtext">Supports PNG, WebP, GIF, BMP, TIFF</p>
+      <input type="file" id="fileInput" accept="image/png,image/jpeg,image/gif,image/bmp,image/webp,image/tiff" multiple aria-hidden="true">
+    </div>
+  </div>
+  <div class="file-table-container" id="fileTableContainer">
+    <table id="fileTable" role="grid">
+      <thead>
+        <tr>
+          <th scope="col">Preview</th>
+          <th scope="col">File Name</th>
+          <th scope="col">Size</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody id="fileTableBody">
+        <!-- Files will be added here dynamically -->
+      </tbody>
+    </table>
+  </div>
+  <div class="card introduction">
+    <h2>Convert Images to ICO with ToolPix</h2>
+    <p>Effortlessly convert <a href="#">PNG to ICO</a>, <a href="#">WebP to ICO</a>, <a href="#">TIFF to ICO</a>, and more with ToolPix's free online image converter. Create high-quality ICO files for website favicons or application icons. Our tool is fast, secure, and requires no software downloads, making it ideal for web developers and designers.</p>
+  </div>
+  <div class="card supported-formats">
+    <h2>Supported Image Formats for Conversion</h2>
+    <p>ToolPix supports a wide range of image formats for seamless conversion to ICO:</p>
+    <ul>
+      <li><a href="#">PNG to ICO</a> - Convert PNG images to ICO for favicon use.</li>
+      <li><a href="#">WebP to ICO</a> - Transform WebP images to ICO for browser compatibility.</li>
+      <li><a href="#">GIF to ICO</a> - Convert static GIFs to ICO for icon creation.</li>
+      <li><a href="#">BMP to ICO</a> - Convert BMP files to ICO for compact icons.</li>
+      <li><a href="#">TIFF to ICO</a> - Convert high-resolution TIFF images to ICO for professional use.</li>
+    </ul>
+  </div>
+  <div class="card benefits">
+    <h2>Why Convert to ICO Format?</h2>
+    <ul>
+      <li><strong>Favicon Support:</strong> ICO is the standard format for website favicons across browsers.</li>
+      <li><strong>Application Icons:</strong> Perfect for creating icons for desktop or mobile applications.</li>
+      <li><strong>Small File Sizes:</strong> ICO files are optimized for small, high-quality icons.</li>
+      <li><strong>Universal Compatibility:</strong> Supported by all major browsers and operating systems.</li>
+    </ul>
+  </div>
+  <div class="card features">
+    <h2>Why Choose ToolPix's ICO Converter?</h2>
+    <ul>
+      <li><strong>Bulk Conversion:</strong> Convert multiple images at once, including <a href="#">PNG to ICO</a> and <a href="#">WebP to ICO</a>.</li>
+      <li><strong>No Installation:</strong> Use our browser-based tool without downloading software.</li>
+      <li><strong>Secure Processing:</strong> All conversions are done locally on your device for maximum privacy.</li>
+      <li><strong>Intuitive Design:</strong> User-friendly interface for beginners and professionals alike.</li>
+      <li><strong>High Quality:</strong> Maintain image clarity for small-sized ICO files.</li>
+    </ul>
+  </div>
+  <div class="card how-to-use">
+    <h2>How to Convert Images to ICO with ToolPix</h2>
+    <ol>
+      <li>Drag and drop or click to upload your PNG, WebP, TIFF, GIF, or BMP images.</li>
+      <li>View uploaded images in the table with real-time previews.</li>
+      <li>Click 'Convert All' to transform images to ICO format (32x32 pixels).</li>
+      <li>Download converted ICOs individually or all at once for easy access.</li>
+    </ol>
+    <p>Our tool is optimized for speed and supports bulk conversions, making it perfect for web developers and designers.</p>
+  </div>
+  <div class="card guide">
+    <h2>Ultimate Guide to ICO Conversion</h2>
+    <p>Converting images to ICO is essential for creating favicons and application icons. Whether you're building a website or designing an app, ToolPix makes the process seamless. Here's why ICO conversion matters:</p>
+    <ul>
+      <li><strong>Website Branding:</strong> ICO files ensure consistent favicon display across browsers.</li>
+      <li><strong>File Size Optimization:</strong> Convert large files like TIFF to compact ICOs.</li>
+      <li><strong>Cross-Platform Use:</strong> ICO ensures compatibility with web and desktop applications.</li>
+    </ul>
+    <h3>Tips for Effective ICO Conversion</h3>
+    <ul>
+      <li>Use high-contrast images for clear favicon display.</li>
+      <li>Opt for square images to avoid distortion in ICO files.</li>
+      <li>Preview icons before downloading to ensure quality.</li>
+    </ul>
+    <p>Explore our <a href="#">blog</a> for more tips on favicon creation and image optimization.</p>
+  </div>
+  <div class="card testimonials">
+    <h2>What Our Users Say</h2>
+    <p>"ToolPix's PNG to ICO converter made creating favicons so easy. Perfect for my website!" - Sarah, Web Developer</p>
+    <p>"Converting TIFF to ICO was a breeze with ToolPix. High-quality results every time." - John, Designer</p>
+    <p>"I love how fast and secure this tool is. Great for bulk favicon conversions!" - Emma, App Developer</p>
+  </div>
+  <div class="card comparison">
+    <h2>ICO vs. Other Image Formats</h2>
+    <p>Choosing the right image format depends on your needs. Here's a quick comparison:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Format</th>
+          <th>Best For</th>
+          <th>File Size</th>
+          <th>Transparency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ICO</td>
+          <td>Favicons, app icons</td>
+          <td>Small</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>PNG</td>
+          <td>Logos, graphics with transparency</td>
+          <td>Medium</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>WebP</td>
+          <td>Web images with transparency</td>
+          <td>Small</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>TIFF</td>
+          <td>High-resolution printing</td>
+          <td>Large</td>
+          <td>Yes</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Convert to ICO for the best favicon and icon compatibility. Try our <a href="#">PNG to ICO converter</a> today!</p>
+  </div>
+  <div class="card faq">
+    <h2>Frequently Asked Questions About ICO Conversion</h2>
+    <h3>Is ToolPix's Image Converter Really Free?</h3>
+    <p>Yes, ToolPix offers a completely free online image converter with no hidden costs. Convert <a href="#">PNG to ICO</a>, <a href="#">WebP to ICO</a>, or <a href="#">TIFF to ICO</a> without any software installation.</p>
+    <h3>Can I Convert Multiple Images at Once?</h3>
+    <p>Absolutely! ToolPix supports bulk conversion, allowing you to upload and convert multiple PNG, WebP, GIF, BMP, or TIFF images to ICO in one go, saving you time and effort.</p>
+    <h3>Is My Data Secure During Conversion?</h3>
+    <p>Yes, all image conversions are processed locally on your device, ensuring your files remain private and secure. No data is uploaded to our servers.</p>
+    <h3>Why Should I Convert PNG to ICO?</h3>
+    <p>Converting PNG to ICO creates compact, high-quality icons ideal for website favicons and application icons.</p>
+    <h3>Does ToolPix Support TIFF to ICO Conversion?</h3>
+    <p>Yes, ToolPix efficiently converts high-resolution TIFF images to ICO, perfect for designers creating professional icons.</p>
+  </div>
+  <div class="card about">
+    <h2>About Time Load and ToolPix</h2>
+    <p><strong>Time Load</strong> is dedicated to simplifying your digital tasks with innovative tools. <strong>ToolPix</strong> offers a suite of free image conversion tools, including <a href="#">PNG to ICO</a>, <a href="#">WebP to ICO</a>, and <a href="#">TIFF to ICO</a> converters, designed for speed, reliability, and ease of use.</p>
+  </div>
+  <div class="ad-bottom">Advertisement</div>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <nav aria-label="Footer navigation">
+      <a href="../" class="tooltip">Home<span class="tooltiptext">Back to Homepage</span></a>
+      <a href="../converter" class="tooltip">Converters<span class="tooltiptext">Explore All Tools</span></a>
+      <a href="../terms" class="tooltip">Terms<span class="tooltiptext">Terms of Service</span></a>
+      <a href="../privacy" class="tooltip">Policy<span class="tooltiptext">Privacy Policy</span></a>
+      <a href="../blog" class="tooltip">Blog<span class="tooltiptext">Read Our Blog</span></a>
+    </nav>
+    <p>© 2025 Time Load. All Rights Reserved.</p>
+    <div class="ad-space">Advertisement</div>
+  </div>
+</footer>
+
+<div id="progressContainer" role="progressbar" aria-hidden="true">
+  <div id="progressBar"></div>
+</div>
+
+<div class="floating-btn-container">
+  <button class="floating-btn" id="convertBtn" aria-label="Convert all images to ICO">Convert All</button>
+  <button class="floating-btn" id="downloadBtn" aria-label="Download all converted images">Download All</button>
+</div>
+
+<div class="dialog-overlay" id="customDialog" role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogMessage">
+  <div class="dialog-box" id="dialogBox">
+    <h3 id="dialogTitle"></h3>
+    <p id="dialogMessage"></p>
+    <div class="dialog-buttons" id="dialogButtons"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/utif@2.0.1/utif.min.js"></script>
+<script>
+  const uploadArea = document.getElementById('uploadArea');
+  const fileInput = document.getElementById('fileInput');
+  const fileTableContainer = document.getElementById('fileTableContainer');
+  const fileTableBody = document.getElementById('fileTableBody');
+  const convertBtn = document.getElementById('convertBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const burgerIcon = document.querySelector('.burger-icon');
+  const sidebar = document.querySelector('.sidebar');
+  const dialogOverlay = document.getElementById('customDialog');
+  const dialogBox = document.getElementById('dialogBox');
+  const dialogTitle = document.getElementById('dialogTitle');
+  const dialogMessage = document.getElementById('dialogMessage');
+  const dialogButtons = document.getElementById('dialogButtons');
+
+  const acceptedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff'];
+  let selectedFiles = [];
+
+  function showDialog({ title, message, type = 'alert', confirmCallback = null, cancelCallback = null }) {
+    dialogTitle.textContent = title;
+    dialogMessage.textContent = message;
+    dialogButtons.innerHTML = '';
+
+    if (type === 'confirm') {
+      const confirmBtn = document.createElement('button');
+      confirmBtn.className = 'dialog-btn confirm';
+      confirmBtn.textContent = 'Confirm';
+      confirmBtn.onclick = () => {
+        hideDialog();
+        if (confirmCallback) confirmCallback();
+      };
+      confirmBtn.setAttribute('aria-label', 'Confirm action');
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.className = 'dialog-btn cancel';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.onclick = () => {
+        hideDialog();
+        if (cancelCallback) cancelCallback();
+      };
+      cancelBtn.setAttribute('aria-label', 'Cancel action');
+
+      dialogButtons.appendChild(confirmBtn);
+      dialogButtons.appendChild(cancelBtn);
+    } else {
+      const okBtn = document.createElement('button');
+      okBtn.className = 'dialog-btn alert';
+      okBtn.textContent = 'OK';
+      okBtn.onclick = hideDialog;
+      okBtn.setAttribute('aria-label', 'Close dialog');
+      dialogButtons.appendChild(okBtn);
+    }
+
+    dialogOverlay.classList.add('show');
+    dialogBox.classList.add('show');
+    dialogBox.focus();
+  }
+
+  function hideDialog() {
+    dialogOverlay.classList.remove('show');
+    dialogBox.classList.remove('show');
+  }
+
+  burgerIcon.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+    burgerIcon.setAttribute('aria-label', sidebar.classList.contains('open') ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target !== burgerIcon) {
+      sidebar.classList.remove('open');
+      burgerIcon.textContent = '☰';
+      burgerIcon.setAttribute('aria-label', 'Open menu');
+      document.body.style.overflow = '';
+    }
+    if (dialogOverlay.classList.contains('show') && e.target === dialogOverlay) {
+      hideDialog();
+    }
+  });
+
+  uploadArea.addEventListener('click', () => fileInput.click());
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+  });
+  uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    handleFiles(Array.from(e.dataTransfer.files));
+  });
+  fileInput.addEventListener('change', () => handleFiles(Array.from(fileInput.files)));
+  uploadArea.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') fileInput.click();
+  });
+
+  function handleFiles(files) {
+    const validFiles = files.filter(file => acceptedTypes.includes(file.type));
+    const invalidFiles = files.filter(file => !acceptedTypes.includes(file.type));
+    if (invalidFiles.length > 0) {
+      showDialog({
+        title: 'Invalid Files',
+        message: `The following files are not supported: ${invalidFiles.map(f => f.name).join(', ')}. Only PNG, JPEG, GIF, BMP, WebP, and TIFF are supported.`,
+        type: 'alert'
+      });
+    }
+    validFiles.forEach(file => {
+      selectedFiles.push({
+        file,
+        sourceType: file.type.split('/')[1].toUpperCase(),
+        name: file.name,
+        converted: false,
+        downloadUrl: null,
+        id: Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+      });
+    });
+    if (validFiles.length > 0) {
+      convertBtn.textContent = 'Convert All';
+      convertBtn.disabled = false;
+      renderTable();
+      fileTableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function renderTable() {
+    fileTableBody.innerHTML = '';
+    if (selectedFiles.length === 0) {
+      fileTableContainer.style.display = 'none';
+      convertBtn.style.display = 'none';
+      downloadBtn.style.display = 'none';
+      return;
+    }
+
+    fileTableContainer.style.display = 'block';
+    selectedFiles.forEach((item, index) => {
+      const { file, name, converted, downloadUrl, sourceType, id } = item;
+      const fileUrl = URL.createObjectURL(file);
+      const fileSize = (file.size / 1024).toFixed(2);
+      const shortName = name.length > 20 ? name.substring(0, 17) + '...' : name;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><img src="${fileUrl}" alt="Preview of ${name}" class="file-preview"></td>
+        <td class="file-name tooltip" aria-describedby="tooltip-${id}">${shortName}<span id="tooltip-${id}" class="tooltiptext">${name}</span></td>
+        <td class="file-size">${fileSize} KB</td>
+        <td class="source-format">${sourceType}</td>
+        <td class="file-format">ICO</td>
+        <td>
+          ${
+            converted
+              ? `<a href="${downloadUrl}" download="${name.replace(/\.[^/.]+$/, '.ico')}" class="action-btn download-btn tooltip" aria-label="Download ${name} as ICO"><span class="tooltiptext">Download File</span>Download</a>`
+              : `<button class="action-btn remove-btn tooltip" onclick="removeFile(${index})" aria-label="Remove ${name}"><span id="tooltip-${id}-remove" class="tooltiptext">Remove File</span>×</button>`
+          }
+          <div class="row-progress" id="progress-${id}"><div class="row-progress-bar"></div></div>
+        </td>
+      `;
+      fileTableBody.appendChild(row);
+    });
+
+    convertBtn.style.display = selectedFiles.some(f => !f.converted) ? 'inline-block' : 'none';
+    setupDownloadButton();
+  }
+
+  function removeFile(index) {
+    showDialog({
+      title: 'Remove File',
+      message: 'Are you sure you want to remove this file?',
+      type: 'confirm',
+      confirmCallback: () => {
+        const { file } = selectedFiles[index];
+        if (file.fileUrl) URL.revokeObjectURL(file.fileUrl);
+        selectedFiles.splice(index, 1);
+        renderTable();
+      }
+    });
+  }
+
+  convertBtn.addEventListener('click', async () => {
+    showDialog({
+      title: 'Convert Images',
+      message: 'Convert all selected images to ICO?',
+      type: 'confirm',
+      confirmCallback: async () => {
+        convertBtn.disabled = true;
+        convertBtn.textContent = 'Converting...';
+        showProgressBar();
+        const minConversionTime = 3000;
+        const conversionPromise = convertFiles();
+        const delayPromise = new Promise(resolve => setTimeout(resolve, minConversionTime));
+        try {
+          await Promise.all([conversionPromise, delayPromise]);
+          convertBtn.textContent = '✓ Converted!';
+          setTimeout(() => {
+            convertBtn.textContent = 'Convert All';
+            convertBtn.disabled = false;
+          }, 2000);
+        } catch (error) {
+          showDialog({
+            title: 'Conversion Failed',
+            message: 'Conversion failed. Please try again.',
+            type: 'alert'
+          });
+          console.error('Conversion error:', error);
+        } finally {
+          hideProgressBar();
+        }
+      }
+    });
+  });
+
+  function showProgressBar() {
+    const progressContainer = document.getElementById('progressContainer');
+    progressContainer.style.display = 'block';
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 2;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+      if (progress >= 100) clearInterval(interval);
+    }, 60);
+  }
+
+  function hideProgressBar() {
+    const progressContainer = document.getElementById('progressContainer');
+    progressContainer.style.display = 'none';
+    document.getElementById('progressBar').style.width = '0%';
+  }
+
+  function showRowProgress(id) {
+    const progressBar = document.getElementById(`progress-${id}`);
+    if (!progressBar) return;
+    progressBar.style.display = 'block';
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 2;
+      progressBar.querySelector('.row-progress-bar').style.width = `${progress}%`;
+      if (progress >= 100) clearInterval(interval);
+    }, 50);
+    return interval;
+  }
+
+  function hideRowProgress(id) {
+    const progressBar = document.getElementById(`progress-${id}`);
+    if (progressBar) {
+      progressBar.style.display = 'none';
+      progressBar.querySelector('.row-progress-bar').style.width = '0%';
+    }
+  }
+
+  async function convertFiles() {
+    const errors = [];
+    for (const [index, item] of selectedFiles.entries()) {
+      if (item.converted) continue;
+      const progressInterval = showRowProgress(item.id);
+      const file = item.file;
+      try {
+        let blob;
+        if (file.type === 'image/tiff') {
+          blob = await convertTiff(file);
+        } else {
+          blob = await convertImage(file);
+        }
+        const url = URL.createObjectURL(blob);
+        selectedFiles[index].converted = true;
+        selectedFiles[index].downloadUrl = url;
+      } catch (error) {
+        errors.push(`Failed to convert ${item.name}: ${error.message}`);
+        console.error(`Error converting ${item.name}:`, error);
+      } finally {
+        clearInterval(progressInterval);
+        hideRowProgress(item.id);
+        renderTable();
+        setupDownloadButton();
+      }
+    }
+
+    if (errors.length > 0) {
+      throw new Error(`Conversion completed with errors: ${errors.join('; ')}`);
+    }
+  }
+
+  async function convertTiff(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = function () {
+        try {
+          const buffer = reader.result;
+          const ifds = UTIF.decode(buffer);
+          const firstPage = ifds[0];
+          UTIF.decodeImage(buffer, firstPage);
+          const rgba = UTIF.toRGBA8(firstPage);
+
+          const canvas = document.createElement('canvas');
+          canvas.width = 32;
+          canvas.height = 32;
+
+          const ctx = canvas.getContext('2d');
+          const tempCanvas = document.createElement('canvas');
+          tempCanvas.width = firstPage.width;
+          tempCanvas.height = firstPage.height;
+          const tempCtx = tempCanvas.getContext('2d');
+          const imageData = tempCtx.createImageData(firstPage.width, firstPage.height);
+          imageData.data.set(rgba);
+          tempCtx.putImageData(imageData, 0, 0);
+          ctx.drawImage(tempCanvas, 0, 0, firstPage.width, firstPage.height, 0, 0, 32, 32);
+
+          canvas.toBlob((blob) => {
+            resolve(blob);
+          }, 'image/x-icon');
+        } catch (e) {
+          reject(e);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed to read TIFF file'));
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  async function convertImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 32;
+          canvas.height = 32;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 32, 32);
+
+          canvas.toBlob((blob) => {
+            resolve(blob);
+          }, 'image/x-icon');
+        };
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = event.target.result;
+      };
+      reader.onerror = () => reject(new Error('Failed to read image file'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function setupDownloadButton() {
+    const convertedItems = selectedFiles.filter(item => item.converted);
+    if (convertedItems.length > 0) {
+      downloadBtn.textContent =
+        convertedItems.length === 1
+          ? 'Download'
+          : `Download All (${convertedItems.length})`;
+      downloadBtn.style.display = 'inline-block';
+
+      downloadBtn.onclick = () => {
+        showDialog({
+          title: 'Download Images',
+          message: `Download ${convertedItems.length} converted image${convertedItems.length > 1 ? 's' : ''}?`,
+          type: 'confirm',
+          confirmCallback: () => {
+            convertedItems.forEach((item) => {
+              const link = document.createElement('a');
+              link.href = item.downloadUrl;
+              link.download = item.name.replace(/\.[^/.]+$/, '.ico');
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(item.downloadUrl);
+            });
+          }
+        });
+      };
+    } else {
+      downloadBtn.style.display = 'none';
+    }
+  }
+
+  window.removeFile = removeFile;
+</script>
+
+</body>
+</html>

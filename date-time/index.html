@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time & Date Tools - ToolPix</title>
+  <meta name="description" content="Explore free online time and date tools for clocks, calendars, time zones, timers, and more. No registration required.">
+  <meta name="keywords" content="time tools, date tools, digital clock, calendar, world clock, countdown timer, stopwatch, time zone converter">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/time-date-tools" />
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Time & Date Tools - ToolPix">
+  <meta property="og:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters. No sign-up needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/time-date-tools">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixtime-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Time & Date Tools - ToolPix">
+  <meta name="twitter:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixtime-twitter-card.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="./static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="./static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="./static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --ai-color: #9C27B0;
+      --ai-dark: #7B1FA2;
+      --code-color: #607D8B;
+      --code-dark: #455A64;
+      --youtube-color: #FF0000;
+      --youtube-dark: #CC0000;
+      --productivity-color: #673AB7;
+      --productivity-dark: #5E35B1;
+      --games-color: #FF9800;
+      --games-dark: #F57C00;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center { text-align: center; }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .burger-icon, .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .burger-icon:hover, .search-icon-btn:hover {
+      color: var(--primary-light);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: var(--transition);
+      z-index: 101;
+      box-shadow: 2px 0 10px var(--shadow);
+      overflow-y: auto;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sidebar a:hover { background: rgba(0,0,0,0.05); }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--primary);
+    }
+
+    .sidebar-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 1.5rem;
+    }
+
+    .sidebar-dropdown a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .sidebar-item.has-dropdown.active .sidebar-dropdown {
+      max-height: 500px;
+    }
+
+    .sidebar-item.has-dropdown > a::after {
+      content: '+';
+      margin-left: auto;
+      transition: var(--transition);
+    }
+
+    .sidebar-item.has-dropdown.active > a::after {
+      content: '-';
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .main-container {
+      display: flex;
+      margin: 0 auto;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .right-sidebar {
+      width: 350px;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .search input {
+      padding: 0.75rem 1rem;
+      padding-left: 3rem;
+      padding-right: 5rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .search button {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    #clearSearch {
+      position: absolute;
+      right: 3.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 2;
+      padding: 0 1rem;
+      display: none;
+    }
+
+    .search button:hover { background: var(--primary-dark); }
+
+    .category-intro {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .category-intro h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .category-intro p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .category {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .category h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .tool-card .btn:hover { background: var(--secondary-dark); }
+
+    .widget {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .widget h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .widget-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .widget-list li {
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .widget-list li:last-child { border-bottom: none; }
+
+    .widget-list a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .widget-list a:hover {
+      color: var(--secondary-dark);
+      text-decoration: underline;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .right-sidebar { display: none; }
+      .main-container { flex-direction: column; }
+      main { max-width: 100%; }
+    }
+
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .tool-card { padding: 1rem 0.75rem; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 576px) {
+      .header-container { padding: 1rem; }
+      .header-title { font-size: 1.2rem; }
+      .logo { font-size: 1.5rem; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .tool-card h3 { font-size: 1rem; }
+      .footer-container { grid-template-columns: 1fr; }
+    }
+
+    @media (min-width: 992px) {
+      .sidebar { left: 0; }
+      .main-container { margin-left: 280px; }
+      .burger-icon { display: none; }
+      .sidebar-overlay { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">TOOL PIX</span>
+      </div>
+      <div class="header-right">
+        <button class="search-icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+        <button class="burger-icon" aria-label="Menu">☰</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <nav>
+        <a href="./"><i class="fas fa-home"></i> Home</a>
+        <div class="sidebar-item has-dropdown active">
+          <a href="/time-date-tools" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
+          <div class="sidebar-dropdown">
+            <a href="/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="/calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="/world-clock"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
+          </div>
+        </div>
+        <a href="/all-tools"><i class="fas fa-th"></i> All Tools</a>
+      </nav>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </header>
+
+  <div class="main-container">
+    <main>
+      <section class="category-intro">
+        <h1>Time & Date Tools</h1>
+        <p>Manage your time effectively with our suite of free online tools for clocks, calendars, time zones, timers, and date calculations. Ideal for scheduling, planning, and staying on track across different regions.</p>
+      </section>
+
+      <section class="search-container">
+        <div class="search">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="mainSearch" placeholder="Search for tools..." aria-label="Search tools">
+          <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
+          <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
+        </div>
+      </section>
+
+      <section id="time-date-tools" class="category">
+        <h2>Time & Date Tools</h2>
+        <p>Access tools to track time, manage schedules, and coordinate across time zones.</p>
+        <div class="tools-grid">
+          <div class="tool-card" data-name="Digital Clock" data-category="Time & Date" data-keywords="clock time current">
+            <div class="icon"><i class="fas fa-clock"></i></div>
+            <h3>Digital Clock</h3>
+            <p>Displays the current time in real-time.</p>
+            <a href="/digital-clock" class="btn" aria-label="Use Digital Clock tool">View Clock</a>
+          </div>
+          <div class="tool-card" data-name="Calendar" data-category="Time & Date" data-keywords="calendar date month year">
+            <div class="icon"><i class="fas fa-calendar"></i></div>
+            <h3>Calendar</h3>
+            <p>Interactive monthly calendar with navigation.</p>
+            <a href="/calendar" class="btn" aria-label="Use Calendar tool">View Calendar</a>
+          </div>
+          <div class="tool-card" data-name="World Clock" data-category="Time & Date" data-keywords="world clock time zones global time international time">
+            <div class="icon"><i class="fas fa-globe"></i></div>
+            <h3>World Clock</h3>
+            <p>View current time across multiple time zones.</p>
+            <a href="/world-clock" class="btn" aria-label="Use World Clock tool">Check Time Zones</a>
+          </div>
+          <div class="tool-card" data-name="Countdown Timer" data-category="Time & Date" data-keywords="countdown timer deadline event timer">
+            <div class="icon"><i class="fas fa-hourglass-half"></i></div>
+            <h3>Countdown Timer</h3>
+            <p>Set timers for events, tasks, or deadlines.</p>
+            <a href="/countdown-timer" class="btn" aria-label="Use Countdown Timer tool">Start Countdown</a>
+          </div>
+          <div class="tool-card" data-name="Stopwatch" data-category="Time & Date" data-keywords="stopwatch timer elapsed time lap timer">
+            <div class="icon"><i class="fas fa-stopwatch"></i></div>
+            <h3>Stopwatch</h3>
+            <p>Measure elapsed time with lap functions.</p>
+            <a href="/stopwatch" class="btn" aria-label="Use Stopwatch tool">Start Stopwatch</a>
+          </div>
+          <div class="tool-card" data-name="Date Calculator" data-category="Time & Date" data-keywords="date calculator days between date difference time calculator">
+            <div class="icon"><i class="fas fa-calculator"></i></div>
+            <h3>Date Calculator</h3>
+            <p>Calculate days between dates or add/subtract time.</p>
+            <a href="/date-calculator" class="btn" aria-label="Use Date Calculator tool">Calculate Now</a>
+          </div>
+          <div class="tool-card" data-name="Time Zone Converter" data-category="Time & Date" data-keywords="time zone converter schedule meeting time conversion global time">
+            <div class="icon"><i class="fas fa-sync-alt"></i></div>
+            <h3>Time Zone Converter</h3>
+            <p>Convert times or schedule across time zones.</p>
+            <a href="/time-zone-converter" class="btn" aria-label="Use Time Zone Converter tool">Convert Time</a>
+          </div>
+          <div class="tool-card" data-name="Alarm Clock" data-category="Time & Date" data-keywords="alarm clock reminder notification alert">
+            <div class="icon"><i class="fas fa-bell"></i></div>
+            <h3>Alarm Clock</h3>
+            <p>Set customizable alarms with notifications.</p>
+            <a href="/alarm-clock" class="btn" aria-label="Use Alarm Clock tool">Set Alarm</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-sidebar">
+      <div class="widget">
+        <h3>Trending Time & Date Tools</h3>
+        <ul class="widget-list">
+          <li><a href="/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h3>Quick Tips</h3>
+        <ul class="widget-list">
+          <li>Use the World Clock to coordinate meetings across time zones.</li>
+          <li>Set a Countdown Timer to stay on track with deadlines.</li>
+          <li>Check the Date Calculator for planning future events.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="/" class="logo">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code, and time management</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Time & Date Tools</h3>
+        <ul>
+          <li><a href="/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="./about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="./blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="./contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="./sitemap.xml">Sitemap</a>
+      <a href="./privacy">Privacy Policy</a>
+      <a href="./terms">Terms of Service</a>
+      <a href="./contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
+    const burgerIcon = document.querySelector('.burger-icon');
+    const searchIconBtn = document.querySelector('.search-icon-btn');
+    const searchContainer = document.querySelector('.search-container');
+    const searchInput = document.getElementById('mainSearch');
+    const searchButton = document.getElementById('searchButton');
+    const clearSearchBtn = document.getElementById('clearSearch');
+
+    burgerIcon.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('active');
+      burgerIcon.textContent = '☰';
+      document.body.style.overflow = 'auto';
+    });
+
+    searchIconBtn.addEventListener('click', () => {
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const searchContainerTop = searchContainer.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: searchContainerTop - headerHeight - 20,
+        behavior: 'smooth'
+      });
+      setTimeout(() => searchInput.focus(), 500);
+    });
+
+    document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.parentElement.classList.toggle('active');
+      });
+    });
+
+    const allTools = Array.from(document.querySelectorAll('.tool-card')).map(card => ({
+      name: card.getAttribute('data-name'),
+      category: card.getAttribute('data-category'),
+      keywords: card.getAttribute('data-keywords'),
+      element: card
+    }));
+
+    function performSearch(query) {
+      const normalizedQuery = query.toLowerCase().trim();
+      allTools.forEach(tool => {
+        const matches = tool.name.toLowerCase().includes(normalizedQuery) || 
+                        tool.keywords.toLowerCase().includes(normalizedQuery) ||
+                        tool.category.toLowerCase().includes(normalizedQuery);
+        tool.element.style.display = matches ? 'flex' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', () => {
+      performSearch(searchInput.value);
+      clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      performSearch('');
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
+    });
+
+    searchButton.addEventListener('click', () => performSearch(searchInput.value));
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') performSearch(searchInput.value);
+    });
+
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

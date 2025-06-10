@@ -1944,12 +1944,14 @@
         <div class="sidebar-item has-dropdown">
           <a href="#converters"><i class="fas fa-exchange-alt"></i> Converters</a>
           <div class="sidebar-dropdown">
-            <a href="/png-to-jpg"><i class="fas fa-image"></i> PNG to JPG</a>
-            <a href="/jpg-to-png"><i class="fas fa-image"></i> JPG to PNG</a>
-            <a href="/webp-to-jpg"><i class="fas fa-image"></i> WebP to JPG</a>
-            <a href="/jpg-to-pdf"><i class="fas fa-file-pdf"></i> JPG to PDF</a>
-            <a href="/pdf-to-jpg"><i class="fas fa-image"></i> PDF to JPG</a>
-            <a href="/all-converters"><i class="fas fa-exchange-alt"></i> All Converters</a>
+            <a href="./converters/to-png"><i class="fas fa-image"></i>to PNG</a>
+            <a href="./converters/to-webp"><i class="fas fa-image"></i>to WebP</a>
+            <a href="./converters/to-pdf"><i class="fas fa-file-pdf"></i>to PDF</a>
+            <a href="./converters/to-jpg"><i class="fas fa-image"></i>to JPG</a>
+            <a href="./converters/to-ico"><i class="fas fa-image"></i>to ICO</a>
+            <a href="./converters/to-jpeg"><i class="fas fa-image"></i>to JPEG</a>
+            <a href="./converters/to-heif"><i class="fas fa-image"></i>to HEIF</a>
+            <a href="./converter"><i class="fas fa-exchange-alt"></i> All Converters</a>
           </div>
         </div>
         
@@ -1971,7 +1973,7 @@
             <a href="./compilers/sql"><i class="fab fa-css3-alt"></i> SQL Editor</a>
             <a href="./compilers/js"><i class="fab fa-js"></i> JavaScript Editor</a>
             <a href="./compilers/python"><i class="fab fa-python"></i> Python Compiler</a>
-            <a href="./compiler"><i class="fas fa-code"></i> All Code Tools</a>
+            <a href="./compilers"><i class="fas fa-code"></i> All Code Tools</a>
           </div>
         </div>
         
@@ -1982,7 +1984,7 @@
             <a href="./dev-tools/base64-encoder"><i class="fas fa-key"></i> Base64 Encoder</a>
             <a href="./dev-tools/js-obfuscator"><i class="fab fa-js"></i> JS Obfuscator</a>
             <a href="./dev-tools/css-formatter"><i class="fab fa-css3-alt"></i> CSS Formatter</a>
-            <a href="./dev-tools"><i class="fas fa-laptop-code"></i> All Developer Tools</a>
+            <a href="./dev-tool"><i class="fas fa-laptop-code"></i> All Developer Tools</a>
           </div>
         </div>
         
@@ -2050,7 +2052,7 @@
               <div class="icon"><i class="fas fa-file-pdf"></i></div>
               <h2>Image to PDF Converter</h2>
               <p>Convert your images to PDF documents quickly and easily. Perfect for creating portfolios, presentations, or archiving photos.</p>
-              <a href="/jpg-to-pdf" class="btn"><i class="fas fa-exchange-alt"></i> Convert Images to PDF</a>
+              <a href="./converters/to-pdf" class="btn"><i class="fas fa-exchange-alt"></i> Convert Images to PDF</a>
             </div>
             <div class="carousel-item">
               <div class="icon"><i class="fas fa-tasks"></i></div>
@@ -2085,7 +2087,7 @@
             <p>Download thumbnails from videos</p>
           </div>
         </a>
-        <a href="/png-to-jpg" class="quick-action">
+        <a href="./converters/to-jpg" class="quick-action">
           <div class="icon"><i class="fas fa-exchange-alt"></i></div>
           <div>
             <h3>PNG to JPG</h3>
@@ -2106,7 +2108,7 @@
             <p>Write and test HTML code</p>
           </div>
         </a>
-        <a href="/json-formatter" class="quick-action">
+        <a href="./dev-tools/json-formatter" class="quick-action">
           <div class="icon">{}</div>
           <div>
             <h3>JSON Formatter</h3>
@@ -2143,79 +2145,54 @@
             <div class="icon"><i class="fas fa-image"></i></div>
             <h3>Thumbnail Downloader</h3>
             <p>Download high-quality thumbnails from any YouTube video</p>
-            <a href="/youtube-thumbnail-downloader" class="btn">Download Now</a>
+            <a href="./yt/thumbnail-downloader" class="btn">Download Now</a>
           </div>
-          <div class="tool-card youtube-tool" data-name="YouTube Video Downloader" data-category="YouTube Tools" data-keywords="download video youtube mp4">
-            <div class="icon"><i class="fas fa-download"></i></div>
-            <h3>Video Downloader</h3>
-            <p>Download YouTube videos in various formats and qualities</p>
-            <a href="/youtube-video-downloader" class="btn">Download Now</a>
-          </div>
-          <div class="tool-card youtube-tool" data-name="YouTube Title Extractor" data-category="YouTube Tools" data-keywords="extract title youtube video">
-            <div class="icon"><i class="fas fa-heading"></i></div>
-            <h3>Title Extractor</h3>
-            <p>Extract titles from YouTube videos and playlists</p>
-            <a href="/youtube-title-extractor" class="btn">Extract Now</a>
-          </div>
-          <div class="tool-card youtube-tool" data-name="YouTube Description Extractor" data-category="YouTube Tools" data-keywords="extract description youtube video">
-            <div class="icon"><i class="fas fa-align-left"></i></div>
-            <h3>Description Extractor</h3>
-            <p>Extract full descriptions from YouTube videos</p>
-            <a href="/youtube-description-extractor" class="btn">Extract Now</a>
-          </div>
-          <div class="tool-card youtube-tool" data-name="YouTube Thumbnail Maker" data-category="YouTube Tools" data-keywords="create design thumbnail youtube">
-            <div class="icon"><i class="fas fa-paint-brush"></i></div>
-            <h3>Thumbnail Maker</h3>
-            <p>Create custom thumbnails for your YouTube videos</p>
-            <a href="/youtube-thumbnail-maker" class="btn">Create Now</a>
-          </div>
-          <div class="tool-card youtube-tool" data-name="YouTube Tags Extractor" data-category="YouTube Tools" data-keywords="extract tags youtube video">
-            <div class="icon"><i class="fas fa-tags"></i></div>
-            <h3>Tags Extractor</h3>
-            <p>Extract tags from any YouTube video for SEO</p>
-            <a href="/youtube-tags-extractor" class="btn">Extract Now</a>
-          </div>
-        </div>
       </section>
 
       <section id="converters" class="featured-tools">
         <h2>Image & File Converters</h2>
         <div class="tools-grid">
-          <div class="tool-card" data-name="PNG to JPG" data-category="Converters" data-keywords="convert png jpg image format">
+          <div class="tool-card" data-name="to JPG" data-category="Converters" data-keywords="convert jpg image format">
             <div class="icon"><i class="fas fa-exchange-alt"></i></div>
-            <h3>PNG to JPG</h3>
-            <p>Convert PNG images to JPG format with high quality</p>
-            <a href="/png-to-jpg" class="btn">Convert Now</a>
+            <h3>to JPG</h3>
+            <p>Convert images to JPG format with high quality</p>
+            <a href="./converters/to-jpg" class="btn">Convert Now</a>
           </div>
-          <div class="tool-card" data-name="JPG to PDF" data-category="Converters" data-keywords="convert jpg pdf document">
+          <div class="tool-card" data-name="to PNG" data-category="Converters" data-keywords="convert png image format">
+            <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+            <h3>to PNG</h3>
+            <p>Convert images to PNG format with high quality</p>
+            <a href="./converters/to-png" class="btn">Convert Now</a>
+          </div>
+          <div class="tool-card" data-name="to PDF" data-category="Converters" data-keywords="convert pdf document">
             <div class="icon"><i class="fas fa-file-pdf"></i></div>
-            <h3>JPG to PDF</h3>
-            <p>Convert JPG images to PDF documents</p>
-            <a href="/jpg-to-pdf" class="btn">Convert Now</a>
+            <h3>to PDF</h3>
+            <p>Convert to PDF documents</p>
+            <a href="./converters/to-pdf" class="btn">Convert Now</a>
           </div>
-          <div class="tool-card" data-name="WebP to JPG" data-category="Converters" data-keywords="convert webp jpg image format">
+          <div class="tool-card" data-name="to WEBP" data-category="Converters" data-keywords="convert webp image format">
             <div class="icon"><i class="fas fa-image"></i></div>
-            <h3>WebP to JPG</h3>
-            <p>Convert WebP images to JPG format</p>
-            <a href="/webp-to-jpg" class="btn">Convert Now</a>
+            <h3>to WEBP</h3>
+            <p>Convert images to WEBP format</p>
+            <a href="./converters/to-webp" class="btn">Convert Now</a>
           </div>
-          <div class="tool-card" data-name="PDF to Word" data-category="Converters" data-keywords="convert pdf word doc document">
-            <div class="icon"><i class="fas fa-file-word"></i></div>
-            <h3>PDF to Word</h3>
-            <p>Convert PDF documents to editable Word files</p>
-            <a href="/pdf-to-word" class="btn">Convert Now</a>
+          <div class="tool-card" data-name="to ICO" data-category="Converters" data-keywords="convert ico image format">
+            <div class="icon"><i class="fas fa-image"></i></div>
+            <h3>to ICO</h3>
+            <p>Convert images to ICO format</p>
+            <a href="./converters/to-ico" class="btn">Convert Now</a>
           </div>
-          <div class="tool-card" data-name="HEIC to JPG" data-category="Converters" data-keywords="convert heic jpg image format">
-            <div class="icon"><i class="fas fa-mobile-alt"></i></div>
-            <h3>HEIC to JPG</h3>
-            <p>Convert iPhone HEIC images to JPG format</p>
-            <a href="/heic-to-jpg" class="btn">Convert Now</a>
+          <div class="tool-card" data-name="to jpeg" data-category="Converters" data-keywords="convert jpeg image format">
+            <div class="icon"><i class="fas fa-image"></i></div>
+            <h3>to JPEG</h3>
+            <p>Convert images to JPEG format</p>
+            <a href="./converters/to-jpeg" class="btn">Convert Now</a>
           </div>
-          <div class="tool-card" data-name="GIF to MP4" data-category="Converters" data-keywords="convert gif mp4 video format">
-            <div class="icon"><i class="fas fa-film"></i></div>
-            <h3>GIF to MP4</h3>
-            <p>Convert animated GIFs to MP4 video files</p>
-            <a href="/gif-to-mp4" class="btn">Convert Now</a>
+          <div class="tool-card" data-name="to HEIF" data-category="Converters" data-keywords="convert heif image format">
+            <div class="icon"><i class="fas fa-image"></i></div>
+            <h3>to HEIF</h3>
+            <p>Convert images to HEIF format</p>
+            <a href="./converters/to-heif" class="btn">Convert Now</a>
           </div>
         </div>
       </section>
@@ -2304,37 +2281,25 @@
             <div class="icon">{}</div>
             <h3>JSON Formatter</h3>
             <p>Format and validate JSON data</p>
-            <a href="/json-formatter" class="btn">Format Now</a>
+            <a href="./dev-tools/json-formatter" class="btn">Format Now</a>
           </div>
           <div class="tool-card" data-name="Base64 Encoder" data-category="Developer Tools" data-keywords="base64 encode decode text">
             <div class="icon"><i class="fas fa-key"></i></div>
             <h3>Base64 Encoder</h3>
             <p>Encode and decode Base64 strings</p>
-            <a href="/base64-encoder" class="btn">Encode Now</a>
+            <a href="./dev-tools/base64-encoder" class="btn">Encode Now</a>
           </div>
           <div class="tool-card" data-name="JS Obfuscator" data-category="Developer Tools" data-keywords="javascript obfuscate minify code">
             <div class="icon"><i class="fab fa-js"></i></div>
             <h3>JS Obfuscator</h3>
             <p>Obfuscate your JavaScript code</p>
-            <a href="/js-obfuscator" class="btn">Obfuscate Now</a>
+            <a href="./dev-tools/js-obfuscator" class="btn">Obfuscate Now</a>
           </div>
-          <div class="tool-card" data-name="HTML Formatter" data-category="Developer Tools" data-keywords="html format beautify code">
-            <div class="icon"><i class="fab fa-html5"></i></div>
-            <h3>HTML Formatter</h3>
-            <p>Format and beautify HTML code</p>
-            <a href="/html-formatter" class="btn">Format Now</a>
-          </div>
-          <div class="tool-card" data-name="CSS Minifier" data-category="Developer Tools" data-keywords="css minify compress code">
+          <div class="tool-card" data-name="CSS Obfuscator" data-category="Developer Tools" data-keywords="css obfuscator compress code">
             <div class="icon"><i class="fab fa-css3-alt"></i></div>
-            <h3>CSS Minifier</h3>
-            <p>Minify and compress CSS code</p>
-            <a href="/css-minifier" class="btn">Minify Now</a>
-          </div>
-          <div class="tool-card" data-name="Regex Tester" data-category="Developer Tools" data-keywords="regex test regular expressions">
-            <div class="icon"><i class="fas fa-code"></i></div>
-            <h3>Regex Tester</h3>
-            <p>Test and debug regular expressions</p>
-            <a href="/regex-tester" class="btn">Test Now</a>
+            <h3>CSS Obfuscator</h3>
+            <p>Minify, obfuscate and compress CSS code</p>
+            <a href="./dev-tools/css-obfuscator" class="btn">Minify Now</a>
           </div>
         </div>
       </section>
@@ -2488,13 +2453,13 @@
       <section class="recent-tools">
         <h2>Recently Used Tools</h2>
         <div class="recent-tools-list">
-          <a href="/youtube-thumbnail-downloader" class="recent-tool youtube-tool">
+          <a href="./yt/thumbnail-downloader" class="recent-tool youtube-tool">
             <div class="icon"><i class="fas fa-image"></i></div>
             <h3>YouTube Thumbnail</h3>
           </a>
-          <a href="/png-to-jpg" class="recent-tool">
+          <a href="./image-converters/to-jpg" class="recent-tool">
             <div class="icon"><i class="fas fa-exchange-alt"></i></div>
-            <h3>PNG to JPG</h3>
+            <h3>to JPG</h3>
           </a>
           <a href="/daily-planner" class="recent-tool productivity-tool">
             <div class="icon"><i class="fas fa-calendar-day"></i></div>
@@ -2504,7 +2469,7 @@
             <div class="icon"><i class="fab fa-html5"></i></div>
             <h3>HTML Editor</h3>
           </a>
-          <a href="/json-formatter" class="recent-tool">
+          <a href="./dev-tools/json-formatter" class="recent-tool">
             <div class="icon">{}</i></div>
             <h3>JSON Formatter</h3>
           </a>
@@ -2519,51 +2484,51 @@
       <section class="tool-categories">
         <h2>Browse by Category</h2>
         <div class="category-grid">
-          <a href="/youtube-tools" class="category-card youtube-category">
+          <a href="#" class="category-card youtube-category">
             <div class="icon"><i class="fab fa-youtube"></i></div>
             <h3>YouTube Tools</h3>
             <p>Download thumbnails, videos, and extract metadata</p>
             <div class="count">8 tools</div>
           </a>
-          <a href="/image-converters" class="category-card">
+          <a href="./converter" class="category-card">
             <div class="icon"><i class="fas fa-exchange-alt"></i></div>
             <h3>Image Converters</h3>
             <p>Convert between different image formats with ease</p>
             <div class="count">12 tools</div>
           </a>
-          <a href="/productivity-tools" class="category-card productivity-category">
+          <a href="./productivity" class="category-card productivity-category">
             <div class="icon"><i class="fas fa-tasks"></i></div>
             <h3>Productivity Tools</h3>
             <p>Planners, timers, and organization tools</p>
             <div class="count">10 tools</div>
           </a>
-          <a href="/compiler" class="category-card code-category">
+          <a href="./compilers" class="category-card code-category">
             <div class="icon"><i class="fas fa-code"></i></div>
             <h3>Code Tools</h3>
             <p>Editors and compilers for various programming languages</p>
             <div class="count">7 tools</div>
           </a>
-          <a href="/developer-tools" class="category-card">
+          <a href="./dev-tool" class="category-card">
             <div class="icon"><i class="fas fa-laptop-code"></i></div>
             <h3>Developer Tools</h3>
             <p>Formatters, encoders, and other utilities</p>
             <div class="count">8 tools</div>
           </a>
-          <a href="/games" class="category-card games-category">
+          <a href="./game" class="category-card games-category">
             <div class="icon"><i class="fas fa-gamepad"></i></div>
             <h3>Games</h3>
             <p>Classic and fun online games</p>
             <div class="count">6 tools</div>
           </a>
 
-          <a href="/time-date-tools" class="category-card time-date-category">
+          <a href="./time-date" class="category-card time-date-category">
             <div class="icon"><i class="fas fa-clock"></i></div>
             <h3>Time & Date Tools</h3>
             <p>Tools for managing time, dates, and schedules</p>
             <div class="count">8 tools</div>
           </a>
 
-          <a href="/mathematical-tools" class="category-card mathematical-category">
+          <a href="./mathematical-tools" class="category-card mathematical-category">
             <div class="icon"><i class="fas fa-calculator"></i></div>
             <h3>Mathematical Tools</h3>
             <p>Calculators and converters for mathematical operations</p>
@@ -2580,20 +2545,19 @@
       <section class="popular-tools">
         <h2>Quick Access to Popular Tools</h2>
         <div class="popular-tools-list">
-          <a href="/youtube-thumbnail-downloader"><i class="fas fa-image"></i> YouTube Thumbnail Downloader</a>
-          <a href="/youtube-video-downloader"><i class="fas fa-download"></i> YouTube Video Downloader</a>
-          <a href="/png-to-jpg"><i class="fas fa-exchange-alt"></i> PNG to JPG Converter</a>
-          <a href="/jpg-to-pdf"><i class="fas fa-file-pdf"></i> JPG to PDF Converter</a>
-          <a href="/daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a>
-          <a href="/habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a>
+          <a href="./yt/thumbnail-downloader"><i class="fas fa-image"></i> YouTube Thumbnail Downloader</a>
+          <a href="./converters/to-jpg"><i class="fas fa-exchange-alt"></i> JPG Converter</a>
+          <a href="./converters/to-pdf"><i class="fas fa-file-pdf"></i> to PDF Converter</a>
+          <a href="./productivity/daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a>
+          <a href="./productivity/habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a>
           <a href="./compilers/html"><i class="fab fa-html5"></i> HTML Editor</a>
           <a href="./compilers/js"><i class="fab fa-js"></i> JavaScript Editor</a>
-          <a href="/json-formatter">{} JSON Formatter</a>
-          <a href="/base64-encoder"><i class="fas fa-key"></i> Base64 Encoder</a>
-          <a href="/sudoku"><i class="fas fa-th"></i> Sudoku</a>
-          <a href="/chess"><i class="fas fa-chess"></i> Chess</a>
-          <a href="/2048"><i class="fas fa-border-all"></i> 2048</a>
-          <a href="/wordle"><i class="fas fa-font"></i> Wordle</a>
+          <a href="./dev-tools/json-formatter">{} JSON Formatter</a>
+          <a href="./dev-tools/base64-encoder"><i class="fas fa-key"></i> Base64 Encoder</a>
+          <a href="./game/sudoku"><i class="fas fa-th"></i> Sudoku</a>
+          <a href="./game/chess"><i class="fas fa-chess"></i> Chess</a>
+          <a href="./game/2048"><i class="fas fa-border-all"></i> 2048</a>
+          <a href="./game/wordle"><i class="fas fa-font"></i> Wordle</a>
         </div>
       </section>
 
@@ -2651,12 +2615,12 @@
       <div class="widget">
         <h3>Trending Tools</h3>
         <ul class="widget-list">
-          <li><a href="/youtube-thumbnail-downloader"><i class="fas fa-image"></i> YouTube Thumbnail Downloader</a></li>
-          <li><a href="/png-to-jpg"><i class="fas fa-exchange-alt"></i> PNG to JPG Converter</a></li>
-          <li><a href="/daily-planner"><i class="fas fa-calendar-day"></i> Daily Productivity Planner</a></li>
-          <li><a href="/html-editor"><i class="fab fa-html5"></i> HTML Editor</a></li>
-          <li><a href="/json-formatter"><i class="fas fa-code"></i> JSON Formatter</a></li>
-          <li><a href="/sudoku"><i class="fas fa-th"></i> Sudoku Game</a></li>
+          <li><a href="./yt/thumbnail-downloader"><i class="fas fa-image"></i> YouTube Thumbnail Downloader</a></li>
+          <li><a href="./converters/to-jpg.html"><i class="fas fa-exchange-alt"></i> to JPG Converter</a></li>
+          <li><a href="./productivity/daily-planner.html"><i class="fas fa-calendar-day"></i> Daily Productivity Planner</a></li>
+          <li><a href="./compilers/html"><i class="fab fa-html5"></i> HTML Editor</a></li>
+          <li><a href="./dev-tools/json-formatter.html"><i class="fas fa-code"></i> JSON Formatter</a></li>
+          <li><a href="./game/sudoku.html"><i class="fas fa-th"></i> Sudoku Game</a></li>
         </ul>
       </div>
 
@@ -2670,7 +2634,6 @@
         <ul class="widget-list">
           <li><a href="/ai-image-generator"><i class="fas fa-robot"></i> AI Image Generator</a></li>
           <li><a href="/password-generator"><i class="fas fa-key"></i> Secure Password Generator</a></li>
-          <li><a href="/qr-code-generator"><i class="fas fa-qrcode"></i> QR Code Generator</a></li>
           <li><a href="/color-picker"><i class="fas fa-palette"></i> Advanced Color Picker</a></li>
           <li><a href="/word-counter"><i class="fas fa-font"></i> Word Counter Tool</a></li>
         </ul>

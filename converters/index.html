@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="ToolPix offers free online image converters for PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, and WEBP. Fast, secure, and no software required. Perfect for bulk image conversions and web optimization.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="online image converter, free image converter, PNG to JPG, WebP to PNG, TIFF to PDF, image format converter, bulk image converter, ToolPix converter, Time Load image tools, high-quality image conversion, compress images online, image optimization tool">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load">
+  <meta name="googlebot" content="index, follow">
+  <meta name="revisit-after" content="7 days">
+  <meta name="distribution" content="global">
+  <meta property="og:title" content="ToolPix - Free Online Image Converters for JPG, PNG, PDF, JPEG, WEBP">
+  <meta property="og:description" content="Convert images to JPG, PNG, PDF, JPEG, or WEBP with ToolPix. Fast, secure, no software needed. Ideal for bulk conversions and web optimization.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.toolpix.com/converter">
+  <meta property="og:image" content="https://www.toolpix.com/images/toolpix-og-image.jpg">
+  <meta property="og:site_name" content="ToolPix">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ToolPix - Free Online Image Converters">
+  <meta name="twitter:description" content="Effortlessly convert images to JPG, PNG, PDF, JPEG, or WEBP with ToolPix. Fast, secure, and free with no downloads needed.">
+  <meta name="twitter:image" content="https://www.toolpix.com/images/toolpix-og-image.jpg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>ToolPix - Free Online Image Converters for JPG, PNG, PDF, JPEG, WEBP</title>
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ToolPix Image Converters",
+    "description": "Free online tools to convert images to JPG, PNG, PDF, JPEG, and WEBP. Fast, secure, and no software required. Ideal for bulk image conversions and web optimization.",
+    "url": "https://www.toolpix.com/converter",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Time Load",
+      "url": "https://www.toolpix.com"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1200"
+    },
+    "featureList": [
+      "Bulk image conversion",
+      "PNG to JPG",
+      "WebP to PNG",
+      "TIFF to PDF",
+      "Secure local processing",
+      "No software installation"
+    ],
+    "sameAs": [
+      "https://twitter.com/toolpix",
+      "https://www.facebook.com/toolpix"
+    ]
+  }
+  </script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2ecc71;
+      --primary-dark: #27ae60;
+      --secondary: #3498db;
+      --secondary-dark: #2980b9;
+      --danger: #e74c3c;
+      --danger-dark: #c0392b;
+      --text: #2c3e50;
+      --text-light: #7f8c8d;
+      --bg: #ecf0f1 yarg;
+      --card-bg: #ffffff;
+      --border: #dfe6e9;
+      --shadow: rgba(0,0,0,0.15);
+      --accent: #f1c40f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #ecf0f1;
+        --text-light: #b0b5b5;
+        --bg: #2c3e50;
+        --card-bg: #34495e;
+        --border: #4b5e7a;
+        --shadow: rgba(0,0,0,0.4);
+      }
+      .converter-card, .search-container {
+        background: var(--card-bg);
+      }
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      background-color: var(--bg);
+      padding: var(--header-padding, 1.5rem 2rem);
+      color: var(--text);
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .desktop-nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .desktop-nav a:hover {
+      transform: translateY(-2px);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .burger-icon {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .burger-icon:hover {
+      background: rgba(0,0,0,0.15);
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 900px;
+      margin: 1rem auto;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .search-input {
+      padding: 0.5rem 2rem 0.5rem 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      background: var(--card-bg);
+      color: var(--text);
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 5px rgba(46,204,113,0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1.75rem;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100%;
+      background: var(--card-bg);
+      transition: left 0.3s ease;
+      z-index: 101;
+      box-shadow: 4px 0 15px var(--shadow);
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    .sidebar a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: rgba(0,0,0,0.1);
+      transform: translateX(5px);
+    }
+
+    .sidebar a.active {
+      font-weight: 600;
+      background: rgba(46,204,113,0.15);
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      .burger-icon {
+        display: flex;
+      }
+      main {
+        padding: 1rem;
+      }
+      .converter-card, .card, .search-container {
+        max-width: 100%;
+        margin: 0 0 1rem;
+        padding: 0.8rem;
+      }
+      .search-input {
+        padding: 0.4rem 1.5rem 0.4rem 2rem;
+        font-size: 0.85rem;
+      }
+      .search-icon {
+        left: 1.5rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .card, .converter-card {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover, .converter-card:hover {
+      transform: translateY(-4px);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 0 0 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    p, li {
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    ol, ul {
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    .converter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .converter-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .converter-card.hidden {
+      display: none;
+    }
+
+    .converter-card:hover {
+      background: rgba(46,204,113,0.1);
+      transform: translateY(-4px);
+    }
+
+    .converter-icon {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    .converter-card h3 {
+      margin: 0.5rem 0;
+    }
+
+    .converter-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .convert-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .convert-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .ad-top, .ad-bottom {
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.05);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    @media (min-width: 769px) {
+      .ad-top, .ad-bottom {
+        max-width: 900px;
+        margin: 1.5rem auto;
+      }
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 -4px 10px var(--shadow);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 900px;
+      margin: 1rem auto;
+      flex-wrap: wrap;
+    }
+
+    footer nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    footer nav a:hover {
+      color: var(--primary);
+    }
+
+    @media (max-width: 480px) {
+      footer nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+
+    .ad-space {
+      font-size: 0.9rem;
+      margin-top: 1.5rem;
+      background: rgba(0,0,0,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 900px;
+      color: var(--text-light);
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background: var(--text);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 2;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      margin-bottom: 5px;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <div class="logo">ToolPix</div>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#" class="active">Home</a>
+      <a href="./converters/to-jpg">to JPG</a>
+      <a href="./converters/to-png">to PNG</a>
+      <a href="./converters/to-pdf">to PDF</a>
+      <a href="./converters/to-jpeg">to JPEG</a>
+      <a href="./converters/to-webp">to WEBP</a>
+    </nav>
+    <button class="burger-icon" aria-label="Toggle menu">☰</button>
+  </div>
+  <div class="sidebar">
+    <nav aria-label="Mobile navigation">
+      <a href="#" class="active">Home</a>
+      <a href="./converters/to-jpg">to JPG</a>
+      <a href="./converters/to-png">to PNG</a>
+      <a href="./converters/to-pdf">to PDF</a>
+      <a href="./converters/to-jpeg">to JPEG</a>
+      <a href="./converters/to-webp">to WEBP</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>ToolPix - Free Online Image Conversion Tools</h1>
+  <div class="ad-top">Advertisement</div>
+  <button class="convert-btn" id="convertBtn" aria-label="Scroll to converters">Convert</button>
+  <div class="card introduction">
+    <h2>Welcome to ToolPix Image Converters</h2>
+    <p>Transform your images effortlessly with ToolPix's suite of free online converters. Convert PNG, WebP, GIF, BMP, and TIFF to formats like JPG, PNG, PDF, JPEG, or WEBP. Our tools are fast, secure, and require no software downloads, making them ideal for photographers, web developers, and content creators.</p>
+  </div>
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="converterSearch" placeholder="Search converters..." aria-label="Search converters">
+  </div>
+  <div class="converter-grid" id="converterGrid">
+    <a href="./converters/to-jpg" class="converter-card" data-format="jpg">
+      <div class="converter-icon">🖼️</div>
+      <h3>Convert to JPG</h3>
+      <p>Convert images to JPG for smaller file sizes and universal compatibility.</p>
+    </a>
+    <a href="./converters/to-png" class="converter-card" data-format="png">
+      <div class="converter-icon">🖼️</div>
+      <h3>Convert to PNG</h3>
+      <p>Transform images to PNG for transparency and high-quality graphics.</p>
+    </a>
+    <a href="./converters/to-pdf" class="converter-card" data-format="pdf">
+      <div class="converter-icon">📄</div>
+      <h3>Convert to PDF</h3>
+      <p>Convert images to PDF for professional documents and easy sharing.</p>
+    </a>
+    <a href="./converters/to-jpeg" class="converter-card" data-format="jpeg">
+      <div class="converter-icon">🖼️</div>
+      <h3>Convert to JPEG</h3>
+      <p>Create JPEG images optimized for web and high-quality photos.</p>
+    </a>
+    <a href="./converters/to-webp" class="converter-card" data-format="webp">
+      <div class="converter-icon">🌐</div>
+      <h3>Convert to WEBP</h3>
+      <p>Convert to WEBP for modern web images with small sizes and transparency.</p>
+    </a>
+  </div>
+  <div class="card features">
+    <h2>Why Choose ToolPix?</h2>
+    <ul>
+      <li><strong>Bulk Conversion:</strong> Convert multiple images at once, saving time and effort.</li>
+      <li><strong>No Installation:</strong> Browser-based tools with no software downloads required.</li>
+      <li><strong>Secure Processing:</strong> All conversions are processed locally on your device.</li>
+      <li><strong>Wide Format Support:</strong> Convert PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, or WEBP.</li>
+      <li><strong>User-Friendly:</strong> Intuitive interface for beginners and professionals alike.</li>
+    </ul>
+  </div>
+  <div class="card benefits">
+    <h2>Benefits of Image Conversion</h2>
+    <ul>
+      <li><strong>Optimize for Web:</strong> Reduce file sizes for faster website loading and better SEO.</li>
+      <li><strong>Universal Compatibility:</strong> Ensure images work across all devices and platforms.</li>
+      <li><strong>Professional Use:</strong> Create documents, presentations, or social media-ready images.</li>
+      <li><strong>Save Storage:</strong> Compress large files like TIFF or BMP for efficient storage.</li>
+    </ul>
+  </div>
+  <div class="card how-to-use">
+    <h2>How to Use ToolPix Converters</h2>
+    <ol>
+      <li>Select a converter (JPG, PNG, PDF, JPEG, or WEBP) from the options above.</li>
+      <li>Drag and drop or browse to upload your images.</li>
+      <li>Preview your files and convert them with a single click.</li>
+      <li>Download your converted images individually or in bulk.</li>
+    </ol>
+    <p>Explore our converters for a seamless image transformation experience.</p>
+  </div>
+  <div class="card testimonials">
+    <h2>What Our Users Say</h2>
+    <p>"ToolPix makes image conversion so easy! I use it for all my web projects." - Sarah, Web Developer</p>
+    <p>"The PDF converter is a lifesaver for my photography portfolio." - John, Photographer</p>
+    <p>"Fast, secure, and free - ToolPix is my go-to for image conversions." - Emma, Content Creator</p>
+  </div>
+  <div class="card about">
+    <h2>About Time Load and ToolPix</h2>
+    <p><strong>Time Load</strong> is committed to providing innovative digital tools. <strong>ToolPix</strong> offers a suite of free image converters designed for speed, reliability, and ease of use, helping you optimize images for any purpose.</p>
+  </div>
+  <div class="ad-bottom">Advertisement</div>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <nav aria-label="Footer navigation">
+      <a href="#" class="tooltip">Home<span class="tooltiptext">Back to Homepage</span></a>
+      <a href="./converter" class="tooltip">Converters<span class="tooltiptext">Explore All Tools</span></a>
+      <a href="./terms" class="tooltip">Terms<span class="tooltiptext">Terms of Service</span></a>
+      <a href="./privacy" class="tooltip">Policy<span class="tooltiptext">Privacy Policy</span></a>
+      <a href="./blog" class="tooltip">Blog<span class="tooltiptext">Read Our Blog</span></a>
+    </nav>
+    <p>© 2025 Time Load. All Rights Reserved.</p>
+    <div class="ad-space">Advertisement</div>
+  </div>
+</footer>
+
+<script>
+  const burgerIcon = document.querySelector('.burger-icon');
+  const sidebar = document.querySelector('.sidebar');
+  const convertBtn = document.getElementById('convertBtn');
+  const converterGrid = document.getElementById('converterGrid');
+  const searchInput = document.getElementById('converterSearch');
+
+  // Toggle sidebar
+  burgerIcon.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
+    burgerIcon.setAttribute('aria-label', sidebar.classList.contains('open') ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target !== burgerIcon) {
+      sidebar.classList.remove('open');
+      burgerIcon.textContent = '☰';
+      burgerIcon.setAttribute('aria-label', 'Open menu');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Scroll to converters on button click
+  convertBtn.addEventListener('click', () => {
+    converterGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Search functionality
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const converterCards = document.querySelectorAll('.converter-card');
+
+    converterCards.forEach(card => {
+      const format = card.getAttribute('data-format').toLowerCase();
+      if (format.includes(searchTerm)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
