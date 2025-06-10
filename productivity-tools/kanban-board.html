@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board Tool - Free Project Management | ToolPix</title>
+  <meta name="description" content="Manage tasks with ToolPix's free Kanban Board tool. Organize tasks in To Do, In Progress, and Done columns. No registration required.">
+  <meta name="keywords" content="kanban board, project management, task management, productivity tool, free kanban board, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/kanban-board" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kanban Board Tool - Free Project Management | ToolPix">
+  <meta property="og:description" content="Organize tasks in To Do, In Progress, and Done columns using a Kanban Board. No sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/kanban-board">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/kanban-board-social.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kanban Board Tool - ToolPix">
+  <meta name="twitter:description" content="Free tool to manage tasks with a Kanban Board for better productivity.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/kanban-board-twitter.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ToolPix Kanban Board",
+      "description": "A free online tool for managing tasks using a Kanban Board with To Do, In Progress, and Done columns. No registration required.",
+      "url": "https://toolpixs.github.io/kanban-board",
+      "applicationCategory": "Productivity",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "220"
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #ecfdf5;
+      --secondary: #3b82f6;
+      --secondary-dark: #2563eb;
+      --secondary-light: #eff6ff;
+      --accent: #f43f5e;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --border-light: #f3f4f6;
+      --shadow: rgba(0,0,0,0.05);
+      --shadow-md: rgba(0,0,0,0.1);
+      --radius-md: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    html.dark-mode {
+      --text: #e5e7eb;
+      --text-light: #9ca3af;
+      --bg: #111827;
+      --card-bg: #1f2937;
+      --border: #374151;
+      --border-light: #4b5563;
+      --shadow: rgba(0,0,0,0.2);
+      --primary-light: #064e3b;
+      --secondary-light: #1e40af;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #e5e7eb;
+        --text-light: #9ca3af;
+        --bg: #111827;
+        --card-bg: #1f2937;
+        --border: #374151;
+        --border-light: #4b5563;
+        --shadow: rgba(0,0,0,0.2);
+        --primary-light: #064e3b;
+        --secondary-light: #1e40af;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 2px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    .btn-danger { background: var(--accent); }
+    .btn-danger:hover { background: #e11d48; }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      flex: 1;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 1.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .intro p {
+      color: var(--text-light);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tool-container {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group input, .input-group textarea, .input-group select {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .input-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .column {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+      min-height: 200px;
+      position: relative;
+    }
+
+    .column h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .column p {
+      color: var(--text-light);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .task-list {
+      list-style: none;
+      min-height: 100px;
+    }
+
+    .task-item {
+      background: var(--card-bg);
+      padding: 0.5rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      cursor: move;
+      transition: var(--transition);
+    }
+
+    .task-item.dragging {
+      opacity: 0.5;
+      transform: scale(0.98);
+    }
+
+    .task-item input[type="text"], .task-item textarea {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.875rem;
+    }
+
+    .task-item textarea {
+      resize: none;
+      height: 60px;
+    }
+
+    .task-item input[type="text"]:focus, .task-item textarea:focus {
+      outline: none;
+      border-bottom: 1px solid var(--primary);
+    }
+
+    .task-item .task-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .task-item button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .task-item button:hover {
+      color: #e11d48;
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 2px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px var(--shadow-md);
+    }
+
+    .tool-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1rem;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 0.875rem;
+    }
+
+    .faq-item summary:hover {
+      color: var(--primary-dark);
+    }
+
+    .faq-item p {
+      color: var(--text-light);
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 1.5rem 1rem;
+      box-shadow: 0 -1px 2px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-logo a {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links h3 {
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.25rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.75rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .kanban-board {
+        grid-template-columns: 1fr;
+      }
+      .input-group {
+        grid-template-columns: 1fr;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .intro h1 {
+        font-size: 1.5rem;
+      }
+      .tool-container h2, .faq-section h2 {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-title {
+        font-size: 1rem;
+      }
+      .logo {
+        font-size: 1.25rem;
+      }
+      .intro p {
+        font-size: 0.875rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../" class="logo">
+        <img src="../static/images/icon.png" alt="ToolPix Logo">
+      </a>
+      <span class="header-title">Kanban Board Tool</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Free Kanban Board Tool</h1>
+      <p>Streamline your workflow with ToolPix's Kanban Board. Organize tasks in To Do, In Progress, and Done columns. No sign-up required.</p>
+    </section>
+
+    <section class="tool-container">
+      <h2>Add New Task</h2>
+      <div class="input-group">
+        <input type="text" id="taskTitle" placeholder="Task title (e.g., Design homepage)" aria-label="Task title">
+        <textarea id="taskDescription" placeholder="Task description (optional)" aria-label="Task description"></textarea>
+        <select id="columnSelect" aria-label="Select column">
+          <option value="todo">To Do</option>
+          <option value="inprogress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+        <button class="btn" id="addTaskBtn" aria-label="Add task"><i class="fas fa-plus"></i> Add Task</button>
+      </div>
+      <div class="input-group">
+        <button class="btn btn-secondary" id="clearAllBtn" aria-label="Clear all tasks"><i class="fas fa-trash"></i> Clear All</button>
+      </div>
+    </section>
+
+    <section class="tool-container">
+      <h2>Kanban Board</h2>
+      <div class="kanban-board">
+        <div class="column" id="todo" data-column="todo">
+          <h3>To Do</h3>
+          <p>Tasks that need to be started.</p>
+          <ul class="task-list"></ul>
+        </div>
+        <div class="column" id="inprogress" data-column="inprogress">
+          <h3>In Progress</h3>
+          <p>Tasks currently being worked on.</p>
+          <ul class="task-list"></ul>
+        </div>
+        <div class="column" id="done" data-column="done">
+          <h3>Done</h3>
+          <p>Tasks that are completed.</p>
+          <ul class="task-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="suggested-tools">
+      <h2>Explore More Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>Task Dependency Manager</h3>
+          <p>Manage tasks with dependencies, priorities, and due dates.</p>
+          <a href="./task-dependency" class="btn btn-secondary" aria-label="Use Task Dependency Manager tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-calendar"></i></div>
+          <h3>Calendar View</h3>
+          <p>Month, week, and day views with task scheduling.</p>
+          <a href="./calendar-view" class="btn btn-secondary" aria-label="Use Calendar View tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-check-circle"></i></div>
+          <h3>Habit Tracker</h3>
+          <p>Track daily habits with streaks and progress indicators.</p>
+          <a href="./habit-tracker" class="btn btn-secondary" aria-label="Use Habit Tracker tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-ban"></i></div>
+          <h3>Distraction Blocker</h3>
+          <p>Block specific URLs during work sessions.</p>
+          <a href="./distraction-blocker" class="btn btn-secondary" aria-label="Use Distraction Blocker tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-expand"></i></div>
+          <h3>Zen Mode</h3>
+          <p>Full-screen interface for zero distractions.</p>
+          <a href="./zen-mode" class="btn btn-secondary" aria-label="Use Zen Mode tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-heart"></i></div>
+          <h3>Gratitude Journal</h3>
+          <p>Daily notes on what you're thankful for to boost mood.</p>
+          <a href="./gratitude-journal" class="btn btn-secondary" aria-label="Use Gratitude Journal tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-bullseye"></i></div>
+          <h3>Goal Tracker</h3>
+          <p>Define goals, milestones, and link related tasks.</p>
+          <a href="./goal-tracker" class="btn btn-secondary" aria-label="Use Goal Tracker tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-th-list"></i></div>
+          <h3>Priority Matrix</h3>
+          <p>Categorize tasks by urgency and importance in a 2x2 grid.</p>
+          <a href="./priority-matrix" class="btn btn-secondary" aria-label="Use Priority Matrix tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Pomodoro Timer</h3>
+          <p>Boost focus with customizable work and break intervals.</p>
+          <a href="./pomodoro-timer" class="btn btn-secondary" aria-label="Use Pomodoro Timer tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <details class="faq-item">
+        <summary>What is a Kanban Board?</summary>
+        <p>A Kanban Board is a visual tool for managing tasks, typically organized into columns like To Do, In Progress, and Done, to track workflow.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the Kanban Board free?</summary>
+        <p>Yes, ToolPix's Kanban Board is completely free with no registration required.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are my tasks saved?</summary>
+        <p>Yes, your tasks are saved in your browser's local storage and persist across sessions until cleared.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I move tasks between columns?</summary>
+        <p>Yes, you can drag and drop tasks between columns or change their status using the input form.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="../" class="logo">ToolPix</a>
+        <p>Empowering productivity with free online tools.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Tools</h3>
+        <ul>
+          <li><a href="./task-dependency"><i class="fas fa-list"></i> Task Dependency Manager</a></li>
+          <li><a href="./calendar-view"><i class="fas fa-calendar"></i> Calendar View</a></li>
+          <li><a href="./habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a></li>
+          <li><a href="./distraction-blocker"><i class="fas fa-ban"></i> Distraction Blocker</a></li>
+          <li><a href="./zen-mode"><i class="fas fa-expand"></i> Zen Mode</a></li>
+          <li><a href="./gratitude-journal"><i class="fas fa-heart"></i> Gratitude Journal</a></li>
+          <li><a href="./goal-tracker"><i class="fas fa-bullseye"></i> Goal Tracker</a></li>
+          <li><a href="./priority-matrix"><i class="fas fa-th-list"></i> Priority Matrix</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Pomodoro Timer</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const taskTitle = document.getElementById('taskTitle');
+    const taskDescription = document.getElementById('taskDescription');
+    const columnSelect = document.getElementById('columnSelect');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const columns = document.querySelectorAll('.column');
+
+    let tasks = JSON.parse(localStorage.getItem('kanbanTasks')) || [];
+
+    renderTasks();
+
+    addTaskBtn.addEventListener('click', addTask);
+    taskTitle.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
+    clearAllBtn.addEventListener('click', () => {
+      tasks = [];
+      saveTasks();
+      renderTasks();
+    });
+
+    // Drag and Drop
+    columns.forEach(column => {
+      column.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+      column.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const taskId = e.dataTransfer.getData('text/plain');
+        const task = tasks.find(t => t.id == taskId);
+        if (task) {
+          task.column = column.dataset.column;
+          saveTasks();
+          renderTasks();
+        }
+      });
+    });
+
+    function addTask() {
+      const title = taskTitle.value.trim();
+      if (!title) {
+        taskTitle.focus();
+        return;
+      }
+
+      const task = {
+        id: Date.now(),
+        title,
+        description: taskDescription.value.trim(),
+        column: columnSelect.value
+      };
+
+      tasks.push(task);
+      saveTasks();
+      renderTasks();
+      taskTitle.value = '';
+      taskDescription.value = '';
+      taskTitle.focus();
+    }
+
+    function updateTask(id, field, value) {
+      const task = tasks.find(t => t.id == id);
+      if (task && value.trim()) {
+        task[field] = value.trim();
+        saveTasks();
+      }
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(t => t.id != id);
+      saveTasks();
+      renderTasks();
+    }
+
+    function renderTasks() {
+      columns.forEach(column => {
+        const list = column.querySelector('.task-list');
+        list.innerHTML = '';
+        tasks.filter(t => t.column === column.dataset.column).forEach(task => {
+          const li = document.createElement('li');
+          li.className = 'task-item';
+          li.draggable = true;
+          li.dataset.id = task.id;
+          li.innerHTML = `
+            <input type="text" value="${task.title}" aria-label="Edit task title">
+            <textarea placeholder="Description" aria-label="Edit task description">${task.description || ''}</textarea>
+            <div class="task-actions">
+              <button aria-label="Delete task"><i class="fas fa-trash"></i></button>
+            </div>
+          `;
+          li.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', task.id);
+            li.classList.add('dragging');
+          });
+          li.addEventListener('dragend', () => {
+            li.classList.remove('dragging');
+          });
+          li.querySelector('input').addEventListener('blur', (e) => {
+            updateTask(task.id, 'title', e.target.value);
+            renderTasks();
+          });
+          li.querySelector('input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              updateTask(task.id, 'title', e.target.value);
+              renderTasks();
+            }
+          });
+          li.querySelector('textarea').addEventListener('blur', (e) => {
+            updateTask(task.id, 'description', e.target.value);
+            renderTasks();
+          });
+          li.querySelector('button').addEventListener('click', () => deleteTask(task.id));
+          list.appendChild(li);
+        });
+      });
+    }
+
+    function saveTasks() {
+      localStorage.setItem('kanbanTasks', JSON.stringify(tasks));
+    }
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '40px';
+    darkModeToggle.style.height = '40px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

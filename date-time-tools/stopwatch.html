@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Time Zone Converter - ToolPix</title>
-  <meta name="description" content="Convert time between different time zones with ease. Real-time updates and customizable options. No registration required.">
-  <meta name="keywords" content="time zone converter, time converter, world time, timezone, time difference">
+  <title>Stopwatch - ToolPix</title>
+  <meta name="description" content="Interactive stopwatch with start, stop, reset, and lap functionality. Track time with precision, no registration required.">
+  <meta name="keywords" content="stopwatch, timer, time tracking, lap timer, digital stopwatch">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://toolpixs.github.io/tools/time-zone-converter" />
+  <link rel="canonical" href="https://toolpixs.github.io/tools/stopwatch" />
 
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="Time Zone Converter - ToolPix">
-  <meta property="og:description" content="Easily convert time across different time zones with real-time updates. Free and user-friendly.">
+  <meta property="og:title" content="Stopwatch - ToolPix">
+  <meta property="og:description" content="Use a precise stopwatch with gap tracking and easy controls. Free and accessible anytime.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://toolpixs.github.io/tools/time-zone-converter">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/stopwatch">
   <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixtime-social-share.jpg">
   <meta property="og:site_name" content="ToolPix">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Time Zone Converter - ToolPix">
-  <meta name="twitter:description" content="Easily convert time across different time zones with real-time updates.">
+  <meta name="twitter:title" content="Stopwatch - ToolPix">
+  <meta name="twitter:description" content="Use a precise stopwatch with gap tracking and easy controls.">
   <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixtime-twitter-card.jpg">
 
   <!-- Favicon -->
@@ -34,8 +34,8 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts (Added Roboto Mono for monospaced digits) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <style>
@@ -205,8 +205,7 @@
       border-radius: var(--radius-sm);
       transition: background 0.2s;
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      align-items: 0.75rem;
     }
 
     .sidebar a:hover { background: rgba(0,0,0,0.05); }
@@ -259,7 +258,7 @@
     .sidebar-overlay.active {
       opacity: 1;
       visibility: visible;
-    }
+  }
 
     .main-container {
       display: flex;
@@ -278,7 +277,8 @@
 
     .right-sidebar {
       width: 350px;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 2rem 0;
+      margin-right: 0;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -309,7 +309,7 @@
     .btn-secondary { background: var(--secondary); }
     .btn-secondary:hover { background: var(--secondary-dark); }
 
-    .converter-container {
+    .stopwatch-container {
       background: var(--card-bg);
       padding: 2rem;
       border-radius: var(--radius-lg);
@@ -323,11 +323,95 @@
       transition: transform 0.5s ease;
     }
 
-    .converter-container:hover {
+    .stopwatch-container:hover {
       transform: scale(1.02);
     }
 
-    .converter-background {
+    .zoom-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .zoom-icon:hover {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .stopwatch-display {
+      font-family: 'Roboto Mono', monospace; /* Use monospaced font */
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      font-variant-numeric: tabular-nums; /* Ensure tabular numbers for consistent width */
+      display: inline-block;
+      width: auto;
+      text-align: center;
+    }
+
+    .stopwatch-laps {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+    }
+
+    .stopwatch-laps ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .stopwatch-laps li {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-light);
+      font-size: 1rem;
+      font-family: 'Roboto Mono', monospace; /* Consistent font for lap times */
+    }
+
+    .stopwatch-laps li:last-child { border-bottom: none; }
+
+    .stopwatch-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .stopwatch-controls button {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .stopwatch-controls button:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-dark);
+    }
+
+    .stopwatch-background {
       position: absolute;
       top: 0;
       left: 0;
@@ -345,61 +429,57 @@
       100% { transform: scale(1); }
     }
 
-    .converter-display {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 1rem;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.9; }
-      100% { opacity: 1; }
-    }
-
-    .converter-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-
-    .converter-controls select,
-    .converter-controls input,
-    .converter-controls button {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+    .stopwatch-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: var(--card-bg);
-      color: var(--text);
-      font-size: 1rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .stopwatch-popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .stopwatch-popup .stopwatch-display {
+      font-size: 6rem;
+      margin-bottom: 2rem;
+    }
+
+    .stopwatch-popup .stopwatch-laps {
+      max-width: 80%;
+      margin-bottom: 2rem;
+    }
+
+    .stopwatch-popup .stopwatch-controls {
+      margin-top: 2rem;
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 2rem;
       cursor: pointer;
       transition: var(--transition);
     }
 
-    .converter-controls select:hover,
-    .converter-controls input:hover,
-    .converter-controls button:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary-dark);
-    }
-
-    .converter-controls input {
-      cursor: text;
-    }
-
-    .converter-result {
-      margin-top: 1.5rem;
-      font-size: 1.2rem;
-      color: var(--text-light);
+    .close-popup:hover {
+      color: var(--primary);
+      transform: scale(1.2);
     }
 
     .settings-panel {
@@ -558,15 +638,23 @@
     /* Responsive Styles */
     @media (max-width: 992px) {
       .right-sidebar { display: none; }
-      .main-container { flex-direction: column; }
-      main { max-width: 100%; }
-      .converter-display { font-size: 2rem; }
+      .main-container { 
+        flex-direction: column;
+        padding: 0;
+      }
+      main { 
+        max-width: 100%; 
+        padding: 2rem;
+      }
+      .stopwatch-display { font-size: 3rem; }
+      .stopwatch-popup .stopwatch-display { font-size: 4rem; }
     }
 
     @media (max-width: 768px) {
       main { padding: 1rem; }
-      .converter-container { padding: 1.5rem; }
-      .converter-display { font-size: 1.8rem; }
+      .stopwatch-container { padding: 1.5rem; }
+      .stopwatch-display { font-size: 2.5rem; }
+      .stopwatch-popup .stopwatch-display { font-size: 3rem; }
       .footer-container { grid-template-columns: 1fr 1fr; }
     }
 
@@ -574,11 +662,10 @@
       .header-container { padding: 1rem; }
       .header-title { font-size: 1.2rem; }
       .logo { font-size: 1.5rem; }
-      .converter-display { font-size: 1.5rem; }
-      .converter-controls select,
-      .converter-controls input,
-      .converter-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+      .stopwatch-display { font-size: 2rem; }
+      .stopwatch-popup .stopwatch-display { font-size: 2.5rem; }
       .footer-container { grid-template-columns: 1fr; }
+      .stopwatch-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
     }
 
     @media (min-width: 992px) {
@@ -593,8 +680,8 @@
   <header>
     <div class="header-container">
       <div class="header-left">
-        <a href="./" class="logo">
-          <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
         </a>
       </div>
       <div class="header-center">
@@ -611,14 +698,14 @@
         <div class="sidebar-item has-dropdown active">
           <a href="./" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
           <div class="sidebar-dropdown">
-            <a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
-            <a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a>
-            <a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a>
-            <a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
-            <a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
-            <a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
-            <a href="../date-time/time-zone-converter" class="active"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
-            <a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
+            <a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="./stopwatch" class="active"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
           </div>
         </div>
         <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
@@ -630,39 +717,41 @@
   <div class="main-container">
     <main>
       <section class="category-intro">
-        <h1>Time Zone Converter</h1>
-        <p>Convert time between different time zones effortlessly. Select your source and target time zones, input a time, and get instant results with date and time adjustments.</p>
+        <h1>Stopwatch</h1>
+        <p>Use this precise stopwatch to track time with start, stop, reset, and lap features. Ideal for sports, tasks, or any timed activity.</p>
       </section>
 
-      <section class="converter-container">
-        <div class="converter-background"></div>
-        <div class="converter-display" id="converterResult">Converted Time: --:--</div>
-        <div class="converter-controls">
-          <input type="datetime-local" id="sourceTime" aria-label="Select source date and time">
-          <select id="sourceTimezone" aria-label="Select source timezone">
-            <option value="local">Local Time</option>
-            <option value="UTC">UTC</option>
-            <option value="America/New_York">New York</option>
-            <option value="Europe/London">London</option>
-            <option value="Asia/Tokyo">Tokyo</option>
-            <option value="Australia/Sydney">Sydney</option>
-          </select>
-          <select id="targetTimezone" aria-label="Select target timezone">
-            <option value="local">Local Time</option>
-            <option value="UTC">UTC</option>
-            <option value="America/New_York">New York</option>
-            <option value="Europe/London">London</option>
-            <option value="Asia/Tokyo">Tokyo</option>
-            <option value="Australia/Sydney">Sydney</option>
-          </select>
-          <button id="convertTime" aria-label="Convert time">Convert</button>
+      <section class="stopwatch-container">
+        <div class="stopwatch-background"></div>
+        <button class="zoom-icon" aria-label="Zoom stopwatch"><i class="fas fa-expand"></i></button>
+        <div class="stopwatch-display" id="stopwatchDisplay">00:00:00.000</div>
+        <div class="stopwatch-laps" id="lapList">
+          <ul></ul>
         </div>
-        <div class="converter-result" id="resultDetails"></div>
+        <div class="stopwatch-controls">
+          <button id="startStopBtn" aria-label="Start stopwatch">Start</button>
+          <button id="lapBtn" aria-label="Record lap" disabled>Lap</button>
+          <button id="resetBtn" aria-label="Reset stopwatch" disabled>Reset</button>
+        </div>
       </section>
+
+      <div class="stopwatch-popup" id="stopwatchPopup">
+        <button class="close-popup" aria-label="Close popup"><i class="fas fa-times"></i></button>
+        <div class="stopwatch-background"></div>
+        <div class="stopwatch-display" id="popupStopwatchDisplay">00:00:00.000</div>
+        <div class="stopwatch-laps" id="popupLapList">
+          <ul></ul>
+        </div>
+        <div class="stopwatch-controls">
+          <button id="popupStartStopBtn" aria-label="Start stopwatch">Start</button>
+          <button id="popupLapBtn" aria-label="Record lap" disabled>Lap</button>
+          <button id="popupResetBtn" aria-label="Reset stopwatch" disabled>Reset</button>
+        </div>
+      </div>
 
       <section class="settings-panel">
-        <h2>Customize Your Conversion</h2>
-        <p>Enter a specific date and time, select source and target time zones, and click Convert to see the adjusted time. Use the dropdowns to explore different regions and time formats.</p>
+        <h2>Using Your Stopwatch</h2>
+        <p>Start, stop, and reset the stopwatch with ease. Record lap times to track splits, and use the zoom icon for a full-screen view.</p>
       </section>
     </main>
 
@@ -670,19 +759,19 @@
       <div class="widget">
         <h3>Related Tools</h3>
         <ul class="widget-list">
-          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
         </ul>
       </div>
       <div class="widget">
         <h3>Quick Tips</h3>
         <ul class="widget-list">
-          <li>Select the source time and date using the datetime picker.</li>
-          <li>Choose different time zones to compare time differences.</li>
-          <li>Click 'Convert' to see the adjusted time instantly.</li>
-          <li>Use the Local Time option to base conversions on your current time zone.</li>
+          <li>Click "Start" to begin timing.</li>
+          <li>Use "Lap" to record split times.</li>
+          <li>Press "Reset" to clear the stopwatch.</li>
+          <li>Click the zoom icon for a full-screen view.</li>
         </ul>
       </div>
     </aside>
@@ -706,14 +795,14 @@
       <div class="footer-links">
         <h3>Time & Date Tools</h3>
         <ul>
-          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
-          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
-          <li><a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
-          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
         </ul>
       </div>
       <div class="footer-links">
@@ -741,65 +830,111 @@
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
     const burgerIcon = document.querySelector('.burger-icon');
     const searchIconBtn = document.querySelector('.search-icon-btn');
-    const sourceTimeInput = document.getElementById('sourceTime');
-    const sourceTimezoneSelect = document.getElementById('sourceTimezone');
-    const targetTimezoneSelect = document.getElementById('targetTimezone');
-    const convertTimeBtn = document.getElementById('convertTime');
-    const converterResult = document.getElementById('converterResult');
-    const resultDetails = document.getElementById('resultDetails');
+    const stopwatchDisplay = document.getElementById('stopwatchDisplay');
+    const lapList = document.getElementById('lapList').querySelector('ul');
+    const startStopBtn = document.getElementById('startStopBtn');
+    const lapBtn = document.getElementById('lapBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const zoomIcon = document.querySelector('.zoom-icon');
+    const stopwatchPopup = document.getElementById('stopwatchPopup');
+    const closePopup = document.querySelector('.close-popup');
+    const popupStopwatchDisplay = document.getElementById('popupStopwatchDisplay');
+    const popupLapList = document.getElementById('popupLapList').querySelector('ul');
+    const popupStartStopBtn = document.getElementById('popupStartStopBtn');
+    const popupLapBtn = document.getElementById('popupLapBtn');
+    const popupResetBtn = document.getElementById('popupResetBtn');
 
-    function convertTime() {
-      const sourceTimeValue = sourceTimeInput.value;
-      const sourceTimezone = sourceTimezoneSelect.value;
-      const targetTimezone = targetTimezoneSelect.value;
+    let isRunning = false;
+    let startTime = 0;
+    let elapsedTime = 0;
+    let timerInterval;
+    let lapCount = 0;
 
-      if (!sourceTimeValue) {
-        converterResult.textContent = 'Please select a valid date and time';
-        resultDetails.textContent = '';
-        return;
-      }
-
-      let sourceDate;
-      if (sourceTimezone === 'local') {
-        sourceDate = new Date(sourceTimeValue);
-      } else {
-        sourceDate = new Date(new Date(sourceTimeValue).toLocaleString('en-US', { timeZone: sourceTimezone }));
-      }
-
-      let targetDate;
-      if (targetTimezone === 'local') {
-        targetDate = sourceDate;
-      } else {
-        targetDate = new Date(sourceDate.toLocaleString('en-US', { timeZone: targetTimezone }));
-      }
-
-      const timeOptions = {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      };
-      const dateOptions = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      };
-
-      const targetTime = targetDate.toLocaleTimeString('en-US', timeOptions);
-      const targetDateStr = targetDate.toLocaleDateString('en-US', dateOptions);
-
-      converterResult.textContent = `Converted Time: ${targetTime}`;
-      resultDetails.textContent = `Date: ${targetDateStr} in ${targetTimezone === 'local' ? 'Local Time' : targetTimezone}`;
+    function formatTime(ms) {
+      const hours = Math.floor(ms / (1000 * 60 * 60)).toString().padStart(2, '0');
+      const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      const seconds = Math.floor((ms % (1000 * 60)) / 1000).toString().padStart(2, '0');
+      const milliseconds = Math.floor(ms % 1000).toString().padStart(3, '0');
+      return `${hours}:${minutes}:${seconds}.${milliseconds}`;
     }
 
-    convertTimeBtn.addEventListener('click', convertTime);
+    function updateStopwatch() {
+      elapsedTime = Date.now() - startTime;
+      const timeString = formatTime(elapsedTime);
+      stopwatchDisplay.textContent = timeString;
+      popupStopwatchDisplay.textContent = timeString;
+    }
 
-    // Set default source time to current time
-    const now = new Date();
-    sourceTimeInput.value = now.toISOString().slice(0, 16);
+    function startStopwatch() {
+      if (!isRunning) {
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(updateStopwatch, 10);
+        isRunning = true;
+        startStopBtn.textContent = 'Stop';
+        popupStartStopBtn.textContent = 'Stop';
+        lapBtn.disabled = false;
+        popupLapBtn.disabled = false;
+        resetBtn.disabled = false;
+        popupResetBtn.disabled = false;
+      } else {
+        clearInterval(timerInterval);
+        isRunning = false;
+        startStopBtn.textContent = 'Start';
+        popupStartStopBtn.textContent = 'Start';
+        lapBtn.disabled = true;
+        popupLapBtn.disabled = true;
+      }
+    }
 
-    // Sidebar functionality
+    function resetStopwatch() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      startTime = 0;
+      elapsedTime = 0;
+      lapCount = 0;
+      stopwatchDisplay.textContent = '00:00:00.000';
+      popupStopwatchDisplay.textContent = '00:00:00.000';
+      startStopBtn.textContent = 'Start';
+      popupStartStopBtn.textContent = 'Start';
+      lapBtn.disabled = true;
+      popupLapBtn.disabled = true;
+      resetBtn.disabled = true;
+      popupResetBtn.disabled = true;
+      lapList.innerHTML = '';
+      popupLapList.innerHTML = '';
+    }
+
+    function recordLap() {
+      if (isRunning) {
+        lapCount++;
+        const lapTime = formatTime(elapsedTime);
+        const lapItem = document.createElement('li');
+        lapItem.textContent = `Lap ${lapCount}: ${lapTime}`;
+        lapList.appendChild(lapItem);
+        const popupLapItem = document.createElement('li');
+        popupLapItem.textContent = `Lap ${lapCount}: ${lapTime}`;
+        popupLapList.appendChild(popupLapItem);
+      }
+    }
+
+    startStopBtn.addEventListener('click', startStopwatch);
+    lapBtn.addEventListener('click', recordLap);
+    resetBtn.addEventListener('click', resetStopwatch);
+
+    popupStartStopBtn.addEventListener('click', startStopwatch);
+    popupLapBtn.addEventListener('click', recordLap);
+    popupResetBtn.addEventListener('click', resetStopwatch);
+
+    zoomIcon.addEventListener('click', () => {
+      stopwatchPopup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closePopup.addEventListener('click', () => {
+      stopwatchPopup.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
     burgerIcon.addEventListener('click', () => {
       sidebar.classList.toggle('open');
       sidebarOverlay.classList.toggle('active');
@@ -821,7 +956,6 @@
       });
     });
 
-    // Dark mode toggle
     const darkModeToggle = document.createElement('button');
     darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     darkModeToggle.style.position = 'fixed';

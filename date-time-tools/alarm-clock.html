@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alarm Clock - ToolPix</title>
-  <meta name="description" content="Interactive alarm clock with customizable time settings, timezone support, and sound alerts. No registration required.">
-  <meta name="keywords" content="alarm clock, time, set alarm, timezone, sound alert">
+  <meta name="description" content="Interactive alarm clock with multiple alarms, date selection, customizable sounds, and timezone support. No registration required.">
+  <meta name="keywords" content="alarm clock, multiple alarms, time, date, sound alert, timezone">
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://toolpixs.github.io/tools/alarm-clock" />
 
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="Alarm Clock - ToolPix">
-  <meta property="og:description" content="Set a customizable alarm clock with sound alerts and timezone support. Free and easy to use.">
+  <meta property="og:description" content="Set multiple alarms with dates, customizable sounds, and timezone support. Free and easy to use.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://toolpixs.github.io/tools/alarm-clock">
   <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixalarm-social-share.jpg">
@@ -21,7 +21,7 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Alarm Clock - ToolPix">
-  <meta name="twitter:description" content="Set a customizable alarm clock with sound alerts and timezone support.">
+  <meta name="twitter:description" content="Set multiple alarms with dates, customizable sounds, and timezone support.">
   <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixalarm-twitter-card.jpg">
 
   <!-- Favicon -->
@@ -310,6 +310,7 @@
     .btn-secondary:hover { background: var(--secondary-dark); }
     .btn-danger { background: var(--accent); }
     .btn-danger:hover { background: var(--accent-dark); }
+    .btn-small { padding: 0.5rem 1rem; font-size: 0.9rem; }
 
     .alarm-container {
       background: var(--card-bg);
@@ -322,11 +323,20 @@
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
-      transition: transform 0.5s ease;
+      transition: all 0.5s ease;
     }
 
     .alarm-container:hover {
       transform: scale(1.02);
+    }
+
+    .alarm-container.active-alarm {
+      animation: flash 1s infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% { background-color: var(--card-bg); }
+      50% { background-color: var(--primary-light); }
     }
 
     .zoom-icon {
@@ -388,7 +398,7 @@
       font-size: 1rem;
       cursor: pointer;
       transition: var(--transition);
-      width: 80px;
+      width: 120px;
       text-align: center;
     }
 
@@ -421,6 +431,48 @@
       background: var(--primary);
       color: white;
       border-color: var(--primary-dark);
+    }
+
+    .alarm-list {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .alarm-list h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .alarm-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .alarm-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .alarm-item span {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .alarm-item .controls {
+      display: flex;
+      gap: 0.5rem;
     }
 
     .alarm-background {
@@ -457,6 +509,7 @@
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
       padding: 2rem;
+      overflow-y: auto;
     }
 
     .alarm-popup.active {
@@ -476,7 +529,7 @@
 
     .alarm-popup .alarm-settings input, .alarm-popup .alarm-settings select {
       font-size: 1.2rem;
-      width: 100px;
+      width: 140px;
     }
 
     .close-popup {
@@ -556,6 +609,42 @@
     .widget-list a:hover {
       color: var(--secondary-dark);
       text-decoration: underline;
+    }
+
+    .permission-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 15px var(--shadow-lg);
+      z-index: 300;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      display: none;
+    }
+
+    .permission-modal.active {
+      display: block;
+    }
+
+    .permission-modal h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .permission-modal p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .permission-modal .btn {
+      margin: 0 0.5rem;
     }
 
     footer {
@@ -658,6 +747,7 @@
       .alarm-date { font-size: 1.2rem; }
       .alarm-popup .alarm-display { font-size: 4rem; }
       .alarm-popup .alarm-date { font-size: 1.5rem; }
+      .alarm-settings input, .alarm-settings select { width: 100px; }
     }
 
     @media (max-width: 768px) {
@@ -668,7 +758,8 @@
       .alarm-popup .alarm-display { font-size: 3rem; }
       .alarm-popup .alarm-date { font-size: 1.2rem; }
       .footer-container { grid-template-columns: 1fr 1fr; }
-      .alarm-settings input, .alarm-settings select { width: 60px; font-size: 0.9rem; }
+      .alarm-settings input, .alarm-settings select { width: 80px; font-size: 0.9rem; }
+      .alarm-popup .alarm-settings input, .alarm-popup .alarm-settings select { width: 100px; }
     }
 
     @media (max-width: 576px) {
@@ -681,7 +772,9 @@
       .alarm-popup .alarm-date { font-size: 1rem; }
       .footer-container { grid-template-columns: 1fr; }
       .alarm-controls select, .alarm-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
-      .alarm-settings input, .alarm-settings select { width: 50px; font-size: 0.8rem; }
+      .alarm-settings input, .alarm-settings select { width: 60px; font-size: 0.8rem; }
+      .alarm-popup .alarm-settings input, .alarm-popup .alarm-settings select { width: 80px; }
+      .permission-modal { padding: 1.5rem; }
     }
 
     @media (min-width: 992px) {
@@ -696,8 +789,8 @@
   <header>
     <div class="header-container">
       <div class="header-left">
-        <a href="./" class="logo">
-          <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
         </a>
       </div>
       <div class="header-center">
@@ -714,14 +807,14 @@
         <div class="sidebar-item has-dropdown active">
           <a href="./" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
           <div class="sidebar-dropdown">
-            <a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
-            <a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a>
-            <a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a>
-            <a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
-            <a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
-            <a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
-            <a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
-            <a href="../date-time/alarm-clock" class="active"><i class="fas fa-bell"></i> Alarm Clock</a>
+            <a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="./alarm-clock" class="active"><i class="fas fa-bell"></i> Alarm Clock</a>
           </div>
         </div>
         <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
@@ -734,7 +827,7 @@
     <main>
       <section class="category-intro">
         <h1>Alarm Clock</h1>
-        <p>Set a customizable alarm clock with sound alerts, timezone support, and easy controls. Perfect for reminders and wake-up calls.</p>
+        <p>Create multiple alarms with specific dates, customizable sounds, and timezone support. Perfect for reminders, wake-up calls, and scheduling.</p>
       </section>
 
       <section class="alarm-container">
@@ -743,11 +836,12 @@
         <div class="alarm-display" id="alarmDisplay">00:00:00</div>
         <div class="alarm-date" id="dateDisplay">January 1, 2025</div>
         <div class="alarm-settings">
-          <input type="number" id="alarmHours" min="1" max="12" value="12" aria-label="Alarm hours">
-          <input type="number" id="alarmMinutes" min="0" max="59" value="00" aria-label="Alarm minutes">
-          <select id="alarmAmPm" aria-label="Select AM/PM">
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
+          <input type="time" id="alarmTime" value="12:00" aria-label="Alarm time">
+          <input type="date" id="alarmDate" aria-label="Alarm date">
+          <select id="alarmSound" aria-label="Select alarm sound">
+            <option value="beep">Alarm Clock Beep</option>
+            <option value="classic">Classic Alarm</option>
+            <option value="digital">Digital Beep</option>
           </select>
         </div>
         <div class="alarm-controls">
@@ -759,9 +853,15 @@
             <option value="Asia/Tokyo">Tokyo</option>
             <option value="Australia/Sydney">Sydney</option>
           </select>
-          <button id="toggleAlarm" aria-label="Enable alarm">Enable Alarm</button>
+          <button id="addAlarm" class="btn" aria-label="Add alarm">Add Alarm</button>
           <button id="stopAlarm" class="btn-danger" aria-label="Stop alarm" style="display: none;">Stop Alarm</button>
+          <button id="snoozeAlarm" class="btn-secondary" aria-label="Snooze alarm" style="display: none;">Snooze 5 Min</button>
         </div>
+      </section>
+
+      <section class="alarm-list" id="alarmList">
+        <h3>Active Alarms</h3>
+        <div id="alarmItems"></div>
       </section>
 
       <div class="alarm-popup" id="alarmPopup">
@@ -770,11 +870,12 @@
         <div class="alarm-display" id="popupAlarmDisplay">00:00:00</div>
         <div class="alarm-date" id="popupDateDisplay">January 1, 2025</div>
         <div class="alarm-settings">
-          <input type="number" id="popupAlarmHours" min="1" max="12" value="12" aria-label="Alarm hours">
-          <input type="number" id="popupAlarmMinutes" min="0" max="59" value="00" aria-label="Alarm minutes">
-          <select id="popupAlarmAmPm" aria-label="Select AM/PM">
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
+          <input type="time" id="popupAlarmTime" value="12:00" aria-label="Alarm time">
+          <input type="date" id="popupAlarmDate" aria-label="Alarm date">
+          <select id="popupAlarmSound" aria-label="Select alarm sound">
+            <option value="beep">Alarm Clock Beep</option>
+            <option value="classic">Classic Alarm</option>
+            <option value="digital">Digital Beep</option>
           </select>
         </div>
         <div class="alarm-controls">
@@ -786,34 +887,47 @@
             <option value="Asia/Tokyo">Tokyo</option>
             <option value="Australia/Sydney">Sydney</option>
           </select>
-          <button id="popupToggleAlarm" aria-label="Enable alarm">Enable Alarm</button>
+          <button id="popupAddAlarm" class="btn" aria-label="Add alarm">Add Alarm</button>
           <button id="popupStopAlarm" class="btn-danger" aria-label="Stop alarm" style="display: none;">Stop Alarm</button>
+          <button id="popupSnoozeAlarm" class="btn-secondary" aria-label="Snooze alarm" style="display: none;">Snooze 5 Min</button>
         </div>
+        <section class="alarm-list">
+          <h3>Active Alarms</h3>
+          <div id="popupAlarmItems"></div>
+        </section>
       </div>
 
       <section class="settings-panel">
         <h2>Customize Your Alarm Clock</h2>
-        <p>Set the alarm time, choose a timezone, and enable the alarm. When the alarm triggers, a sound will play. Use the stop button to silence it or the zoom icon for full-screen mode.</p>
+        <p>Set multiple alarms with specific times and dates. Choose from different alarm sounds and timezones. Enable or disable alarms individually, snooze triggered alarms, or view in full-screen mode. Keep this tab open for alarms to work.</p>
       </section>
+
+      <div class="permission-modal" id="permissionModal">
+        <h2>Allow Alarm Clock</h2>
+        <p>This alarm clock requires the browser tab to remain open to function. Do you allow it to run?</p>
+        <button class="btn" id="allowPermission">Allow</button>
+        <button class="btn-secondary" id="denyPermission">Deny</button>
+      </div>
     </main>
 
     <aside class="right-sidebar">
       <div class="widget">
         <h3>Related Tools</h3>
         <ul class="widget-list">
-          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
         </ul>
       </div>
       <div class="widget">
         <h3>Quick Tips</h3>
         <ul class="widget-list">
-          <li>Set the alarm time using the hour and minute inputs.</li>
-          <li>Choose a timezone to align the alarm with your region.</li>
-          <li>Enable the alarm to activate it.</li>
-          <li>Click the stop button to silence the alarm sound.</li>
+          <li>Use the time and date pickers to set precise alarms.</li>
+          <li>Select a preferred alarm sound for each alarm.</li>
+          <li>Enable/disable alarms via the toggle switch.</li>
+          <li>Snooze triggered alarms for 5 minutes.</li>
+          <li>Keep the browser tab open for alarms to trigger.</li>
         </ul>
       </div>
     </aside>
@@ -837,14 +951,14 @@
       <div class="footer-links">
         <h3>Time & Date Tools</h3>
         <ul>
-          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
-          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
-          <li><a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
-          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
         </ul>
       </div>
       <div class="footer-links">
@@ -874,28 +988,63 @@
     const searchIconBtn = document.querySelector('.search-icon-btn');
     const alarmDisplay = document.getElementById('alarmDisplay');
     const dateDisplay = document.getElementById('dateDisplay');
-    const alarmHoursInput = document.getElementById('alarmHours');
-    const alarmMinutesInput = document.getElementById('alarmMinutes');
-    const alarmAmPmSelect = document.getElementById('alarmAmPm');
+    const alarmTimeInput = document.getElementById('alarmTime');
+    const alarmDateInput = document.getElementById('alarmDate');
+    const alarmSoundSelect = document.getElementById('alarmSound');
     const timezoneSelect = document.getElementById('timezone');
-    const toggleAlarmBtn = document.getElementById('toggleAlarm');
+    const addAlarmBtn = document.getElementById('addAlarm');
     const stopAlarmBtn = document.getElementById('stopAlarm');
+    const snoozeAlarmBtn = document.getElementById('snoozeAlarm');
+    const alarmItemsContainer = document.getElementById('alarmItems');
     const zoomIcon = document.querySelector('.zoom-icon');
     const alarmPopup = document.getElementById('alarmPopup');
     const closePopup = document.querySelector('.close-popup');
     const popupAlarmDisplay = document.getElementById('popupAlarmDisplay');
     const popupDateDisplay = document.getElementById('popupDateDisplay');
-    const popupAlarmHours = document.getElementById('popupAlarmHours');
-    const popupAlarmMinutes = document.getElementById('popupAlarmMinutes');
-    const popupAlarmAmPm = document.getElementById('popupAlarmAmPm');
+    const popupAlarmTime = document.getElementById('popupAlarmTime');
+    const popupAlarmDate = document.getElementById('popupAlarmDate');
+    const popupAlarmSound = document.getElementById('popupAlarmSound');
     const popupTimezone = document.getElementById('popupTimezone');
-    const popupToggleAlarm = document.getElementById('popupToggleAlarm');
+    const popupAddAlarm = document.getElementById('popupAddAlarm');
     const popupStopAlarm = document.getElementById('popupStopAlarm');
+    const popupSnoozeAlarm = document.getElementById('popupSnoozeAlarm');
+    const popupAlarmItems = document.getElementById('popupAlarmItems');
+    const permissionModal = document.getElementById('permissionModal');
+    const allowPermissionBtn = document.getElementById('allowPermission');
+    const denyPermissionBtn = document.getElementById('denyPermission');
 
-    let alarmEnabled = false;
-    let alarmSound = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_7e2c657a0e.mp3');
-    alarmSound.loop = true;
-    let alarmTime = { hours: 12, minutes: 0, ampm: 'AM' };
+    let alarms = JSON.parse(localStorage.getItem('alarms')) || [];
+    let activeAlarmSound = null;
+    const soundOptions = {
+      beep: new Audio('../static/sfx/alarm.mp3'),
+      classic: new Audio('../static/sfx/alarm.mp3'),
+      digital: new Audio('../static/sfx/alarm.mp3')
+    };
+    Object.values(soundOptions).forEach(sound => { sound.loop = true; });
+    const alarmContainer = document.querySelector('.alarm-container');
+
+    // Set minimum date for date picker
+    const today = new Date().toISOString().split('T')[0];
+    alarmDateInput.min = today;
+    popupAlarmDate.min = today;
+
+    // Show permission modal on load
+    window.addEventListener('load', () => {
+      if (!localStorage.getItem('alarmPermission')) {
+        permissionModal.classList.add('active');
+      }
+    });
+
+    allowPermissionBtn.addEventListener('click', () => {
+      localStorage.setItem('alarmPermission', 'granted');
+      permissionModal.classList.remove('active');
+    });
+
+    denyPermissionBtn.addEventListener('click', () => {
+      localStorage.setItem('alarmPermission', 'denied');
+      permissionModal.classList.remove('active');
+      alert('Alarms may not function if the tab is closed.');
+    });
 
     function updateClock() {
       let now;
@@ -920,105 +1069,222 @@
       alarmDisplay.textContent = timeString;
       popupAlarmDisplay.textContent = timeString;
 
-      // Check if alarm should trigger
-      if (alarmEnabled) {
-        let alarmHours24 = parseInt(alarmHoursInput.value);
-        if (alarmAmPmSelect.value === 'PM' && alarmHours24 !== 12) {
-          alarmHours24 += 12;
-        } else if (alarmAmPmSelect.value === 'AM' && alarmHours24 === 12) {
-          alarmHours24 = 0;
+      // Check alarms
+      const nowDate = now.toISOString().split('T')[0];
+      alarms.forEach((alarm, index) => {
+        if (alarm.enabled) {
+          const [alarmHours, alarmMinutes] = alarm.time.split(':').map(Number);
+          const alarmDate = alarm.date;
+          if (nowDate === alarmDate && hours === alarmHours && minutes === alarmMinutes && seconds === 0) {
+            activeAlarmSound = soundOptions[alarm.sound];
+            activeAlarmSound.play();
+            alarmContainer.classList.add('active-alarm');
+            stopAlarmBtn.style.display = 'inline-flex';
+            snoozeAlarmBtn.style.display = 'inline-flex';
+            popupStopAlarm.style.display = 'inline-flex';
+            popupSnoozeAlarm.style.display = 'inline-flex';
+            alarm.triggered = true;
+            updateAlarmList();
+          }
         }
-        const alarmMinutes = parseInt(alarmMinutesInput.value);
-
-        if (hours === alarmHours24 && minutes === alarmMinutes && seconds === 0) {
-          alarmSound.play();
-          stopAlarmBtn.style.display = 'inline-flex';
-          popupStopAlarm.style.display = 'inline-flex';
-        }
-      }
+      });
     }
 
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Synchronize alarm settings
-    function syncAlarmSettings(source) {
+    function syncSettings(source) {
       if (source === 'main') {
-        popupAlarmHours.value = alarmHoursInput.value;
-        popupAlarmMinutes.value = alarmMinutesInput.value;
-        popupAlarmAmPm.value = alarmAmPmSelect.value;
+        popupAlarmTime.value = alarmTimeInput.value;
+        popupAlarmDate.value = alarmDateInput.value;
+        popupAlarmSound.value = alarmSoundSelect.value;
       } else {
-        alarmHoursInput.value = popupAlarmHours.value;
-        alarmMinutesInput.value = popupAlarmMinutes.value;
-        alarmAmPmSelect.value = popupAlarmAmPm.value;
+        alarmTimeInput.value = popupAlarmTime.value;
+        alarmDateInput.value = popupAlarmDate.value;
+        alarmSoundSelect.value = popupAlarmSound.value;
       }
     }
 
-    alarmHoursInput.addEventListener('input', () => {
-      const value = parseInt(alarmHoursInput.value);
-      if (value < 1 || value > 12) {
-        alarmHoursInput.value = value < 1 ? 1 : 12;
+    function validateAlarm(time, date) {
+      if (!time || !date) {
+        alert('Please set both time and date for the alarm.');
+        return false;
       }
-      syncAlarmSettings('main');
-    });
-
-    alarmMinutesInput.addEventListener('input', () => {
-      const value = parseInt(alarmMinutesInput.value);
-      if (value < 0 || value > 59) {
-        alarmMinutesInput.value = value < 0 ? 0 : 59;
+      const now = new Date();
+      const selectedDate = new Date(date);
+      const [hours, minutes] = time.split(':').map(Number);
+      selectedDate.setHours(hours, minutes, 0, 0);
+      if (selectedDate < now) {
+        alert('Cannot set an alarm for a past date or time.');
+        return false;
       }
-      alarmMinutesInput.value = alarmMinutesInput.value.padStart(2, '0');
-      syncAlarmSettings('main');
-    });
+      return true;
+    }
 
-    alarmAmPmSelect.addEventListener('change', () => {
-      syncAlarmSettings('main');
-    });
+    function addAlarm(time, date, sound, source) {
+      if (!validateAlarm(time, date)) return;
+      const [hours, minutes] = time.split(':').map(Number);
+      alarms.push({
+        time: `${hours}:${minutes.toString().padStart(2, '0')}`,
+        date,
+        sound,
+        enabled: true,
+        triggered: false
+      });
+      localStorage.setItem('alarms', JSON.stringify(alarms));
+      updateAlarmList();
+      syncSettings(source);
+    }
 
-    popupAlarmHours.addEventListener('input', () => {
-      const value = parseInt(popupAlarmHours.value);
-      if (value < 1 || value > 12) {
-        popupAlarmHours.value = value < 1 ? 1 : 12;
+    function updateAlarmList() {
+      alarmItemsContainer.innerHTML = '';
+      popupAlarmItems.innerHTML = '';
+      alarms.forEach((alarm, index) => {
+        const item = document.createElement('div');
+        item.className = 'alarm-item';
+        const timeParts = alarm.time.split(':');
+        const hours = parseInt(timeParts[0]);
+        const minutes = timeParts[1];
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = (hours % 12) || 12;
+        item.innerHTML = `
+          <span>${displayHours}:${minutes} ${ampm} - ${alarm.date} (${alarm.sound})</span>
+          <div class="controls">
+            <label class="switch">
+              <input type="checkbox" ${alarm.enabled ? 'checked' : ''} aria-label="Toggle alarm ${index + 1}">
+              <span class="slider"></span>
+            </label>
+            <button class="btn-danger btn-small" aria-label="Delete alarm ${index + 1}"><i class="fas fa-trash"></i></button>
+          </div>
+        `;
+        const toggle = item.querySelector('input');
+        toggle.addEventListener('change', () => {
+          alarms[index].enabled = toggle.checked;
+          localStorage.setItem('alarms', JSON.stringify(alarms));
+        });
+        const deleteBtn = item.querySelector('button');
+        deleteBtn.addEventListener('click', () => {
+          alarms.splice(index, 1);
+          localStorage.setItem('alarms', JSON.stringify(alarms));
+          updateAlarmList();
+        });
+        alarmItemsContainer.appendChild(item);
+        popupAlarmItems.appendChild(item.cloneNode(true));
+      });
+    }
+
+    // Toggle switch CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 20px;
       }
-      syncAlarmSettings('popup');
-    });
-
-    popupAlarmMinutes.addEventListener('input', () => {
-      const value = parseInt(popupAlarmMinutes.value);
-      if (value < 0 || value > 59) {
-        popupAlarmMinutes.value = value < 0 ? 0 : 59;
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
       }
-      popupAlarmMinutes.value = popupAlarmMinutes.value.padStart(2, '0');
-      syncAlarmSettings('popup');
-    });
-
-    popupAlarmAmPm.addEventListener('change', () => {
-      syncAlarmSettings('popup');
-    });
-
-    // Synchronize other controls
-    timezoneSelect.addEventListener('change', () => {
-      popupTimezone.value = timezoneSelect.value;
-      updateClock();
-    });
-
-    toggleAlarmBtn.addEventListener('click', () => {
-      alarmEnabled = !alarmEnabled;
-      toggleAlarmBtn.textContent = alarmEnabled ? 'Disable Alarm' : 'Enable Alarm';
-      popupToggleAlarm.textContent = alarmEnabled ? 'Disable Alarm' : 'Enable Alarm';
-      if (!alarmEnabled) {
-        alarmSound.pause();
-        alarmSound.currentTime = 0;
-        stopAlarmBtn.style.display = 'none';
-        popupStopAlarm.style.display = 'none';
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--border);
+        transition: var(--transition);
+        border-radius: 20px;
       }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: var(--transition);
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: var(--primary);
+      }
+      input:checked + .slider:before {
+        transform: translateX(20px);
+      }
+    `;
+    document.head.appendChild(style);
+
+    alarmTimeInput.addEventListener('change', () => syncSettings('main'));
+    alarmDateInput.addEventListener('change', () => syncSettings('main'));
+    alarmSoundSelect.addEventListener('change', () => syncSettings('main'));
+
+    popupAlarmTime.addEventListener('change', () => syncSettings('popup'));
+    popupAlarmDate.addEventListener('change', () => syncSettings('popup'));
+    popupAlarmSound.addEventListener('change', () => syncSettings('popup'));
+
+    addAlarmBtn.addEventListener('click', () => {
+      addAlarm(alarmTimeInput.value, alarmDateInput.value, alarmSoundSelect.value, 'main');
+    });
+
+    popupAddAlarm.addEventListener('click', () => {
+      addAlarm(popupAlarmTime.value, popupAlarmDate.value, popupAlarmSound.value, 'popup');
     });
 
     stopAlarmBtn.addEventListener('click', () => {
-      alarmSound.pause();
-      alarmSound.currentTime = 0;
+      if (activeAlarmSound) {
+        activeAlarmSound.pause();
+        activeAlarmSound.currentTime = 0;
+        activeAlarmSound = null;
+      }
+      alarmContainer.classList.remove('active-alarm');
       stopAlarmBtn.style.display = 'none';
+      snoozeAlarmBtn.style.display = 'none';
       popupStopAlarm.style.display = 'none';
+      popupSnoozeAlarm.style.display = 'none';
+      alarms.forEach(alarm => {
+        if (alarm.triggered) alarm.enabled = false;
+      });
+      localStorage.setItem('alarms', JSON.stringify(alarms));
+      updateAlarmList();
+    });
+
+    snoozeAlarmBtn.addEventListener('click', () => {
+      if (activeAlarmSound) {
+        activeAlarmSound.pause();
+        activeAlarmSound.currentTime = 0;
+        activeAlarmSound = null;
+      }
+      alarmContainer.classList.remove('active-alarm');
+      stopAlarmBtn.style.display = 'none';
+      snoozeAlarmBtn.style.display = 'none';
+      popupStopAlarm.style.display = 'none';
+      popupSnoozeAlarm.style.display = 'none';
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 5);
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const date = now.toISOString().split('T')[0];
+      alarms.push({
+        time: `${hours}:${minutes.toString().padStart(2, '0')}`,
+        date,
+        sound: alarmSoundSelect.value,
+        enabled: true,
+        triggered: false
+      });
+      localStorage.setItem('alarms', JSON.stringify(alarms));
+      updateAlarmList();
+    });
+
+    popupStopAlarm.addEventListener('click', () => stopAlarmBtn.click());
+    popupSnoozeAlarm.addEventListener('click', () => snoozeAlarmBtn.click());
+
+    timezoneSelect.addEventListener('change', () => {
+      popupTimezone.value = timezoneSelect.value;
+      updateClock();
     });
 
     popupTimezone.addEventListener('change', () => {
@@ -1026,26 +1292,6 @@
       updateClock();
     });
 
-    popupToggleAlarm.addEventListener('click', () => {
-      alarmEnabled = !alarmEnabled;
-      toggleAlarmBtn.textContent = alarmEnabled ? 'Disable Alarm' : 'Enable Alarm';
-      popupToggleAlarm.textContent = alarmEnabled ? 'Disable Alarm' : 'Enable Alarm';
-      if (!alarmEnabled) {
-        alarmSound.pause();
-        alarmSound.currentTime = 0;
-        stopAlarmBtn.style.display = 'none';
-        popupStopAlarm.style.display = 'none';
-      }
-    });
-
-    popupStopAlarm.addEventListener('click', () => {
-      alarmSound.pause();
-      alarmSound.currentTime = 0;
-      stopAlarmBtn.style.display = 'none';
-      popupStopAlarm.style.display = 'none';
-    });
-
-    // Popup open/close functionality
     zoomIcon.addEventListener('click', () => {
       alarmPopup.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -1056,7 +1302,6 @@
       document.body.style.overflow = 'auto';
     });
 
-    // Sidebar functionality
     burgerIcon.addEventListener('click', () => {
       sidebar.classList.toggle('open');
       sidebarOverlay.classList.toggle('active');
@@ -1078,7 +1323,6 @@
       });
     });
 
-    // Dark mode toggle
     const darkModeToggle = document.createElement('button');
     darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     darkModeToggle.style.position = 'fixed';
@@ -1125,6 +1369,7 @@
     }
 
     document.body.appendChild(darkModeToggle);
+    updateAlarmList();
   </script>
 </body>
 </html>

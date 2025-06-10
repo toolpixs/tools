@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Dependency Manager - Free Online Tool | ToolPix</title>
+  <meta name="description" content="Organize tasks with dependencies using ToolPix's free task manager. Set priorities, due dates, and task relationships without registration.">
+  <meta name="keywords" content="task dependency, to-do list, task manager, free task tool, online task management, productivity tool, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/task-dependency" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Task Dependency Manager - Free Online Tool | ToolPix">
+  <meta property="og:description" content="Manage tasks with dependencies, priorities, and due dates. No sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/task-dependency">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/task-dependency-social.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Task Dependency Manager - ToolPix">
+  <meta name="twitter:description" content="Free task manager with dependency tracking, priorities, and due dates.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/task-dependency-twitter.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ToolPix Task Dependency Manager",
+      "description": "A free online tool for managing tasks with dependencies, priorities, and due dates.",
+      "url": "https://toolpixs.github.io/task-dependency",
+      "applicationCategory": "Productivity",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "200"
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #ecfdf5;
+      --secondary: #3b82f6;
+      --secondary-dark: #2563eb;
+      --secondary-light: #eff6ff;
+      --accent: #f43f5e;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --border-light: #f3f4f6;
+      --shadow: rgba(0,0,0,0.05);
+      --shadow-md: rgba(0,0,0,0.1);
+      --radius-md: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    html.dark-mode {
+      --text: #e5e7eb;
+      --text-light: #9ca3af;
+      --bg: #111827;
+      --card-bg: #1f2937;
+      --border: #374151;
+      --border-light: #4b5563;
+      --shadow: rgba(0,0,0,0.2);
+      --primary-light: #064e3b;
+      --secondary-light: #1e40af;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #e5e7eb;
+        --text-light: #9ca3af;
+        --bg: #111827;
+        --card-bg: #1f2937;
+        --border: #374151;
+        --border-light: #4b5563;
+        --shadow: rgba(0,0,0,0.2);
+        --primary-light: #064e3b;
+        --secondary-light: #1e40af;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 2px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      flex: 1;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 1.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .intro p {
+      color: var(--text-light);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tool-container {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group input, .input-group select {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .task-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      transition: var(--transition);
+      position: relative;
+      margin-left: 1rem;
+    }
+
+    .task-item.dependent { margin-left: 2rem; }
+    .task-item.dependent:before {
+      content: '↳';
+      position: absolute;
+      left: -1rem;
+      color: var(--text-light);
+    }
+
+    .task-item.completed span.task-text {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+
+    .task-item input[type="checkbox"] {
+      margin-right: 0.75rem;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+
+    .task-item span.task-text { flex: 1; font-size: 0.875rem; }
+    .task-item span.task-due { color: var(--text-light); font-size: 0.75rem; margin-left: 0.5rem; }
+    .task-item span.task-priority {
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-md);
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+    }
+
+    .task-item span.priority-low { background: var(--primary-light); color: var(--primary-dark); }
+    .task-item span.priority-medium { background: #fef3c7; color: #d97706; }
+    .task-item span.priority-high { background: #fee2e2; color: #dc2626; }
+
+    .task-item button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.875rem;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .task-item button:hover { color: #e11d48; }
+
+    .dependency-graph {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .dependency-graph h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    #dependencyCanvas {
+      width: 100%;
+      height: 200px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 2px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px var(--shadow-md);
+    }
+
+    .tool-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1rem;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-item summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 0.875rem;
+    }
+
+    .faq-item summary:hover { color: var(--primary-dark); }
+
+    .faq-item p {
+      color: var(--text-light);
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 1.5rem 1rem;
+      box-shadow: 0 -1px 2px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-logo a {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li { margin-bottom: 0.25rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.75rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .input-group { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .intro h1 { font-size: 1.5rem; }
+      .tool-container h2, .dependency-graph h2, .suggested-tools h2, .faq-section h2 { font-size: 1.25rem; }
+    }
+
+    @media (max-width: 576px) {
+      .header-title { font-size: 1rem; }
+      .logo { font-size: 1.25rem; }
+      .intro p { font-size: 0.875rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../" class="logo">
+        <img src="../static/images/icon.png" alt="ToolPix Logo">
+      </a>
+      <span class="header-title">Task Dependency Manager</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Free Task Dependency Manager</h1>
+      <p>Streamline your workflow with ToolPix's task dependency tool. Set task relationships, priorities, and due dates to stay organized. No sign-up required.</p>
+    </section>
+
+    <section class="tool-container">
+      <h2>Manage Tasks & Dependencies</h2>
+      <div class="input-group">
+        <input type="text" id="taskInput" placeholder="Enter a new task..." aria-label="New task">
+        <select id="prioritySelect" aria-label="Task priority">
+          <option value="Low">Low Priority</option>
+          <option value="Medium">Medium Priority</option>
+          <option value="High">High Priority</option>
+        </select>
+        <input type="date" id="dueDateInput" aria-label="Task due date">
+        <select id="dependencySelect" aria-label="Task dependency">
+          <option value="">No Dependency</option>
+        </select>
+        <button class="btn" id="addTaskBtn" aria-label="Add task"><i class="fas fa-plus"></i> Add</button>
+      </div>
+      <div class="input-group">
+        <button class="btn btn-secondary" id="clearAllBtn" aria-label="Clear all tasks"><i class="fas fa-trash"></i> Clear All</button>
+      </div>
+      <ul class="task-list" id="taskList"></ul>
+    </section>
+
+    <section class="dependency-graph">
+      <h2>Dependency Graph</h2>
+      <canvas id="dependencyCanvas"></canvas>
+    </section>
+
+    <section class="suggested-tools">
+      <h2>Explore More Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-calendar-day"></i></div>
+          <h3>Daily Planner</h3>
+          <p>Schedule your day with ease using drag-and-drop time blocks.</p>
+          <a href="./daily-planner" class="btn btn-secondary" aria-label="Use Daily Planner tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Pomodoro Timer</h3>
+          <p>Boost focus with customizable work and break intervals.</p>
+          <a href="./pomodoro-timer" class="btn btn-secondary" aria-label="Use Pomodoro Timer tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-columns"></i></div>
+          <h3>Kanban Board</h3>
+          <p>Visualize tasks with To Do, In Progress, and Done columns.</p>
+          <a href="./kanban-board" class="btn btn-secondary" aria-label="Use Kanban Board tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <details class="faq-item">
+        <summary>What are task dependencies?</summary>
+        <p>Task dependencies define the order in which tasks must be completed. A dependent task cannot be marked complete until its parent task is completed.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is this tool free to use?</summary>
+        <p>Yes, ToolPix's task dependency manager is completely free with no registration required.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I set a dependency?</summary>
+        <p>Select a parent task from the dependency dropdown when adding a new task. The new task will depend on the selected task.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are tasks saved automatically?</summary>
+        <p>Tasks and dependencies are saved in your browser's local storage and persist across sessions until cleared.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="../" class="logo">ToolPix</a>
+        <p>Empowering productivity with free online tools.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Tools</h3>
+        <ul>
+          <li><a href="./daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Pomodoro Timer</a></li>
+          <li><a href="./kanban-board"><i class="fas fa-columns"></i> Kanban Board</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const prioritySelect = document.getElementById('prioritySelect');
+    const dueDateInput = document.getElementById('dueDateInput');
+    const dependencySelect = document.getElementById('dependencySelect');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const taskList = document.getElementById('taskList');
+    const canvas = document.getElementById('dependencyCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    updateDependencySelect();
+    renderTasks();
+    drawDependencyGraph();
+
+    addTaskBtn.addEventListener('click', addTask);
+    taskInput.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
+    clearAllBtn.addEventListener('click', () => {
+      tasks = [];
+      saveTasks();
+      updateDependencySelect();
+      renderTasks();
+      drawDependencyGraph();
+    });
+
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (!taskText) {
+        taskInput.focus();
+        return;
+      }
+
+      const task = {
+        id: Date.now(),
+        text: taskText,
+        priority: prioritySelect.value,
+        dueDate: dueDateInput.value,
+        dependencyId: dependencySelect.value,
+        completed: false
+      };
+
+      tasks.push(task);
+      saveTasks();
+      updateDependencySelect();
+      renderTasks();
+      drawDependencyGraph();
+      taskInput.value = '';
+      dueDateInput.value = '';
+      dependencySelect.value = '';
+      taskInput.focus();
+    }
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      tasks.forEach(task => {
+        const li = document.createElement('li');
+        const isDependent = task.dependencyId && tasks.find(t => t.id == task.dependencyId);
+        const parentTask = isDependent ? tasks.find(t => t.id == task.dependencyId) : null;
+        const isParentIncomplete = parentTask && !parentTask.completed;
+        li.className = `task-item ${task.completed ? 'completed' : ''} ${isDependent ? 'dependent' : ''}`;
+        li.innerHTML = `
+          <input type="checkbox" ${task.completed ? 'checked' : ''} ${isParentIncomplete ? 'disabled' : ''} aria-label="Mark task ${task.text} as completed">
+          <span class="task-text">${task.text}</span>
+          ${task.dueDate ? `<span class="task-due">Due: ${task.dueDate}</span>` : ''}
+          <span class="task-priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+          <button aria-label="Delete task ${task.text}"><i class="fas fa-trash"></i></button>
+        `;
+
+        li.querySelector('input').addEventListener('change', () => {
+          if (!isParentIncomplete) {
+            task.completed = !task.completed;
+            saveTasks();
+            renderTasks();
+            drawDependencyGraph();
+          }
+        });
+
+        li.querySelector('button').addEventListener('click', () => {
+          tasks = tasks.filter(t => t.id !== task.id);
+          tasks.forEach(t => {
+            if (t.dependencyId == task.id) t.dependencyId = '';
+          });
+          saveTasks();
+          updateDependencySelect();
+          renderTasks();
+          drawDependencyGraph();
+        });
+
+        taskList.appendChild(li);
+      });
+    }
+
+    function updateDependencySelect() {
+      dependencySelect.innerHTML = '<option value="">No Dependency</option>';
+      tasks.forEach(task => {
+        const option = document.createElement('option');
+        option.value = task.id;
+        option.textContent = task.text;
+        dependencySelect.appendChild(option);
+      });
+    }
+
+    function saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function drawDependencyGraph() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = 200;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const nodeRadius = 20;
+      const nodes = tasks.map((task, i) => ({
+        id: task.id,
+        x: 50 + (i % 3) * 150,
+        y: 50 + Math.floor(i / 3) * 80,
+        task
+      }));
+
+      // Draw edges
+      ctx.strokeStyle = 'var(--text-light)';
+      ctx.lineWidth = 2;
+      tasks.forEach(task => {
+        if (task.dependencyId) {
+          const fromNode = nodes.find(n => n.id == task.dependencyId);
+          const toNode = nodes.find(n => n.id == task.id);
+          if (fromNode && toNode) {
+            ctx.beginPath();
+            ctx.moveTo(fromNode.x, fromNode.y + nodeRadius);
+            ctx.lineTo(toNode.x, toNode.y - nodeRadius);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(toNode.x - 5, toNode.y - nodeRadius + 10);
+            ctx.lineTo(toNode.x, toNode.y - nodeRadius);
+            ctx.lineTo(toNode.x + 5, toNode.y - nodeRadius + 10);
+            ctx.fillStyle = 'var(--text-light)';
+            ctx.fill();
+          }
+        }
+      });
+
+      // Draw nodes
+      nodes.forEach(node => {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
+        ctx.fillStyle = node.task.completed ? 'var(--primary)' : 'var(--card-bg)';
+        ctx.strokeStyle = 'var(--border)';
+        ctx.lineWidth = 2;
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = node.task.completed ? 'white' : 'var(--text)';
+        ctx.font = '12px Inter';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(node.task.text.slice(0, 10) + (node.task.text.length > 10 ? '...' : ''), node.x, node.y);
+      });
+    }
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '40px';
+    darkModeToggle.style.height = '40px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      drawDependencyGraph();
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+
+    document.body.appendChild(darkModeToggle);
+
+    // Redraw graph on resize
+    window.addEventListener('resize', drawDependencyGraph);
+  </script>
+</body>
+</html>

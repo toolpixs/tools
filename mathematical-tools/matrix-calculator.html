@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Calculator - ToolPix</title>
+  <meta name="description" content="Perform matrix operations like addition, subtraction, multiplication, and determinants with our free online matrix calculator. No registration required.">
+  <meta name="keywords" content="matrix calculator, linear algebra, matrix operations, determinant, matrix addition, matrix multiplication, free math tool">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolpixs.github.io/tools/matrix-calculator" />
+  <meta property="og:title" content="Matrix Calculator - ToolPix">
+  <meta property="og:description" content="Calculate matrix operations including addition, subtraction, multiplication, and determinants with our advanced online matrix calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/matrix-calculator">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/matrix-calculator-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Matrix Calculator - ToolPix">
+  <meta name="twitter:description" content="Calculate matrix operations including addition, subtraction, multiplication, and determinants with our advanced online matrix calculator.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/matrix-calculator-twitter-card.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js" integrity="sha512-VV8/8+3oHsjW4cL3g3fGY3nG2H1nq0DHA7FUK+3yG7hM8TfDKTsEPGvh1v3fGrh7N7NXXa83tWvZ6vWLFNrZ2hQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center { text-align: center; }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .calculator-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .calculator-container h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .calculator {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .calculator select, .calculator input {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .calculator button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .calculator button:hover {
+      background: var(--primary-dark);
+    }
+
+    .calculator .result {
+      font-size: 1.1rem;
+      text-align: left;
+      margin-top: 1rem;
+      color: var(--text);
+      white-space: pre-wrap;
+      background: var(--primary-light);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+    }
+
+    .matrix-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .matrix-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .matrix-group label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .matrix-table {
+      display: grid;
+      gap: 0.25rem;
+      justify-content: center;
+    }
+
+    .matrix-table input {
+      width: 60px;
+      height: 40px;
+      text-align: center;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .section p {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      color: var(--text-light);
+    }
+
+    .section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .tool-card .btn:hover { background: var(--secondary-dark); }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .calculator { max-width: 100%; }
+      .matrix-table input { width: 50px; height: 35px; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .tool-card { padding: 1rem 0.75rem; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 576px) {
+      .header-container { padding: 1rem; }
+      .header-title { font-size: 1.2rem; }
+      .logo { font-size: 1.5rem; }
+      .matrix-table input { width: 45px; height: 30px; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .tool-card h3 { font-size: 1rem; }
+      .footer-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">TOOL PIX</span>
+      </div>
+      <div class="header-right"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="calculator-container">
+      <h1>Matrix Calculator</h1>
+      <div class="calculator">
+        <select id="operation" onchange="updateInputs()">
+          <option value="add">Matrix Addition</option>
+          <option value="subtract">Matrix Subtraction</option>
+          <option value="multiply">Matrix Multiplication</option>
+          <option value="determinant">Determinant</option>
+        </select>
+        <div class="matrix-inputs" id="matrixInputs">
+          <div class="matrix-group">
+            <label>Matrix A (rows x columns):</label>
+            <select id="sizeA" onchange="updateMatrixInputs()">
+              <option value="2x2">2x2</option>
+              <option value="3x3">3x3</option>
+            </select>
+            <div id="matrixA" class="matrix-table" style="grid-template-columns: repeat(2, auto);"></div>
+          </div>
+          <div class="matrix-group" id="matrixBGroup">
+            <label>Matrix B (rows x columns):</label>
+            <select id="sizeB" onchange="updateMatrixInputs()">
+              <option value="2x2">2x2</option>
+              <option value="3x3">3x3</option>
+            </select>
+            <div id="matrixB" class="matrix-table" style="grid-template-columns: repeat(2, auto);"></div>
+          </div>
+        </div>
+        <button onclick="calculateMatrix()">Calculate</button>
+        <div class="result" id="result"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Suggested Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card" data-name="Calculator" data-category="Mathematical Tools" data-keywords="calculator basic scientific statistical math">
+          <div class="icon"><i class="fas fa-calculator"></i></div>
+          <h3>Calculator</h3>
+          <p>Perform basic, scientific, and statistical calculations</p>
+          <a href="./calculator" class="btn">Use Calculator</a>
+        </div>
+        <div class="tool-card" data-name="Graphing Calculator" data-category="Mathematical Tools" data-keywords="graphing calculator plot functions math visualization equations">
+          <div class="icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Graphing Calculator</h3>
+          <p>Plot and analyze mathematical functions visually</p>
+          <a href="./graphing-calculator" class="btn">Plot Functions</a>
+        </div>
+        <div class="tool-card" data-name="Unit Converter" data-category="Mathematical Tools" data-keywords="unit converter measurement conversion metric">
+          <div class="icon"><i class="fas fa-ruler"></i></div>
+          <h3>Unit Converter</h3>
+          <p>Convert between units like length, weight, and temperature</p>
+          <a href="./unit-converter" class="btn">Convert Units</a>
+        </div>
+        <div class="tool-card" data-name="Percentage Calculator" data-category="Mathematical Tools" data-keywords="percentage calculator discount percent change finance">
+          <div class="icon"><i class="fas fa-percent"></i></div>
+          <h3>Percentage Calculator</h3>
+          <p>Calculate percentages, discounts, and percent changes</p>
+          <a href="./percentage-calculator" class="btn">Calculate Percent</a>
+        </div>
+        <div class="tool-card" data-name="Equation Solver" data-category="Mathematical Tools" data-keywords="equation solver linear quadratic polynomial system algebra">
+          <div class="icon"><i class="fas fa-equals"></i></div>
+          <h3>Equation Solver</h3>
+          <p>Solve linear, quadratic, polynomial, and systems of equations</p>
+          <a href="./equation-solver" class="btn">Solve Equations</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>About Our Matrix Calculator</h2>
+      <p>Our Matrix Calculator supports operations like addition, subtraction, multiplication, and determinant calculations for matrices up to 3x3. Designed for students and professionals, it provides accurate results with a user-friendly interface, powered by Math.js for reliable computations.</p>
+    </section>
+
+    <section class="section">
+      <h2>How to Use the Matrix Calculator</h2>
+      <p>Follow these steps to perform matrix operations:</p>
+      <ul>
+        <li>Select the operation (Addition, Subtraction, Multiplication, or Determinant) from the dropdown.</li>
+        <li>Choose the size of Matrix A and Matrix B (2x2 or 3x3).</li>
+        <li>Enter the elements of the matrices in the provided input fields.</li>
+        <li>Click "Calculate" to view the result.</li>
+        <li>For determinant, only Matrix A is required.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code and games</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Mathematical Tools</h3>
+        <ul>
+          <li><a href="./calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
+          <li><a href="./graphing-calculator"><i class="fas fa-chart-line"></i> Graphing Calculator</a></li>
+          <li><a href="./unit-converter"><i class="fas fa-ruler"></i> Unit Converter</a></li>
+          <li><a href="./equation-solver"><i class="fas fa-equals"></i> Equation Solver</a></li>
+          <li><a href="./percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+          <li><a href="./matrix-calculator"><i class="fas fa-table"></i> Matrix Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    function updateMatrixInputs() {
+      const sizeA = document.getElementById('sizeA').value;
+      const sizeB = document.getElementById('sizeB').value;
+      const operation = document.getElementById('operation').value;
+      const matrixA = document.getElementById('matrixA');
+      const matrixB = document.getElementById('matrixB');
+      const matrixBGroup = document.getElementById('matrixBGroup');
+
+      // Hide Matrix B for determinant operation
+      matrixBGroup.style.display = operation === 'determinant' ? 'none' : 'block';
+
+      // Parse matrix sizes
+      const [rowsA, colsA] = sizeA.split('x').map(Number);
+      const [rowsB, colsB] = sizeB.split('x').map(Number);
+
+      // Update Matrix A inputs
+      matrixA.style.gridTemplateColumns = `repeat(${colsA}, auto)`;
+      matrixA.innerHTML = '';
+      for (let i = 0; i < rowsA; i++) {
+        for (let j = 0; j < colsA; j++) {
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.id = `a_${i}_${j}`;
+          input.placeholder = `a${i+1}${j+1}`;
+          input.step = 'any';
+          matrixA.appendChild(input);
+        }
+      }
+
+      // Update Matrix B inputs (if needed)
+      matrixB.style.gridTemplateColumns = `repeat(${colsB}, auto)`;
+      matrixB.innerHTML = '';
+      if (operation !== 'determinant') {
+        for (let i = 0; i < rowsB; i++) {
+          for (let j = 0; j < colsB; j++) {
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.id = `b_${i}_${j}`;
+            input.placeholder = `b${i+1}${j+1}`;
+            input.step = 'any';
+            matrixB.appendChild(input);
+          }
+        }
+      }
+    }
+
+    function updateInputs() {
+      const operation = document.getElementById('operation').value;
+      const matrixBGroup = document.getElementById('matrixBGroup');
+      matrixBGroup.style.display = operation === 'determinant' ? 'none' : 'block';
+      updateMatrixInputs();
+    }
+
+    function getMatrixValues(id, rows, cols) {
+      const matrix = [];
+      for (let i = 0; i < rows; i++) {
+        const row = [];
+        for (let j = 0; j < cols; j++) {
+          const value = parseFloat(document.getElementById(`${id}_${i}_${j}`).value);
+          if (isNaN(value)) throw new Error('Please enter valid numbers for all matrix elements.');
+          row.push(value);
+        }
+        matrix.push(row);
+      }
+      return matrix;
+    }
+
+    function formatMatrix(matrix) {
+      return matrix.map(row => `[${row.map(val => val.toFixed(4)).join(', ')}]`).join('\n');
+    }
+
+    function calculateMatrix() {
+      const operation = document.getElementById('operation').value;
+      const sizeA = document.getElementById('sizeA').value;
+      const sizeB = document.getElementById('sizeB').value;
+      const [rowsA, colsA] = sizeA.split('x').map(Number);
+      const [rowsB, colsB] = sizeB.split('x').map(Number);
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = '';
+
+      try {
+        const matrixA = getMatrixValues('a', rowsA, colsA);
+        let result;
+
+        if (operation === 'determinant') {
+          if (rowsA !== colsA) throw new Error('Matrix must be square for determinant.');
+          result = math.det(matrixA);
+          resultDiv.textContent = `Determinant: ${result.toFixed(4)}\n\nMatrix A:\n${formatMatrix(matrixA)}`;
+        } else {
+          if (operation === 'add' || operation === 'subtract') {
+            if (rowsA !== rowsB || colsA !== colsB) throw new Error('Matrices must have the same dimensions for addition/subtraction.');
+            const matrixB = getMatrixValues('b', rowsB, colsB);
+            result = operation === 'add' ? math.add(matrixA, matrixB) : math.subtract(matrixA, matrixB);
+            resultDiv.textContent = `Result:\n${formatMatrix(result)}\n\nMatrix A:\n${formatMatrix(matrixA)}\nMatrix B:\n${formatMatrix(matrixB)}`;
+          } else if (operation === 'multiply') {
+            if (colsA !== rowsB) throw new Error('Number of columns in Matrix A must equal number of rows in Matrix B for multiplication.');
+            const matrixB = getMatrixValues('b', rowsB, colsB);
+            result = math.multiply(matrixA, matrixB);
+            resultDiv.textContent = `Result:\n${formatMatrix(result)}\n\nMatrix A:\n${formatMatrix(matrixA)}\nMatrix B:\n${formatMatrix(matrixB)}`;
+          }
+        }
+      } catch (error) {
+        resultDiv.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    // Initialize inputs on page load
+    updateMatrixInputs();
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

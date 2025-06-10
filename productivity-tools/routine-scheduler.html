@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routine Scheduler Tool - Plan Daily & Weekly Routines | ToolPix</title>
+  <meta name="description" content="Plan your day or week with ToolPix's free Routine Scheduler tool. Set daily or weekly routines with time slots, categories, and recurrence, auto-filling your planner. Perfect for productivity, time management, and habit tracking. No sign-up required.">
+  <meta name="keywords" content="routine scheduler tool, daily planner, weekly schedule, time management, productivity tools, habit tracking, task scheduling, daily routine, weekly planner, free scheduler, to-do list, ToolPix, personal organization, schedule maker">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/productivity-tools/routine-scheduler" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Routine Scheduler Tool - Plan Daily & Weekly Routines | ToolPix">
+  <meta property="og:description" content="Use ToolPix's free Routine Scheduler to create daily or weekly routines with time slots and auto-fill your planner. Ideal for time management and productivity.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/productivity-tools/routine-scheduler">
+  <meta property="og:image" alt="Routine Scheduler Tool" content="https://toolpixs.github.io/tools/images/routine-scheduler-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Routine Scheduler Tool - Plan Daily & Weekly Routines | ToolPix">
+  <meta name="twitter:description" content="Schedule daily or weekly routines with ToolPix's free tool. Auto-fill planners with time slots and categories. No sign-up needed.">
+  <meta name="twitter:image" alt="Routine Scheduler Tool Image" content="https://toolpixs.github.io/tools/images/routine-scheduler-twitter-card.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Routine Scheduler Tool",
+      "description": "A free tool to create and manage daily or weekly routines with time slots, categories, and recurrence, auto-filling your planner.",
+      "url": "https://toolpixs.github.io/tools/productivity-tools/routine-scheduler",
+      "applicationCategory": "Productivity",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "keywords": "routine scheduler, daily planner, weekly schedule, time management, productivity, habit tracking, ToolPix"
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center {
+      text-align: center;
+    }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .search-icon-btn:hover {
+      color: var(--primary-light);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
+    }
+
+    .btn-danger {
+      background: var(--accent);
+    }
+
+    .btn-danger:hover {
+      background: var(--accent-dark);
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .search input {
+      padding: 0.75rem 1rem;
+      padding-left: 3rem;
+      padding-right: 5rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .search button {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    #clearSearch {
+      position: absolute;
+      right: 3.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 2;
+      padding: 0 1rem;
+      display: none;
+    }
+
+    .search button:hover {
+      background: var(--primary-dark);
+    }
+
+    .category-intro {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .category-intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .category-intro p {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tool-section {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .tool-section h2 {
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .tool-section p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .routine-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .routine-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .routine-input input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .routine-input input[type="time"],
+    .routine-input select {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      min-width: 120px;
+    }
+
+    .routine-input input:focus,
+    .routine-input select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .routine-controls {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .routine-list {
+      list-style: none;
+      padding: 0;
+      min-height: 50px;
+    }
+
+    .routine-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+      transition: var(--transition);
+      cursor: move;
+    }
+
+    .routine-item.dragging {
+      opacity: 0.5;
+      background: var(--primary-light);
+    }
+
+    .routine-item span.routine-name {
+      flex: 1;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .routine-item span.routine-time {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .routine-item span.routine-category {
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .routine-item span.routine-category.work {
+      background: var(--accent);
+    }
+
+    .routine-item span.routine-category.personal {
+      background: #FFA500;
+    }
+
+    .routine-item span.routine-category.health {
+      background: var(--secondary);
+    }
+
+    .routine-item span.routine-recurrence {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .routine-item button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .routine-item button:hover {
+      background: var(--accent-dark);
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .tool-card .btn:hover {
+      background: var(--secondary-dark);
+    }
+
+    .ad-space {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin: 2rem 0;
+      text-align: center;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ad-space.banner {
+      height: 90px;
+      max-width: 728px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ad-space.rectangle {
+      height: 250px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      main {
+        padding: 1rem;
+      }
+      .tools-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .tool-card {
+        padding: 1rem;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      .ad-space.banner {
+        height: 60px;
+        max-width: 100%;
+      }
+      .ad-space.rectangle {
+        height: 250px;
+        max-width: 100%;
+      }
+      .routine-input {
+        flex-direction: column;
+      }
+      .routine-input input,
+      .routine-input select {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-container {
+        padding: 1rem;
+      }
+      .header-title {
+        font-size: 1.2rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .tool-card h3 {
+        font-size: 1rem;
+      }
+      .category-intro h1 {
+        font-size: 2rem;
+      }
+      .routine-item {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">Routine Scheduler Tool</span>
+      </div>
+      <div class="header-right">
+        <button class="search-icon-btn" aria-label="Focus search bar"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="category-intro">
+      <h1>Routine Scheduler Tool - Plan Your Day & Week</h1>
+      <p>Organize your life with ToolPix's free Routine Scheduler Tool. Create daily or weekly routines with specific time slots, categories, and recurrence patterns that auto-fill your planner. Ideal for time management, habit building, and productivity. No registration required.</p>
+    </section>
+
+    <!-- Ad Space: Banner Ad at the Top -->
+    <div class="ad-space banner">
+      <!-- Insert banner ad code here (e.g., Google AdSense, 728x90) -->
+      <p>Advertisement</p>
+    </div>
+
+    <section class="search-container">
+      <div class="search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="mainSearch" placeholder="Search routines..." aria-label="Search routines">
+        <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
+        <button id="searchButton" aria-label="Search routines"><i class="fas fa-search"></i></button>
+      </div>
+    </section>
+
+    <section class="tool-section">
+      <h2>Create and Manage Routines</h2>
+      <p>Schedule your daily or weekly tasks with ease. Set start times, assign categories, and choose recurrence to auto-fill your planner. Reorder routines with drag-and-drop and integrate with our <a href="./daily-planner">Daily Planner</a> for seamless organization.</p>
+      <div class="routine-container">
+        <div class="routine-input">
+          <input type="text" id="routineInput" placeholder="Add a routine (e.g., Morning Workout)..." aria-label="Add routine">
+          <input type="time" id="timeInput" aria-label="Set routine time">
+          <select id="categoryInput" aria-label="Select category">
+            <option value="work">Work</option>
+            <option value="personal">Personal</option>
+            <option value="health">Health</option>
+          </select>
+          <select id="recurrenceInput" aria-label="Select recurrence">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+          </select>
+          <button class="btn" id="addRoutineBtn" aria-label="Add routine">Add Routine</button>
+        </div>
+        <div class="routine-controls">
+          <button class="btn btn-danger" id="clearAllBtn" aria-label="Clear all routines">Clear All</button>
+        </div>
+        <ul class="routine-list" id="routineList" role="listbox"></ul>
+      </div>
+    </section>
+
+    <!-- Ad Space: Rectangle Ad -->
+    <div class="ad-space rectangle">
+      <!-- Insert medium rectangle ad code here (e.g., Google AdSense, 300x250) -->
+      <p>Advertisement</p>
+    </div>
+
+    <section class="suggested-tools">
+      <h2>Suggested Productivity Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>Subtasks Tool</h3>
+          <p>Break down tasks into smaller steps with due dates and priorities.</p>
+          <a href="./subtasks" class="btn" aria-label="Use Subtasks tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-check-square"></i></div>
+          <h3>Priority Labels</h3>
+          <p>Create and color-code custom priority labels for tasks.</p>
+          <a href="./priority-labels" class="btn" aria-label="Use Priority Labels tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-calendar-day"></i></div>
+          <h3>Daily Planner</h3>
+          <p>Drag-and-drop tasks into time blocks, auto-arranged by deadlines.</p>
+          <a href="./daily-planner" class="btn" aria-label="Use Daily Planner tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Task Timer (Pomodoro)</h3>
+          <p>Custom work/break intervals with auto-start cycles.</p>
+          <a href="./pomodoro-timer" class="btn" aria-label="Use Task Timer tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ad Space: Banner Ad at the Bottom -->
+    <div class="ad-space banner">
+      <!-- Insert banner ad code here (e.g., Google AdSense, 728x90) -->
+      <p>Advertisement</p>
+    </div>
+
+    <section class="tool-section">
+      <h2>About the Routine Scheduler Tool</h2>
+      <p>ToolPix's Routine Scheduler Tool helps you build and maintain consistent daily or weekly routines. By scheduling tasks with specific times, categories, and recurrence, you can automate your planning process and focus on productivity. Key features include:</p>
+      <ul>
+        <li>Create unlimited routines with custom names and time slots.</li>
+        <li>Assign categories (Work, Personal, Health) for better organization.</li>
+        <li>Set daily or weekly recurrence to auto-fill your planner.</li>
+        <li>Drag-and-drop reordering for flexible scheduling.</li>
+        <li>Search and filter routines by name or category.</li>
+        <li>Persistent storage using your browser's localStorage.</li>
+        <li>Responsive design optimized for desktop and mobile.</li>
+        <li>No sign-up or installation required—start instantly.</li>
+      </ul>
+      <p>Combine this tool with our <a href="./daily-planner">Daily Planner</a> or <a href="./habit-tracker">Habit Tracker</a> to create a comprehensive productivity system. Perfect for professionals, students, and anyone aiming to optimize their time.</p>
+    </section>
+
+    <section class="tool-section">
+      <h2>Benefits of Routine Scheduling</h2>
+      <p>Structured routines enhance productivity, reduce decision fatigue, and promote healthy habits. With ToolPix's Routine Scheduler, you can:</p>
+      <ul>
+        <li><strong>Boost Efficiency:</strong> Plan recurring tasks like meetings or workouts to save time.</li>
+        <li><strong>Build Habits:</strong> Schedule daily activities like meditation or reading to form lasting habits.</li>
+        <li><strong>Stay Organized:</strong> Categorize tasks to balance work, personal life, and health.</li>
+        <li><strong>Reduce Stress:</strong> Automate planning to focus on execution rather than organization.</li>
+      </ul>
+      <p>Explore our <a href="./pomodoro-timer">Task Timer</a> to stay focused during your routines or <a href="./kanban-board">Kanban Board</a> for visual task management.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for productivity, project management, and more.</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Productivity Tools</h3>
+        <ul>
+          <li><a href="./subtasks"><i class="fas fa-list"></i> Subtasks Tool</a></li>
+          <li><a href="./priority-labels"><i class="fas fa-check-square"></i> Priority Labels</a></li>
+          <li><a href="./daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a></li>
+          <li><a href="./habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Task Timer (Pomodoro)</a></li>
+          <li><a href="./kanban-board"><i class="fas fa-columns"></i> Kanban Board</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('mainSearch');
+    const searchButton = document.getElementById('searchButton');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const routineInput = document.getElementById('routineInput');
+    const timeInput = document.getElementById('timeInput');
+    const categoryInput = document.getElementById('categoryInput');
+    const recurrenceInput = document.getElementById('recurrenceInput');
+    const addRoutineBtn = document.getElementById('addRoutineBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const routineList = document.getElementById('routineList');
+
+    // Load routines from localStorage
+    let routines = [];
+    try {
+      routines = JSON.parse(localStorage.getItem('routines')) || [];
+    } catch (e) {
+      console.error('Error loading routines from localStorage:', e);
+    }
+
+    function saveRoutines() {
+      try {
+        localStorage.setItem('routines', JSON.stringify(routines));
+      } catch (e) {
+        console.error('Error saving routines to localStorage:', e);
+      }
+    }
+
+    function formatTime(timeStr) {
+      if (!timeStr) return 'No time set';
+      const [hours, minutes] = timeStr.split(':');
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const formattedHours = hours % 12 || 12;
+      return `${formattedHours}:${minutes} ${period}`;
+    }
+
+    function renderRoutines(query = '') {
+      routineList.innerHTML = '';
+      const normalizedQuery = query.toLowerCase().trim();
+      routines
+        .filter(routine => 
+          routine.name.toLowerCase().includes(normalizedQuery) ||
+          routine.category.toLowerCase().includes(normalizedQuery)
+        )
+        .forEach((routine, index) => {
+          const li = document.createElement('li');
+          li.className = 'routine-item';
+          li.draggable = true;
+          li.setAttribute('data-index', index);
+          li.setAttribute('role', 'option');
+          li.innerHTML = `
+            <span class="routine-name">${routine.name}</span>
+            <span class="routine-time">${formatTime(routine.time)}</span>
+            <span class="routine-category ${routine.category}">${routine.category.charAt(0).toUpperCase() + routine.category.slice(1)}</span>
+            <span class="routine-recurrence">${routine.recurrence.charAt(0).toUpperCase() + routine.recurrence.substring(1)}</span>
+            <button aria-label="Delete routine">Delete</button>
+          `;
+          li.querySelector('button').addEventListener('click', () => {
+            routines.splice(index, 1);
+            saveRoutines();
+            renderRoutines(normalizedQuery);
+          });
+          // Drag-and-drop events
+          li.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e);
+            li.classList.add('dragging');
+          });
+            li.addEventListener('dragend', () => {
+            li.classList.remove('dragging');
+          });
+          li.addEventListener('dragover', (e) => {
+            e.preventDefault();
+          });
+          li.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const fromIndex = parseInt(e.dataTransfer.getData('text/plain'));
+            const toIndex = parseInt(li.getAttribute('data-index'));
+            if (fromIndex !== toIndex) {
+              const [movedRoutine] = routines.splice(fromIndex, 1);
+              routines.splice(toIndex, 0, movedRoutine);
+              saveRoutines();
+              renderRoutines(normalizedQuery);
+            }
+          });
+        // Keyboard navigation
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            li.querySelector('button').click();
+          }
+        });
+        routineList.appendChild(li);
+      });
+    }
+
+    addRoutineBtn.addEventListener('click', () => {
+      const name = routineInput.value.trim();
+      const time = timeInput.value;
+      const category = categoryInput.value;
+      const recurrence = recurrenceInput.value;
+      if (name && time) {
+        routines.push({ name, time, category, recurrence });
+        routineInput.value = '';
+        timeInput.value = '';
+        categoryInput.value = 'work';
+        recurrenceInput.value = 'daily';
+        saveRoutines();
+        renderRoutines();
+      }
+    });
+
+    routineInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addRoutineBtn.click();
+    });
+
+    clearAllBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all routines?')) {
+        routines = [];
+        saveRoutines();
+        renderRoutines();
+      }
+    });
+
+    searchInput.addEventListener('input', () => {
+      renderRoutines(searchInput.value);
+      clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      renderRoutines();
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
+    });
+
+    searchButton.addEventListener('click', () => renderRoutines(searchInput.value));
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') renderRoutines(searchInput.value);
+    });
+
+    // Focus search bar on icon click
+    document.querySelector('.search-icon-btn').addEventListener('click', () => {
+      searchInput.focus();
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow-md)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classListclassList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+
+    // Initialize and render routines
+    renderRoutines();
+  </script>
+</body>
+</html>

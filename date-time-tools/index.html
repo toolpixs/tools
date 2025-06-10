@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mathematical Tools - ToolPix</title>
-  <meta name="description" content="Explore free online mathematical tools including calculators, graphing tools, unit converters, and more. No registration required.">
-  <meta name="keywords" content="mathematical tools, calculator, graphing calculator, unit converter, equation solver, percentage calculator, matrix calculator, free online tools">
+  <title>Time & Date Tools - ToolPix</title>
+  <meta name="description" content="Explore free online time and date tools for clocks, calendars, time zones, timers, and more. No registration required.">
+  <meta name="keywords" content="time tools, date tools, digital clock, calendar, world clock, countdown timer, stopwatch, time zone converter">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://toolpixs.github.io/tools/mathematical-tools" />
+  <link rel="canonical" href="https://toolpixs.github.io/tools/time-date-tools" />
   
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="Mathematical Tools - ToolPix">
-  <meta property="og:description" content="Access free online mathematical tools for calculations, graphing, conversions, and more. No sign-up needed.">
+  <meta property="og:title" content="Time & Date Tools - ToolPix">
+  <meta property="og:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters. No sign-up needed.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://toolpixs.github.io/tools/mathematical-tools">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/time-date-tools">
   <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixtime-social-share.jpg">
   <meta property="og:site_name" content="ToolPix">
   
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mathematical Tools - ToolPix">
-  <meta name="twitter:description" content="Access free online mathematical tools for calculations, graphing, conversions, and more.">
+  <meta name="twitter:title" content="Time & Date Tools - ToolPix">
+  <meta name="twitter:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters.">
   <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixtime-twitter-card.jpg">
   
   <!-- Favicon -->
@@ -37,9 +37,8 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Same CSS as the original page -->
+  <!-- CSS -->
   <style>
-    /* CSS remains identical to the original; copied here for completeness but typically would be in a separate file */
     :root {
       --primary: #4CAF50;
       --primary-dark: #45a049;
@@ -408,14 +407,15 @@
       font-size: 1.1rem;
     }
 
-    .featured-tools {
+    .category {
       background: var(--card-bg);
       padding: 1.5rem;
       border-radius: var(--radius-md);
       box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
     }
 
-    .featured-tools h2 {
+    .category h2 {
       margin-top: 0;
       font-size: 1.5rem;
       color: var(--text);
@@ -645,8 +645,8 @@
   <header>
     <div class="header-container">
       <div class="header-left">
-        <a href="./" class="logo">
-          <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
         </a>
       </div>
       <div class="header-center">
@@ -659,19 +659,21 @@
     </div>
     <div class="sidebar">
       <nav>
-        <a href="./"><i class="fas fa-home"></i> Home</a>
+        <a href="../"><i class="fas fa-home"></i> Home</a>
         <div class="sidebar-item has-dropdown active">
-          <a href="/mathematical-tools" class="active"><i class="fas fa-calculator"></i> Mathematical Tools</a>
+          <a href="#" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
           <div class="sidebar-dropdown">
-            <a href="/calculator"><i class="fas fa-calculator"></i> Calculator</a>
-            <a href="/graphing-calculator"><i class="fas fa-chart-line"></i> Graphing Calculator</a>
-            <a href="/unit-converter"><i class="fas fa-ruler"></i> Unit Converter</a>
-            <a href="/equation-solver"><i class="fas fa-equals"></i> Equation Solver</a>
-            <a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a>
-            <a href="/matrix-calculator"><i class="fas fa-table"></i> Matrix Calculator</a>
+            <a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
           </div>
         </div>
-        <a href="/all-tools"><i class="fas fa-th"></i> All Tools</a>
+        <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
       </nav>
     </div>
     <div class="sidebar-overlay"></div>
@@ -680,8 +682,8 @@
   <div class="main-container">
     <main>
       <section class="category-intro">
-        <h1>Mathematical Tools</h1>
-        <p>Explore our collection of free online mathematical tools designed to assist with calculations, graphing, unit conversions, and more. Perfect for students, teachers, and professionals alike.</p>
+        <h1>Time & Date Tools</h1>
+        <p>Manage your time effectively with our suite of free online tools for clocks, calendars, time zones, timers, and date calculations. Ideal for scheduling, planning, and staying on track across different regions.</p>
       </section>
 
       <section class="search-container">
@@ -693,44 +695,57 @@
         </div>
       </section>
 
-      <section id="mathematical-tools" class="featured-tools">
-        <h2>Mathematical Tools</h2>
+      <section id="time-date-tools" class="category">
+        <h2>Time & Date Tools</h2>
+        <p>Access tools to track time, manage schedules, and coordinate across time zones.</p>
         <div class="tools-grid">
-          <div class="tool-card" data-name="Calculator" data-category="Mathematical Tools" data-keywords="calculator arithmetic scientific calculator math">
+          <div class="tool-card" data-name="Digital Clock" data-category="Time & Date" data-keywords="clock time current">
+            <div class="icon"><i class="fas fa-clock"></i></div>
+            <h3>Digital Clock</h3>
+            <p>Displays the current time in real-time.</p>
+            <a href="./digital-clock" class="btn" aria-label="Use Digital Clock tool">View Clock</a>
+          </div>
+          <div class="tool-card" data-name="Calendar" data-category="Time & Date" data-keywords="calendar date month year">
+            <div class="icon"><i class="fas fa-calendar"></i></div>
+            <h3>Calendar</h3>
+            <p>Interactive monthly calendar with navigation.</p>
+            <a href="./calendar" class="btn" aria-label="Use Calendar tool">View Calendar</a>
+          </div>
+          <div class="tool-card" data-name="World Clock" data-category="Time & Date" data-keywords="world clock time zones global time international time">
+            <div class="icon"><i class="fas fa-globe"></i></div>
+            <h3>World Clock</h3>
+            <p>View current time across multiple time zones.</p>
+            <a href="./world-clock" class="btn" aria-label="Use World Clock tool">Check Time Zones</a>
+          </div>
+          <div class="tool-card" data-name="Countdown Timer" data-category="Time & Date" data-keywords="countdown timer deadline event timer">
+            <div class="icon"><i class="fas fa-hourglass-half"></i></div>
+            <h3>Countdown Timer</h3>
+            <p>Set timers for events, tasks, or deadlines.</p>
+            <a href="./countdown-timer" class="btn" aria-label="Use Countdown Timer tool">Start Countdown</a>
+          </div>
+          <div class="tool-card" data-name="Stopwatch" data-category="Time & Date" data-keywords="stopwatch timer elapsed time lap timer">
+            <div class="icon"><i class="fas fa-stopwatch"></i></div>
+            <h3>Stopwatch</h3>
+            <p>Measure elapsed time with lap functions.</p>
+            <a href="./stopwatch" class="btn" aria-label="Use Stopwatch tool">Start Stopwatch</a>
+          </div>
+          <div class="tool-card" data-name="Date Calculator" data-category="Time & Date" data-keywords="date calculator days between date difference time calculator">
             <div class="icon"><i class="fas fa-calculator"></i></div>
-            <h3>Calculator</h3>
-            <p>Perform basic, scientific, and statistical calculations</p>
-            <a href="/calculator" class="btn">Use Calculator</a>
+            <h3>Date Calculator</h3>
+            <p>Calculate days between dates or add/subtract time.</p>
+            <a href="./date-calculator" class="btn" aria-label="Use Date Calculator tool">Calculate Now</a>
           </div>
-          <div class="tool-card" data-name="Graphing Calculator" data-category="Mathematical Tools" data-keywords="graphing calculator plot functions math visualization equations">
-            <div class="icon"><i class="fas fa-chart-line"></i></div>
-            <h3>Graphing Calculator</h3>
-            <p>Plot and analyze mathematical functions visually</p>
-            <a href="/graphing-calculator" class="btn">Plot Functions</a>
+          <div class="tool-card" data-name="Time Zone Converter" data-category="Time & Date" data-keywords="time zone converter schedule meeting time conversion global time">
+            <div class="icon"><i class="fas fa-sync-alt"></i></div>
+            <h3>Time Zone Converter</h3>
+            <p>Convert times or schedule across time zones.</p>
+            <a href="./time-zone-converter" class="btn" aria-label="Use Time Zone Converter tool">Convert Time</a>
           </div>
-          <div class="tool-card" data-name="Unit Converter" data-category="Mathematical Tools" data-keywords="unit converter measurement conversion metric">
-            <div class="icon"><i class="fas fa-ruler"></i></div>
-            <h3>Unit Converter</h3>
-            <p>Convert between units like length, weight, and temperature</p>
-            <a href="/unit-converter" class="btn">Convert Units</a>
-          </div>
-          <div class="tool-card" data-name="Equation Solver" data-category="Mathematical Tools" data-keywords="equation solver algebra quadratic polynomial">
-            <div class="icon"><i class="fas fa-equals"></i></div>
-            <h3>Equation Solver</h3>
-            <p>Solve linear, quadratic, and polynomial equations</p>
-            <a href="/equation-solver" class="btn">Solve Equations</a>
-          </div>
-          <div class="tool-card" data-name="Percentage Calculator" data-category="Mathematical Tools" data-keywords="percentage calculator discount percent change finance">
-            <div class="icon"><i class="fas fa-percent"></i></div>
-            <h3>Percentage Calculator</h3>
-            <p>Calculate percentages, discounts, and percent changes</p>
-            <a href="/percentage-calculator" class="btn">Calculate Percent</a>
-          </div>
-          <div class="tool-card" data-name="Matrix Calculator" data-category="Mathematical Tools" data-keywords="matrix calculator linear algebra matrix operations determinants">
-            <div class="icon"><i class="fas fa-table"></i></div>
-            <h3>Matrix Calculator</h3>
-            <p>Perform matrix operations like addition and determinants</p>
-            <a href="/matrix-calculator" class="btn">Use Matrix Calculator</a>
+          <div class="tool-card" data-name="Alarm Clock" data-category="Time & Date" data-keywords="alarm clock reminder notification alert">
+            <div class="icon"><i class="fas fa-bell"></i></div>
+            <h3>Alarm Clock</h3>
+            <p>Set customizable alarms with notifications.</p>
+            <a href="./alarm-clock" class="btn" aria-label="Use Alarm Clock tool">Set Alarm</a>
           </div>
         </div>
       </section>
@@ -738,20 +753,20 @@
 
     <aside class="right-sidebar">
       <div class="widget">
-        <h3>Trending Mathematical Tools</h3>
+        <h3>Trending Time & Date Tools</h3>
         <ul class="widget-list">
-          <li><a href="/calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
-          <li><a href="/graphing-calculator"><i class="fas fa-chart-line"></i> Graphing Calculator</a></li>
-          <li><a href="/unit-converter"><i class="fas fa-ruler"></i> Unit Converter</a></li>
-          <li><a href="/equation-solver"><i class="fas fa-equals"></i> Equation Solver</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
         </ul>
       </div>
       <div class="widget">
         <h3>Quick Tips</h3>
         <ul class="widget-list">
-          <li>Use the Graphing Calculator to visualize complex functions.</li>
-          <li>Convert units instantly with the Unit Converter for quick measurements.</li>
-          <li>Solve equations faster with the Equation Solver.</li>
+          <li>Use the World Clock to coordinate meetings across time zones.</li>
+          <li>Set a Countdown Timer to stay on track with deadlines.</li>
+          <li>Check the Date Calculator for planning future events.</li>
         </ul>
       </div>
     </aside>
@@ -761,8 +776,8 @@
     <div class="footer-container">
       <div>
         <div class="footer-logo">
-          <a href="/" class="logo">ToolPix</a>
-          <p>Free online tools for YouTube, images, productivity, code and games</p>
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code, and time management</p>
         </div>
         <div class="social-links">
           <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -773,37 +788,38 @@
         </div>
       </div>
       <div class="footer-links">
-        <h3>Mathematical Tools</h3>
+        <h3>Time & Date Tools</h3>
         <ul>
-          <li><a href="/calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
-          <li><a href="/graphing-calculator"><i class="fas fa-chart-line"></i> Graphing Calculator</a></li>
-          <li><a href="/unit-converter"><i class="fas fa-ruler"></i> Unit Converter</a></li>
-          <li><a href="/equation-solver"><i class="fas fa-equals"></i> Equation Solver</a></li>
-          <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
-          <li><a href="/matrix-calculator"><i class="fas fa-table"></i> Matrix Calculator</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
         </ul>
       </div>
       <div class="footer-links">
         <h3>Company</h3>
         <ul>
-          <li><a href="./about"><i class="fas fa-info-circle"></i> About Us</a></li>
-          <li><a href="./blog"><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="./contact"><i class="fas fa-envelope"></i> Contact</a></li>
-          <li><a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-          <li><a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2023 ToolPix. All rights reserved.</p>
-      <a href="./sitemap.xml">Sitemap</a>
-      <a href="./privacy">Privacy Policy</a>
-      <a href="./terms">Terms of Service</a>
-      <a href="./contact">Contact Us</a>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
     </div>
   </footer>
 
-  <!-- Simplified JavaScript (removed carousel-related code) -->
   <script>
     const sidebar = document.querySelector('.sidebar');
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
@@ -879,7 +895,6 @@
       if (e.key === 'Enter') performSearch(searchInput.value);
     });
 
-    // Dark mode toggle
     const darkModeToggle = document.createElement('button');
     darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     darkModeToggle.style.position = 'fixed';

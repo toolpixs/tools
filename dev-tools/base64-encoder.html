@@ -217,7 +217,7 @@
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 0.2);
+            background: rgb(42, 2, 153);
             color: var(--text-light);
             border: 1px solid var(--border);
         }
@@ -724,19 +724,19 @@
             </div>
             <ul class="compiler-list">
                 <li class="compiler-item">
-                    <a href="../dev-tools/js-obfuscator">
+                    <a href="./js-obfuscator">
                         <span class="compiler-icon"><i class="fab fa-js"></i></span>
                         <span>JS Obfuscator</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="../dev-tools/css-obfuscator">
+                    <a href="./css-obfuscator">
                         <span class="compiler-icon"><i class="fab fa-css3-alt"></i></span>
                         <span>CSS Obfuscator</span>
                     </a>
                 </li>
                 <li class="compiler-item">
-                    <a href="../dev-tools/json-formatter">
+                    <a href="./json-formatter">
                         <span class="compiler-icon"><i class="fas fa-file-code"></i></span>
                         <span>JSON Formatter</span>
                     </a>
@@ -924,6 +924,8 @@ Base64: SGVsbG8sIFdvcmxkIQ==</pre>
 
             <footer class="footer">
                 <div class="footer-links">
+                    <a href="../">Home</a>
+                    <a href="./">Dev Tools</a>
                     <a href="../about">About</a>
                     <a href="../privacy">Privacy Policy</a>
                     <a href="../terms">Terms of Service</a>
@@ -1067,30 +1069,6 @@ Base64: SGVsbG8sIFdvcmxkIQ==</pre>
 
             console.log('Base64 Encoder/Decoder page loaded');
         });
-
-        const structuredData = {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Online Base64 Encoder/Decoder - Dev Tool Pix",
-            "url": "https://yourdomain.com/base64-encoder",
-            "description": "Free online Base64 encoder and decoder. Encode text to Base64 or decode Base64 to text instantly with our powerful tool.",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Any",
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-            },
-            "creator": {
-                "@type": "Organization",
-                "name": "Dev Tool Pix"
-            }
-        };
-
-        const script = document.createElement('script');
-        script.type = 'application/ld+json';
-        script.text = JSON.stringify(structuredData);
-        document.head.appendChild(script);
     </script>
 </body>
 </html>

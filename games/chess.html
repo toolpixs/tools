@@ -9,6 +9,7 @@
   <meta name="robots" content="index, follow">
   <title>Play Chess Online Free - Toolpix Games</title>
   <style>
+    /* Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -23,24 +24,29 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      line-height: 1.6;
     }
 
-    .welcome-screen {
-      text-align: center;
-      padding: 20px;
-      background-color: #2d3839;
-      margin: 20px;
+    /* Layout Sections */
+    .section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #2d3839 0%, #1c2526 100%);
       border-radius: 15px;
-      animation: fadeIn 1s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      margin: 1rem;
+      padding: 2rem;
+      text-align: center;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    .welcome-screen::before {
+    .hero-section::before {
       content: '';
       position: absolute;
       top: 0;
@@ -52,133 +58,167 @@
       z-index: 0;
     }
 
-    .welcome-screen h1, .welcome-screen h2, .welcome-screen h3, .welcome-screen .mode-selection, .welcome-screen .difficulty-selection, .welcome-screen .home-link-container, .welcome-screen .guide-section {
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background-color: #2d3839;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card h3 {
+      color: #d4a373;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #d4a373;
+    }
+
+    .game-modes-section {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .guide-section {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: #d4a373;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.5rem;
       position: relative;
       z-index: 1;
     }
 
-    .welcome-screen h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      animation: bounceIn 1s ease;
+    h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+      position: relative;
     }
 
-    .welcome-screen h2 {
-      font-size: 28px;
-      margin: 20px 0;
+    h3 {
+      font-size: 1.5rem;
     }
 
-    .welcome-screen h3 {
-      font-size: 24px;
-      margin-bottom: 20px;
+    p {
+      margin-bottom: 1rem;
     }
 
-    .home-link-container {
-      position: absolute;
-      top: 10px;
-      left: 10px;
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .home-link {
-      background-color: #d4a373;
-      color: #1c2526;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-size: 16px;
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    strong {
+      color: #d4a373;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
       font-weight: bold;
       text-decoration: none;
-      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      text-align: center;
     }
 
-    .home-link::before {
-      content: '🏠';
-      font-size: 18px;
+    .btn-primary {
+      background-color: #d4a373;
+      color: #1c2526;
     }
 
-    .home-link:hover {
-      transform: scale(1.05);
+    .btn-primary:hover {
       background-color: #e0c4a8;
-      box-shadow: 0 6px 15px rgba(212, 163, 115, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4);
     }
 
+    .btn-secondary {
+      background-color: #3a4b4c;
+      color: #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background-color: #4d5e5f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-large {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Game Mode Selection */
     .mode-selection {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
+      gap: 1.5rem;
+      margin: 2rem 0;
       flex-wrap: wrap;
-    }
-
-    .mode-button, .difficulty-button, .back-button, .how-to-play-button {
-      background-color: #3a4b4c;
-      color: #e0e0e0;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      min-width: 200px;
-    }
-
-    .how-to-play-button {
-      background-color: #d4a373;
-      color: #1c2526;
-      margin-top: 20px;
-    }
-
-    .mode-button:hover, .difficulty-button:hover, .back-button:hover, .how-to-play-button:hover {
-      transform: scale(1.05);
-      background-color: #d4a373;
-      box-shadow: 0 6px 15px rgba(212, 163, 115, 0.6);
     }
 
     .difficulty-selection {
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
-      animation: fadeIn 0.5s ease-in-out;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      animation: fadeIn 0.5s ease;
     }
 
-    .difficulty-selection select {
-      background-color: #3a4b4c;
-      color: #e0e0e0;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      width: 200px;
-      text-align: center;
+    /* Navigation */
+    .home-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
     }
 
-    .guide-section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #3a4b4c;
-      border-radius: 10px;
-      text-align: left;
+    .back-button-container {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
     }
 
-    .guide-section ul, .guide-section ol {
-      margin-left: 20px;
-      margin-bottom: 20px;
-    }
-
-    .guide-section li {
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
+    /* Game Board */
     .game-section {
       display: none;
       flex-direction: column;
@@ -188,25 +228,13 @@
       position: relative;
     }
 
-    .game-section .back-button-container {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
-    }
-
     .chessboard-container {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-grow: 1;
-      padding: 10px;
+      padding: 1rem;
       overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-
-    .chessboard-container:hover {
-      transform: scale(1.02);
     }
 
     .chessboard {
@@ -215,16 +243,11 @@
       gap: 0;
       margin: 0 auto;
       width: 100%;
-      max-width: 100vmin;
+      max-width: 90vmin;
       aspect-ratio: 1/1;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
       border: 5px solid #3a4b4c;
-    }
-
-    @media (min-width: 769px) {
-      .chessboard {
-        max-width: 70vmin;
-      }
+      border-radius: 5px;
     }
 
     .cell {
@@ -233,7 +256,7 @@
       align-items: center;
       position: relative;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease;
       aspect-ratio: 1/1;
     }
 
@@ -247,7 +270,7 @@
 
     .cell:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(212, 163, 115, 0.5);
+      z-index: 2;
     }
 
     .cell img {
@@ -260,6 +283,7 @@
     .cell.selected {
       box-shadow: 0 0 15px #d4a373 inset;
       transform: scale(1.1);
+      z-index: 3;
     }
 
     .cell.possible-move::after {
@@ -273,29 +297,14 @@
     }
 
     .game-info {
-      font-size: 20px;
+      font-size: 1.2rem;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 1rem 0;
       text-align: center;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
-    .ad-banner {
-      height: 60px;
-      width: 100%;
-      background-color: #2d3839;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 16px;
-      color: #e0e0e0;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .welcome-screen .ad-banner {
-      margin-top: auto;
-    }
-
+    /* Popup */
     .popup {
       display: none;
       position: fixed;
@@ -303,9 +312,9 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: #2d3839;
-      padding: 30px;
+      padding: 2rem;
       border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
       text-align: center;
       z-index: 2000;
       animation: popIn 0.4s ease;
@@ -314,30 +323,32 @@
     }
 
     .popup h3 {
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
       color: #d4a373;
     }
 
     .popup-buttons {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
-    .popup-button {
-      background-color: #d4a373;
-      color: #1c2526;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      min-width: 120px;
+    /* Ad Banner */
+    .ad-banner {
+      height: 60px;
+      width: 100%;
+      background-color: #2d3839;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      color: #e0e0e0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
     }
 
+    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -361,79 +372,145 @@
       100% { transform: scale(1); }
     }
 
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .welcome-screen {
-        margin: 10px;
-        padding: 15px;
+      .section {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .mode-selection {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .chessboard {
+        max-width: 95vmin;
       }
 
-      .mode-selection {
+      footer {
+        padding: 15px;
+        position: sticky;
+        bottom: 0;
         flex-direction: column;
         gap: 10px;
       }
 
-      .mode-button, .difficulty-button, .how-to-play-button, .home-link {
-        padding: 12px 20px;
-        font-size: 16px;
-        min-width: 160px;
+      footer a {
+        font-size: 14px;
+        margin: 5px 0;
       }
+    }
 
-      .guide-section {
-        margin: 20px 10px;
-        padding: 15px;
-      }
+    footer {
+      background-color: #0f3460;
+      padding: 20px 50px;
+      text-align: center;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
 
-      .game-info {
-        font-size: 16px;
-      }
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
 
-      .chessboard {
-        border-width: 3px;
-      }
+    footer a:hover {
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="welcome-screen" id="welcomeScreen">
-    <div class="home-link-container">
-      <a class="home-link" href="./" aria-label="Return to home page">Home</a>
+  <!-- Welcome Screen -->
+  <div class="section" id="welcomeScreen">
+    <div class="home-link">
+      <a href="./" class="btn btn-secondary" aria-label="Return to home page">🏠 Home</a>
     </div>
-    <h1>Play Chess Online Free at Toolpix Games</h1>
-    <p>Welcome to Toolpix Games, your ultimate destination to play chess online for free! Enjoy our feature-rich chess game, whether you're a beginner learning chess or a seasoned player mastering chess strategies. Play against a smart AI bot in single-player mode or challenge friends in two-player mode. No downloads needed—our online chess game works seamlessly on any device!</p>
     
-    <h2>Why Play Chess Online with Toolpix Games?</h2>
-    <ul>
-      <li><strong>Free to Play:</strong> Enjoy chess online without any cost.</li>
-      <li><strong>Single-Player Mode:</strong> Test your skills against our intelligent chess AI with adjustable difficulty levels (Easy, Medium, Hard).</li>
-      <li><strong>Two-Player Mode:</strong> Play chess with friends or family on the same device.</li>
-      <li><strong>Learn Chess:</strong> Our comprehensive guide below teaches you chess rules, strategies, and tips for beginners.</li>
-      <li><strong>Accessible Anywhere:</strong> Play on mobile, tablet, or desktop without downloads.</li>
-      <li><strong>SEO-Optimized:</strong> Find us easily when searching for "play chess online," "free chess game," or "online chess against computer."</li>
-    </ul>
+    <div class="hero-section">
+      <h1>Play Chess Online Free at Toolpix Games</h1>
+      <p>Challenge yourself against our smart AI or play with friends in this beautifully designed chess experience. Perfect for beginners and experts alike!</p>
+    </div>
 
-    <h3 id="welcomeTitle">Choose Your Game Mode</h3>
-    <div class="mode-selection" id="modeSelection">
-      <button class="mode-button" onclick="showDifficultySelection()" aria-label="Start single-player game against bot">Single Player (vs Bot)</button>
-      <button class="mode-button" onclick="startGame('multi', 'none')" aria-label="Start two-player game">Two Players</button>
+    <div class="game-modes-section">
+      <h2>Choose Your Game Mode</h2>
+      <p>Select how you want to play and start your chess adventure!</p>
+      
+      <div class="mode-selection" id="modeSelection">
+        <button class="btn btn-primary btn-large" onclick="showDifficultySelection()" aria-label="Start single-player game against bot">
+          Single Player (vs Bot)
+        </button>
+        <button class="btn btn-primary btn-large" onclick="startGame('multi', 'none')" aria-label="Start two-player game">
+          Two Players
+        </button>
+      </div>
+      
+      <div class="difficulty-selection" id="difficultySelection">
+        <select id="difficultyLevel" class="btn btn-secondary" aria-label="Select difficulty level">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard" selected>Hard</option>
+        </select>
+        <div class="mode-selection">
+          <button class="btn btn-primary" onclick="startGame('single', document.getElementById('difficultyLevel').value)" aria-label="Start single-player game">
+            Start Game
+          </button>
+          <button class="btn btn-secondary" onclick="backToModeSelection()" aria-label="Back to mode selection">
+            Back
+          </button>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary" onclick="scrollToGuide()" aria-label="Learn how to play chess">
+        How to Play Chess
+      </button>
     </div>
     
-    <div class="difficulty-selection" id="difficultySelection">
-      <select id="difficultyLevel" aria-label="Select difficulty level">
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard" selected>Hard</option>
-      </select>
-      <div class="difficulty-buttons">
-        <button class="difficulty-button" onclick="startGame('single', document.getElementById('difficultyLevel').value)" aria-label="Start single-player game">Start Game</button>
-        <button class="difficulty-button" onclick="backToModeSelection()" aria-label="Back to mode selection">Back</button>
+    <div class="features-section">
+      <div class="feature-card">
+        <i>♟️</i>
+        <h3>Free to Play</h3>
+        <p>Enjoy unlimited chess games without any cost or registration required.</p>
+      </div>
+      
+      <div class="feature-card">
+        <i>🤖</i>
+        <h3>Smart AI Opponent</h3>
+        <p>Play against our intelligent chess bot with adjustable difficulty levels.</p>
+      </div>
+      
+      <div class="feature-card">
+        <i>👥</i>
+        <h3>Two-Player Mode</h3>
+        <p>Challenge friends or family members on the same device.</p>
       </div>
     </div>
-
-    <button class="how-to-play-button" onclick="scrollToGuide()" aria-label="Learn how to play chess">How to Play</button>
-
+    
+    
+    
     <div class="guide-section" id="guideSection">
       <h2>How to Play Chess: A Beginner's Guide</h2>
-      <p>Chess is a timeless strategy board game played on an 8x8 chessboard between two players. Whether you're new to chess or looking to improve, this guide explains the rules of chess, how pieces move, and basic strategies to help you play chess online like a pro. Master the game with our easy-to-follow instructions!</p>
+      <p>Chess is a timeless strategy board game played on an 8x8 chessboard between two players. Whether you're new to chess or looking to improve, this guide explains the rules of chess, how pieces move, and basic strategies to help you play chess online like a pro.</p>
       
       <h3>Chess Game Objective</h3>
       <p>The goal of chess is to checkmate your opponent's king, meaning the king is under attack (in "check") and cannot escape. You can also win if your opponent resigns or if the game ends in a stalemate (draw).</p>
@@ -473,19 +550,31 @@
         <li><strong>Avoid Early Queen Moves:</strong> Moving the queen too early can expose it to attacks, losing tempo.</li>
       </ul>
       
-      <h3>Why Play Chess Online?</h3>
-      <p>Playing chess online at Toolpix Games offers a convenient way to practice and improve. Our chess game features an AI opponent with adjustable difficulty, perfect for beginners and advanced players. Learn chess strategies, practice tactics, and enjoy free online chess anytime, anywhere. Whether you're exploring chess openings, practicing endgames, or mastering checkmate patterns, our platform is designed to help you grow as a player.</p>
-      
       <h3>Ready to Play?</h3>
-      <p>Jump into a game now or scroll up to choose your mode! Play chess online free, challenge our AI, or enjoy a two-player chess match with friends. Toolpix Games is your go-to platform for online chess fun!</p>
+      <p>Jump into a game now or scroll up to choose your mode! Play chess online free, challenge our AI, or enjoy a two-player chess match with friends.</p>
     </div>
+
+
     
     <div class="ad-banner">Advertisement</div>
+
+
+  <footer>
+    <a href="../" class="tooltip"><span class="tooltiptext">Home</span></a>
+    <a href="./" class="tooltip"><span class="tooltiptext">Games</span></a>
+    <a href="../all-tools" class="tooltip"><span class="tooltiptext">All Tools</span></a>
+    <a href="../terms" class="tooltip"><span class="tooltiptext">Terms</span></a>
+    <a href="../privacy" class="tooltip"><span class="tooltiptext">Privacy Policy</span></a>
+    <a href="../blog" class="tooltip"><span class="tooltiptext">Blog</span></a>
+    <a href="../contact" class="tooltip"><span class="tooltiptext">Contact</span></a>
+  </footer>
+
   </div>
 
+  <!-- Game Screen -->
   <div class="game-section" id="gameSection">
     <div class="back-button-container">
-      <button class="back-button" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
     </div>
     <div class="chessboard-container">
       <div class="chessboard" id="chessboard"></div>
@@ -494,11 +583,12 @@
     <div class="ad-banner">Advertisement</div>
   </div>
 
+  <!-- Game Over Popup -->
   <div class="popup" id="gamePopup">
     <h3 id="popupMessage"></h3>
     <div class="popup-buttons">
-      <button class="popup-button" onclick="restartGame()" aria-label="Restart the game">Restart Game</button>
-      <button class="popup-button" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+      <button class="btn btn-primary" onclick="restartGame()" aria-label="Restart the game">Restart Game</button>
+      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
     </div>
   </div>
 
@@ -585,13 +675,11 @@
     function showDifficultySelection() {
       document.getElementById('modeSelection').style.display = 'none';
       document.getElementById('difficultySelection').style.display = 'flex';
-      document.getElementById('welcomeTitle').textContent = 'Select Difficulty';
     }
 
     function backToModeSelection() {
       document.getElementById('modeSelection').style.display = 'flex';
       document.getElementById('difficultySelection').style.display = 'none';
-      document.getElementById('welcomeTitle').textContent = 'Choose Your Game Mode';
     }
 
     function scrollToGuide() {
@@ -621,11 +709,10 @@
       gameActive = false;
       localStorage.removeItem('chessGame');
       document.getElementById('gameSection').style.display = 'none';
-      document.getElementById('welcomeScreen').style.display = 'flex';
+      document.getElementById('welcomeScreen').style.display = 'block';
       document.getElementById('gamePopup').style.display = 'none';
       document.getElementById('modeSelection').style.display = 'flex';
       document.getElementById('difficultySelection').style.display = 'none';
-      document.getElementById('welcomeTitle').textContent = 'Choose Your Game Mode';
     }
 
     // Save game state to localStorage

@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stopwatch - ToolPix</title>
-  <meta name="description" content="Interactive stopwatch with start, stop, reset, and lap functionality. Track time with precision, no registration required.">
-  <meta name="keywords" content="stopwatch, timer, time tracking, lap timer, digital stopwatch">
+  <title>Countdown Timer - ToolPix</title>
+  <meta name="description" content="Interactive countdown timer with customizable duration, pause/resume functionality, and alerts. No registration required.">
+  <meta name="keywords" content="countdown timer, timer, productivity, time management, online timer">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://toolpixs.github.io/tools/stopwatch" />
+  <link rel="canonical" href="https://toolpixs.github.io/tools/countdown-timer" />
 
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="Stopwatch - ToolPix">
-  <meta property="og:description" content="Use a precise stopwatch with gap tracking and easy controls. Free and accessible anytime.">
+  <meta property="og:title" content="Countdown Timer - ToolPix">
+  <meta property="og:description" content="Set a customizable countdown timer with pause/resume functionality and alerts. Free and easy to use.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://toolpixs.github.io/tools/stopwatch">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/countdown-timer">
   <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixtime-social-share.jpg">
   <meta property="og:site_name" content="ToolPix">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Stopwatch - ToolPix">
-  <meta name="twitter:description" content="Use a precise stopwatch with gap tracking and easy controls.">
+  <meta name="twitter:title" content="Countdown Timer - ToolPix">
+  <meta name="twitter:description" content="Set a customizable countdown timer with pause/resume functionality and alerts.">
   <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixtime-twitter-card.jpg">
 
   <!-- Favicon -->
@@ -34,8 +34,8 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Google Fonts (Added Roboto Mono for monospaced digits) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <style>
@@ -205,7 +205,8 @@
       border-radius: var(--radius-sm);
       transition: background 0.2s;
       display: flex;
-      align-items: 0.75rem;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .sidebar a:hover { background: rgba(0,0,0,0.05); }
@@ -258,7 +259,7 @@
     .sidebar-overlay.active {
       opacity: 1;
       visibility: visible;
-  }
+    }
 
     .main-container {
       display: flex;
@@ -277,8 +278,7 @@
 
     .right-sidebar {
       width: 350px;
-      padding: 2rem 1rem 2rem 0;
-      margin-right: 0;
+      padding: 2rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -309,7 +309,7 @@
     .btn-secondary { background: var(--secondary); }
     .btn-secondary:hover { background: var(--secondary-dark); }
 
-    .stopwatch-container {
+    .timer-container {
       background: var(--card-bg);
       padding: 2rem;
       border-radius: var(--radius-lg);
@@ -323,7 +323,7 @@
       transition: transform 0.5s ease;
     }
 
-    .stopwatch-container:hover {
+    .timer-container:hover {
       transform: scale(1.02);
     }
 
@@ -344,8 +344,7 @@
       transform: scale(1.2);
     }
 
-    .stopwatch-display {
-      font-family: 'Roboto Mono', monospace; /* Use monospaced font */
+    .timer-display {
       font-size: 4rem;
       font-weight: 700;
       color: var(--primary);
@@ -354,39 +353,42 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
       letter-spacing: 2px;
-      font-variant-numeric: tabular-nums; /* Ensure tabular numbers for consistent width */
-      display: inline-block;
-      width: auto;
-      text-align: center;
     }
 
-    .stopwatch-laps {
-      max-height: 200px;
-      overflow-y: auto;
-      margin-top: 1rem;
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+
+    .timer-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .timer-inputs input {
       padding: 0.5rem;
-      border: 1px solid var(--border-light);
+      width: 80px;
+      border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-    }
-
-    .stopwatch-laps ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .stopwatch-laps li {
-      padding: 0.5rem;
-      border-bottom: 1px solid var(--border-light);
-      color: var(--text-light);
       font-size: 1rem;
-      font-family: 'Roboto Mono', monospace; /* Consistent font for lap times */
+      text-align: center;
+      color: var(--text);
+      background: var(--card-bg);
+      transition: var(--transition);
     }
 
-    .stopwatch-laps li:last-child { border-bottom: none; }
+    .timer-inputs input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 5px var(--primary-light);
+    }
 
-    .stopwatch-controls {
+    .timer-controls {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
@@ -394,7 +396,7 @@
       margin-top: 1rem;
     }
 
-    .stopwatch-controls button {
+    .timer-controls button {
       padding: 0.5rem 1rem;
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
@@ -405,13 +407,13 @@
       transition: var(--transition);
     }
 
-    .stopwatch-controls button:hover {
+    .timer-controls button:hover {
       background: var(--primary);
       color: white;
       border-color: var(--primary-dark);
     }
 
-    .stopwatch-background {
+    .timer-background {
       position: absolute;
       top: 0;
       left: 0;
@@ -429,7 +431,7 @@
       100% { transform: scale(1); }
     }
 
-    .stopwatch-popup {
+    .timer-popup {
       position: fixed;
       top: 0;
       left: 0;
@@ -446,22 +448,21 @@
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    .stopwatch-popup.active {
+    .timer-popup.active {
       opacity: 1;
       visibility: visible;
     }
 
-    .stopwatch-popup .stopwatch-display {
+    .timer-popup .timer-display {
       font-size: 6rem;
       margin-bottom: 2rem;
     }
 
-    .stopwatch-popup .stopwatch-laps {
-      max-width: 80%;
+    .timer-popup .timer-inputs {
       margin-bottom: 2rem;
     }
 
-    .stopwatch-popup .stopwatch-controls {
+    .timer-popup .timer-controls {
       margin-top: 2rem;
     }
 
@@ -638,23 +639,17 @@
     /* Responsive Styles */
     @media (max-width: 992px) {
       .right-sidebar { display: none; }
-      .main-container { 
-        flex-direction: column;
-        padding: 0;
-      }
-      main { 
-        max-width: 100%; 
-        padding: 2rem;
-      }
-      .stopwatch-display { font-size: 3rem; }
-      .stopwatch-popup .stopwatch-display { font-size: 4rem; }
+      .main-container { flex-direction: column; }
+      main { max-width: 100%; }
+      .timer-display { font-size: 3rem; }
+      .timer-popup .timer-display { font-size: 4rem; }
     }
 
     @media (max-width: 768px) {
       main { padding: 1rem; }
-      .stopwatch-container { padding: 1.5rem; }
-      .stopwatch-display { font-size: 2.5rem; }
-      .stopwatch-popup .stopwatch-display { font-size: 3rem; }
+      .timer-container { padding: 1.5rem; }
+      .timer-display { font-size: 2.5rem; }
+      .timer-popup .timer-display { font-size: 3rem; }
       .footer-container { grid-template-columns: 1fr 1fr; }
     }
 
@@ -662,10 +657,11 @@
       .header-container { padding: 1rem; }
       .header-title { font-size: 1.2rem; }
       .logo { font-size: 1.5rem; }
-      .stopwatch-display { font-size: 2rem; }
-      .stopwatch-popup .stopwatch-display { font-size: 2.5rem; }
+      .timer-display { font-size: 2rem; }
+      .timer-popup .timer-display { font-size: 2.5rem; }
       .footer-container { grid-template-columns: 1fr; }
-      .stopwatch-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+      .timer-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+      .timer-inputs input { width: 60px; font-size: 0.9rem; }
     }
 
     @media (min-width: 992px) {
@@ -680,8 +676,8 @@
   <header>
     <div class="header-container">
       <div class="header-left">
-        <a href="./" class="logo">
-          <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
         </a>
       </div>
       <div class="header-center">
@@ -698,14 +694,14 @@
         <div class="sidebar-item has-dropdown active">
           <a href="./" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
           <div class="sidebar-dropdown">
-            <a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
-            <a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a>
-            <a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a>
-            <a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
-            <a href="../date-time/stopwatch" class="active"><i class="fas fa-stopwatch"></i> Stopwatch</a>
-            <a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
-            <a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
-            <a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
+            <a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
+            <a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a>
+            <a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a>
+            <a href="./countdown-timer" class="active"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
+            <a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
+            <a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
+            <a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
           </div>
         </div>
         <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
@@ -717,41 +713,45 @@
   <div class="main-container">
     <main>
       <section class="category-intro">
-        <h1>Stopwatch</h1>
-        <p>Use this precise stopwatch to track time with start, stop, reset, and lap features. Ideal for sports, tasks, or any timed activity.</p>
+        <h1>Countdown Timer</h1>
+        <p>Set a customizable countdown timer for tasks, events, or productivity. Features pause/resume functionality and alerts when the timer completes.</p>
       </section>
 
-      <section class="stopwatch-container">
-        <div class="stopwatch-background"></div>
-        <button class="zoom-icon" aria-label="Zoom stopwatch"><i class="fas fa-expand"></i></button>
-        <div class="stopwatch-display" id="stopwatchDisplay">00:00:00.000</div>
-        <div class="stopwatch-laps" id="lapList">
-          <ul></ul>
+      <section class="timer-container">
+        <div class="timer-background"></div>
+        <button class="zoom-icon" aria-label="Zoom timer"><i class="fas fa-expand"></i></button>
+        <div class="timer-display" id="timerDisplay">00:00:00</div>
+        <div class="timer-inputs">
+          <input type="number" id="hoursInput" min="0" placeholder="HH" aria-label="Hours">
+          <input type="number" id="minutesInput" min="0" max="59" placeholder="MM" aria-label="Minutes">
+          <input type="number" id="secondsInput" min="0" max="59" placeholder="SS" aria-label="Seconds">
         </div>
-        <div class="stopwatch-controls">
-          <button id="startStopBtn" aria-label="Start stopwatch">Start</button>
-          <button id="lapBtn" aria-label="Record lap" disabled>Lap</button>
-          <button id="resetBtn" aria-label="Reset stopwatch" disabled>Reset</button>
+        <div class="timer-controls">
+          <button id="startTimer" aria-label="Start timer">Start</button>
+          <button id="pauseTimer" aria-label="Pause timer" disabled>Pause</button>
+          <button id="resetTimer" aria-label="Reset timer">Reset</button>
         </div>
       </section>
 
-      <div class="stopwatch-popup" id="stopwatchPopup">
+      <div class="timer-popup" id="timerPopup">
         <button class="close-popup" aria-label="Close popup"><i class="fas fa-times"></i></button>
-        <div class="stopwatch-background"></div>
-        <div class="stopwatch-display" id="popupStopwatchDisplay">00:00:00.000</div>
-        <div class="stopwatch-laps" id="popupLapList">
-          <ul></ul>
+        <div class="timer-background"></div>
+        <div class="timer-display" id="popupTimerDisplay">00:00:00</div>
+        <div class="timer-inputs">
+          <input type="number" id="popupHoursInput" min="0" placeholder="HH" aria-label="Hours">
+          <input type="number" id="popupMinutesInput" min="0" max="59" placeholder="MM" aria-label="Minutes">
+          <input type="number" id="popupSecondsInput" min="0" max="59" placeholder="SS" aria-label="Seconds">
         </div>
-        <div class="stopwatch-controls">
-          <button id="popupStartStopBtn" aria-label="Start stopwatch">Start</button>
-          <button id="popupLapBtn" aria-label="Record lap" disabled>Lap</button>
-          <button id="popupResetBtn" aria-label="Reset stopwatch" disabled>Reset</button>
+        <div class="timer-controls">
+          <button id="popupStartTimer" aria-label="Start timer">Start</button>
+          <button id="popupPauseTimer" aria-label="Pause timer" disabled>Pause</button>
+          <button id="popupResetTimer" aria-label="Reset timer">Reset</button>
         </div>
       </div>
 
       <section class="settings-panel">
-        <h2>Using Your Stopwatch</h2>
-        <p>Start, stop, and reset the stopwatch with ease. Record lap times to track splits, and use the zoom icon for a full-screen view.</p>
+        <h2>Customize Your Timer</h2>
+        <p>Enter the desired duration in hours, minutes, and seconds. Start, pause, or reset the timer as needed. Use the zoom icon to view in full-screen mode.</p>
       </section>
     </main>
 
@@ -759,19 +759,19 @@
       <div class="widget">
         <h3>Related Tools</h3>
         <ul class="widget-list">
-          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
         </ul>
       </div>
       <div class="widget">
         <h3>Quick Tips</h3>
         <ul class="widget-list">
-          <li>Click "Start" to begin timing.</li>
-          <li>Use "Lap" to record split times.</li>
-          <li>Press "Reset" to clear the stopwatch.</li>
-          <li>Click the zoom icon for a full-screen view.</li>
+          <li>Enter time in the input fields to set the timer duration.</li>
+          <li>Use the pause button to temporarily stop the countdown.</li>
+          <li>Reset the timer to start over with a new duration.</li>
+          <li>Click the zoom icon for a full-screen timer view.</li>
         </ul>
       </div>
     </aside>
@@ -795,14 +795,14 @@
       <div class="footer-links">
         <h3>Time & Date Tools</h3>
         <ul>
-          <li><a href="../date-time/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="../date-time/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
-          <li><a href="../date-time/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="../date-time/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="../date-time/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
-          <li><a href="../date-time/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
-          <li><a href="../date-time/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="../date-time/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
         </ul>
       </div>
       <div class="footer-links">
@@ -830,111 +830,136 @@
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
     const burgerIcon = document.querySelector('.burger-icon');
     const searchIconBtn = document.querySelector('.search-icon-btn');
-    const stopwatchDisplay = document.getElementById('stopwatchDisplay');
-    const lapList = document.getElementById('lapList').querySelector('ul');
-    const startStopBtn = document.getElementById('startStopBtn');
-    const lapBtn = document.getElementById('lapBtn');
-    const resetBtn = document.getElementById('resetBtn');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const hoursInput = document.getElementById('hoursInput');
+    const minutesInput = document.getElementById('minutesInput');
+    const secondsInput = document.getElementById('secondsInput');
+    const startTimerBtn = document.getElementById('startTimer');
+    const pauseTimerBtn = document.getElementById('pauseTimer');
+    const resetTimerBtn = document.getElementById('resetTimer');
     const zoomIcon = document.querySelector('.zoom-icon');
-    const stopwatchPopup = document.getElementById('stopwatchPopup');
+    const timerPopup = document.getElementById('timerPopup');
     const closePopup = document.querySelector('.close-popup');
-    const popupStopwatchDisplay = document.getElementById('popupStopwatchDisplay');
-    const popupLapList = document.getElementById('popupLapList').querySelector('ul');
-    const popupStartStopBtn = document.getElementById('popupStartStopBtn');
-    const popupLapBtn = document.getElementById('popupLapBtn');
-    const popupResetBtn = document.getElementById('popupResetBtn');
+    const popupTimerDisplay = document.getElementById('popupTimerDisplay');
+    const popupHoursInput = document.getElementById('popupHoursInput');
+    const popupMinutesInput = document.getElementById('popupMinutesInput');
+    const popupSecondsInput = document.getElementById('popupSecondsInput');
+    const popupStartTimer = document.getElementById('popupStartTimer');
+    const popupPauseTimer = document.getElementById('popupPauseTimer');
+    const popupResetTimer = document.getElementById('popupResetTimer');
 
-    let isRunning = false;
-    let startTime = 0;
-    let elapsedTime = 0;
-    let timerInterval;
-    let lapCount = 0;
+    let timerInterval = null;
+    let timeLeft = 0;
+    let isPaused = false;
 
-    function formatTime(ms) {
-      const hours = Math.floor(ms / (1000 * 60 * 60)).toString().padStart(2, '0');
-      const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-      const seconds = Math.floor((ms % (1000 * 60)) / 1000).toString().padStart(2, '0');
-      const milliseconds = Math.floor(ms % 1000).toString().padStart(3, '0');
-      return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+    function updateTimerDisplay(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      timerDisplay.textContent = timeString;
+      popupTimerDisplay.textContent = timeString;
     }
 
-    function updateStopwatch() {
-      elapsedTime = Date.now() - startTime;
-      const timeString = formatTime(elapsedTime);
-      stopwatchDisplay.textContent = timeString;
-      popupStopwatchDisplay.textContent = timeString;
-    }
+    function startTimer() {
+      if (!timerInterval) {
+        const hours = parseInt(hoursInput.value) || 0;
+        const minutes = parseInt(minutesInput.value) || 0;
+        const seconds = parseInt(secondsInput.value) || 0;
+        timeLeft = hours * 3600 + minutes * 60 + seconds;
 
-    function startStopwatch() {
-      if (!isRunning) {
-        startTime = Date.now() - elapsedTime;
-        timerInterval = setInterval(updateStopwatch, 10);
-        isRunning = true;
-        startStopBtn.textContent = 'Stop';
-        popupStartStopBtn.textContent = 'Stop';
-        lapBtn.disabled = false;
-        popupLapBtn.disabled = false;
-        resetBtn.disabled = false;
-        popupResetBtn.disabled = false;
+        if (timeLeft <= 0) {
+          alert('Please enter a valid time.');
+          return;
+        }
+
+        updateTimerDisplay(timeLeft);
+        startTimerBtn.textContent = 'Restart';
+        popupStartTimer.textContent = 'Restart';
+        pauseTimerBtn.disabled = false;
+        popupPauseTimer.disabled = false;
+
+        timerInterval = setInterval(() => {
+          if (!isPaused) {
+            timeLeft--;
+            updateTimerDisplay(timeLeft);
+            if (timeLeft <= 0) {
+              clearInterval(timerInterval);
+              timerInterval = null;
+              alert('Timer finished!');
+              startTimerBtn.textContent = 'Start';
+              popupStartTimer.textContent = 'Start';
+              pauseTimerBtn.disabled = true;
+              popupPauseTimer.disabled = true;
+            }
+          }
+        }, 1000);
       } else {
-        clearInterval(timerInterval);
-        isRunning = false;
-        startStopBtn.textContent = 'Start';
-        popupStartStopBtn.textContent = 'Start';
-        lapBtn.disabled = true;
-        popupLapBtn.disabled = true;
+        resetTimer();
+        startTimer();
       }
     }
 
-    function resetStopwatch() {
+    function pauseTimer() {
+      isPaused = !isPaused;
+      pauseTimerBtn.textContent = isPaused ? 'Resume' : 'Pause';
+      popupPauseTimer.textContent = isPaused ? 'Resume' : 'Pause';
+    }
+
+    function resetTimer() {
       clearInterval(timerInterval);
-      isRunning = false;
-      startTime = 0;
-      elapsedTime = 0;
-      lapCount = 0;
-      stopwatchDisplay.textContent = '00:00:00.000';
-      popupStopwatchDisplay.textContent = '00:00:00.000';
-      startStopBtn.textContent = 'Start';
-      popupStartStopBtn.textContent = 'Start';
-      lapBtn.disabled = true;
-      popupLapBtn.disabled = true;
-      resetBtn.disabled = true;
-      popupResetBtn.disabled = true;
-      lapList.innerHTML = '';
-      popupLapList.innerHTML = '';
+      timerInterval = null;
+      timeLeft = 0;
+      isPaused = false;
+      updateTimerDisplay(0);
+      hoursInput.value = '';
+      minutesInput.value = '';
+      secondsInput.value = '';
+      popupHoursInput.value = '';
+      popupMinutesInput.value = '';
+      popupSecondsInput.value = '';
+      startTimerBtn.textContent = 'Start';
+      popupStartTimer.textContent = 'Start';
+      pauseTimerBtn.textContent = 'Pause';
+      popupPauseTimer.textContent = 'Pause';
+      pauseTimerBtn.disabled = true;
+      popupPauseTimer.disabled = true;
     }
 
-    function recordLap() {
-      if (isRunning) {
-        lapCount++;
-        const lapTime = formatTime(elapsedTime);
-        const lapItem = document.createElement('li');
-        lapItem.textContent = `Lap ${lapCount}: ${lapTime}`;
-        lapList.appendChild(lapItem);
-        const popupLapItem = document.createElement('li');
-        popupLapItem.textContent = `Lap ${lapCount}: ${lapTime}`;
-        popupLapList.appendChild(popupLapItem);
-      }
+    // Synchronize inputs between main timer and popup
+    function syncInputs(source, target1, target2, target3) {
+      target1.value = source.value;
+      target2.value = source.value;
+      target3.value = source.value;
     }
 
-    startStopBtn.addEventListener('click', startStopwatch);
-    lapBtn.addEventListener('click', recordLap);
-    resetBtn.addEventListener('click', resetStopwatch);
+    hoursInput.addEventListener('input', () => syncInputs(hoursInput, popupHoursInput));
+    minutesInput.addEventListener('input', () => syncInputs(minutesInput, popupMinutesInput));
+    secondsInput.addEventListener('input', () => syncInputs(secondsInput, popupSecondsInput));
+    popupHoursInput.addEventListener('input', () => syncInputs(popupHoursInput, hoursInput));
+    popupMinutesInput.addEventListener('input', () => syncInputs(popupMinutesInput, minutesInput));
+    popupSecondsInput.addEventListener('input', () => syncInputs(popupSecondsInput, secondsInput));
 
-    popupStartStopBtn.addEventListener('click', startStopwatch);
-    popupLapBtn.addEventListener('click', recordLap);
-    popupResetBtn.addEventListener('click', resetStopwatch);
+    startTimerBtn.addEventListener('click', startTimer);
+    pauseTimerBtn.addEventListener('click', pauseTimer);
+    resetTimerBtn.addEventListener('click', resetTimer);
 
+    popupStartTimer.addEventListener('click', startTimer);
+    popupPauseTimer.addEventListener('click', pauseTimer);
+    popupResetTimer.addEventListener('click', resetTimer);
+
+    // Popup open/close functionality
     zoomIcon.addEventListener('click', () => {
-      stopwatchPopup.classList.add('active');
+      timerPopup.classList.add('active');
       document.body.style.overflow = 'hidden';
     });
 
     closePopup.addEventListener('click', () => {
-      stopwatchPopup.classList.remove('active');
+      timerPopup.classList.remove('active');
       document.body.style.overflow = 'auto';
     });
 
+    // Sidebar functionality
     burgerIcon.addEventListener('click', () => {
       sidebar.classList.toggle('open');
       sidebarOverlay.classList.toggle('active');
@@ -956,6 +981,7 @@
       });
     });
 
+    // Dark mode toggle
     const darkModeToggle = document.createElement('button');
     darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     darkModeToggle.style.position = 'fixed';
@@ -978,7 +1004,7 @@
         darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
       } else {
         document.documentElement.classList.remove('light-mode');
-        document.documentElement.classList.add('dark-mode');
+        document.documentElement.classList.add('掦dark-mode');
         localStorage.setItem('theme', 'dark');
         darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
       }

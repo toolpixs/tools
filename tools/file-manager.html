@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Organizer Tool - Manage Files | ToolPix</title>
+  <meta name="description" content="Organize and attach documents with ToolPix's free Document Organizer tool.">
+  <meta name="keywords" content="document organizer tool, file management, productivity tools, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/productivity-tools/document-organizer" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #6B48FF;
+      --primary-dark: #5B3BD6;
+      --primary-light: #E8E6FF;
+      --text: #333;
+      --text-light: #666;
+      --bg: #F5F5FA;
+      --card-bg: #fff;
+      --shadow: rgba(0,0,0,0.1);
+      --radius-md: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --primary-light: #2A1D6E;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --primary-light: #2A1D6E;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Splash Screen */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: white;
+      transition: opacity 0.5s ease;
+    }
+
+    .splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-top: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Welcome Modal */
+    .welcome-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .welcome-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .welcome-content {
+      text-align: center;
+      color: white;
+    }
+
+    .welcome-content i {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .welcome-content h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-content p {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .welcome-btn {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .welcome-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* File Manager */
+    .file-manager {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .file-manager.active {
+      display: flex;
+    }
+
+    .app-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text);
+      cursor: pointer;
+      display: none;
+    }
+
+    .path-display {
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .item-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .item-card:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .item-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .item-card h3 {
+      font-size: 0.9rem;
+      color: var(--text);
+      word-break: break-all;
+    }
+
+    .action-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-light);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Floating Action Buttons */
+    .upload-btn, .paste-btn {
+      position: fixed;
+      bottom: 20px;
+      background: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .upload-btn {
+      right: 20px;
+    }
+
+    .paste-btn {
+      right: 100px;
+      display: none;
+    }
+
+    .upload-btn:hover, .paste-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    /* Modals */
+    .upload-modal, .new-folder-modal, .file-viewer, .recycle-modal, .properties-popup, .status-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9997;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .upload-modal.active, .new-folder-modal.active, .file-viewer.active, .recycle-modal.active, .properties-popup.active, .status-popup.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .upload-content, .new-folder-content, .viewer-content, .recycle-content, .properties-content, .status-content {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      width: 90%;
+      max-width: 400px;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .upload-content h2, .new-folder-content h2, .recycle-content h2, .properties-content h2, .status-content h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .upload-content input[type="text"],
+    .upload-content input[type="file"],
+    .new-folder-content input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+    }
+
+    .upload-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    .upload-actions button {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .upload-actions button:hover {
+      background: var(--primary-dark);
+    }
+
+    .upload-actions .cancel-btn {
+      background: #FF5722;
+    }
+
+    .upload-actions .cancel-btn:hover {
+      background: #E64A19;
+    }
+
+    /* Action Menu */
+    .action-menu, .top-menu {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 10px var(--shadow);
+      padding: 0.5rem;
+      z-index: 1000;
+    }
+
+    .action-menu button, .top-menu button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .action-menu button:hover, .top-menu button:hover {
+      background: var(--primary-light);
+    }
+
+    /* File Viewer */
+    .viewer-content {
+      max-width: 80%;
+      max-height: 80%;
+      overflow: auto;
+    }
+
+    .viewer-image {
+      max-width: 100%;
+      max-height: 60vh;
+    }
+
+    .viewer-text {
+      white-space: pre-wrap;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .viewer-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .viewer-actions button {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .viewer-actions button:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Recycle Bin */
+    .recycle-list {
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    .recycle-list div {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .recycle-list button {
+      background: var(--primary);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    /* Upload Options Modal */
+    .upload-options-modal {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 10px var(--shadow);
+      padding: 0.5rem;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .upload-options-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .upload-options-modal button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .upload-options-modal button:hover {
+      background: var(--primary-light);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div class="splash-screen">
+    <div class="splash-logo">Document Organizer</div>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Welcome Modal -->
+  <div class="welcome-modal">
+    <div class="welcome-content">
+      <i class="fas fa-cloud"></i>
+      <h1>Manage your files in a simple way</h1>
+      <p>Integrate your local files with ease</p>
+      <button class="welcome-btn" id="startUsingBtn">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- File Manager -->
+  <div class="file-manager">
+    <div class="app-bar">
+      <button id="backBtn" class="back-btn"><i class="fas fa-arrow-left"></i></button>
+      <div class="path-display">/</div>
+      <button class="menu-btn"><i class="fas fa-ellipsis-v"></i></button>
+    </div>
+    <div class="items-grid" id="itemsGrid"></div>
+    <div class="empty-state" id="emptyState">
+      <i class="fas fa-folder-open"></i>
+      <h3>No Items Yet</h3>
+      <p>Upload a file or create a folder to get started!</p>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <button class="upload-btn" id="uploadBtn">+</button>
+    <button class="paste-btn" id="pasteBtn">Paste</button>
+
+    <!-- Upload Options Modal -->
+    <div class="upload-options-modal" id="uploadOptionsModal">
+      <button id="uploadFileBtn">Upload File</button>
+      <button id="newFolderBtn">New Folder</button>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="upload-modal" id="uploadModal">
+      <div class="upload-content">
+        <h2>Upload File</h2>
+        <input type="text" id="documentTitle" placeholder="File title" aria-label="File title">
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt,.jpg,.png" aria-label="Upload file">
+        <div class="upload-actions">
+          <button id="uploadDocumentBtn">Upload</button>
+          <button class="cancel-btn" id="cancelUploadBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Folder Modal -->
+    <div class="new-folder-modal" id="newFolderModal">
+      <div class="new-folder-content">
+        <h2>New Folder</h2>
+        <input type="text" id="folderNameInput" placeholder="Folder name" value="New Folder">
+        <div class="upload-actions">
+          <button id="createFolderBtn">Create</button>
+          <button class="cancel-btn" id="cancelNewFolderBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- File Viewer -->
+    <div class="file-viewer" id="fileViewer">
+      <div class="viewer-content">
+        <img id="viewerImage" class="viewer-image" style="display:none;">
+        <pre id="viewerText" class="viewer-text" style="display:none;"></pre>
+        <p id="viewerMessage" style="display:none;"></p>
+      </div>
+      <div class="viewer-actions">
+        <button id="downloadBtn"><i class="fas fa-download"></i></button>
+        <button id="removeBtn"><i class="fas fa-trash"></i></button>
+        <button id="copyBtn"><i class="fas fa-copy"></i></button>
+        <button id="propertiesBtn"><i class="fas fa-info-circle"></i></button>
+        <button id="closeViewerBtn"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+
+    <!-- Recycle Bin Modal -->
+    <div class="recycle-modal" id="recycleModal">
+      <div class="recycle-content">
+        <h2>Recycle Bin</h2>
+        <div class="recycle-list" id="recycleList"></div>
+        <div class="upload-actions">
+          <button id="closeRecycleBtn" class="cancel-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Properties Popup -->
+    <div class="properties-popup" id="propertiesPopup"></div>
+
+    <!-- Status Popup -->
+    <div class="status-popup" id="statusPopup"></div>
+  </div>
+
+  <script>
+    const splashScreen = document.querySelector('.splash-screen');
+    const welcomeModal = document.querySelector('.welcome-modal');
+    const fileManager = document.querySelector('.file-manager');
+    const startUsingBtn = document.getElementById('startUsingBtn');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const pasteBtn = document.getElementById('pasteBtn');
+    const uploadOptionsModal = document.getElementById('uploadOptionsModal');
+    const uploadFileBtn = document.getElementById('uploadFileBtn');
+    const newFolderBtn = document.getElementById('newFolderBtn');
+    const uploadModal = document.getElementById('uploadModal');
+    const uploadDocumentBtn = document.getElementById('uploadDocumentBtn');
+    const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+    const documentTitleInput = document.getElementById('documentTitle');
+    const fileInput = document.getElementById('fileInput');
+    const newFolderModal = document.getElementById('newFolderModal');
+    const folderNameInput = document.getElementById('folderNameInput');
+    const createFolderBtn = document.getElementById('createFolderBtn');
+    const cancelNewFolderBtn = document.getElementById('cancelNewFolderBtn');
+    const itemsGrid = document.getElementById('itemsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const backBtn = document.getElementById('backBtn');
+    const fileViewer = document.getElementById('fileViewer');
+    const viewerImage = document.getElementById('viewerImage');
+    const viewerText = document.getElementById('viewerText');
+    const viewerMessage = document.getElementById('viewerMessage');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const removeBtn = document.getElementById('removeBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const propertiesBtn = document.getElementById('propertiesBtn');
+    const closeViewerBtn = document.getElementById('closeViewerBtn');
+    const menuBtn = document.querySelector('.menu-btn');
+
+    let fileStorage = null;
+    let currentPath = [];
+    let copiedItem = null;
+
+    function initDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open('DocumentOrganizerDBv2', 1);
+
+        request.onerror = (event) => {
+          console.error('Database error:', event.target.error);
+          reject('Failed to open database');
+        };
+
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          const itemsStore = db.createObjectStore('items', { keyPath: 'id' });
+          itemsStore.createIndex('parentId', 'parentId', { unique: false });
+          itemsStore.createIndex('type', 'type', { unique: false });
+          db.createObjectStore('files', { keyPath: 'id' });
+          const recycleBinStore = db.createObjectStore('recycleBin', { keyPath: 'id' });
+          recycleBinStore.createIndex('originalPath', 'originalPath', { unique: false });
+        };
+
+        request.onsuccess = (event) => {
+          fileStorage = event.target.result;
+          resolve();
+        };
+      });
+    }
+
+    async function loadItems(parentId) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['items'], 'readonly');
+        const store = transaction.objectStore('items');
+        const index = store.index('parentId');
+        const request = index.getAll(parentId);
+
+        request.onerror = (event) => {
+          reject(event.target.error);
+        };
+
+        request.onsuccess = (event) => {
+          resolve(event.target.result || []);
+        };
+      });
+    }
+
+    async function saveItem(item) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['items'], 'readwrite');
+        const store = transaction.objectStore('items');
+        const request = store.put(item);
+
+        request.onerror = (event) => {
+          reject(event.target.error);
+        };
+
+        request.onsuccess = () => {
+          resolve();
+        };
+      });
+    }
+
+    async function saveFile(id, file) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['files'], 'readwrite');
+        const store = transaction.objectStore('files');
+        const request = store.put({ id, file });
+
+        request.onerror = (event) => {
+          reject(event.target.error);
+        };
+
+        request.onsuccess = () => {
+          resolve();
+        };
+      });
+    }
+
+    async function getFile(id) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['files'], 'readonly');
+        const store = transaction.objectStore('files');
+        const request = store.get(id);
+
+        request.onerror = (event) => {
+          reject(event.target.error);
+        };
+
+        request.onsuccess = (event) => {
+          resolve(event.target.result?.file || null);
+        };
+      });
+    }
+
+    async function getItem(id) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['items'], 'readonly');
+        const store = transaction.objectStore('items');
+        const request = store.get(id);
+
+        request.onsuccess = (event) => {
+          resolve(event.target.result);
+        };
+        request.onerror = (event) => {
+          reject(event.target.error);
+        };
+      });
+    }
+
+    async function renderItems() {
+      const currentParentId = currentPath.length > 0 ? currentPath[currentPath.length - 1].id : null;
+      const items = await loadItems(currentParentId);
+      itemsGrid.innerHTML = '';
+      if (items.length === 0) {
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+        items.forEach(item => {
+          const itemCard = document.createElement('div');
+          itemCard.className = 'item-card';
+          let icon;
+          if (item.type === 'folder') {
+            icon = '<i class="fas fa-folder"></i>';
+          } else {
+            if (item.fileType.startsWith('image/')) {
+              icon = '<i class="fas fa-image"></i>';
+            } else if (item.fileType === 'application/pdf') {
+              icon = '<i class="fas fa-file-pdf"></i>';
+            } else if (item.fileType.startsWith('text/')) {
+              icon = '<i class="fas fa-file-alt"></i>';
+            } else {
+              icon = '<i class="fas fa-file"></i>';
+            }
+          }
+          itemCard.innerHTML = `
+            ${icon}
+            <h3>${item.name}</h3>
+            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
+          `;
+
+          itemCard.addEventListener('click', () => {
+            if (item.type === 'folder') {
+              currentPath.push({ id: item.id, name: item.name });
+              renderItems();
+              updatePathDisplay();
+            } else {
+              openFile(item);
+            }
+          });
+
+          const actionBtn = itemCard.querySelector('.action-btn');
+          actionBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showActionMenu(item, e);
+          });
+
+          itemsGrid.appendChild(itemCard);
+        });
+      }
+      updateBackButton();
+    }
+
+    function updatePathDisplay() {
+      const pathDisplay = document.querySelector('.path-display');
+      pathDisplay.textContent = currentPath.length === 0 ? '/' : '/' + currentPath.map(f => f.name).join('/');
+    }
+
+    function updateBackButton() {
+      backBtn.style.display = currentPath.length > 0 ? 'block' : 'none';
+    }
+
+    async function uploadDocument() {
+      const title = documentTitleInput.value.trim() || fileInput.files[0]?.name || 'Untitled';
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a file to upload.');
+        return;
+      }
+      const currentParentId = currentPath.length > 0 ? currentPath[currentPath.length - 1].id : null;
+      const id = Date.now().toString();
+      const item = {
+        id,
+        type: 'file',
+        name: title,
+        parentId: currentParentId,
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size,
+        createdAt: new Date().toISOString()
+      };
+      const fileReader = new FileReader();
+      fileReader.onload = async () => {
+        const fileData = fileReader.result;
+        await saveItem(item);
+        await saveFile(id, new Blob([fileData], { type: file.type }));
+        resetUploadForm();
+        renderItems();
+        uploadModal.classList.remove('active');
+      };
+      fileReader.readAsArrayBuffer(file);
+    }
+
+    function resetUploadForm() {
+      documentTitleInput.value = '';
+      fileInput.value = '';
+    }
+
+    async function createFolder() {
+      let folderName = folderNameInput.value.trim();
+      if (!folderName) {
+        alert('Please enter a folder name');
+        return;
+      }
+      const currentParentId = currentPath.length > 0 ? currentPath[currentPath.length - 1].id : null;
+      let uniqueName = folderName;
+      let counter = 1;
+      while (await folderExists(currentParentId, uniqueName)) {
+        uniqueName = `${folderName} (${counter})`;
+        counter++;
+      }
+      const newFolder = {
+        id: Date.now().toString(),
+        type: 'folder',
+        name: uniqueName,
+        parentId: currentParentId,
+        createdAt: new Date().toISOString()
+      };
+      await saveItem(newFolder);
+      newFolderModal.classList.remove('active');
+      currentPath.push({ id: newFolder.id, name: newFolder.name });
+      renderItems();
+      updatePathDisplay();
+    }
+
+    async function folderExists(parentId, name) {
+      const items = await loadItems(parentId);
+      return items.some(item => item.type === 'folder' && item.name === name);
+    }
+
+    async function openFile(item) {
+      const file = await getFile(item.id);
+      if (!file) {
+        alert('File not found');
+        return;
+      }
+
+      if (item.fileType.startsWith('image/')) {
+        const url = URL.createObjectURL(file);
+        viewerImage.src = url;
+        viewerImage.style.display = 'block';
+        viewerText.style.display = 'none';
+        viewerMessage.style.display = 'none';
+      } else if (item.fileType.startsWith('text/')) {
+        const text = await file.text();
+        viewerText.textContent = text;
+        viewerImage.style.display = 'none';
+        viewerText.style.display = 'block';
+        viewerMessage.style.display = 'none';
+      } else {
+        viewerMessage.textContent = 'This file type is not supported in this app. Download and try to open.';
+        viewerImage.style.display = 'none';
+        viewerText.style.display = 'none';
+        viewerMessage.style.display = 'block';
+      }
+
+      fileViewer.classList.add('active');
+
+      downloadBtn.onclick = () => {
+        const url = URL.createObjectURL(file);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = item.fileName || 'document';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 100);
+      };
+
+      removeBtn.onclick = () => {
+        deleteItem(item);
+        fileViewer.classList.remove('active');
+      };
+
+      copyBtn.onclick = () => {
+        copiedItem = item;
+        showPasteButton();
+        fileViewer.classList.remove('active');
+      };
+
+      propertiesBtn.onclick = () => {
+        showProperties(item);
+      };
+
+      closeViewerBtn.onclick = () => {
+        fileViewer.classList.remove('active');
+        viewerImage.src = '';
+        viewerText.textContent = '';
+        viewerMessage.textContent = '';
+      };
+    }
+
+    let actionMenu = null;
+
+    function showActionMenu(item, event) {
+      if (actionMenu) actionMenu.remove();
+      actionMenu = document.createElement('div');
+      actionMenu.className = 'action-menu';
+      actionMenu.innerHTML = `
+        <button class="open-btn">Open</button>
+        <button class="select-btn">Select</button>
+        <button class="copy-btn">Copy</button>
+        <button class="properties-btn">Properties</button>
+        <button class="delete-btn">Delete</button>
+      `;
+      const rect = event.target.getBoundingClientRect();
+      actionMenu.style.position = 'absolute';
+      actionMenu.style.top = `${rect.bottom + window.scrollY}px`;
+      actionMenu.style.left = `${rect.left + window.scrollX}px`;
+      document.body.appendChild(actionMenu);
+
+      actionMenu.querySelector('.open-btn').addEventListener('click', () => {
+        if (item.type === 'folder') {
+          currentPath.push({ id: item.id, name: item.name });
+          renderItems();
+          updatePathDisplay();
+        } else {
+          openFile(item);
+        }
+        actionMenu.remove();
+      });
+
+      actionMenu.querySelector('.select-btn').addEventListener('click', () => {
+        alert('Multi-select not implemented yet.');
+        actionMenu.remove();
+      });
+
+      actionMenu.querySelector('.copy-btn').addEventListener('click', () => {
+        copiedItem = item;
+        showPasteButton();
+        actionMenu.remove();
+      });
+
+      actionMenu.querySelector('.properties-btn').addEventListener('click', () => {
+        showProperties(item);
+        actionMenu.remove();
+      });
+
+      actionMenu.querySelector('.delete-btn').addEventListener('click', () => {
+        deleteItem(item);
+        actionMenu.remove();
+      });
+
+      document.addEventListener('click', closeActionMenu);
+    }
+
+    function closeActionMenu(e) {
+      if (actionMenu && !actionMenu.contains(e.target)) {
+        actionMenu.remove();
+        document.removeEventListener('click', closeActionMenu);
+      }
+    }
+
+    async function deleteItem(item) {
+      const path = await getItemPath(item.id);
+      const transaction = fileStorage.transaction(['items', 'recycleBin'], 'readwrite');
+      const itemsStore = transaction.objectStore('items');
+      const recycleBinStore = transaction.objectStore('recycleBin');
+      if (item.type === 'file') {
+        const recycleItem = {
+          id: item.id,
+          type: item.type,
+          name: item.name,
+          originalPath: path,
+          deletedAt: new Date().toISOString()
+        };
+        recycleBinStore.put(recycleItem);
+        itemsStore.delete(item.id);
+      } else {
+        alert('Folder deletion not fully implemented.');
+      }
+      transaction.oncomplete = () => {
+        renderItems();
+      };
+    }
+
+    async function getItemPath(itemId) {
+      const path = [];
+      let currentId = itemId;
+      while (currentId) {
+        const item = await getItem(currentId);
+        if (!item) break;
+        path.unshift(item.name);
+        currentId = item.parentId;
+      }
+      return '/' + path.join('/');
+    }
+
+    function showPasteButton() {
+      pasteBtn.style.display = 'block';
+    }
+
+    async function pasteItem() {
+      if (!copiedItem) return;
+      const currentParentId = currentPath.length > 0 ? currentPath[currentPath.length - 1].id : null;
+      const newId = Date.now().toString();
+      const newItem = {
+        id: newId,
+        type: 'file',
+        name: copiedItem.name,
+        parentId: currentParentId,
+        fileName: copiedItem.fileName,
+        fileType: copiedItem.fileType,
+        fileSize: copiedItem.fileSize,
+        createdAt: new Date().toISOString()
+      };
+      const file = await getFile(copiedItem.id);
+      if (file) {
+        await saveItem(newItem);
+        await saveFile(newId, file);
+        renderItems();
+      }
+    }
+
+    function showProperties(item) {
+      const propertiesPopup = document.getElementById('propertiesPopup');
+      propertiesPopup.innerHTML = `
+        <div class="properties-content">
+          <h2>Properties</h2>
+          <p>Name: ${item.name}</p>
+          <p>Type: ${item.type}</p>
+          <p>Created: ${item.createdAt}</p>
+          ${item.type === 'file' ? `
+            <p>File Type: ${item.fileType}</p>
+            <p>Size: ${item.fileSize} bytes</p>
+          ` : ''}
+          <button class="close-btn">Close</button>
+        </div>
+      `;
+      propertiesPopup.classList.add('active');
+      propertiesPopup.querySelector('.close-btn').addEventListener('click', () => {
+        propertiesPopup.classList.remove('active');
+      });
+    }
+
+    async function showRecycleBin() {
+      const transaction = fileStorage.transaction(['recycleBin'], 'readonly');
+      const store = transaction.objectStore('recycleBin');
+      const request = store.getAll();
+      request.onsuccess = (event) => {
+        const items = event.target.result || [];
+        const recycleModal = document.getElementById('recycleModal');
+        const recycleList = document.getElementById('recycleList');
+        recycleList.innerHTML = '';
+        items.forEach(item => {
+          const itemDiv = document.createElement('div');
+          itemDiv.textContent = `${item.name} (Path: ${item.originalPath})`;
+          const restoreBtn = document.createElement('button');
+          restoreBtn.textContent = 'Restore';
+          restoreBtn.addEventListener('click', () => restoreItem(item));
+          itemDiv.appendChild(restoreBtn);
+          recycleList.appendChild(itemDiv);
+        });
+        recycleModal.classList.add('active');
+        document.getElementById('closeRecycleBtn').onclick = () => {
+          recycleModal.classList.remove('active');
+        };
+      };
+    }
+
+    async function restoreItem(recycleItem) {
+      const pathSegments = recycleItem.originalPath.split('/').filter(Boolean);
+      const fileName = pathSegments.pop();
+      const parentId = await ensurePath(pathSegments);
+      const restoredItem = {
+        id: recycleItem.id,
+        type: recycleItem.type,
+        name: fileName,
+        parentId: parentId,
+        createdAt: new Date().toISOString(),
+        fileName: recycleItem.name,
+        fileType: recycleItem.fileType,
+        fileSize: recycleItem.fileSize
+      };
+      await saveItem(restoredItem);
+      const transaction = fileStorage.transaction(['recycleBin'], 'readwrite');
+      const store = transaction.objectStore('recycleBin');
+      store.delete(recycleItem.id);
+      transaction.oncomplete = () => {
+        showRecycleBin();
+        renderItems();
+      };
+    }
+
+    async function ensurePath(pathSegments) {
+      let parentId = null;
+      for (const segment of pathSegments) {
+        const existingFolder = await getFolderByName(parentId, segment);
+        if (existingFolder) {
+          parentId = existingFolder.id;
+        } else {
+          const newFolder = {
+            id: Date.now().toString(),
+            type: 'folder',
+            name: segment,
+            parentId: parentId,
+            createdAt: new Date().toISOString()
+          };
+          await saveItem(newFolder);
+          parentId = newFolder.id;
+        }
+      }
+      return parentId;
+    }
+
+    async function getFolderByName(parentId, name) {
+      const items = await loadItems(parentId);
+      return items.find(item => item.type === 'folder' && item.name === name);
+    }
+
+    function showTopMenu(event) {
+      const topMenu = document.createElement('div');
+      topMenu.className = 'top-menu';
+      topMenu.innerHTML = `
+        <button class="search-btn">Search</button>
+        <button class="sort-by-btn">Sort by</button>
+        <button class="status-btn">Status</button>
+        <button class="recycle-bin-btn">Recycle Bin</button>
+      `;
+      const rect = event.target.getBoundingClientRect();
+      topMenu.style.position = 'absolute';
+      topMenu.style.top = `${rect.bottom + window.scrollY}px`;
+      topMenu.style.left = `${rect.left + window.scrollX - 100}px`;
+      document.body.appendChild(topMenu);
+
+      topMenu.querySelector('.search-btn').addEventListener('click', () => {
+        alert('Search not implemented yet.');
+        topMenu.remove();
+      });
+
+      topMenu.querySelector('.sort-by-btn').addEventListener('click', () => {
+        alert('Sort by not implemented yet.');
+        topMenu.remove();
+      });
+
+      topMenu.querySelector('.status-btn').addEventListener('click', () => {
+        showStatus();
+        topMenu.remove();
+      });
+
+      topMenu.querySelector('.recycle-bin-btn').addEventListener('click', () => {
+        showRecycleBin();
+        topMenu.remove();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!topMenu.contains(e.target)) topMenu.remove();
+      }, { once: true });
+    }
+
+    async function showStatus() {
+      const transaction = fileStorage.transaction(['items'], 'readonly');
+      const store = transaction.objectStore('items');
+      const request = store.getAll();
+      request.onsuccess = (event) => {
+        const items = event.target.result || [];
+        const files = items.filter(item => item.type === 'file');
+        const totalFiles = files.length;
+        if (totalFiles === 0) {
+          alert('No files');
+          return;
+        }
+        const typeCounts = {};
+        files.forEach(file => {
+          const type = file.fileType.split('/')[0];
+          typeCounts[type] = (typeCounts[type] || 0) + 1;
+        });
+        const percentages = {};
+        for (const [type, count] of Object.entries(typeCounts)) {
+          percentages[type] = (count / totalFiles * 100).toFixed(2) + '%';
+        }
+        const statusPopup = document.getElementById('statusPopup');
+        statusPopup.innerHTML = `
+          <div class="status-content">
+            <h2>File Type Percentages</h2>
+            ${Object.entries(percentages).map(([type, percentage]) => `<p>${type}: ${percentage}</p>`).join('')}
+            <button class="close-btn">Close</button>
+          </div>
+        `;
+        statusPopup.classList.add('active');
+        statusPopup.querySelector('.close-btn').addEventListener('click', () => {
+          statusPopup.classList.remove('active');
+        });
+      };
+    }
+
+    async function initApp() {
+      setTimeout(() => {
+        splashScreen.classList.add('hidden');
+        const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+        if (!hasSeenWelcome) {
+          welcomeModal.classList.add('active');
+        } else {
+          startApp();
+        }
+      }, 1500);
+    }
+
+    async function startApp() {
+      await initDB();
+      await renderItems();
+      fileManager.classList.add('active');
+    }
+
+    startUsingBtn.addEventListener('click', () => {
+      welcomeModal.classList.remove('active');
+      localStorage.setItem('hasSeenWelcome', 'true');
+      startApp();
+    });
+
+    uploadBtn.addEventListener('click', () => {
+      uploadOptionsModal.classList.add('active');
+    });
+
+    uploadFileBtn.addEventListener('click', () => {
+      uploadOptionsModal.classList.remove('active');
+      uploadModal.classList.add('active');
+    });
+
+    newFolderBtn.addEventListener('click', () => {
+      uploadOptionsModal.classList.remove('active');
+      newFolderModal.classList.add('active');
+    });
+
+    cancelUploadBtn.addEventListener('click', () => {
+      uploadModal.classList.remove('active');
+      resetUploadForm();
+    });
+
+    uploadDocumentBtn.addEventListener('click', uploadDocument);
+
+    cancelNewFolderBtn.addEventListener('click', () => {
+      newFolderModal.classList.remove('active');
+    });
+
+    createFolderBtn.addEventListener('click', createFolder);
+
+    backBtn.addEventListener('click', () => {
+      if (currentPath.length > 0) {
+        currentPath.pop();
+        renderItems();
+        updatePathDisplay();
+      }
+    });
+
+    pasteBtn.addEventListener('click', pasteItem);
+
+    menuBtn.addEventListener('click', showTopMenu);
+
+    initApp();
+  </script>
+</body>
+</html>

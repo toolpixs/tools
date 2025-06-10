@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Organizer Tool - Manage Files | ToolPix</title>
+  <meta name="description" content="Organize and attach documents with ToolPix's free Document Organizer tool.">
+  <meta name="keywords" content="document organizer tool, file management, productivity tools, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/productivity-tools/document-organizer" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #6B48FF; /* Purple gradient start */
+      --primary-dark: #5B3BD6; /* Purple gradient end */
+      --primary-light: #E8E6FF; /* Light purple background */
+      --text: #333;
+      --text-light: #666;
+      --bg: #F5F5FA; /* Light background */
+      --card-bg: #fff;
+      --shadow: rgba(0,0,0,0.1);
+      --radius-md: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --primary-light: #2A1D6E;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --primary-light: #2A1D6E;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Splash Screen */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: white;
+      transition: opacity 0.5s ease;
+    }
+
+    .splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-top: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Welcome Modal */
+    .welcome-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .welcome-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .welcome-content {
+      text-align: center;
+      color: white;
+    }
+
+    .welcome-content i {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .welcome-content h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .welcome-content p {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .welcome-btn {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .welcome-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* File Manager */
+    .file-manager {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .file-manager.active {
+      display: flex;
+    }
+
+    .folders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .folder-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .folder-card:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .folder-card i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .folder-card h3 {
+      font-size: 0.9rem;
+      color: var(--text);
+      word-break: break-all;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-light);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Floating Action Button */
+    .upload-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .upload-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    /* Upload Popup */
+    .upload-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9997;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .upload-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .upload-content {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      width: 90%;
+      max-width: 400px;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .upload-content h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .upload-content input[type="text"],
+    .upload-content input[type="file"],
+    .upload-content select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+    }
+
+    .upload-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    .upload-actions button {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .upload-actions button:hover {
+      background: var(--primary-dark);
+    }
+
+    .upload-actions .cancel-btn {
+      background: #FF5722;
+    }
+
+    .upload-actions .cancel-btn:hover {
+      background: #E64A19;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .file-manager {
+        padding: 1rem;
+      }
+
+      .folders-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div class="splash-screen">
+    <div class="splash-logo">Document Organizer</div>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Welcome Modal -->
+  <div class="welcome-modal">
+    <div class="welcome-content">
+      <i class="fas fa-cloud"></i>
+      <h1>Manage your files in a simple way</h1>
+      <p>Integrate your local files with ease</p>
+      <button class="welcome-btn" id="startUsingBtn">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- File Manager -->
+  <div class="file-manager">
+    <div class="folders-grid" id="foldersGrid">
+      <!-- Folders will be rendered here -->
+    </div>
+    <div class="empty-state" id="emptyState">
+      <i class="fas fa-folder-open"></i>
+      <h3>No Files Yet</h3>
+      <p>Upload your first file to get started!</p>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="upload-btn" id="uploadBtn">+</button>
+
+    <!-- Upload Modal -->
+    <div class="upload-modal" id="uploadModal">
+      <div class="upload-content">
+        <h2>Upload File</h2>
+        <input type="text" id="documentTitle" placeholder="File title" aria-label="File title">
+        <select id="categorySelect" aria-label="Select category">
+          <option value="tasks">Tasks</option>
+          <option value="goals">Goals</option>
+          <option value="notes">Notes</option>
+        </select>
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt,.jpg,.png" aria-label="Upload file">
+        <div class="upload-actions">
+          <button id="uploadDocumentBtn">Upload</button>
+          <button class="cancel-btn" id="cancelUploadBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const splashScreen = document.querySelector('.splash-screen');
+    const welcomeModal = document.querySelector('.welcome-modal');
+    const fileManager = document.querySelector('.file-manager');
+    const startUsingBtn = document.getElementById('startUsingBtn');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadModal = document.getElementById('uploadModal');
+    const uploadDocumentBtn = document.getElementById('uploadDocumentBtn');
+    const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+    const documentTitleInput = document.getElementById('documentTitle');
+    const categorySelect = document.getElementById('categorySelect');
+    const fileInput = document.getElementById('fileInput');
+    const foldersGrid = document.getElementById('foldersGrid');
+    const emptyState = document.getElementById('emptyState');
+
+    let documents = [];
+    let fileStorage = null;
+
+    function initDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open('DocumentOrganizerDB', 1);
+
+        request.onerror = (event) => {
+          console.error('Database error:', event.target.error);
+          reject('Failed to open database');
+        };
+
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          const docStore = db.createObjectStore('documents', { keyPath: 'id' });
+          docStore.createIndex('category', 'category', { unique: false });
+          db.createObjectStore('files', { keyPath: 'id' });
+        };
+
+        request.onsuccess = (event) => {
+          fileStorage = event.target.result;
+          resolve();
+        };
+      });
+    }
+
+    async function loadDocuments() {
+      return new Promise((resolve, reject) => {
+        if (!fileStorage) {
+          reject('Database not initialized');
+          return;
+        }
+
+        const transaction = fileStorage.transaction(['documents'], 'readonly');
+        const store = transaction.objectStore('documents');
+        const request = store.getAll();
+
+        request.onerror = (event) => {
+          console.error('Error loading documents:', event.target.error);
+          reject(event.target.error);
+        };
+
+        request.onsuccess = (event) => {
+          documents = event.target.result || [];
+          resolve(documents);
+        };
+      });
+    }
+
+    async function saveDocumentMetadata(doc) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['documents'], 'readwrite');
+        const store = transaction.objectStore('documents');
+        const request = store.put(doc);
+
+        request.onerror = (event) => {
+          console.error('Error saving document:', event.target.error);
+          reject(event.target.error);
+        };
+
+        request.onsuccess = () => {
+          resolve();
+        };
+      });
+    }
+
+    async function saveFile(id, file) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['files'], 'readwrite');
+        const store = transaction.objectStore('files');
+        const request = store.put({ id, file });
+
+        request.onerror = (event) => {
+          console.error('Error saving file:', event.target.error);
+          reject(event.target.error);
+        };
+
+        request.onsuccess = () => {
+          resolve();
+        };
+      });
+    }
+
+    async function getFile(id) {
+      return new Promise((resolve, reject) => {
+        const transaction = fileStorage.transaction(['files'], 'readonly');
+        const store = transaction.objectStore('files');
+        const request = store.get(id);
+
+        request.onerror = (event) => {
+          console.error('Error getting file:', event.target.error);
+          reject(event.target.error);
+        };
+
+        request.onsuccess = (event) => {
+          resolve(event.target.result?.file || null);
+        };
+      });
+    }
+
+    function renderFolders() {
+      foldersGrid.innerHTML = '';
+      if (documents.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      documents.forEach(doc => {
+        const folderCard = document.createElement('div');
+        folderCard.className = 'folder-card';
+        folderCard.innerHTML = `
+          <i class="fas fa-file"></i>
+          <h3>${doc.title}</h3>
+        `;
+
+        folderCard.addEventListener('click', async () => {
+          const file = await getFile(doc.id);
+          if (file) {
+            const url = URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = doc.fileName || 'document';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+          } else {
+            alert('File not found');
+          }
+        });
+
+        foldersGrid.appendChild(folderCard);
+      });
+    }
+
+    async function uploadDocument() {
+      const title = documentTitleInput.value.trim() || fileInput.files[0]?.name || 'Untitled';
+      const category = categorySelect.value;
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert('Please select a file to upload.');
+        return;
+      }
+
+      try {
+        const id = Date.now().toString();
+        const doc = {
+          id,
+          title,
+          category,
+          fileName: file.name,
+          fileType: file.type,
+          fileSize: file.size,
+          createdAt: new Date().toISOString()
+        };
+
+        const fileReader = new FileReader();
+        fileReader.onload = async () => {
+          try {
+            const fileData = fileReader.result;
+            await saveDocumentMetadata(doc);
+            await saveFile(id, new Blob([fileData], { type: file.type }));
+            documents.push(doc);
+            resetUploadForm();
+            renderFolders();
+            uploadModal.classList.remove('active');
+          } catch (error) {
+            console.error('Error uploading document:', error);
+            alert('Failed to upload document. Please try again.');
+          }
+        };
+        fileReader.onerror = () => {
+          console.error('Error reading file:', fileReader.error);
+          alert('Failed to read file. Please try again.');
+        };
+        fileReader.readAsArrayBuffer(file);
+      } catch (error) {
+        console.error('Error initiating upload:', error);
+        alert('Failed to initiate upload. Please try again.');
+      }
+    }
+
+    function resetUploadForm() {
+      documentTitleInput.value = '';
+      categorySelect.value = 'tasks';
+      fileInput.value = '';
+    }
+
+    async function initApp() {
+      setTimeout(() => {
+        splashScreen.classList.add('hidden');
+        const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+        if (!hasSeenWelcome) {
+          welcomeModal.classList.add('active');
+        } else {
+          startApp();
+        }
+      }, 1500);
+    }
+
+    async function startApp() {
+      try {
+        await initDB();
+        await loadDocuments();
+        renderFolders();
+        fileManager.classList.add('active');
+      } catch (error) {
+        console.error('Error starting app:', error);
+        alert('Failed to initialize the application. Please try refreshing the page.');
+      }
+    }
+
+    startUsingBtn.addEventListener('click', () => {
+      welcomeModal.classList.remove('active');
+      localStorage.setItem('hasSeenWelcome', 'true');
+      startApp();
+    });
+
+    uploadBtn.addEventListener('click', () => {
+      uploadModal.classList.add('active');
+    });
+
+    cancelUploadBtn.addEventListener('click', () => {
+      uploadModal.classList.remove('active');
+      resetUploadForm();
+    });
+
+    uploadDocumentBtn.addEventListener('click', uploadDocument);
+
+    initApp();
+  </script>
+</body>
+</html>

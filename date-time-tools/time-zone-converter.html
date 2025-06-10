@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Time & Date Tools - ToolPix</title>
-  <meta name="description" content="Explore free online time and date tools for clocks, calendars, time zones, timers, and more. No registration required.">
-  <meta name="keywords" content="time tools, date tools, digital clock, calendar, world clock, countdown timer, stopwatch, time zone converter">
+  <title>Time Zone Converter - ToolPix</title>
+  <meta name="description" content="Convert time between different time zones with ease. Real-time updates and customizable options. No registration required.">
+  <meta name="keywords" content="time zone converter, time converter, world time, timezone, time difference">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://toolpixs.github.io/tools/time-date-tools" />
-  
+  <link rel="canonical" href="https://toolpixs.github.io/tools/time-zone-converter" />
+
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="Time & Date Tools - ToolPix">
-  <meta property="og:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters. No sign-up needed.">
+  <meta property="og:title" content="Time Zone Converter - ToolPix">
+  <meta property="og:description" content="Easily convert time across different time zones with real-time updates. Free and user-friendly.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://toolpixs.github.io/tools/time-date-tools">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/time-zone-converter">
   <meta property="og:image" content="https://toolpixs.github.io/tools/images/pixtime-social-share.jpg">
   <meta property="og:site_name" content="ToolPix">
-  
+
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Time & Date Tools - ToolPix">
-  <meta name="twitter:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters.">
+  <meta name="twitter:title" content="Time Zone Converter - ToolPix">
+  <meta name="twitter:description" content="Easily convert time across different time zones with real-time updates.">
   <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/pixtime-twitter-card.jpg">
-  
+
   <!-- Favicon -->
   <link rel="icon" href="./static/images/favicon/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="./static/images/favicon/apple-touch-icon.png">
@@ -33,10 +33,10 @@
 
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <!-- CSS -->
   <style>
     :root {
@@ -48,16 +48,6 @@
       --secondary-light: #e3f2fd;
       --accent: #FF5722;
       --accent-dark: #E64A19;
-      --ai-color: #9C27B0;
-      --ai-dark: #7B1FA2;
-      --code-color: #607D8B;
-      --code-dark: #455A64;
-      --youtube-color: #FF0000;
-      --youtube-dark: #CC0000;
-      --productivity-color: #673AB7;
-      --productivity-dark: #5E35B1;
-      --games-color: #FF9800;
-      --games-dark: #F57C00;
       --text: #333;
       --text-light: #666;
       --text-lighter: #888;
@@ -273,12 +263,17 @@
 
     .main-container {
       display: flex;
-      margin: 0 auto;
+      margin: 0;
+      padding: 0 1rem;
+      box-sizing: border-box;
     }
 
     main {
       flex: 1;
       padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .right-sidebar {
@@ -314,167 +309,116 @@
     .btn-secondary { background: var(--secondary); }
     .btn-secondary:hover { background: var(--secondary-dark); }
 
-    .search-container {
+    .converter-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 15px var(--shadow-md);
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
       margin-bottom: 2rem;
       position: relative;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+      overflow: hidden;
+      transition: transform 0.5s ease;
     }
 
-    .search {
+    .converter-container:hover {
+      transform: scale(1.02);
+    }
+
+    .converter-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: -1;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      animation: bg-shift 10s infinite;
+    }
+
+    @keyframes bg-shift {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .converter-display {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+
+    .converter-controls {
       display: flex;
-      width: 100%;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
     }
 
-    .search input {
-      padding: 0.75rem 1rem;
-      padding-left: 3rem;
-      padding-right: 5rem;
-      width: 100%;
+    .converter-controls select,
+    .converter-controls input,
+    .converter-controls button {
+      padding: 0.5rem 1rem;
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 1rem;
+      border-radius: var(--radius-sm);
       background: var(--card-bg);
       color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
       transition: var(--transition);
-      box-shadow: 0 2px 5px var(--shadow);
     }
 
-    .search input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-light);
-    }
-
-    .search button {
-      position: absolute;
-      right: 0.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 0.5rem 1rem;
+    .converter-controls select:hover,
+    .converter-controls input:hover,
+    .converter-controls button:hover {
       background: var(--primary);
       color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: var(--transition);
+      border-color: var(--primary-dark);
     }
 
-    #clearSearch {
-      position: absolute;
-      right: 3.2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--text-light);
-      font-size: 1.1rem;
-      cursor: pointer;
-      z-index: 2;
-      padding: 0 1rem;
-      display: none;
+    .converter-controls input {
+      cursor: text;
     }
 
-    .search button:hover { background: var(--primary-dark); }
-
-    .category-intro {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius-md);
-      box-shadow: 0 2px 8px var(--shadow);
-      margin-bottom: 2rem;
-    }
-
-    .category-intro h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
-
-    .category-intro p {
-      color: var(--text-light);
-      font-size: 1.1rem;
-    }
-
-    .category {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius-md);
-      box-shadow: 0 2px 8px var(--shadow);
-      margin-bottom: 2rem;
-    }
-
-    .category h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: var(--text);
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-      padding-bottom: 1rem;
-    }
-
-    .tool-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--card-bg);
-      padding: 1.5rem 1rem;
-      border-radius: var(--radius-md);
-      text-align: center;
-      box-shadow: 0 1px 4px var(--shadow);
-      transition: var(--transition);
-      border: 1px solid var(--border-light);
-    }
-
-    .tool-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px var(--shadow-md);
-      border-color: var(--primary);
-    }
-
-    .tool-card .icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .tool-card h3 {
+    .converter-result {
+      margin-top: 1.5rem;
       font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-
-    .tool-card p {
-      font-size: 0.9rem;
       color: var(--text-light);
-      margin-bottom: 1rem;
-      line-height: 1.5;
     }
 
-    .tool-card .btn {
-      background: var(--secondary);
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
+    .settings-panel {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      max-width: 600px;
       width: 100%;
     }
 
-    .tool-card .btn:hover { background: var(--secondary-dark); }
+    .settings-panel h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
 
     .widget {
       background: var(--card-bg);
@@ -526,6 +470,7 @@
       padding: 2rem 1.5rem;
       margin-top: 3rem;
       box-shadow: 0 -2px 5px var(--shadow);
+      width: 100%;
     }
 
     .footer-container {
@@ -615,12 +560,13 @@
       .right-sidebar { display: none; }
       .main-container { flex-direction: column; }
       main { max-width: 100%; }
+      .converter-display { font-size: 2rem; }
     }
 
     @media (max-width: 768px) {
       main { padding: 1rem; }
-      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .tool-card { padding: 1rem 0.75rem; }
+      .converter-container { padding: 1.5rem; }
+      .converter-display { font-size: 1.8rem; }
       .footer-container { grid-template-columns: 1fr 1fr; }
     }
 
@@ -628,8 +574,10 @@
       .header-container { padding: 1rem; }
       .header-title { font-size: 1.2rem; }
       .logo { font-size: 1.5rem; }
-      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-      .tool-card h3 { font-size: 1rem; }
+      .converter-display { font-size: 1.5rem; }
+      .converter-controls select,
+      .converter-controls input,
+      .converter-controls button { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
       .footer-container { grid-template-columns: 1fr; }
     }
 
@@ -659,9 +607,9 @@
     </div>
     <div class="sidebar">
       <nav>
-        <a href="#"><i class="fas fa-home"></i> Home</a>
+        <a href="../"><i class="fas fa-home"></i> Home</a>
         <div class="sidebar-item has-dropdown active">
-          <a href="/time-date-tools" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
+          <a href="./" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
           <div class="sidebar-dropdown">
             <a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
             <a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a>
@@ -669,11 +617,11 @@
             <a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
             <a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
             <a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
-            <a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
+            <a href="./time-zone-converter" class="active"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
             <a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
           </div>
         </div>
-        <a href="/all-tools"><i class="fas fa-th"></i> All Tools</a>
+        <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
       </nav>
     </div>
     <div class="sidebar-overlay"></div>
@@ -682,91 +630,59 @@
   <div class="main-container">
     <main>
       <section class="category-intro">
-        <h1>Time & Date Tools</h1>
-        <p>Manage your time effectively with our suite of free online tools for clocks, calendars, time zones, timers, and date calculations. Ideal for scheduling, planning, and staying on track across different regions.</p>
+        <h1>Time Zone Converter</h1>
+        <p>Convert time between different time zones effortlessly. Select your source and target time zones, input a time, and get instant results with date and time adjustments.</p>
       </section>
 
-      <section class="search-container">
-        <div class="search">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" id="mainSearch" placeholder="Search for tools..." aria-label="Search tools">
-          <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
-          <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
+      <section class="converter-container">
+        <div class="converter-background"></div>
+        <div class="converter-display" id="converterResult">Converted Time: --:--</div>
+        <div class="converter-controls">
+          <input type="datetime-local" id="sourceTime" aria-label="Select source date and time">
+          <select id="sourceTimezone" aria-label="Select source timezone">
+            <option value="local">Local Time</option>
+            <option value="UTC">UTC</option>
+            <option value="America/New_York">New York</option>
+            <option value="Europe/London">London</option>
+            <option value="Asia/Tokyo">Tokyo</option>
+            <option value="Australia/Sydney">Sydney</option>
+          </select>
+          <select id="targetTimezone" aria-label="Select target timezone">
+            <option value="local">Local Time</option>
+            <option value="UTC">UTC</option>
+            <option value="America/New_York">New York</option>
+            <option value="Europe/London">London</option>
+            <option value="Asia/Tokyo">Tokyo</option>
+            <option value="Australia/Sydney">Sydney</option>
+          </select>
+          <button id="convertTime" aria-label="Convert time">Convert</button>
         </div>
+        <div class="converter-result" id="resultDetails"></div>
       </section>
 
-      <section id="time-date-tools" class="category">
-        <h2>Time & Date Tools</h2>
-        <p>Access tools to track time, manage schedules, and coordinate across time zones.</p>
-        <div class="tools-grid">
-          <div class="tool-card" data-name="Digital Clock" data-category="Time & Date" data-keywords="clock time current">
-            <div class="icon"><i class="fas fa-clock"></i></div>
-            <h3>Digital Clock</h3>
-            <p>Displays the current time in real-time.</p>
-            <a href="./digital-clock" class="btn" aria-label="Use Digital Clock tool">View Clock</a>
-          </div>
-          <div class="tool-card" data-name="Calendar" data-category="Time & Date" data-keywords="calendar date month year">
-            <div class="icon"><i class="fas fa-calendar"></i></div>
-            <h3>Calendar</h3>
-            <p>Interactive monthly calendar with navigation.</p>
-            <a href="./calendar" class="btn" aria-label="Use Calendar tool">View Calendar</a>
-          </div>
-          <div class="tool-card" data-name="World Clock" data-category="Time & Date" data-keywords="world clock time zones global time international time">
-            <div class="icon"><i class="fas fa-globe"></i></div>
-            <h3>World Clock</h3>
-            <p>View current time across multiple time zones.</p>
-            <a href="./world-clock" class="btn" aria-label="Use World Clock tool">Check Time Zones</a>
-          </div>
-          <div class="tool-card" data-name="Countdown Timer" data-category="Time & Date" data-keywords="countdown timer deadline event timer">
-            <div class="icon"><i class="fas fa-hourglass-half"></i></div>
-            <h3>Countdown Timer</h3>
-            <p>Set timers for events, tasks, or deadlines.</p>
-            <a href="./countdown-timer" class="btn" aria-label="Use Countdown Timer tool">Start Countdown</a>
-          </div>
-          <div class="tool-card" data-name="Stopwatch" data-category="Time & Date" data-keywords="stopwatch timer elapsed time lap timer">
-            <div class="icon"><i class="fas fa-stopwatch"></i></div>
-            <h3>Stopwatch</h3>
-            <p>Measure elapsed time with lap functions.</p>
-            <a href="./stopwatch" class="btn" aria-label="Use Stopwatch tool">Start Stopwatch</a>
-          </div>
-          <div class="tool-card" data-name="Date Calculator" data-category="Time & Date" data-keywords="date calculator days between date difference time calculator">
-            <div class="icon"><i class="fas fa-calculator"></i></div>
-            <h3>Date Calculator</h3>
-            <p>Calculate days between dates or add/subtract time.</p>
-            <a href="./date-calculator" class="btn" aria-label="Use Date Calculator tool">Calculate Now</a>
-          </div>
-          <div class="tool-card" data-name="Time Zone Converter" data-category="Time & Date" data-keywords="time zone converter schedule meeting time conversion global time">
-            <div class="icon"><i class="fas fa-sync-alt"></i></div>
-            <h3>Time Zone Converter</h3>
-            <p>Convert times or schedule across time zones.</p>
-            <a href="./time-zone-converter" class="btn" aria-label="Use Time Zone Converter tool">Convert Time</a>
-          </div>
-          <div class="tool-card" data-name="Alarm Clock" data-category="Time & Date" data-keywords="alarm clock reminder notification alert">
-            <div class="icon"><i class="fas fa-bell"></i></div>
-            <h3>Alarm Clock</h3>
-            <p>Set customizable alarms with notifications.</p>
-            <a href="./alarm-clock" class="btn" aria-label="Use Alarm Clock tool">Set Alarm</a>
-          </div>
-        </div>
+      <section class="settings-panel">
+        <h2>Customize Your Conversion</h2>
+        <p>Enter a specific date and time, select source and target time zones, and click Convert to see the adjusted time. Use the dropdowns to explore different regions and time formats.</p>
       </section>
     </main>
 
     <aside class="right-sidebar">
       <div class="widget">
-        <h3>Trending Time & Date Tools</h3>
+        <h3>Related Tools</h3>
         <ul class="widget-list">
           <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
           <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
           <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
         </ul>
       </div>
       <div class="widget">
         <h3>Quick Tips</h3>
         <ul class="widget-list">
-          <li>Use the World Clock to coordinate meetings across time zones.</li>
-          <li>Set a Countdown Timer to stay on track with deadlines.</li>
-          <li>Check the Date Calculator for planning future events.</li>
+          <li>Select the source time and date using the datetime picker.</li>
+          <li>Choose different time zones to compare time differences.</li>
+          <li>Click 'Convert' to see the adjusted time instantly.</li>
+          <li>Use the Local Time option to base conversions on your current time zone.</li>
         </ul>
       </div>
     </aside>
@@ -776,7 +692,7 @@
     <div class="footer-container">
       <div>
         <div class="footer-logo">
-          <a href="/" class="logo">ToolPix</a>
+          <a href="../" class="logo">ToolPix</a>
           <p>Free online tools for YouTube, images, productivity, code, and time management</p>
         </div>
         <div class="social-links">
@@ -790,33 +706,33 @@
       <div class="footer-links">
         <h3>Time & Date Tools</h3>
         <ul>
-          <li><a href="/digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="/calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
-          <li><a href="/world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="/countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="/stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
-          <li><a href="/date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
-          <li><a href="/time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="/alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
+          <li><a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
+          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
+          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
+          <li><a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
+          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
+          <li><a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
         </ul>
       </div>
       <div class="footer-links">
         <h3>Company</h3>
         <ul>
-          <li><a href="./about"><i class="fas fa-info-circle"></i> About Us</a></li>
-          <li><a href="./blog"><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="./contact"><i class="fas fa-envelope"></i> Contact</a></li>
-          <li><a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-          <li><a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2023 ToolPix. All rights reserved.</p>
-      <a href="./sitemap.xml">Sitemap</a>
-      <a href="./privacy">Privacy Policy</a>
-      <a href="./terms">Terms of Service</a>
-      <a href="./contact">Contact Us</a>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
     </div>
   </footer>
 
@@ -825,11 +741,65 @@
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
     const burgerIcon = document.querySelector('.burger-icon');
     const searchIconBtn = document.querySelector('.search-icon-btn');
-    const searchContainer = document.querySelector('.search-container');
-    const searchInput = document.getElementById('mainSearch');
-    const searchButton = document.getElementById('searchButton');
-    const clearSearchBtn = document.getElementById('clearSearch');
+    const sourceTimeInput = document.getElementById('sourceTime');
+    const sourceTimezoneSelect = document.getElementById('sourceTimezone');
+    const targetTimezoneSelect = document.getElementById('targetTimezone');
+    const convertTimeBtn = document.getElementById('convertTime');
+    const converterResult = document.getElementById('converterResult');
+    const resultDetails = document.getElementById('resultDetails');
 
+    function convertTime() {
+      const sourceTimeValue = sourceTimeInput.value;
+      const sourceTimezone = sourceTimezoneSelect.value;
+      const targetTimezone = targetTimezoneSelect.value;
+
+      if (!sourceTimeValue) {
+        converterResult.textContent = 'Please select a valid date and time';
+        resultDetails.textContent = '';
+        return;
+      }
+
+      let sourceDate;
+      if (sourceTimezone === 'local') {
+        sourceDate = new Date(sourceTimeValue);
+      } else {
+        sourceDate = new Date(new Date(sourceTimeValue).toLocaleString('en-US', { timeZone: sourceTimezone }));
+      }
+
+      let targetDate;
+      if (targetTimezone === 'local') {
+        targetDate = sourceDate;
+      } else {
+        targetDate = new Date(sourceDate.toLocaleString('en-US', { timeZone: targetTimezone }));
+      }
+
+      const timeOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      const dateOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+
+      const targetTime = targetDate.toLocaleTimeString('en-US', timeOptions);
+      const targetDateStr = targetDate.toLocaleDateString('en-US', dateOptions);
+
+      converterResult.textContent = `Converted Time: ${targetTime}`;
+      resultDetails.textContent = `Date: ${targetDateStr} in ${targetTimezone === 'local' ? 'Local Time' : targetTimezone}`;
+    }
+
+    convertTimeBtn.addEventListener('click', convertTime);
+
+    // Set default source time to current time
+    const now = new Date();
+    sourceTimeInput.value = now.toISOString().slice(0, 16);
+
+    // Sidebar functionality
     burgerIcon.addEventListener('click', () => {
       sidebar.classList.toggle('open');
       sidebarOverlay.classList.toggle('active');
@@ -844,16 +814,6 @@
       document.body.style.overflow = 'auto';
     });
 
-    searchIconBtn.addEventListener('click', () => {
-      const headerHeight = document.querySelector('header').offsetHeight;
-      const searchContainerTop = searchContainer.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: searchContainerTop - headerHeight - 20,
-        behavior: 'smooth'
-      });
-      setTimeout(() => searchInput.focus(), 500);
-    });
-
     document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
       item.addEventListener('click', (e) => {
         e.preventDefault();
@@ -861,40 +821,7 @@
       });
     });
 
-    const allTools = Array.from(document.querySelectorAll('.tool-card')).map(card => ({
-      name: card.getAttribute('data-name'),
-      category: card.getAttribute('data-category'),
-      keywords: card.getAttribute('data-keywords'),
-      element: card
-    }));
-
-    function performSearch(query) {
-      const normalizedQuery = query.toLowerCase().trim();
-      allTools.forEach(tool => {
-        const matches = tool.name.toLowerCase().includes(normalizedQuery) || 
-                        tool.keywords.toLowerCase().includes(normalizedQuery) ||
-                        tool.category.toLowerCase().includes(normalizedQuery);
-        tool.element.style.display = matches ? 'flex' : 'none';
-      });
-    }
-
-    searchInput.addEventListener('input', () => {
-      performSearch(searchInput.value);
-      clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
-    });
-
-    clearSearchBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      performSearch('');
-      clearSearchBtn.style.display = 'none';
-      searchInput.focus();
-    });
-
-    searchButton.addEventListener('click', () => performSearch(searchInput.value));
-    searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') performSearch(searchInput.value);
-    });
-
+    // Dark mode toggle
     const darkModeToggle = document.createElement('button');
     darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     darkModeToggle.style.position = 'fixed';

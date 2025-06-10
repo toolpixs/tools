@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Planner - Free Online Scheduler | ToolPix</title>
+  <meta name="description" content="Plan your day efficiently with ToolPix's free Daily Planner. Schedule tasks, set priorities, track progress, and sync with Google Calendar or Outlook. No registration required.">
+  <meta name="keywords" content="daily planner, task scheduler, free daily planner, time management, productivity tool, task organizer, schedule tasks, Google Calendar sync, Outlook sync, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/daily-planner" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Daily Planner - Free Online Scheduler | ToolPix">
+  <meta property="og:description" content="Organize your day with ToolPix’s free Daily Planner. Schedule tasks, set priorities, and sync with Google or Outlook for seamless productivity.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/daily-planner">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/daily-planner-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Daily Planner - ToolPix">
+  <meta name="twitter:description" content="Free Daily Planner to schedule tasks, set priorities, and sync with Google or Outlook. No sign-up needed.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/daily-planner-twitter-card.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ToolPix Daily Planner",
+    "description": "A free online daily planner for scheduling tasks with priorities and time blocks. No registration required.",
+    "url": "https://toolpixs.github.io/tools/daily-planner",
+    "applicationCategory": "Productivity",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "200"
+    }
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../static/images/favicon/apple-touch-icon.png">
+  <img rel="icon" src="type=image/png" alt="icon">
+  <link rel="icon" href="../static/images/favicon/favicon.png" type="image/png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --border-radius-sm: 6px;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .search-icon-btn:hover { color: var(--primary-light); }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      flex: 1;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    .btn-danger { background: var(--accent); }
+    .btn-danger:hover { background: var(--accent-dark); }
+
+    .intro {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .intro p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-container {
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .search {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .search input {
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    #clearSearch {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .planner-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .planner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .planner-header h2 {
+      font-size: 1.8rem;
+      color: var(--text);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-group select {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .time-block {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 0.5rem;
+      border-radius: var(--radius-sm);
+      cursor: move;
+      transition: var(--transition);
+      opacity: 1;
+      animation: slideIn 0.3s ease;
+      flex-wrap: wrap;
+    }
+
+    .time-block.dragging {
+      opacity: 0.5;
+      background: var(--primary-light);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .time-block.completed .task-text {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+
+    .time-block input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    .time-block input[type="time"] {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      width: 120px;
+    }
+
+    .time-block input[type="text"] {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      min-width: 200px;
+    }
+
+    .time-block select {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+      color: var(--text);
+      width: 120px;
+    }
+
+    .time-block .task-text {
+      flex: 1;
+      font-size: 1.1rem;
+    }
+
+    .time-block .task-priority {
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+    }
+
+    .time-block .priority-low {
+      background: #e0f7fa;
+      color: #006064;
+    }
+
+    .time-block .priority-medium {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+
+    .time-block .priority-high {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .time-block .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .submitted-tasks {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .submitted-tasks h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      transition: var(--transition);
+      opacity: 1;
+      animation: slideIn 0.3s ease;
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+
+    .task-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    .task-item .task-text {
+      flex: 1;
+      font-size: 1.1rem;
+    }
+
+    .task-item .task-time {
+      color: var(--text-light);
+      margin-left: 1rem;
+    }
+
+    .task-item .task-priority {
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      margin-left: 1rem;
+    }
+
+    .task-item .priority-low {
+      background: #e0f7fa;
+      color: #006064;
+    }
+
+    .task-item .priority-medium {
+      background: #fff3e0;
+      color: #ef6c00;
+    }
+
+    .task-item .priority-high {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+      height: 100%;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tool-card .btn {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .faq-section {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1.5rem;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .faq-item summary:hover {
+      color: var(--primary-dark);
+    }
+
+    .faq-item p {
+      color: var(--text-light);
+      margin-top: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .ad-space {
+      background: var(--border-light);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      margin-bottom: 2rem;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 8px var(--shadow);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      opacity: 1;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links h3 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 1rem;
+      }
+      .time-block {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .time-block input[type="time"], .time-block select, .time-block input[type="text"] {
+        width: 100%;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .intro h1 {
+        font-size: 1.8rem;
+      }
+      .planner-header h2, .submitted-tasks h2, .suggested-tools h2, .faq-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-title {
+        font-size: 1.2rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .intro p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../" class="logo">
+        <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+      </a>
+      <span class="header-title">Daily Planner</span>
+      <button class="search-icon-btn" aria-label="Search tasks"><i class="fas fa-search"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Ad Space: Top Banner -->
+    <div class="ad-space">
+      <p>Advertisement (728x90)</p>
+    </div>
+
+    <section class="intro">
+      <h1>Free Daily Planner Tool</h1>
+      <p>Organize your day with ToolPix's free Daily Planner. Schedule tasks by time, set priorities, track completion, and sync with Google Calendar or Outlook. Ideal for professionals, students, and anyone seeking better time management.</p>
+      <a href="#scheduler" class="btn" aria-label="Start planning now">Start Planning</a>
+    </section>
+
+    <section class="search-container">
+      <div class="search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="mainSearch" placeholder="Search tasks..." aria-label="Search tasks">
+        <button type="button" id="clearSearch" aria-label="Clear search"><i class="fas fa-times"></i></button>
+      </div>
+    </section>
+
+    <section id="scheduler" class="planner-container">
+      <div class="planner-header">
+        <h2>Your Daily Schedule</h2>
+        <div class="filter-group">
+          <select id="taskFilter" aria-label="Filter tasks">
+            <option value="all">All Tasks</option>
+            <option value="active">Active Tasks</option>
+            <option value="completed">Completed Tasks</option>
+          </select>
+          <button id="addTimeBlock" class="btn btn-secondary" aria-label="Add new task"><i class="fas fa-plus"></i> Add Task</button>
+        </div>
+      </div>
+      <div id="tasks"></div>
+      <div style="margin-top: 1rem;">
+        <button id="syncCalendar" class="btn" aria-label="Sync with calendar"><i class="fas fa-calendar"></i> Sync Calendar</button>
+        <button id="savePlan" class="btn btn-secondary" aria-label="Save plan"><i class="fas fa-save"></i> Save Plan</button>
+      </div>
+    </section>
+
+    <section class="submitted-tasks">
+      <h2>Submitted Tasks</h2>
+      <div id="submittedTasks"></div>
+    </section>
+
+    <!-- Ad Space: Mid-Content -->
+    <div class="ad-space">
+      <p>Advertisement (300x250)</p>
+    </div>
+
+    <section class="suggested-tools">
+      <h2>Explore More Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>To-Do List</h3>
+          <p>Manage tasks with priorities and due dates for simple organization.</p>
+          <a href="./to-do-list" class="btn btn-secondary" aria-label="Use To-Do List tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Pomodoro Timer</h3>
+          <p>Boost focus with customizable work and break intervals.</p>
+          <a href="./pomodoro-timer" class="btn btn-secondary" aria-label="Use Pomodoro Timer tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-columns"></i></div>
+          <h3>Kanban Board</h3>
+          <p>Visualize tasks with To Do, In Progress, and Done columns.</p>
+          <a href="./kanban-board" class="btn btn-secondary" aria-label="Use Kanban Board tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-check-circle"></i></div>
+          <h3>Habit Tracker</h3>
+          <p>Track daily habits with streaks and progress indicators.</p>
+          <a href="./habit-tracker" class="btn btn-secondary" aria-label="Use Habit Tracker tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <details class="faq-item">
+        <summary>What is a daily planner, and why use one?</summary>
+        <p>A daily planner helps you schedule tasks by time, prioritize work, and stay organized. It reduces stress and boosts productivity by keeping your day structured.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is ToolPix's Daily Planner free?</summary>
+        <p>Yes, our Daily Planner is completely free with no sign-up required. Access it anytime to plan your day.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I sync my tasks with Google Calendar or Outlook?</summary>
+        <p>Sync functionality is planned but not yet available. Currently, tasks are saved locally in your browser.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How are my tasks saved?</summary>
+        <p>Tasks are stored in your browser's local storage, ensuring they persist across sessions. Use the "Save Plan" button to update your saved plan.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I reorder tasks?</summary>
+        <p>Yes, you can drag and drop time blocks to reorder tasks, making it easy to adjust your schedule.</p>
+      </details>
+    </section>
+  </main>
+
+  <!-- Ad Space: Footer Banner -->
+  <div class="ad-space" style="max-width: 1200px; margin: 0 auto 2rem;">
+    <p>Advertisement (728x90)</p>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="../" class="logo">ToolPix</a>
+        <p>Free online tools for productivity, task management, and time organization.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Productivity Tools</h3>
+        <ul>
+          <li><a href="./to-do-list"><i class="fas fa-list"></i> To-Do List</a></li>
+          <li><a href="./habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Pomodoro Timer</a></li>
+          <li><a href="./kanban-board"><i class="fas fa-columns"></i> Kanban Board</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="../blog"><i class="fas fa-"></i> Blog</a></li>
+            <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></a>
+            <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></a>
+            <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 ToolPix. All rights reserved.</p>
+        <a href="../sitemap.xml">Sitemap</a>
+        <a href="../privacy">Privacy Policy</a>
+        <a href="../terms">Terms</a>
+        <a href="../contact">Contact Us</a>
+      </div>
+    </footer>
+
+    <script>
+    const searchContainer = document.querySelector('.search-container');
+    const searchInput = document.getElementById('mainSearch');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const searchIconBtn = document.querySelector('.search-icon-btn');
+    const addTimeBlockBtn = document.getElementById('addTimeBlock');
+    const tasksContainer = document.getElementById('tasks');
+    const submittedTasksContainer = document.getElementById('submittedTasks');
+    const syncCalendarBtn = document.getElementById('syncCalendar');
+    const savePlanBtn = document.getElementById('savePlan');
+    const taskFilter = document.getElementById('taskFilter');
+
+    // Initialize tasks
+    let tasks = [];
+    let submittedTasks = [];
+    try {
+      tasks = JSON.parse(localStorage.getItem('dailyPlan')) || [];
+      submittedTasks = JSON.parse(localStorage.getItem('submittedTasks')) || [];
+    } catch (e) {
+      console.error('Error loading tasks from localStorage:', e);
+    }
+
+    // Render tasks
+    function renderTasks(filter = 'all', searchQuery = '') {
+      tasksContainer.innerHTML = '';
+      const filteredTasks = tasks.filter(task => {
+        const matchesFilter = filter === 'all' || 
+                            (filter === 'active' && !task.completed) || 
+                            (filter === 'completed' && task.completed);
+        const matchesSearch = task.task.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesFilter && matchesSearch;
+      });
+
+      if (filteredTasks.length === 0 && (filter !== 'all' || searchQuery)) {
+        tasksContainer.innerHTML = '<p>No tasks match your criteria.</p>';
+      }
+
+      filteredTasks.forEach((task, index) => {
+        const timeBlock = document.createElement('div');
+        timeBlock.classList.add('time-block');
+        if (task.completed) timeBlock.classList.add('completed');
+        timeBlock.setAttribute('draggable', 'true');
+        timeBlock.dataset.index = task.id; // Use task.id instead of index
+        timeBlock.innerHTML = `
+          <input type="checkbox" ${task.completed ? 'checked' : ''} aria-label="Mark task as completed">
+          <input type="time" value="${task.time}" aria-label="Task start time">
+          <input type="text" class="task-text" value="${task.task}" placeholder="Enter task (e.g., Morning Meeting)" aria-label="Task description">
+          <select aria-label="Task priority">
+            <option value="low" ${task.priority === 'low' ? 'selected' : ''}>Low</option>
+            <option value="medium" ${task.priority === 'medium' ? 'selected' : ''}>Medium</option>
+            <option value="high" ${task.priority === 'high' ? 'selected' : ''}>High</option>
+          </select>
+          <span class="task-priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+          <button class="btn btn-primary submit-task" aria-label="Submit task"><i class="fas fa-check"></i></button>
+          <button class="btn btn-danger remove-btn" aria-label="Remove task"><i class="fas fa-trash"></i></button>
+        `;
+        tasksContainer.appendChild(timeBlock);
+      });
+
+      // Reattach drag-and-drop listeners
+      const timeBlocks = tasksContainer.querySelectorAll('.time-block');
+      timeBlocks.forEach(block => {
+        block.addEventListener('dragstart', handleDragStart);
+        block.addEventListener('dragover', handleDragOver);
+        block.addEventListener('drop', handleDrop);
+        block.addEventListener('dragend', handleDragEnd);
+      });
+    }
+
+    // Render submitted tasks
+    function renderSubmittedTasks(filter = 'all', searchQuery = '') {
+      submittedTasksContainer.innerHTML = '';
+      const filteredTasks = submittedTasks.filter(task => {
+        const matchesFilter = filter === 'all' || 
+                            (filter === 'active' && !task.completed) || 
+                            (filter === 'completed' && task.completed);
+        const matchesSearch = task.task.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesFilter && matchesSearch;
+      });
+
+      if (filteredTasks.length === 0 && (filter !== 'all' || searchQuery)) {
+        submittedTasksContainer.innerHTML = '<p>No submitted tasks match your criteria.</p>';
+      }
+
+      filteredTasks.forEach((task, index) => {
+        const taskItem = document.createElement('div');
+        taskItem.classList.add('task-item');
+        if (task.completed) taskItem.classList.add('completed');
+        taskItem.innerHTML = `
+          <input type="checkbox" ${task.completed ? 'checked' : ''} aria-label="Mark task ${task.task} as completed">
+          <span class="task-text">${task.task}</span>
+          <span class="task-time">Time: ${task.time}</span>
+          <span class="task-priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+          <button class="btn btn-danger delete-task" data-index="${task.id}" aria-label="Delete task"><i class="fas fa-trash"></i></button>
+        `;
+        submittedTasksContainer.appendChild(taskItem);
+      });
+    }
+
+    // Initial render
+    renderTasks();
+    renderSubmittedTasks();
+
+    // Search functionality
+    searchIconBtn.addEventListener('click', () => {
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const searchContainerTop = searchContainer.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: searchContainerTop - headerHeight,
+        behavior: 'smooth'
+      });
+      setTimeout(() => searchInput.focus(), 500);
+    });
+
+    searchInput.addEventListener('input', () => {
+      clearSearchBtn.style.display = searchInput.value ? 'inline-block' : 'none';
+      const query = searchInput.value;
+      renderTasks(taskFilter.value, query);
+      renderSubmittedTasks(taskFilter.value, query);
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.style.display = 'none';
+      renderTasks(taskFilter.value);
+      renderSubmittedTasks(taskFilter.value);
+      searchInput.focus();
+    });
+
+    // Filter tasks
+    taskFilter.addEventListener('change', () => {
+      renderTasks(taskFilter.value, searchInput.value);
+      renderSubmittedTasks(taskFilter.value, searchInput.value);
+    });
+
+    // Add new time block
+    addTimeBlockBtn.addEventListener('click', () => {
+      const task = {
+        id: Date.now(),
+        time: '09:00',
+        task: '',
+        priority: 'low',
+        completed: false
+      };
+      tasks.push(task);
+      saveTasks();
+      renderTasks(taskFilter.value, searchInput.value);
+      // Focus the first text input in the new time block
+      const newBlock = tasksContainer.querySelector('.time-block:last-child input[type="text"]');
+      if (newBlock) newBlock.focus();
+    });
+
+    // Handle time block interactions
+    tasksContainer.addEventListener('click', (e) => {
+      const timeBlock = e.target.closest('.time-block');
+      if (!timeBlock) return;
+
+      const taskId = parseInt(timeBlock.dataset.index);
+      const taskIndex = tasks.findIndex(t => t.id === taskId);
+      if (taskIndex === -1) return;
+
+      const task = tasks[taskIndex];
+
+      if (e.target.type === 'checkbox') {
+        task.completed = e.target.checked;
+        saveTasks();
+        renderTasks(taskFilter.value, searchInput.value);
+      }
+
+      if (e.target.classList.contains('submit-task') || e.target.parentElement.classList.contains('submit-task')) {
+        const time = timeBlock.querySelector('input[type="time"]').value;
+        const taskText = timeBlock.querySelector('input[type="text"]').value.trim();
+        const priority = timeBlock.querySelector('select').value;
+
+        if (!taskText) {
+          alert('Please enter a task description.');
+          timeBlock.querySelector('input[type="text"]').focus();
+          return;
+        }
+
+        submittedTasks.push({
+          id: Date.now(),
+          time,
+          task: taskText,
+          priority,
+          completed: task.completed
+        });
+        tasks.splice(taskIndex, 1);
+        saveTasks();
+        saveSubmittedTasks();
+        renderTasks(taskFilter.value, searchInput.value);
+        renderSubmittedTasks(taskFilter.value, searchInput.value);
+        showNotification('Task submitted successfully!');
+      }
+
+      if (e.target.classList.contains('remove-btn') || e.target.parentElement.classList.contains('remove-btn')) {
+        tasks.splice(taskIndex, 1);
+        saveTasks();
+        renderTasks(taskFilter.value, searchInput.value);
+      }
+    });
+
+    // Handle input changes
+    tasksContainer.addEventListener('input', (e) => {
+      const timeBlock = e.target.closest('.time-block');
+      if (!timeBlock) return;
+
+      const taskId = parseInt(timeBlock.dataset.index);
+      const task = tasks.find(t => t.id === taskId);
+      if (!task) return;
+
+      if (e.target.type === 'time') task.time = e.target.value;
+      if (e.target.type === 'text') task.task = e.target.value;
+      if (e.target.tagName === 'SELECT') task.priority = e.target.value;
+
+      saveTasks();
+    });
+
+    // Handle submitted task interactions
+    submittedTasksContainer.addEventListener('click', (e) => {
+      if (e.target.type === 'checkbox') {
+        const taskItem = e.target.closest('.task-item');
+        const taskId = parseInt(taskItem.querySelector('.delete-task').dataset.index);
+        const task = submittedTasks.find(t => t.id === taskId);
+        if (task) {
+          task.completed = e.target.checked;
+          saveSubmittedTasks();
+          renderSubmittedTasks(taskFilter.value, searchInput.value);
+        }
+      }
+
+      if (e.target.classList.contains('delete-task') || e.target.parentElement.classList.contains('delete-task')) {
+        const taskId = parseInt(e.target.closest('.delete-task').dataset.index);
+        const taskIndex = submittedTasks.findIndex(t => t.id === taskId);
+        if (taskIndex !== -1) {
+          submittedTasks.splice(taskIndex, 1);
+          saveSubmittedTasks();
+          renderSubmittedTasks(taskFilter.value, searchInput.value);
+        }
+      }
+    });
+
+    // Drag-and-drop functionality
+    let draggedBlock = null;
+
+    function handleDragStart(e) {
+      draggedBlock = e.target;
+      e.target.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', e.target.dataset.index);
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      const targetBlock = e.target.closest('.time-block');
+      if (!targetBlock || targetBlock === draggedBlock) return;
+
+      const draggedId = parseInt(draggedBlock.dataset.index);
+      const targetId = parseInt(targetBlock.dataset.index);
+
+      const draggedIndex = tasks.findIndex(t => t.id === draggedId);
+      const targetIndex = tasks.findIndex(t => t.id === targetId);
+
+      if (draggedIndex !== -1 && targetIndex !== -1) {
+        const [draggedTask] = tasks.splice(draggedIndex, 1);
+        tasks.splice(targetIndex, 0, draggedTask);
+        saveTasks();
+        renderTasks(taskFilter.value, searchInput.value);
+      }
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+      draggedBlock = null;
+    }
+
+    // Notification
+    function showNotification(message) {
+      let notification = document.querySelector('.notification');
+      if (!notification) {
+        notification = document.createElement('div');
+        notification.classList.add('notification');
+        document.body.appendChild(notification);
+      }
+      notification.textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // Sync calendar
+    syncCalendarBtn.addEventListener('click', () => {
+      alert('Calendar sync functionality not implemented yet.');
+    });
+
+    // Save plan
+    savePlanBtn.addEventListener('click', () => {
+      saveTasks();
+      saveSubmittedTasks();
+      showNotification('Plan saved locally!');
+    });
+
+    // Save functions
+    function saveTasks() {
+      try {
+        localStorage.setItem('dailyPlan', JSON.stringify(tasks));
+      } catch (e) {
+        console.error('Error saving tasks to localStorage:', e);
+      }
+    }
+
+    function saveSubmittedTasks() {
+      try {
+        localStorage.setItem('submittedTasks', JSON.stringify(submittedTasks));
+      } catch (e) {
+        console.error('Error saving submitted tasks to localStorage:', e);
+      }
+    }
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

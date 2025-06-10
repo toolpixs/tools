@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Agenda Builder Tool - ToolPix</title>
+  <meta name="description" content="Plan your week with ToolPix's free Weekly Agenda Builder. Set goals, estimate time, and schedule tasks for each day. Stay organized and productive with no registration required.">
+  <meta name="keywords" content="weekly agenda, weekly planner, productivity tool, task scheduling, goal setting, time management, free online tools, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/weekly-agenda" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Weekly Agenda Builder Tool - ToolPix">
+  <meta property="og:description" content="Create a customized weekly agenda with goals and time estimates using ToolPix's free Weekly Agenda Builder. Perfect for planning your week efficiently.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/weekly-agenda">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/weekly-agenda-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Weekly Agenda Builder Tool - ToolPix">
+  <meta name="twitter:description" content="Organize your week with ToolPix's Weekly Agenda Builder. Set goals, estimate time, and schedule tasks effortlessly.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/weekly-agenda-twitter-card.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center { text-align: center; }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .search-icon-btn:hover {
+      color: var(--primary-light);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    .add-agenda-btn {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 4px 10px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .add-agenda-btn:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .search input {
+      padding: 0.75rem 1rem;
+      padding-left: 3rem;
+      padding-right: 5rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .search button {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    #clearSearch {
+      position: absolute;
+      right: 3.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 2;
+      padding: 0 1rem;
+      display: none;
+    }
+
+    .search button:hover { background: var(--primary-dark); }
+
+    .tool-intro {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .tool-intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .tool-intro p {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-section {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .tool-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .tool-section p {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .tool-form label {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .tool-form input,
+    .tool-form select,
+    .tool-form textarea {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .tool-form input:focus,
+    .tool-form select:focus,
+    .tool-form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .agenda-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .agenda-table th,
+    .agenda-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      text-align: left;
+    }
+
+    .agenda-table th {
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .agenda-table td {
+      vertical-align: top;
+    }
+
+    .agenda-table .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .agenda-table .actions button {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .agenda-table .actions button:hover {
+      color: var(--primary);
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .tool-card .btn:hover { background: var(--secondary-dark); }
+
+    .ad-space {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+      min-height: 100px;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .tool-card { padding: 1rem 0.75rem; }
+      .footer-container { grid-template-columns: 1fr; }
+      .tool-intro h1 { font-size: 2rem; }
+      .tool-section h2 { font-size: 1.5rem; }
+      .add-agenda-btn { top: 70px; width: 50px; height: 50px; font-size: 1.2rem; }
+      .agenda-table { font-size: 0.9rem; }
+      .agenda-table th, .agenda-table td { padding: 0.5rem; }
+    }
+
+    @media (max-width: 576px) {
+      .header-container { padding: 1rem; }
+      .header-title { font-size: 1.2rem; }
+      .logo { font-size: 1.5rem; }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .tool-card h3 { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">Weekly Agenda Builder</span>
+      </div>
+      <div class="header-right">
+        <button class="search-icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <button class="add-agenda-btn" id="addAgendaBtn" aria-label="Add New Agenda Item"><i class="fas fa-plus"></i></button>
+
+  <main>
+    <!-- Ad Space 1: Top Banner -->
+    <!-- Place a 728x90 leaderboard ad here -->
+    <div class="ad-space" id="ad-top">
+      <p>Advertisement</p>
+    </div>
+
+    <section class="tool-intro">
+      <h1>Weekly Agenda Builder Tool</h1>
+      <p>Plan your week effectively with ToolPix's free Weekly Agenda Builder. Set goals, estimate time for tasks, and assign them to specific days. Perfect for professionals, students, and anyone looking to stay organized and productive.</p>
+      <p>Customize your agenda with flexible scheduling and track your progress throughout the week. No sign-up required, and all features are free to use.</p>
+    </section>
+
+    <section class="search-container">
+      <div class="search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="mainSearch" placeholder="Search agenda items..." aria-label="Search agenda items">
+        <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
+        <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
+      </div>
+    </section>
+
+    <section id="create-agenda-section" class="tool-section">
+      <h2>Create Weekly Agenda Item</h2>
+      <p>Add tasks or goals for your week, assign them to specific days, and estimate completion time.</p>
+      <form class="tool-form" id="agendaForm">
+        <label for="taskName">Task/Goal Name</label>
+        <input type="text" id="taskName" placeholder="Enter task or goal name" required aria-label="Task or Goal Name">
+
+        <label for="taskDescription">Description</label>
+        <textarea id="taskDescription" placeholder="Enter task or goal description" rows="4" aria-label="Task or Goal Description"></textarea>
+
+        <label for="taskDay">Day of the Week</label>
+        <select id="taskDay" aria-label="Day of the Week">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+
+        <label for="taskTime">Estimated Time (hours)</label>
+        <input type="number" id="taskTime" placeholder="Enter estimated hours" min="0.5" step="0.5" required aria-label="Estimated Time">
+
+        <label for="taskPriority">Priority</label>
+        <select id="taskPriority" aria-label="Task Priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <button type="submit" class="btn">Add to Agenda</button>
+      </form>
+    </section>
+
+    <section class="tool-section">
+      <h2>Your Weekly Agenda</h2>
+      <p>View and manage your weekly tasks and goals. Edit or delete items as needed.</p>
+      <table class="agenda-table" id="agendaTable">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Task/Goal</th>
+            <th>Time (hrs)</th>
+            <th>Priority</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Ad Space 2: Mid-Page Banner -->
+    <!-- Place a 300x250 medium rectangle ad here -->
+    <div class="ad-space" id="ad-mid">
+      <p>Advertisement</p>
+    </div>
+
+    <section class="suggested-tools">
+      <h2>Suggested Tools for You</h2>
+      <p>Explore other productivity tools to enhance your workflow:</p>
+      <div class="tools-grid">
+        <div class="tool-card" data-name="To-Do List" data-keywords="to-do list tasks manage prioritize">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>To-Do List</h3>
+          <p>Add, edit, prioritize, and check off tasks with due dates and tags.</p>
+          <a href="./to-do-list" class="btn" aria-label="Use To-Do List tool">Use Tool</a>
+        </div>
+        <div class="tool-card" data-name="Daily Planner" data-keywords="daily planner time blocks">
+          <div class="icon"><i class="fas fa-calendar-day"></i></div>
+          <h3>Daily Planner</h3>
+          <p>Drag-and-drop tasks into time blocks, auto-arranged by deadlines.</p>
+          <a href="./daily-planner" class="btn" aria-label="Use Daily Planner tool">Use Tool</a>
+        </div>
+        <div class="tool-card" data-name="Habit Tracker" data-keywords="habit tracker streaks">
+          <div class="icon"><i class="fas fa-check-circle"></i></div>
+          <h3>Habit Tracker</h3>
+          <p>Track daily habits with streaks and progress indicators.</p>
+          <a href="./habit-tracker" class="btn" aria-label="Use Habit Tracker tool">Use Tool</a>
+        </div>
+        <div class="tool-card" data-name="Recurring Tasks" data-keywords="recurring tasks repeat">
+          <div class="icon"><i class="fas fa-sync"></i></div>
+          <h3>Recurring Tasks</h3>
+          <p>Auto-repeat tasks daily, weekly, monthly, or custom intervals.</p>
+          <a href="./recurring-tasks" class="btn" aria-label="Use Recurring Tasks tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ad Space 3: Bottom Banner -->
+    <!-- Place a 728x90 leaderboard ad here -->
+    <div class="ad-space" id="ad-bottom">
+      <p>Advertisement</p>
+    </div>
+
+    <section class="tool-section">
+      <h2>About Weekly Agenda Builder</h2>
+      <p>ToolPix's Weekly Agenda Builder helps you plan your week with precision. Set clear goals, estimate time for each task, and assign them to specific days to stay organized. Key features include:</p>
+      <ul>
+        <li><strong>Day-Specific Planning:</strong> Assign tasks to Monday through Sunday for a clear weekly overview.</li>
+        <li><strong>Time Estimates:</strong> Input estimated hours to manage your schedule effectively.</li>
+        <li><strong>Priority Settings:</strong> Categorize tasks as low, medium, or high priority.</li>
+        <li><strong>Easy Management:</strong> Edit or delete agenda items with a single click.</li>
+        <li><strong>No Sign-Up Needed:</strong> Use the tool instantly without registration.</li>
+      </ul>
+      <p>Boost your productivity with this intuitive tool, ideal for managing personal and professional schedules.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for productivity, task management, and organization.</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Productivity Tools</h3>
+        <ul>
+          <li><a href="./to-do-list"><i class="fas fa-list"></i> To-Do List</a></li>
+          <li><a href="./daily-planner"><i class="fas fa-calendar-day"></i> Daily Planner</a></li>
+          <li><a href="./habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Task Timer (Pomodoro)</a></li>
+          <li><a href="./mind-map-creator"><i class="fas fa-project-diagram"></i> Mind Map Creator</a></li>
+          <li><a href="./kanban-board"><i class="fas fa-columns"></i> Kanban Board</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const searchContainer = document.querySelector('.search-container');
+    const searchInput = document.getElementById('mainSearch');
+    const searchButton = document.getElementById('searchButton');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const agendaForm = document.getElementById('agendaForm');
+    const agendaTableBody = document.querySelector('#agendaTable tbody');
+    const addAgendaBtn = document.getElementById('addAgendaBtn');
+
+    // Scroll to agenda form when add button is clicked
+    addAgendaBtn.addEventListener('click', () => {
+      const agendaSection = document.getElementById('create-agenda-section');
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const agendaSectionTop = agendaSection.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: agendaSectionTop - headerHeight - 20,
+        behavior: 'smooth'
+      });
+      setTimeout(() => document.getElementById('taskName').focus(), 500);
+    });
+
+    // Load agenda items from localStorage
+    let agendaItems = JSON.parse(localStorage.getItem('weeklyAgenda')) || [];
+
+    // Render agenda items
+    function renderAgenda(filter = '') {
+      agendaTableBody.innerHTML = '';
+      const filteredItems = agendaItems.filter(item => 
+        item.name.toLowerCase().includes(filter.toLowerCase()) ||
+        item.description.toLowerCase().includes(filter.toLowerCase()) ||
+        item.day.toLowerCase().includes(filter.toLowerCase())
+      );
+      
+      filteredItems.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.day}</td>
+          <td><strong>${item.name}</strong><br>${item.description}</td>
+          <td>${item.time} hrs</td>
+          <td>${item.priority}</td>
+          <td class="actions">
+            <button onclick="editAgendaItem(${index})" aria-label="Edit Agenda Item"><i class="fas fa-edit"></i></button>
+            <button onclick="deleteAgendaItem(${index})" aria-label="Delete Agenda Item"><i class="fas fa-trash"></i></button>
+          </td>
+        `;
+        agendaTableBody.appendChild(tr);
+      });
+    }
+
+    // Add agenda item
+    agendaForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const item = {
+        name: document.getElementById('taskName').value,
+        description: document.getElementById('taskDescription').value,
+        day: document.getElementById('taskDay').value,
+        time: parseFloat(document.getElementById('taskTime').value),
+        priority: document.getElementById('taskPriority').value
+      };
+      agendaItems.push(item);
+      localStorage.setItem('weeklyAgenda', JSON.stringify(agendaItems));
+      renderAgenda();
+      agendaForm.reset();
+    });
+
+    // Edit agenda item
+    window.editAgendaItem = function(index) {
+      const item = agendaItems[index];
+      document.getElementById('taskName').value = item.name;
+      document.getElementById('taskDescription').value = item.description;
+      document.getElementById('taskDay').value = item.day;
+      document.getElementById('taskTime').value = item.time;
+      document.getElementById('taskPriority').value = item.priority;
+      agendaItems.splice(index, 1);
+      localStorage.setItem('weeklyAgenda', JSON.stringify(agendaItems));
+      renderAgenda();
+      const agendaSection = document.getElementById('create-agenda-section');
+      const headerHeight = document.querySelector('header').offsetHeight;
+      window.scrollTo({
+        top: agendaSection.getBoundingClientRect().top + window.scrollY - headerHeight - 20,
+        behavior: 'smooth'
+      });
+    };
+
+    // Delete agenda item
+    window.deleteAgendaItem = function(index) {
+      agendaItems.splice(index, 1);
+      localStorage.setItem('weeklyAgenda', JSON.stringify(agendaItems));
+      renderAgenda();
+    };
+
+    // Search functionality
+    searchInput.addEventListener('input', () => {
+      renderAgenda(searchInput.value);
+      clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      renderAgenda();
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
+    });
+
+    searchButton.addEventListener('click', () => renderAgenda(searchInput.value));
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') renderAgenda(searchInput.value);
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '60px';
+    darkModeToggle.style.height = '60px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+
+    // Initial render
+    renderAgenda();
+  </script>
+</body>
+</html>

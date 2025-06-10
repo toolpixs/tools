@@ -524,7 +524,7 @@
 <body>
   <div class="header">
     <h1>
-      <img src="./static/images/icon.png" alt="Toolpix Logo" width="40" height="40">
+      <img src="../static/images/icon.png" alt="Toolpix Logo" width="40" height="40">
       Toolpix Games
     </h1>
     <div class="search-bar">
@@ -542,7 +542,7 @@
   <div class="games-section">
     <h3>Featured Games</h3>
     <div class="games-grid" id="gamesGrid">
-      <div class="game-card" data-name="Sudoku" data-url="https://toolpix.com/games/sudoku">
+      <div class="game-card" data-name="Sudoku" data-url="./sudoku">
         <div class="image-container">
           <img data-src="https://i.ibb.co/Kp8zBJQm/Leonardo-Phoenix-10-A-stunning-digital-illustration-of-a-Sudok-3.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Sudoku Puzzle Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
           <div class="loader"></div>
@@ -552,7 +552,7 @@
           <p>Classic number puzzle game with multiple difficulty levels</p>
         </div>
       </div>
-      <div class="game-card" data-name="Chess" data-url="https://toolpix.com/games/chess">
+      <div class="game-card" data-name="Chess" data-url="./chess">
         <div class="image-container">
           <img data-src="https://i.ibb.co/j9gJPQyM/Leonardo-Phoenix-10-A-dramatic-cinematic-depiction-of-a-chessb-0.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Chess Strategy Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
           <div class="loader"></div>
@@ -562,7 +562,7 @@
           <p>Play chess against the computer or a friend</p>
         </div>
       </div>
-      <div class="game-card" data-name="2048" data-url="https://toolpix.com/games/2048">
+      <div class="game-card" data-name="2048" data-url="./2048">
         <div class="image-container">
           <img data-src="https://i.ibb.co/YTZNN85d/Leonardo-Phoenix-10-A-vibrant-energetic-illustration-of-the-20-1.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1olM0g5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="2048 Number Puzzle Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
           <div class="loader"></div>
@@ -572,7 +572,7 @@
           <p>Addictive number merging puzzle game</p>
         </div>
       </div>
-      <div class="game-card" data-name="Wordle" data-url="https://toolpix.com/games/wordle">
+      <div class="game-card" data-name="Wordle" data-url="./wordle">
         <div class="image-container">
           <img data-src="https://i.ibb.co/NdRsbrfh/Leonardo-Phoenix-10-A-sleek-minimalist-illustration-of-a-Wordl-3.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Wordle Word Guessing Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
           <div class="loader"></div>
@@ -582,7 +582,7 @@
           <p>Popular word guessing game with daily challenges</p>
         </div>
       </div>
-      <div class="game-card" data-name="Tic Tac Toe" data-url="https://toolpix.com/games/tic-tac-toe">
+      <div class="game-card" data-name="Tic Tac Toe" data-url="./tic-tac-toe">
         <div class="image-container">
           <img data-src="https://i.ibb.co/4ZM9T4nh/Leonardo-Phoenix-10-A-fun-retroinspired-illustration-of-a-Tic-2.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g5MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Tic Tac Toe Classic Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
           <div class="loader"></div>
@@ -592,7 +592,7 @@
           <p>Classic X and O game against the computer</p>
         </div>
       </div>
-      <div class="game-card" data-name="Memory Game" data-url="https://toolpix.com/games/memory-game">
+      <div class="game-card" data-name="Memory Game" data-url="./memory-game">
         <div class="image-container">
           <img data-src="https://i.ibb.co/mVKM7ZSQ/Leonardo-Phoenix-10-A-whimsical-magical-depiction-of-a-Memory-3.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaXQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Memory Card Matching Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
           <div class="loader"></div>
@@ -608,21 +608,21 @@
   <section class="benefits-section">
     <h2>Benefits of Playing Online Games at Toolpix Games</h2>
     <h3>Boost Your Brainpower with Puzzle Games</h3>
-    <p>Engage your mind with our puzzle games like <a href="/games/sudoku">Sudoku</a> and <a href="/games/2048">2048</a>. These games enhance logical thinking, problem-solving skills, and cognitive flexibility, offering a fun way to keep your brain sharp. Studies show puzzle games can improve memory and focus, making them ideal for all ages.</p>
+    <p>Engage your mind with our puzzle games like <a href="./sudoku">Sudoku</a> and <a href="./2048">2048</a>. These games enhance logical thinking, problem-solving skills, and cognitive flexibility, offering a fun way to keep your brain sharp. Studies show puzzle games can improve memory and focus, making them ideal for all ages.</p>
     <h3>Strategic Fun with Classic Games</h3>
-    <p>Master strategy with games like <a href="/games/chess">Chess</a> and <a href="/games/tic-tac-toe">Tic Tac Toe</a>. Chess challenges your tactical skills with deep strategic gameplay, while Tic Tac Toe offers quick, engaging matches. Both are perfect for sharpening decision-making and planning abilities.</p>
+    <p>Master strategy with games like <a href="./chess">Chess</a> and <a href="./tic-tac-toe">Tic Tac Toe</a>. Chess challenges your tactical skills with deep strategic gameplay, while Tic Tac Toe offers quick, engaging matches. Both are perfect for sharpening decision-making and planning abilities.</p>
     <h3>Daily Challenges and Wordplay</h3>
-    <p>Test your vocabulary with <a href="/games/wordle">Wordle</a>, a daily word guessing game that’s taken the world by storm. Each day brings a new puzzle, encouraging regular play to boost language skills and mental agility. It’s a quick, addictive way to challenge yourself.</p>
+    <p>Test your vocabulary with <a href="./wordle">Wordle</a>, a daily word guessing game that’s taken the world by storm. Each day brings a new puzzle, encouraging regular play to boost language skills and mental agility. It’s a quick, addictive way to challenge yourself.</p>
     <h3>Enhance Memory and Focus</h3>
-    <p>Our <a href="/games/memory-game">Memory Game</a> is designed to improve concentration and short-term memory. Matching cards in a vibrant, interactive environment is both entertaining and beneficial, making it a great choice for players looking to enhance cognitive health.</p>
+    <p>Our <a href="./memory-game">Memory Game</a> is designed to improve concentration and short-term memory. Matching cards in a vibrant, interactive environment is both entertaining and beneficial, making it a great choice for players looking to enhance cognitive health.</p>
   </section>
 
   <section class="seo-content">
     <h2>Why Toolpix Games is the Ultimate Destination for Free Online Gaming in 2025</h2>
     <p>Welcome to Toolpix Games, the premier platform for <strong>free online games</strong> that captivate players of all ages and skill levels. Whether you’re passionate about <strong>puzzle games</strong>, <strong>strategy games</strong>, or casual fun, our diverse collection has something for everyone. With no downloads or installations required, you can dive into the action instantly on any device—smartphone, tablet, or computer. Explore why Toolpix Games is the top choice for <strong>online gaming</strong> in 2025.</p>
     <h3>Discover a Wide Range of Free Browser Games</h3>
-    <p>Our curated selection includes timeless classics and modern favorites. Play <a href="/games/sudoku">Sudoku online</a> to tackle number puzzles with customizable difficulty levels, perfect for beginners and experts alike. For strategic minds, <a href="/games/chess">Chess online</a> offers challenging matches against the computer or friends, fostering critical thinking and planning skills. If you love number challenges, try the <a href="/games/2048">2048 game</a>, where you merge tiles to reach the elusive 2048 tile in an addictive puzzle experience.</p>
-    <p>Word game enthusiasts will adore <a href="/games/wordle">Wordle online</a>, a daily challenge that tests your vocabulary and keeps you coming back for more. For quick, nostalgic fun, <a href="/games/tic-tac-toe">Tic Tac Toe online</a> delivers classic gameplay with a modern twist. Meanwhile, our <a href="/games/memory-game">Memory Game online</a> sharpens your concentration with engaging card-matching challenges. Each game is optimized for seamless performance, ensuring a smooth and enjoyable experience.</p>
+    <p>Our curated selection includes timeless classics and modern favorites. Play <a href="./sudoku">Sudoku online</a> to tackle number puzzles with customizable difficulty levels, perfect for beginners and experts alike. For strategic minds, <a href="./chess">Chess online</a> offers challenging matches against the computer or friends, fostering critical thinking and planning skills. If you love number challenges, try the <a href="./2048">2048 game</a>, where you merge tiles to reach the elusive 2048 tile in an addictive puzzle experience.</p>
+    <p>Word game enthusiasts will adore <a href="./wordle">Wordle online</a>, a daily challenge that tests your vocabulary and keeps you coming back for more. For quick, nostalgic fun, <a href="./tic-tac-toe">Tic Tac Toe online</a> delivers classic gameplay with a modern twist. Meanwhile, our <a href="./memory-game">Memory Game online</a> sharpens your concentration with engaging card-matching challenges. Each game is optimized for seamless performance, ensuring a smooth and enjoyable experience.</p>
     <h3>The Growing Popularity of Online Puzzle and Strategy Games</h3>
     <p>Online gaming has transformed entertainment, blending fun with cognitive benefits. <strong>Free browser games</strong> like those on Toolpix Games are accessible to millions, offering a way to relax, learn, and connect. Research highlights that puzzle and strategy games can enhance memory, reduce stress, and improve problem-solving abilities. At Toolpix Games, we harness these benefits, providing a platform where players can enjoy <strong>brain games</strong> that are both entertaining and intellectually stimulating.</p>
     <h3>Why Toolpix Games Stands Out</h3>
@@ -638,24 +638,25 @@
     <h3>Tips for Maximizing Your Gaming Experience</h3>
     <p>Want to get the most out of Toolpix Games? Try these tips:
       <ul>
-        <li><strong>Explore All Games:</strong> Don’t stick to one—try <a href="/games/sudoku">Sudoku</a>, <a href="/games/2048">2048</a>, or <a href="/games/wordle">Wordle</a> for variety.</li>
-        <li><strong>Challenge Yourself:</strong> Increase difficulty levels in games like <a href="/games/sudoku">Sudoku</a> or play <a href="/games/chess">Chess</a> against tougher opponents.</li>
-        <li><strong>Play Daily:</strong> Engage with <a href="/games/wordle">Wordle</a>’s daily puzzles to build a streak and improve your skills.</li>
-        <li><strong>Share with Friends:</strong> Invite friends to play <a href="/games/chess">Chess</a> or compete in <a href="/games/tic-tac-toe">Tic Tac Toe</a> for added fun.</li>
+        <li><strong>Explore All Games:</strong> Don’t stick to one—try <a href="./sudoku">Sudoku</a>, <a href="./2048">2048</a>, or <a href="./wordle">Wordle</a> for variety.</li>
+        <li><strong>Challenge Yourself:</strong> Increase difficulty levels in games like <a href="./sudoku">Sudoku</a> or play <a href="./chess">Chess</a> against tougher opponents.</li>
+        <li><strong>Play Daily:</strong> Engage with <a href="./wordle">Wordle</a>’s daily puzzles to build a streak and improve your skills.</li>
+        <li><strong>Share with Friends:</strong> Invite friends to play <a href="./chess">Chess</a> or compete in <a href="./tic-tac-toe">Tic Tac Toe</a> for added fun.</li>
       </ul>
     </p>
-    <p>Ready to start? Visit our <a href="/games">games page</a> and dive into the world of Toolpix Games, where endless entertainment awaits!</p>
+    <p>Ready to start? Visit our <a href="#">games page</a> and dive into the world of Toolpix Games, where endless entertainment awaits!</p>
   </section>
 
   <div class="fab" onclick="scrollToTop()" aria-label="Scroll to top">↑</div>
 
   <footer>
-    <a href="#" class="tooltip">Home<span class="tooltiptext">Back to Homepage</span></a>
-    <a href="./converter" class="tooltip">Converters<span class="tooltiptext">Explore All Tools</span></a>
-    <a href="./terms" class="tooltip">Terms<span class="tooltiptext">Terms of Service</span></a>
-    <a href="./privacy" class="tooltip">Policy<span class="tooltiptext">Privacy Policy</span></a>
-    <a href="./blog" class="tooltip">Blog<span class="tooltiptext">Read Our Blog</span></a>
-    <a href="./contact" class="tooltip">Contact<span class="tooltiptext">Get in Touch</span></a>
+    <a href="../" class="tooltip"><span class="tooltiptext">Home</span></a>
+    <a href="./" class="tooltip"><span class="tooltiptext">Games</span></a>
+    <a href="../all-tools" class="tooltip"><span class="tooltiptext">All Tools</span></a>
+    <a href="../terms" class="tooltip"><span class="tooltiptext">Terms</span></a>
+    <a href="../privacy" class="tooltip"><span class="tooltiptext">Privacy Policy</span></a>
+    <a href="../blog" class="tooltip"><span class="tooltiptext">Blog</span></a>
+    <a href="../contact" class="tooltip"><span class="tooltiptext">Contact</span></a>
   </footer>
 
   <script>

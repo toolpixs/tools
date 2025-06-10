@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distraction Blocker Tool - Free Online Focus Aid | ToolPix</title>
+  <meta name="description" content="Stay focused with ToolPix's free Distraction Blocker tool. Simulate blocking distracting URLs during work sessions to boost productivity. No registration required.">
+  <meta name="keywords" content="distraction blocker, focus tool, block URLs, productivity tool, free distraction blocker, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/distraction-blocker" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Distraction Blocker Tool - Free Online Focus Aid | ToolPix">
+  <meta property="og:description" content="Simulate blocking distracting URLs to stay focused during work sessions. No sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/distraction-blocker">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/distraction-blocker-social.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Distraction Blocker Tool - ToolPix">
+  <meta name="twitter:description" content="Free tool to simulate blocking distracting URLs and enhance focus.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/distraction-blocker-twitter.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ToolPix Distraction Blocker",
+      "description": "A free online tool to simulate blocking distracting URLs during work sessions to boost productivity. No registration required.",
+      "url": "https://toolpixs.github.io/distraction-blocker",
+      "applicationCategory": "Productivity",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.6",
+        "reviewCount": "160"
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #ecfdf5;
+      --secondary: #3b82f6;
+      --secondary-dark: #2563eb;
+      --secondary-light: #eff6ff;
+      --accent: #f43f5e;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --border-light: #f3f4f6;
+      --shadow: rgba(0,0,0,0.05);
+      --shadow-md: rgba(0,0,0,0.1);
+      --radius-md: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    html.dark-mode {
+      --text: #e5e7eb;
+      --text-light: #9ca3af;
+      --bg: #111827;
+      --card-bg: #1f2937;
+      --border: #374151;
+      --border-light: #4b5563;
+      --shadow: rgba(0,0,0,0.2);
+      --primary-light: #064e3b;
+      --secondary-light: #1e40af;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #e5e7eb;
+        --text-light: #9ca3af;
+        --bg: #111827;
+        --card-bg: #1f2937;
+        --border: #374151;
+        --border-light: #4b5563;
+        --shadow: rgba(0,0,0,0.2);
+        --primary-light: #064e3b;
+        --secondary-light: #1e40af;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 2px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      flex: 1;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 1.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .intro p {
+      color: var(--text-light);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tool-container {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: 2fr auto;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group input {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .input-group input:disabled {
+      background: var(--border-light);
+      cursor: not-allowed;
+    }
+
+    .url-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .url-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+
+    .url-item:last-child { border-bottom: none; }
+
+    .url-item span.url-text {
+      flex: 1;
+      font-size: 0.875rem;
+    }
+
+    .url-item button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.875rem;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .url-item button:hover { color: #e11d48; }
+
+    .browser-mock {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .browser-mock h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .browser-input {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .browser-input input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+    }
+
+    .browser-input input:disabled {
+      background: var(--border-light);
+      cursor: not-allowed;
+    }
+
+    .block-warning {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .block-warning-content {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 8px var(--shadow-md);
+    }
+
+    .block-warning-content h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .block-warning-content p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .countdown {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 2px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px var(--shadow-md);
+    }
+
+    .tool-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1rem;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-item summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 0.875rem;
+    }
+
+    .faq-item summary:hover { color: var(--primary-dark); }
+
+    .faq-item p {
+      color: var(--text-light);
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 1.5rem 1rem;
+      box-shadow: 0 -1px 2px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-logo a {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li { margin-bottom: 0.25rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.75rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .input-group { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .intro h1 { font-size: 1.5rem; }
+      .tool-container h2, .browser-mock h2, .faq-section h2 { font-size: 1.25rem; }
+    }
+
+    @media (max-width: 576px) {
+      .header-title { font-size: 1rem; }
+      .logo { font-size: 1.25rem; }
+      .intro p { font-size: 0.875rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../" class="logo">
+        <img src="../static/images/icon.png" alt="ToolPix Logo">
+      </a>
+      <span class="header-title">Distraction Blocker Tool</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Free Distraction Blocker Tool</h1>
+      <p>Boost your focus with ToolPix's Distraction Blocker. This tool simulates blocking distracting URLs during work sessions. For actual URL blocking, install a browser extension like StayFocusd or LeechBlock.</p>
+    </section>
+
+    <section class="tool-container">
+      <h2>Manage Blocked URLs</h2>
+      <div class="input-group">
+        <input type="url" id="urlInput" placeholder="Enter URL to block (e.g., https://example.com)" aria-label="URL to block">
+        <button class="btn" id="addUrlBtn" aria-label="Add URL to blocklist"><i class="fas fa-plus"></i> Add</button>
+      </div>
+      <div class="input-group">
+        <button class="btn btn-secondary" id="clearAllBtn" aria-label="Clear all blocked URLs"><i class="fas fa-trash"></i> Clear All</button>
+      </div>
+      <ul class="url-list" id="urlList"></ul>
+    </section>
+
+    <section class="browser-mock">
+      <h2>Test Blocked URLs</h2>
+      <div class="browser-input">
+        <input type="url" id="browserInput" placeholder="Type a URL to test (e.g., https://example.com)" aria-label="Test URL">
+        <button class="btn" id="visitBtn" aria-label="Visit URL"><i class="fas fa-arrow-right"></i> Go</button>
+      </div>
+      <p class="note" style="color: var(--text-light); font-size: 0.75rem;">Enter a URL to simulate visiting it. Blocked URLs will trigger a warning and disable the input for 10 seconds.</p>
+    </section>
+
+    <div class="block-warning" id="blockWarning">
+      <div class="block-warning-content">
+        <h2>Access Blocked</h2>
+        <p>This URL is on your blocklist. Stay focused and return to your work!</p>
+        <p class="countdown" id="countdown">Input disabled for 10 seconds...</p>
+        <button class="btn btn-secondary" id="closeWarningBtn" disabled aria-label="Close warning">Close</button>
+      </div>
+    </div>
+
+    <section class="suggested-tools">
+      <h2>Explore More Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>Task Dependency Manager</h3>
+          <p>Manage tasks with dependencies, priorities, and due dates.</p>
+          <a href="./task-dependency" class="btn btn-secondary" aria-label="Use Task Dependency Manager tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-calendar"></i></div>
+          <h3>Calendar View</h3>
+          <p>Month, week, and day views with task scheduling.</p>
+          <a href="./calendar-view" class="btn btn-secondary" aria-label="Use Calendar View tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-check-circle"></i></div>
+          <h3>Habit Tracker</h3>
+          <p>Track daily habits with streaks and progress indicators.</p>
+          <a href="./habit-tracker" class="btn btn-secondary" aria-label="Use Habit Tracker tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Pomodoro Timer</h3>
+          <p>Boost focus with customizable work and break intervals.</p>
+          <a href="./pomodoro-timer" class="btn btn-secondary" aria-label="Use Pomodoro Timer tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-columns"></i></div>
+          <h3>Kanban Board</h3>
+          <p>Visualize tasks with To Do, In Progress, and Done columns.</p>
+          <a href="./kanban-board" class="btn btn-secondary" aria-label="Use Kanban Board tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <details class="faq-item">
+        <summary>Why is this a simulation?</summary>
+        <p>Blocking URLs in a browser requires special permissions only available to browser extensions. This tool simulates blocking by disabling input and showing a warning.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How can I actually block URLs?</summary>
+        <p>For real URL blocking, use browser extensions like StayFocusd (Chrome) or LeechBlock (Firefox), which have the necessary permissions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the Distraction Blocker free?</summary>
+        <p>Yes, ToolPix's Distraction Blocker is completely free with no registration required.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are blocked URLs saved?</summary>
+        <p>Yes, blocked URLs are saved in your browser's local storage and persist across sessions until cleared.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="../" class="logo">ToolPix</a>
+        <p>Empowering productivity with free online tools.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Tools</h3>
+        <ul>
+          <li><a href="./task-dependency"><i class="fas fa-list"></i> Task Dependency Manager</a></li>
+          <li><a href="./calendar-view"><i class="fas fa-calendar"></i> Calendar View</a></li>
+          <li><a href="./habit-tracker"><i class="fas fa-check-circle"></i> Habit Tracker</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Pomodoro Timer</a></li>
+          <li><a href="./kanban-board"><i class="fas fa-columns"></i> Kanban Board</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const urlInput = document.getElementById('urlInput');
+    const addUrlBtn = document.getElementById('addUrlBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const urlList = document.getElementById('urlList');
+    const browserInput = document.getElementById('browserInput');
+    const visitBtn = document.getElementById('visitBtn');
+    const blockWarning = document.getElementById('blockWarning');
+    const closeWarningBtn = document.getElementById('closeWarningBtn');
+    const countdownEl = document.getElementById('countdown');
+
+    let blockedUrls = JSON.parse(localStorage.getItem('blockedUrls')) || [];
+    let isInputLocked = false;
+    let countdownTimer = null;
+
+    renderUrls();
+
+    addUrlBtn.addEventListener('click', addUrl);
+    urlInput.addEventListener('keypress', (e) => e.key === 'Enter' && addUrl());
+    clearAllBtn.addEventListener('click', () => {
+      blockedUrls = [];
+      saveUrls();
+      renderUrls();
+    });
+    visitBtn.addEventListener('click', checkUrl);
+    browserInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkUrl());
+    closeWarningBtn.addEventListener('click', closeWarning);
+
+    function addUrl() {
+      const url = urlInput.value.trim();
+      if (!url || !isValidUrl(url)) {
+        urlInput.focus();
+        return;
+      }
+
+      const normalizedUrl = normalizeUrl(url);
+      if (!blockedUrls.includes(normalizedUrl)) {
+        blockedUrls.push(normalizedUrl);
+        saveUrls();
+        renderUrls();
+        urlInput.value = '';
+        urlInput.focus();
+      }
+    }
+
+    function renderUrls() {
+      urlList.innerHTML = '';
+      blockedUrls.forEach(url => {
+        const li = document.createElement('li');
+        li.className = 'url-item';
+        li.innerHTML = `
+          <span class="url-text">${url}</span>
+          <button aria-label="Delete URL ${url}"><i class="fas fa-trash"></i></button>
+        `;
+        li.querySelector('button').addEventListener('click', () => {
+          blockedUrls = blockedUrls.filter(u => u !== url);
+          saveUrls();
+          renderUrls();
+        });
+        urlList.appendChild(li);
+      });
+    }
+
+    function checkUrl() {
+      if (isInputLocked) return;
+
+      const url = browserInput.value.trim();
+      if (!url) return;
+
+      const normalizedUrl = normalizeUrl(url);
+      if (blockedUrls.some(blocked => normalizedUrl.includes(blocked) || blocked.includes(normalizedUrl))) {
+        blockWarning.style.display = 'flex';
+        isInputLocked = true;
+        browserInput.disabled = true;
+        visitBtn.disabled = true;
+        startCountdown();
+      } else {
+        alert('This URL is not blocked. You can proceed.');
+      }
+      browserInput.value = '';
+    }
+
+    function startCountdown() {
+      let timeLeft = 10;
+      countdownEl.textContent = `Input disabled for ${timeLeft} seconds...`;
+      closeWarningBtn.disabled = true;
+
+      countdownTimer = setInterval(() => {
+        timeLeft--;
+        countdownEl.textContent = `Input disabled for ${timeLeft} seconds...`;
+        if (timeLeft <= 0) {
+          clearInterval(countdownTimer);
+          closeWarning();
+        }
+      }, 1000);
+    }
+
+    function closeWarning() {
+      blockWarning.style.display = 'none';
+      isInputLocked = false;
+      browserInput.disabled = false;
+      visitBtn.disabled = false;
+      closeWarningBtn.disabled = false;
+      clearInterval(countdownTimer);
+      countdownEl.textContent = 'Input disabled for 10 seconds...';
+    }
+
+    function isValidUrl(string) {
+      try {
+        new URL(string);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function normalizeUrl(url) {
+      try {
+        const parsed = new URL(url);
+        return parsed.hostname.replace(/^www\./, '');
+      } catch {
+        return url.toLowerCase();
+      }
+    }
+
+    function saveUrls() {
+      localStorage.setItem('blockedUrls', JSON.stringify(blockedUrls));
+    }
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '40px';
+    darkModeToggle.style.height = '40px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

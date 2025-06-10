@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equation Solver - ToolPix</title>
+  <meta name="description" content="Solve linear, quadratic, polynomial, and systems of equations with our free online equation solver. Advanced features, no registration required.">
+  <meta name="keywords" content="equation solver, linear equations, quadratic equations, polynomial equations, system of equations, algebra solver, free math tool">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://toolpixs.github.io/tools/equation-solver" />
+  <meta property="og:title" content="Equation Solver - ToolPix">
+  <meta property="og:description" content="Solve linear, quadratic, polynomial, and systems of equations with our advanced online equation solver. Easy to use, no sign-up needed.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/equation-solver">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/equation-solver-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Equation Solver - ToolPix">
+  <meta name="twitter:description" content="Solve linear, quadratic, polynomial, and systems of equations with our advanced online equation solver.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/equation-solver-twitter-card.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js" integrity="sha512-VV8/8+3oHsjW4cL3g3fGY3nG2H1nq0DHA7FUK+3yG7hM8TfDKTsEPGvh1v3fGrh7N7NXXa83tWvZ6vWLFNrZ2hQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center { text-align: center; }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .solver-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .solver-container h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .solver {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .solver select, .solver input, .solver textarea {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      box-sizing: border-box;
+    }
+
+    .solver button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .solver button:hover {
+      background: var(--primary-dark);
+    }
+
+    .solver .result {
+      font-size: 1.1rem;
+      text-align: left;
+      margin-top: 1rem;
+      color: var(--text);
+      white-space: pre-wrap;
+      background: var(--primary-light);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-light);
+    }
+
+    .solver .equation-inputs {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .solver .equation-inputs.linear { grid-template-columns: repeat(3, 1fr); }
+    .solver .equation-inputs.quadratic { grid-template-columns: repeat(3, 1fr); }
+    .solver .equation-inputs.polynomial { grid-template-columns: 1fr; }
+    .solver .equation-inputs.system { grid-template-columns: 1fr; }
+
+    .solver .equation-inputs label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .solver .equation-inputs .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .solver .equation-inputs.system .input-group {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .solver .equation-inputs.system .input-group input {
+      width: 80px;
+      text-align: center;
+    }
+
+    .solver .equation-inputs.system .input-group .symbol {
+      font-size: 1rem;
+      color: var(--text-light);
+      text-align: center;
+      width: 20px;
+    }
+
+    .section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    .section p {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      color: var(--text-light);
+    }
+
+    .section ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .tool-card .btn:hover { background: var(--secondary-dark); }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li { margin-bottom: 0.5rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      main { padding: 1rem; }
+      .solver { max-width: 100%; }
+      .solver .equation-inputs.linear, .solver .equation-inputs.quadratic { grid-template-columns: 1fr; }
+      .solver .equation-inputs.system .input-group {
+        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        grid-template-rows: auto;
+        gap: 0.25rem;
+      }
+      .solver .equation-inputs.system .input-group input {
+        width: 100%;
+      }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .tool-card { padding: 1rem 0.75rem; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 576px) {
+      .header-container { padding: 1rem; }
+      .header-title { font-size: 1.2rem; }
+      .logo { font-size: 1.5rem; }
+      .solver .equation-inputs.system .input-group {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(7, auto);
+        text-align: center;
+      }
+      .solver .equation-inputs.system .input-group input {
+        width: 100%;
+      }
+      .solver .equation-inputs.system .input-group .symbol {
+        display: none;
+      }
+      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .tool-card h3 { font-size: 1rem; }
+      .footer-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="header-title">TOOL PIX</span>
+      </div>
+      <div class="header-right"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="solver-container">
+      <h1>Advanced Equation Solver</h1>
+      <div class="solver">
+        <select id="equationType" onchange="updateInputs()">
+          <option value="linear">Linear Equation (ax + b = c)</option>
+          <option value="quadratic">Quadratic Equation (ax² + bx + c = 0)</option>
+          <option value="polynomial">Polynomial Equation (up to degree 4)</option>
+          <option value="system">System of Linear Equations (2x2)</option>
+        </select>
+        <div id="equationInputs" class="equation-inputs linear">
+          <div class="input-group">
+            <label for="a">Coefficient a:</label>
+            <input type="number" id="a" placeholder="e.g., 2" step="any">
+          </div>
+          <div class="input-group">
+            <label for="b">Constant b:</label>
+            <input type="number" id="b" placeholder="e.g., 3" step="any">
+          </div>
+          <div class="input-group">
+            <label for="c">Constant c:</label>
+            <input type="number" id="c" placeholder="e.g., 5" step="any">
+          </div>
+        </div>
+        <button onclick="solveEquation()">Solve</button>
+        <div class="result" id="result"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Suggested Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card" data-name="Calculator" data-category="Mathematical Tools" data-keywords="calculator basic scientific statistical math">
+          <div class="icon"><i class="fas fa-calculator"></i></div>
+          <h3>Calculator</h3>
+          <p>Perform basic, scientific, and statistical calculations</p>
+          <a href="./calculator" class="btn">Use Calculator</a>
+        </div>
+        <div class="tool-card" data-name="Graphing Calculator" data-category="Mathematical Tools" data-keywords="graphing calculator plot functions math visualization equations">
+          <div class="icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Graphing Calculator</h3>
+          <p>Plot and analyze mathematical functions visually</p>
+          <a href="./graphing-calculator" class="btn">Plot Functions</a>
+        </div>
+        <div class="tool-card" data-name="Unit Converter" data-category="Mathematical Tools" data-keywords="unit converter measurement conversion metric">
+          <div class="icon"><i class="fas fa-ruler"></i></div>
+          <h3>Unit Converter</h3>
+          <p>Convert between units like length, weight, and temperature</p>
+          <a href="./unit-converter" class="btn">Convert Units</a>
+        </div>
+        <div class="tool-card" data-name="Percentage Calculator" data-category="Mathematical Tools" data-keywords="percentage calculator discount percent change finance">
+          <div class="icon"><i class="fas fa-percent"></i></div>
+          <h3>Percentage Calculator</h3>
+          <p>Calculate percentages, discounts, and percent changes</p>
+          <a href="./percentage-calculator" class="btn">Calculate Percent</a>
+        </div>
+        <div class="tool-card" data-name="Matrix Calculator" data-category="Mathematical Tools" data-keywords="matrix calculator linear algebra matrix operations determinants">
+          <div class="icon"><i class="fas fa-table"></i></div>
+          <h3>Matrix Calculator</h3>
+          <p>Perform matrix operations like addition and determinants</p>
+          <a href="./matrix-calculator" class="btn">Use Matrix Calculator</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>About Our Equation Solver</h2>
+      <p>Our advanced equation solver handles linear, quadratic, polynomial (up to degree 4), and systems of linear equations with ease. Designed for students, educators, and professionals, it provides accurate solutions with detailed step-by-step explanations, all without requiring registration.</p>
+    </section>
+
+    <section class="section">
+      <h2>How to Use the Equation Solver</h2>
+      <p>Follow these steps to solve equations effortlessly:</p>
+      <ul>
+        <li>Select the equation type (Linear, Quadratic, Polynomial, or System) from the dropdown.</li>
+        <li>Enter the coefficients or polynomial terms in the input fields (e.g., '2, -3, 0, 1' for 2x³ - 3x² + 1).</li>
+        <li>For systems, input coefficients for each equation (e.g., a₁x + b₁y = c₁).</li>
+        <li>Click "Solve" to view the solution and detailed steps.</li>
+        <li>Results include real and complex roots where applicable.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code and games</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Mathematical Tools</h3>
+        <ul>
+          <li><a href="./calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
+          <li><a href="./graphing-calculator"><i class="fas fa-chart-line"></i> Graphing Calculator</a></li>
+          <li><a href="./unit-converter"><i class="fas fa-ruler"></i> Unit Converter</a></li>
+          <li><a href="./equation-solver"><i class="fas fa-equals"></i> Equation Solver</a></li>
+          <li><a href="./percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+          <li><a href="./matrix-calculator"><i class="fas fa-table"></i> Matrix Calculator</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2023 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    function updateInputs() {
+      const type = document.getElementById('equationType').value;
+      const inputsDiv = document.getElementById('equationInputs');
+      inputsDiv.className = 'equation-inputs ' + type;
+      inputsDiv.innerHTML = '';
+
+      if (type === 'linear') {
+        inputsDiv.innerHTML = `
+          <div class="input-group">
+            <label for="a">Coefficient a:</label>
+            <input type="number" id="a" placeholder="e.g., 2" step="any">
+          </div>
+          <div class="input-group">
+            <label for="b">Constant b:</label>
+            <input type="number" id="b" placeholder="e.g., 3" step="any">
+          </div>
+          <div class="input-group">
+            <label for="c">Constant c:</label>
+            <input type="number" id="c" placeholder="e.g., 5" step="any">
+          </div>
+        `;
+      } else if (type === 'quadratic') {
+        inputsDiv.innerHTML = `
+          <div class="input-group">
+            <label for="a">Coefficient a:</label>
+            <input type="number" id="a" placeholder="e.g., 1" step="any">
+          </div>
+          <div class="input-group">
+            <label for="b">Coefficient b:</label>
+            <input type="number" id="b" placeholder="e.g., -3" step="any">
+          </div>
+          <div class="input-group">
+            <label for="c">Constant c:</label>
+            <input type="number" id="c" placeholder="e.g., 2" step="any">
+          </div>
+        `;
+      } else if (type === 'polynomial') {
+        inputsDiv.innerHTML = `
+          <div class="input-group">
+            <label for="coeff">Coefficients (highest degree first):</label>
+            <input type="text" id="coeff" placeholder="e.g., 2, -3, 0, 1 for 2x³ - 3x² + 1">
+          </div>
+        `;
+      } else if (type === 'system') {
+        inputsDiv.innerHTML = `
+          <div class="input-group">
+            <label>Equation 1: a₁x + b₁y = c₁</label>
+            <input type="number" id="a1" placeholder="a₁" step="any">
+            <span class="symbol">x</span>
+            <input type="number" id="b1" placeholder="b₁" step="any">
+            <span class="symbol">y</span>
+            <span class="symbol">=</span>
+            <input type="number" id="c1" placeholder="c₁" step="any">
+          </div>
+          <div class="input-group">
+            <label>Equation 2: a₂x + b₂y = c₂</label>
+            <input type="number" id="a2" placeholder="a₂" step="any">
+            <span class="symbol">x</span>
+            <input type="number" id="b2" placeholder="b₂" step="any">
+            <span class="symbol">y</span>
+            <span class="symbol">=</span>
+            <input type="number" id="c2" placeholder="c₂" step="any">
+          </div>
+        `;
+      }
+    }
+
+    function solveEquation() {
+      const type = document.getElementById('equationType').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = '';
+
+      try {
+        if (type === 'linear') {
+          const a = parseFloat(document.getElementById('a').value);
+          const b = parseFloat(document.getElementById('b').value);
+          const c = parseFloat(document.getElementById('c').value);
+
+          if (isNaN(a) || isNaN(b) || isNaN(c)) {
+            resultDiv.textContent = 'Please enter valid numbers for all fields.';
+            return;
+          }
+
+          if (a === 0) {
+            resultDiv.textContent = c === b ? 'Infinite solutions (identical line)' : 'No solution (inconsistent)';
+            return;
+          }
+
+          const x = (c - b) / a;
+          resultDiv.textContent = `Solution: x = ${x.toFixed(4)}\n\nSteps:\n1. Start with: ${a}x + ${b} = ${c}\n2. Subtract ${b}: ${a}x = ${c - b}\n3. Divide by ${a}: x = ${(c - b) / a}`;
+
+        } else if (type === 'quadratic') {
+          const a = parseFloat(document.getElementById('a').value);
+          const b = parseFloat(document.getElementById('b').value);
+          const c = parseFloat(document.getElementById('c').value);
+
+          if (isNaN(a) || isNaN(b) || isNaN(c)) {
+            resultDiv.textContent = 'Please enter valid numbers for all fields.';
+            return;
+          }
+
+          if (a === 0) {
+            resultDiv.textContent = 'Not a quadratic equation (a cannot be 0).';
+            return;
+          }
+
+          const discriminant = b * b - 4 * a * c;
+          let steps = `Steps:\n1. Equation: ${a}x² + ${b}x + ${c} = 0\n2. Discriminant: b² - 4ac = ${b}² - 4(${a})(${c}) = ${discriminant}`;
+
+          if (discriminant > 0) {
+            const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            steps += `\n3. Roots: x = (-b ± √D) / (2a)\n4. x₁ = (${-b} + √${discriminant}) / (2(${a})) = ${x1.toFixed(4)}\n5. x₂ = (${-b} - √${discriminant}) / (2(${a})) = ${x2.toFixed(4)}`;
+            resultDiv.textContent = `Solutions: x₁ = ${x1.toFixed(4)}, x₂ = ${x2.toFixed(4)}\n\n${steps}`;
+          } else if (discriminant === 0) {
+            const x = -b / (2 * a);
+            steps += `\n3. Root: x = -b / (2a) = ${-b} / (2(${a})) = ${x.toFixed(4)}`;
+            resultDiv.textContent = `Solution: x = ${x.toFixed(4)}\n\n${steps}`;
+          } else {
+            const real = -b / (2 * a);
+            const imag = Math.sqrt(-discriminant) / (2 * a);
+            steps += `\n3. Complex roots: x = (-b ± i√|D|) / (2a)\n4. x₁ = ${real.toFixed(4)} + ${imag.toFixed(4)}i\n5. x₂ = ${real.toFixed(4)} - ${imag.toFixed(4)}i`;
+            resultDiv.textContent = `Solutions: x₁ = ${real.toFixed(4)} + ${imag.toFixed(4)}i, x₂ = ${real.toFixed(4)} - ${imag.toFixed(4)}i\n\n${steps}`;
+          }
+
+        } else if (type === 'polynomial') {
+          const coeffStr = document.getElementById('coeff').value;
+          const coefficients = coeffStr.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
+
+          if (coefficients.length < 2 || coefficients[0] === 0) {
+            resultDiv.textContent = 'Invalid polynomial. Enter at least 2 coefficients, with leading coefficient ≠ 0.';
+            return;
+          }
+
+          if (coefficients.length > 5) {
+            resultDiv.textContent = 'Polynomial degree too high. Supports up to degree 4.';
+            return;
+          }
+
+          const poly = coefficients.map((c, i) => ({
+            coefficient: c,
+            exponent: coefficients.length - 1 - i
+          }));
+
+          const roots = math.polynomialRoot(coefficients.reverse());
+          let polyStr = poly.map(t => {
+            if (t.coefficient === 0) return '';
+            let term = t.coefficient > 0 ? ` + ${t.coefficient}` : ` - ${Math.abs(t.coefficient)}`;
+            if (t.exponent === 0) return term.replace('x^0', '');
+            if (t.exponent === 1) return term + 'x';
+            return term + `x^${t.exponent}`;
+          }).join('').replace(/^\s*\+\s*/, '') || '0';
+          let steps = `Steps:\n1. Polynomial: ${polyStr} = 0\n2. Solving for roots (numerical methods used)`;
+
+          resultDiv.textContent = `Roots: ${roots.map(r => typeof r === 'number' ? r.toFixed(4) : `${r.re.toFixed(4)} ± ${r.im.toFixed(4)}i`).join(', ')}\n\n${steps}`;
+
+        } else if (type === 'system') {
+          const a1 = parseFloat(document.getElementById('a1').value);
+          const b1 = parseFloat(document.getElementById('b1').value);
+          const c1 = parseFloat(document.getElementById('c1').value);
+          const a2 = parseFloat(document.getElementById('a2').value);
+          const b2 = parseFloat(document.getElementById('b2').value);
+          const c2 = parseFloat(document.getElementById('c2').value);
+
+          if ([a1, b1, c1, a2, b2, c2].some(isNaN)) {
+            resultDiv.textContent = 'Please enter valid numbers for all fields.';
+            return;
+          }
+
+          const det = a1 * b2 - a2 * b1;
+          let steps = `Steps:\n1. Equations:\n   ${a1}x + ${b1}y = ${c1}\n   ${a2}x + ${b2}y = ${c2}\n2. Determinant: ${a1}*${b2} - ${a2}*${b1} = ${det}`;
+
+          if (Math.abs(det) < 1e-10) {
+            resultDiv.textContent = 'No unique solution (parallel or identical lines).\n\n' + steps;
+            return;
+          }
+
+          const x = (c1 * b2 - c2 * b1) / det;
+          const y = (a1 * c2 - a2 * c1) / det;
+          steps += `\n3. x = (${c1}*${b2} - ${c2}*${b1}) / ${det} = ${x.toFixed(4)}\n4. y = (${a1}*${c2} - ${a2}*${c1}) / ${det} = ${y.toFixed(4)}`;
+          resultDiv.textContent = `Solution: x = ${x.toFixed(4)}, y = ${y.toFixed(4)}\n\n${steps}`;
+        }
+      } catch (error) {
+        resultDiv.textContent = 'Error solving equation: ' + error.message;
+      }
+    }
+
+    // Initialize inputs on page load
+    updateInputs();
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play Sudoku online for free at Toolpix Games! Enjoy single-player mode with easy, medium, or hard puzzles, or use our enhanced solver mode to solve your own puzzles. Learn how to play Sudoku with our beginner's guide. No downloads needed, playable on any device.">
+  <meta name="keywords" content="play sudoku online, free sudoku game, online sudoku, sudoku puzzle, sudoku solver, sudoku guide, learn sudoku, sudoku rules, sudoku strategy, sudoku for beginners, sudoku board, online sudoku game, Toolpix Games">
+  <meta name="author" content="Toolpix Games">
+  <meta name="robots" content="index, follow">
+  <title>Play Sudoku Online Free - Toolpix Games</title>
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #1c2526;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Layout Sections */
+    .section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #2d3839 0%, #1c2526 100%);
+      border-radius: 15px;
+      margin: 1rem;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(212, 163, 115, 0.2) 0%, transparent 70%);
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background-color: #2d3839;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card h3 {
+      color: #d4a373;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #d4a373;
+    }
+
+    .game-modes-section {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .guide-section {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      color: #d4a373;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+      position: relative;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    strong {
+      color: #d4a373;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #d4a373;
+      color: #1c2526;
+    }
+
+    .btn-primary:hover {
+      background-color: #e0c4a8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4);
+    }
+
+    .btn-secondary {
+      background-color: #3a4b4c;
+      color: #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background-color: #4d5e5f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-large {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Game Mode Selection */
+    .mode-selection {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .difficulty-selection {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* Navigation */
+    .home-link {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
+    }
+
+    .back-button-container {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
+    }
+
+    /* Game Board */
+    .game-section {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      background-color: #1c2526;
+      position: relative;
+    }
+
+    .sudoku-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .sudoku-board {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 2px;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 70vmin; /* Reduced size for better view */
+      aspect-ratio: 1/1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      border: 6px solid #3a4b4c;
+      border-radius: 8px;
+      background-color: #2d3839;
+    }
+
+    .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      background-color: #f0d9b5;
+      font-size: clamp(1rem, 3.5vmin, 1.5rem); /* Reduced font size */
+      font-weight: 600;
+      color: #1c2526;
+      aspect-ratio: 1/1;
+      border: 1px solid #3a4b4c;
+      transition: background-color 0.2s ease;
+    }
+
+    .cell:nth-child(3n):not(:nth-child(9n)) {
+      border-right: 4px solid #3a4b4c;
+    }
+
+    .cell:nth-child(n+19):nth-child(-n+27),
+    .cell:nth-child(n+46):nth-child(-n+54) {
+      border-bottom: 4px solid #3a4b4c;
+    }
+
+    .cell.given {
+      background-color: #d4a373;
+      cursor: default;
+      font-weight: 700;
+    }
+
+    .cell.selected {
+      background-color: #e0c4a8;
+      box-shadow: 0 0 12px #d4a373 inset;
+      z-index: 2;
+    }
+
+    .cell.invalid {
+      background-color: #e94560;
+      color: #fff;
+    }
+
+    .cell.notes {
+      font-size: clamp(0.4rem, 1.5vmin, 0.7rem); /* Reduced font size for notes */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      padding: 2px;
+    }
+
+    .cell.notes span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #1c2526;
+    }
+
+    .cell:hover:not(.given):not(.notes) {
+      background-color: #e0c4a8;
+    }
+
+    .number-pad {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.3rem; /* Reduced gap */
+      margin: 0.8rem auto;
+      width: max-content;
+      padding: 0.6rem; /* Reduced padding */
+      background-color: #2d3839;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .number-pad button {
+      padding: 0.5rem; /* Reduced padding for smaller buttons */
+      font-size: 1rem; /* Reduced font size for buttons */
+      border-radius: 8px;
+      background-color: #3a4b4c;
+      color: #e0e0e0;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .number-pad button:hover {
+      background-color: #4d5e5f;
+      transform: translateY(-2px);
+    }
+
+    .number-pad button.active {
+      background-color: #d4a373;
+      color: #1c2526;
+    }
+
+    .game-info {
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 1.3rem 0;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      gap: 1.7rem;
+      flex-wrap: wrap;
+    }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #2d3839;
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      z-index: 2000;
+      animation: popIn 0.4s ease;
+      width: 90%;
+      max-width: 450px;
+    }
+
+    .popup h3 {
+      font-size: 1.7rem;
+      margin-bottom: 1.5rem;
+      color: #d4a373;
+    }
+
+    .popup-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Ad Banner */
+    .ad-banner {
+      height: 60px;
+      width: 100%;
+      background-color: #2d3839;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      color: #e0e0e0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      80% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .section {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .mode-selection {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .sudoku-board {
+        max-width: 80vmin; /* Adjusted for smaller screens */
+      }
+
+      .number-pad {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.4rem; /* Reduced gap for smaller screens */
+        padding: 0.6rem; /* Reduced padding */
+      }
+
+      .number-pad button {
+        padding: 0.5rem; /* Further reduced for smaller screens */
+        font-size: 0.9rem; /* Further reduced font size */
+      }
+
+      .cell {
+        font-size: clamp(0.9rem, 3vmin, 1.3rem); /* Adjusted for smaller screens */
+      }
+
+      .cell.notes {
+        font-size: clamp(0.35rem, 1.2vmin, 0.6rem); /* Adjusted for smaller screens */
+      }
+
+      footer {
+        padding: 15px;
+        position: sticky;
+        bottom: 0;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      footer a {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+    }
+
+    footer {
+      background-color: #0f3460;
+      padding: 20px 50px;
+      text-align: center;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Tooltip for Footer Links */
+    .tooltip {
+    position: relative;
+    display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #3a4b4c;
+    color: #e0e0e0;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Screen -->
+  <div class="section" id="welcomeScreen">
+    <div class="home-link">
+      <a href="./" class="btn btn-secondary" aria-label="Return to home page">🏠 Home</a>
+    </div>
+
+    <div class="hero-section">
+      <h1>Play Sudoku Online Free at Toolpix Games</h1>
+      <p>Challenge your mind with our enhanced Sudoku puzzles, track your progress, or solve your own puzzles with our powerful solver. Perfect for all skill levels!</p>
+    </div>
+
+    <div class="game-modes-section">
+      <h2>Choose Your Game Mode</h2>
+      <p>Select how you want to play and start your Sudoku adventure!</p>
+
+      <div class="mode-selection" id="modeSelection">
+        <button class="btn btn-primary btn-large" onclick="showDifficultySelection()" aria-label="Start single-player Sudoku game">
+          Single Player
+        </button>
+        <button class="btn btn-primary btn-large" onclick="startGame('solver')" aria-label="Start Sudoku solver mode">
+          Solver Mode
+        </button>
+      </div>
+
+      <div class="difficulty-selection" id="difficultySelection">
+        <select id="difficultyLevel" class="btn btn-secondary" aria-label="Select difficulty level">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard" selected>Hard</option>
+        </select>
+        <div class="mode-selection">
+          <button class="btn btn-primary" onclick="startGame('single', document.getElementById('difficultyLevel').value)" aria-label="Start single-player game">
+            Start Game
+          </button>
+          <button class="btn btn-secondary" onclick="backToModeSelection()" aria-label="Back to mode selection">
+            Back
+          </button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="scrollToGuide()" aria-label="Learn how to play Sudoku">
+        How to Play Sudoku
+      </button>
+    </div>
+
+    <div class="features-section">
+      <div class="feature-card">
+        <i>🧩</i>
+        <h3>Free to Play</h3>
+        <p>Enjoy unlimited Sudoku puzzles with no cost or registration.</p>
+      </div>
+
+      <div class="feature-card">
+        <i>🧠</i>
+        <h3>Enhanced Features</h3>
+        <p>Track time, moves, and errors, with notes for strategic play.</p>
+      </div>
+
+      <div class="feature-card">
+        <i>🔍</i>
+        <h3>Powerful Solver</h3>
+        <p>Solve your own puzzles instantly or clear the board to start fresh.</p>
+      </div>
+    </div>
+
+    <div class="guide-section" id="guideSection">
+      <h2>How to Play Sudoku: A Beginner's Guide</h2>
+      <p>Sudoku is a logic-based number placement puzzle played on a 9x9 grid. This guide explains the rules, strategies, and tips to master Sudoku online.</p>
+
+      <h3>Sudoku Game Objective</h3>
+      <p>Fill the 9x9 grid with numbers from 1 to 9 so that each row, column, and 3x3 subgrid contains all digits from 1 to 9 exactly once, without repetition.</p>
+
+      <h3>Sudoku Rules</h3>
+      <ul>
+        <li><strong>Grid Setup:</strong> The 9x9 grid is divided into nine 3x3 subgrids. Some cells start with numbers ("givens"), while others are empty.</li>
+        <li><strong>Number Placement:</strong> Place numbers 1 to 9 in empty cells.</li>
+        <li><strong>Constraints:</strong>
+          <ul>
+            <li>Each <strong>row</strong> must have all numbers 1 to 9 without repetition.</li>
+            <li>Each <strong>column</strong> must have all numbers 1 to 9 without repetition.</li>
+            <li>Each <strong>3x3 subgrid</strong> must have all numbers 1 to 9 without repetition.</li>
+          </ul>
+        </li>
+        <li><strong>Winning:</strong> Solve the puzzle by filling all cells correctly.</li>
+      </ul>
+
+      <h3>Basic Sudoku Strategies</h3>
+      <ul>
+        <li><strong>Start with Obvious Placements:</strong> Find cells with only one possible number based on givens.</li>
+        <li><strong>Elimination:</strong> Rule out numbers already present in a cell's row, column, or subgrid.</li>
+        <li><strong>Single Candidate:</strong> Place a number if it's the only one that fits a cell.</li>
+        <li><strong>Hidden Singles:</strong> Place a number if it's the only cell in a row, column, or subgrid that can hold it.</li>
+      </ul>
+
+      <h3>Advanced Tips</h3>
+      <ul>
+        <li><strong>Pencil Marks:</strong> Use our notes feature to track possible numbers for each cell.</li>
+        <li><strong>Naked Pairs/Triples:</strong> If two or three cells in a unit can only contain the same numbers, eliminate them from other cells in that unit.</li>
+        <li><strong>Locked Candidates:</strong> If a number in a subgrid can only appear in one row or column, eliminate it elsewhere in that row or column, and vice versa.</li>
+      </ul>
+
+      <h3>Ready to Play?</h3>
+      <p>Jump into a puzzle now or scroll up to choose your mode! Play Sudoku online free, challenge yourself, or use our solver to crack any puzzle.</p>
+    </div>
+
+    <div class="ad-banner">Advertisement</div>
+
+    <footer>
+      <a href="../" class="tooltip"><span class="tooltiptext">Home</span></a>
+      <a href="./" class="tooltip"><span class="tooltiptext">Games</span></a>
+      <a href="../all-tools" class="tooltip"><span class="tooltiptext">All Tools</span></a>
+      <a href="../terms" class="tooltip"><span class="tooltiptext">Terms</span></a>
+      <a href="../privacy" class="tooltip"><span class="tooltiptext">Privacy Policy</span></a>
+      <a href="../blog" class="tooltip"><span class="tooltiptext">Blog</span></a>
+      <a href="../contact" class="tooltip"><span class="tooltiptext">Contact</span></a>
+    </footer>
+  </div>
+
+  <!-- Game Screen -->
+  <div class="game-section" id="gameSection">
+    <div class="back-button-container">
+      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+    </div>
+
+    <div class="sudoku-container">
+      <div class="sudoku-board" id="sudokuBoard" role="grid" aria-label="Sudoku board"></div>
+    </div>    
+    <div class="game-info" id="gameInfo">
+      <span id="statusText">Select a cell to place a number</span>
+      <span id="timer">Time: 00:00</span>
+      <span id="moves">Moves: 0</span>
+      <span id="errors">Errors: 0</span>
+    </div>
+    <div class="number-pad" id="numberPad"></div>
+    <div class="ad-banner">Advertisement</div>
+  </div>
+
+  <!-- Game Over Popup -->
+  <div class="popup" id="gamePopup">
+    <h3 id="popupMessage"></h3>
+    <div class="popup-buttons">
+      <button class="btn btn-primary" onclick="restartGame()" aria-label="Start a new game">New Game</button>
+      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+    </div>
+  </div>
+
+  <script>
+   // Game state and configuration
+    let board = Array(9).fill().map(() => Array(9).fill(0));
+    let solution = [];
+    let givenCells = new Set();
+    let notes = Array(9).fill().map(() => Array(9).fill().map(() => new Set()));
+    let gameMode = '';
+    let difficulty = 'hard';
+    let selectedCell = null;
+    let gameActive = false;
+    let notesMode = false;
+    let timerInterval = null;
+    let timeElapsed = 0;
+    let moveCount = 0;
+    let errorCount = 0;
+
+    // Sample puzzles for each difficulty
+    const samplePuzzles = {
+    easy: [
+        [5,3,0,0,7,0,0,0,0],
+        [6,0,0,1,9,5,0,0,0],
+        [0,9,8,0,0,0,0,6,0],
+        [8,0,0,0,6,0,0,0,3],
+        [4,0,0,8,0,3,0,0,1],
+        [7,0,0,0,2,0,0,0,6],
+        [0,6,0,0,0,0,2,8,0],
+        [0,0,0,4,1,9,0,0,5],
+        [0,0,0,0,8,0,0,7,9]
+    ],
+    medium: [
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,3,0,8,5],
+        [0,0,1,0,2,0,0,0,0],
+        [0,0,0,5,0,7,0,0,0],
+        [0,0,4,0,0,0,1,0,0],
+        [0,9,0,0,0,0,0,0,0],
+        [5,0,0,0,0,0,0,7,3],
+        [0,0,2,0,0,0,0,0,0],
+        [0,0,0,0,4,0,6,0,0]
+    ],
+    hard: [
+        [8,0,0,0,0,0,0,0,0],
+        [0,0,3,6,0,0,0,0,0],
+        [0,7,0,0,9,0,2,0,0],
+        [0,5,0,0,0,7,0,0,0],
+        [0,0,0,0,4,5,7,0,0],
+        [0,0,0,1,0,0,0,3,0],
+        [0,0,1,0,0,0,0,6,8],
+        [0,0,8,5,0,0,0,1,0],
+        [0,9,0,0,0,0,4,0,0]
+    ]
+    };
+
+    // Initialize the game
+    function initGame() {
+    const savedGame = localStorage.getItem('sudokuGame');
+    if (savedGame) {
+        const gameState = JSON.parse(savedGame);
+        board = gameState.board;
+        solution = gameState.solution || [];
+        givenCells = new Set(gameState.givenCells);
+        notes = gameState.notes;
+        gameMode = gameState.gameMode;
+        difficulty = gameState.difficulty || 'hard';
+        timeElapsed = gameState.timeElapsed || 0;
+        moveCount = gameState.moveCount || 0;
+        errorCount = gameState.errorCount || 0;
+        gameActive = true;
+
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.getElementById('gameSection').style.display = 'flex';
+        updateGameInfo();
+        initSudokuBoard();
+        renderBoard();
+        startTimer();
+    }
+    }
+
+    // Initialize Sudoku board UI
+    function initSudokuBoard() {
+    const sudokuBoard = document.getElementById('sudokuBoard');
+    sudokuBoard.innerHTML = '';
+    sudokuBoard.style.gridTemplateColumns = `repeat(9, 1fr)`;
+
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        cell.tabIndex = 0;
+        cell.setAttribute('aria-label', `Cell at row ${r + 1}, column ${c + 1}`);
+        if (givenCells.has(`${r},${c}`)) {
+            cell.classList.add('given');
+        }
+        sudokuBoard.appendChild(cell);
+        }
+    }
+    sudokuBoard.addEventListener('click', handleCellClick);
+    sudokuBoard.addEventListener('keydown', handleKeyPress);
+
+    // Initialize number pad
+    const numberPad = document.getElementById('numberPad');
+    numberPad.innerHTML = '';
+    for (let i = 1; i <= 9; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.setAttribute('aria-label', `Place number ${i}`);
+        btn.setAttribute('role', 'button');
+        btn.onclick = () => placeNumber(i);
+        numberPad.appendChild(btn);
+    }
+    const eraseBtn = document.createElement('button');
+    eraseBtn.textContent = 'Erase';
+    eraseBtn.setAttribute('aria-label', 'Erase number');
+    eraseBtn.setAttribute('role', 'button');
+    eraseBtn.onclick = () => placeNumber(0);
+    numberPad.appendChild(eraseBtn);
+    const notesBtn = document.createElement('button');
+    notesBtn.textContent = 'Notes';
+    notesBtn.setAttribute('aria-label', 'Toggle notes mode');
+    notesBtn.setAttribute('role', 'button');
+    notesBtn.onclick = toggleNotesMode;
+    numberPad.appendChild(notesBtn);
+    if (gameMode === 'solver') {
+        const solveBtn = document.createElement('button');
+        solveBtn.textContent = 'Solve';
+        solveBtn.setAttribute('aria-label', 'Solve puzzle');
+        solveBtn.setAttribute('role', 'button');
+        solveBtn.onclick = solvePuzzle;
+        numberPad.appendChild(solveBtn);
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = 'Clear';
+        clearBtn.setAttribute('aria-label', 'Clear board');
+        clearBtn.setAttribute('role', 'button');
+        clearBtn.onclick = clearBoard;
+        numberPad.appendChild(clearBtn);
+    }
+    }
+
+    // Handle keyboard navigation
+    function handleKeyPress(event) {
+    if (!gameActive) return;
+    const key = event.key;
+    event.preventDefault(); // Prevent default for all handled keys
+    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+        if (!selectedCell) {
+        selectedCell = { row: 0, col: 0 };
+        } else {
+        let { row, col } = selectedCell;
+        if (key === 'ArrowUp' && row > 0) row--;
+        if (key === 'ArrowDown' && row < 8) row++;
+        if (key === 'ArrowLeft' && col > 0) col--;
+        if (key === 'ArrowRight' && col < 8) col++;
+        selectedCell = { row, col };
+        }
+        renderBoard();
+        const cell = document.querySelector(`.cell[data-row="${selectedCell.row}"][data-col="${selectedCell.col}"]`);
+        cell.focus();
+    } else if (/[1-9]/.test(key) && selectedCell) {
+        placeNumber(parseInt(key));
+    } else if (key === 'Backspace' || key === 'Delete') {
+        placeNumber(0);
+    }
+    }
+
+    // UI Navigation Functions
+    function showDifficultySelection() {
+    document.getElementById('modeSelection').style.display = 'none';
+    document.getElementById('difficultySelection').style.display = 'flex';
+    }
+
+    function backToModeSelection() {
+    document.getElementById('modeSelection').style.display = 'flex';
+    document.getElementById('difficultySelection').style.display = 'none';
+    }
+
+    function scrollToGuide() {
+    document.getElementById('guideSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function startGame(mode, diff) {
+    gameMode = mode;
+    difficulty = diff || 'none';
+    gameActive = true;
+    selectedCell = null;
+    notesMode = false;
+    givenCells = new Set();
+    notes = Array(9).fill().map(() => Array(9).fill().map(() => new Set()));
+    timeElapsed = 0;
+    moveCount = 0;
+    errorCount = 0;
+
+    if (mode === 'single') {
+        board = samplePuzzles[difficulty].map(row => row.slice());
+        solution = solveSudoku(board.map(row => row.slice())) || board;
+        for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (board[r][c] !== 0) {
+            givenCells.add(`${r},${c}`);
+            }
+        }
+        }
+    } else {
+        board = Array(9).fill().map(() => Array(9).fill(0));
+        solution = [];
+    }
+
+    saveGameState();
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('gameSection').style.display = 'flex';
+    updateGameInfo();
+    initSudokuBoard();
+    renderBoard();
+    startTimer();
+    }
+
+    function backToWelcome() {
+    gameActive = false;
+    clearInterval(timerInterval);
+    localStorage.removeItem('sudokuGame');
+    document.getElementById('gameSection').style.display = 'none';
+    document.getElementById('welcomeScreen').style.display = 'block';
+    document.getElementById('gamePopup').style.display = 'none';
+    document.getElementById('modeSelection').style.display = 'flex';
+    document.getElementById('difficultySelection').style.display = 'none';
+    }
+
+    // Timer functions
+    function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        timeElapsed++;
+        updateGameInfo();
+    }, 1000);
+    }
+
+    function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const secs = (seconds % 60).toString().padStart(2, '0');
+    return `${mins}:${secs}`;
+    }
+
+    // Save game state to localStorage
+    function saveGameState() {
+    const gameState = {
+        board: board,
+        solution: solution,
+        givenCells: Array.from(givenCells),
+        notes: notes,
+        gameMode: gameMode,
+        difficulty: difficulty,
+        timeElapsed: timeElapsed,
+        moveCount: moveCount,
+        errorCount: errorCount
+    };
+    localStorage.setItem('sudokuGame', JSON.stringify(gameState));
+    }
+
+    // Render the board
+    function renderBoard() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        const row = parseInt(cell.dataset.row);
+        const col = parseInt(cell.dataset.col);
+        // Clear all dynamic classes
+        cell.className = 'cell';
+        if (givenCells.has(`${row},${col}`)) {
+        cell.classList.add('given');
+        }
+        cell.innerHTML = '';
+
+        if (notes[row][col].size > 0 && board[row][col] === 0) {
+        cell.classList.add('notes');
+        for (let num = 1; num <= 9; num++) {
+            const span = document.createElement('span');
+            span.textContent = notes[row][col].has(num) ? num : '';
+            cell.appendChild(span);
+        }
+        } else {
+        const value = board[row][col];
+        cell.textContent = value !== 0 ? value : '';
+        }
+
+        if (selectedCell && selectedCell.row === row && selectedCell.col === col) {
+        cell.classList.add('selected');
+        }
+        if (board[row][col] !== 0 && gameMode === 'single' && !isValidPlacement(row, col, board[row][col])) {
+        cell.classList.add('invalid');
+        }
+    });
+    document.querySelectorAll('.number-pad button').forEach(btn => btn.classList.remove('active'));
+    if (notesMode) {
+        document.querySelector('.number-pad button[aria-label="Toggle notes mode"]').classList.add('active');
+    }
+    checkGameStatus();
+    }
+
+    // Handle cell clicks
+    function handleCellClick(event) {
+    if (!gameActive) return;
+
+    const cell = event.target.closest('.cell');
+    if (!cell || (gameMode === 'single' && cell.classList.contains('given'))) return;
+
+    const row = parseInt(cell.dataset.row);
+    const col = parseInt(cell.dataset.col);
+    selectedCell = { row, col };
+    renderBoard();
+    cell.focus();
+    }
+
+    // Place a number or note
+    function placeNumber(number) {
+    if (!gameActive || !selectedCell || (gameMode === 'single' && givenCells.has(`${selectedCell.row},${selectedCell.col}`))) return;
+
+    const { row, col } = selectedCell;
+    if (notesMode && number !== 0) {
+        if (notes[row][col].has(number)) {
+        notes[row][col].delete(number);
+        } else {
+        notes[row][col].add(number);
+        }
+    } else {
+        if (board[row][col] !== number) {
+        moveCount++;
+        if (gameMode === 'single' && number !== 0 && !isValidPlacement(row, col, number)) {
+            errorCount++;
+        }
+        }
+        board[row][col] = number;
+        notes[row][col].clear();
+    }
+    saveGameState();
+    renderBoard();
+    }
+
+    // Toggle notes mode
+    function toggleNotesMode() {
+    notesMode = !notesMode;
+    renderBoard();
+    }
+
+    // Solve the puzzle in solver mode
+    function solvePuzzle() {
+    if (gameMode !== 'solver') return;
+    const tempBoard = board.map(row => row.slice());
+    const solved = solveSudoku(tempBoard);
+    if (solved) {
+        board = solved;
+        givenCells = new Set();
+        for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (board[r][c] !== 0) {
+            givenCells.add(`${r},${c}`);
+            }
+        }
+        }
+        saveGameState();
+        renderBoard();
+        showPopup('Puzzle solved!');
+        gameActive = false;
+        clearInterval(timerInterval);
+    } else {
+        showPopup('This puzzle is unsolvable.');
+    }
+    }
+
+    // Clear the board in solver mode
+    function clearBoard() {
+    if (gameMode !== 'solver') return;
+    board = Array(9).fill().map(() => Array(9).fill(0));
+    notes = Array(9).fill().map(() => Array(9).fill().map(() => new Set()));
+    givenCells = new Set();
+    selectedCell = null;
+    saveGameState();
+    renderBoard();
+    }
+
+    // Sudoku logic
+    function isValidPlacement(row, col, num) {
+    for (let c = 0; c < 9; c++) {
+        if (c !== col && board[row][c] === num) return false;
+    }
+    for (let r = 0; r < 9; r++) {
+        if (r !== row && board[r][col] === num) return false;
+    }
+    const startRow = Math.floor(row / 3) * 3;
+    const startCol = Math.floor(col / 3) * 3;
+    for (let r = startRow; r < startRow + 3; r++) {
+        for (let c = startCol; c < startCol + 3; c++) {
+        if (r !== row && c !== col && board[r][c] === num) return false;
+        }
+    }
+    return true;
+    }
+
+    function solveSudoku(grid) {
+    const empty = findEmptyCell(grid);
+    if (!empty) return grid;
+
+    const [row, col] = empty;
+    for (let num = 1; num <= 9; num++) {
+        if (isValidPlacementSudoku(grid, row, col, num)) {
+        grid[row][col] = num;
+        if (solveSudoku(grid)) return grid;
+        grid[row][col] = 0;
+        }
+    }
+    return null;
+    }
+
+    function isValidPlacementSudoku(grid, row, col, num) {
+    for (let c = 0; c < 9; c++) {
+        if (grid[row][c] === num) return false;
+    }
+    for (let r = 0; r < 9; r++) {
+        if (grid[r][col] === num) return false;
+    }
+    const startRow = Math.floor(row / 3) * 3;
+    const startCol = Math.floor(col / 3) * 3;
+    for (let r = startRow; r < startRow + 3; r++) {
+        for (let c = startCol; c < startCol + 3; c++) {
+        if (grid[r][c] === num) return false;
+        }
+    }
+    return true;
+    }
+
+    function findEmptyCell(grid) {
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+        if (grid[r][c] === 0) return [r, c];
+        }
+    }
+    return null;
+    }
+
+    function checkGameStatus() {
+    if (gameMode !== 'single') return;
+
+    let isComplete = true;
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+        if (board[r][c] === 0) {
+            isComplete = false;
+            break;
+        }
+        }
+    }
+
+    if (isComplete) {
+        let isCorrect = true;
+        for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            const temp = board[r][c];
+            board[r][c] = 0;
+            if (!isValidPlacement(r, c, temp)) {
+            isCorrect = false;
+            }
+            board[r][c] = temp;
+        }
+        }
+        if (isCorrect) {
+        showPopup(`Congratulations! You solved the puzzle in ${formatTime(timeElapsed)} with ${moveCount} moves and ${errorCount} errors!`);
+        gameActive = false;
+        clearInterval(timerInterval);
+        localStorage.removeItem('sudokuGame');
+        }
+    }
+    }
+
+    function updateGameInfo() {
+    document.getElementById('statusText').textContent = selectedCell ? 'Place a number or note' : 'Select a cell to place a number';
+    document.getElementById('timer').textContent = `Time: ${formatTime(timeElapsed)}`;
+    document.getElementById('moves').textContent = `Moves: ${moveCount}`;
+    document.getElementById('errors').textContent = `Errors: ${errorCount}`;
+    }
+
+    // UI Helpers
+    function showPopup(message) {
+    document.getElementById('popupMessage').textContent = message;
+    document.getElementById('gamePopup').style.display = 'block';
+    }
+
+    function restartGame() {
+    clearInterval(timerInterval);
+    startGame(gameMode, difficulty);
+    }
+
+    // Initialize the game when page loads
+    window.addEventListener('DOMContentLoaded', initGame);
+  </script>
+</body>
+</html>

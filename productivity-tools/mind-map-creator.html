@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mind Map Creator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #f6f8fa;
+            --primary: #2d7ff9;
+            --secondary: #f0f4fb;
+            --node-bg: #fff;
+            --node-border: #d1e3fa;
+            --text: #222;
+            --shadow: 0 2px 8px rgba(45,127,249,0.08);
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow);
+        }
+        #mindmap-container {
+            position: relative;
+            width: 100vw;
+            height: calc(100vh - 70px);
+            overflow: auto;
+            background: var(--secondary);
+        }
+        #mindmap-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .node {
+            position: absolute;
+            min-width: 120px;
+            min-height: 40px;
+            background: var(--node-bg);
+            border: 2px solid var(--node-border);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 0.5rem 1rem;
+            cursor: move;
+            user-select: none;
+            transition: border 0.2s;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .node.selected {
+            border: 2px solid var(--primary);
+        }
+        .node input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            width: 80px;
+            outline: none;
+            color: var(--text);
+        }
+        .node .add, .node .remove {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .node .remove {
+            background: #e74c3c;
+        }
+        .toolbar {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            z-index: 10;
+            display: flex;
+            gap: 1rem;
+        }
+        .toolbar button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: background 0.2s;
+        }
+        .toolbar button:hover {
+            background: #155ecb;
+        }
+        @media (max-width: 600px) {
+            .node { min-width: 80px; padding: 0.3rem 0.5rem; }
+            header { font-size: 1.1rem; padding: 1rem; }
+            .toolbar { right: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Mind Map Creator
+    </header>
+    <div id="mindmap-container">
+        <canvas id="mindmap-canvas"></canvas>
+        <div class="toolbar">
+            <button id="center-btn">Center Map</button>
+            <button id="export-btn">Export PNG</button>
+        </div>
+    </div>
+    <script>
+        // --- Mind Map Data Structure ---
+        let nodes = [];
+        let links = [];
+        let nodeId = 1;
+
+        // --- DOM Elements ---
+        const container = document.getElementById('mindmap-container');
+        const canvas = document.getElementById('mindmap-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // --- Utility Functions ---
+        function createNode(text, x, y, parentId = null) {
+            const id = nodeId++;
+            nodes.push({ id, text, x, y, parentId });
+            if (parentId) links.push({ from: parentId, to: id });
+            render();
+        }
+
+        function removeNode(id) {
+            nodes = nodes.filter(n => n.id !== id);
+            links = links.filter(l => l.from !== id && l.to !== id);
+            // Remove children recursively
+            nodes.filter(n => n.parentId === id).forEach(n => removeNode(n.id));
+            render();
+        }
+
+        function updateNode(id, data) {
+            const node = nodes.find(n => n.id === id);
+            if (node) Object.assign(node, data);
+            render();
+        }
+
+        function getNodeById(id) {
+            return nodes.find(n => n.id === id);
+        }
+
+        // --- Rendering ---
+        function render() {
+            // Clear nodes
+            container.querySelectorAll('.node').forEach(n => n.remove());
+            // Draw nodes
+            nodes.forEach(node => {
+                const el = document.createElement('div');
+                el.className = 'node';
+                el.style.left = node.x + 'px';
+                el.style.top = node.y + 'px';
+                el.dataset.id = node.id;
+
+                // Node input
+                const input = document.createElement('input');
+                input.value = node.text;
+                input.oninput = e => updateNode(node.id, { text: input.value });
+                el.appendChild(input);
+
+                // Add child button
+                const addBtn = document.createElement('button');
+                addBtn.className = 'add';
+                addBtn.title = 'Add child node';
+                addBtn.innerHTML = '+';
+                addBtn.onclick = e => {
+                    e.stopPropagation();
+                    createNode('New Node', node.x + 160, node.y + 60, node.id);
+                };
+                el.appendChild(addBtn);
+
+                // Remove button (not for root)
+                if (node.parentId !== null) {
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove';
+                    removeBtn.title = 'Remove node';
+                    removeBtn.innerHTML = '×';
+                    removeBtn.onclick = e => {
+                        e.stopPropagation();
+                        removeNode(node.id);
+                    };
+                    el.appendChild(removeBtn);
+                }
+
+                // Dragging
+                let offsetX, offsetY, dragging = false;
+                el.onmousedown = e => {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+                    dragging = true;
+                    offsetX = e.offsetX;
+                    offsetY = e.offsetY;
+                    el.classList.add('selected');
+                };
+                document.onmousemove = e => {
+                    if (!dragging) return;
+                    const rect = container.getBoundingClientRect();
+                    let x = e.clientX - rect.left - offsetX;
+                    let y = e.clientY - rect.top - offsetY;
+                    updateNode(node.id, { x, y });
+                };
+                document.onmouseup = () => {
+                    dragging = false;
+                    el.classList.remove('selected');
+                };
+
+                container.appendChild(el);
+            });
+
+            // Resize canvas
+            canvas.width = container.scrollWidth;
+            canvas.height = container.scrollHeight;
+
+            // Draw links
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            links.forEach(link => {
+                const from = getNodeById(link.from);
+                const to = getNodeById(link.to);
+                if (!from || !to) return;
+                ctx.beginPath();
+                ctx.strokeStyle = '#2d7ff9';
+                ctx.lineWidth = 2;
+                ctx.moveTo(from.x + 60, from.y + 20);
+                ctx.bezierCurveTo(
+                    from.x + 120, from.y + 20,
+                    to.x, to.y + 20,
+                    to.x, to.y + 20
+                );
+                ctx.stroke();
+            });
+        }
+
+        // --- Center Map ---
+        document.getElementById('center-btn').onclick = () => {
+            if (nodes.length === 0) return;
+            // Center root node
+            const root = nodes[0];
+            root.x = container.clientWidth / 2 - 60;
+            root.y = container.clientHeight / 2 - 20;
+            render();
+        };
+
+        // --- Export PNG ---
+        document.getElementById('export-btn').onclick = () => {
+            // Hide UI
+            container.querySelectorAll('.node').forEach(n => n.style.visibility = 'hidden');
+            document.querySelector('.toolbar').style.visibility = 'hidden';
+            // Draw nodes on canvas
+            nodes.forEach(node => {
+                ctx.save();
+                ctx.fillStyle = '#fff';
+                ctx.strokeStyle = '#d1e3fa';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(node.x, node.y, 120, 40, 12);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = '#222';
+                ctx.font = '16px Segoe UI, Arial';
+                ctx.fillText(node.text, node.x + 12, node.y + 25);
+                ctx.restore();
+            });
+            // Export
+            const url = canvas.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mindmap.png';
+            a.click();
+            // Restore UI
+            render();
+            container.querySelectorAll('.node').forEach(n => n.style.visibility = '');
+            document.querySelector('.toolbar').style.visibility = '';
+        };
+
+        // --- Initial Root Node ---
+        createNode('Central Topic', 400, 200, null);
+
+        // --- Responsive Canvas ---
+        window.addEventListener('resize', render);
+    </script>
+</body>
+</html>

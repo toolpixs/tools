@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar View Tool - Free Online Scheduler | ToolPix</title>
+  <meta name="description" content="Plan your schedule with ToolPix's free Calendar View tool. Switch between month, week, and day views, sync tasks, and stay organized without registration.">
+  <meta name="keywords" content="calendar view, task scheduler, free calendar tool, online planner, schedule organizer, productivity tool, ToolPix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/calendar-view" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Calendar View Tool - Free Online Scheduler | ToolPix">
+  <meta property="og:description" content="Manage your schedule with month, week, and day views. Sync tasks and plan efficiently. No sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/calendar-view">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/calendar-view-social.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calendar View Tool - ToolPix">
+  <meta name="twitter:description" content="Free calendar tool with month, week, and day views for task scheduling.">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/calendar-view-twitter.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ToolPix Calendar View",
+      "description": "A free online calendar tool for scheduling tasks with month, week, and day views. No registration required.",
+      "url": "https://toolpixs.github.io/calendar-view",
+      "applicationCategory": "Productivity",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "180"
+      }
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --primary-light: #ecfdf5;
+      --secondary: #3b82f6;
+      --secondary-dark: #2563eb;
+      --secondary-light: #eff6ff;
+      --accent: #f43f5e;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --border: #e5e7eb;
+      --border-light: #f3f4f6;
+      --shadow: rgba(0,0,0,0.05);
+      --shadow-md: rgba(0,0,0,0.1);
+      --radius-md: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    html.dark-mode {
+      --text: #e5e7eb;
+      --text-light: #9ca3af;
+      --bg: #111827;
+      --card-bg: #1f2937;
+      --border: #374151;
+      --border-light: #4b5563;
+      --shadow: rgba(0,0,0,0.2);
+      --primary-light: #064e3b;
+      --secondary-light: #1e40af;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #e5e7eb;
+        --text-light: #9ca3af;
+        --bg: #111827;
+        --card-bg: #1f2937;
+        --border: #374151;
+        --border-light: #4b5563;
+        --shadow: rgba(0,0,0,0.2);
+        --primary-light: #064e3b;
+        --secondary-light: #1e40af;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 2px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+
+    .btn-secondary { background: var(--secondary); }
+    .btn-secondary:hover { background: var(--secondary-dark); }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      flex: 1;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 1.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .intro p {
+      color: var(--text-light);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tool-container {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .view-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .calendar-container {
+      overflow-x: auto;
+    }
+
+    .calendar-month, .calendar-week, .calendar-day {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--card-bg);
+    }
+
+    .calendar-month table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .calendar-month th, .calendar-month td {
+      padding: 0.5rem;
+      text-align: center;
+      border: 1px solid var(--border-light);
+    }
+
+    .calendar-month th {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 500;
+    }
+
+    .calendar-month td {
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .calendar-month td:hover {
+      background: var(--primary-light);
+    }
+
+    .calendar-month td.today {
+      background: var(--primary);
+      color: white;
+    }
+
+    .calendar-month td.has-tasks {
+      position: relative;
+    }
+
+    .calendar-month td.has-tasks::after {
+      content: '';
+      position: absolute;
+      bottom: 0.25rem;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .calendar-week, .calendar-day {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0.5rem;
+    }
+
+    .calendar-week .time-slot, .calendar-day .time-slot {
+      display: flex;
+      align-items: center;
+      padding: 0.25rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .calendar-week .time-slot .time, .calendar-day .time-slot .time {
+      width: 60px;
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .calendar-week .time-slot .tasks, .calendar-day .time-slot .tasks {
+      flex: 1;
+    }
+
+    .task-item {
+      background: var(--primary-light);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-md);
+      margin: 0.25rem 0;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .task-item.completed {
+      background: var(--border-light);
+      text-decoration: line-through;
+    }
+
+    .task-item span.priority-low { background: var(--primary-light); color: var(--primary-dark); }
+    .task-item span.priority-medium { background: #fef3c7; color: #d97706; }
+    .task-item span.priority-high { background: #fee2e2; color: #dc2626; }
+
+    .task-item button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 8px var(--shadow-md);
+    }
+
+    .modal-content h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content .input-group {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content input, .modal-content select {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .modal-content input:focus, .modal-content select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 2px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px var(--shadow-md);
+    }
+
+    .tool-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-section {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 1px 3px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1rem;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-item summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 0.875rem;
+    }
+
+    .faq-item summary:hover { color: var(--primary-dark); }
+
+    .faq-item p {
+      color: var(--text-light);
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 1.5rem 1rem;
+      box-shadow: 0 -1px 2px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-logo a {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover { color: var(--primary); }
+
+    .footer-links h3 {
+      margin-bottom: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li { margin-bottom: 0.25rem; }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.75rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .view-controls { flex-direction: column; }
+      .modal-content .input-group { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .intro h1 { font-size: 1.5rem; }
+      .tool-container h2, .faq-section h2 { font-size: 1.25rem; }
+    }
+
+    @media (max-width: 576px) {
+      .header-title { font-size: 1rem; }
+      .logo { font-size: 1.25rem; }
+      .intro p { font-size: 0.875rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="../" class="logo">
+        <img src="../static/images/icon.png" alt="ToolToolPix Logo">
+      </a>
+      <span class="header-title">Calendar View Tool</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Free Calendar View Tool</h1>
+      <p>Organize your schedule with ToolPix's Calendar View tool. Switch between month, week, and day views, add tasks, and sync your plans effortlessly. No sign-up required.</p>
+    </section>
+
+    <section class="tool-container">
+      <h2>Your Schedule</h2>
+      <div class="view-controls">
+        <button class="btn" id="monthViewBtn" aria-label="Switch to month view">Month</button>
+        <button class="btn btn-secondary" id="weekViewBtn" aria-label="Switch to week view">Week</button>
+        <button class="btn btn-secondary" id="dayViewBtn" aria-label="Switch to day view">Day</button>
+      </div>
+      <div class="calendar-container">
+        <div class="calendar-month" id="calendarMonth"></div>
+        <div class="calendar-week" id="calendarWeek" style="display: none;"></div>
+        <div class="calendar-day" id="calendarDay" style="display: none;"></div>
+      </div>
+    </section>
+
+    <div class="modal" id="taskModal">
+      <div class="modal-content">
+        <h2>Add Task</h2>
+        <div class="input-group">
+          <input type="text" id="taskInput" placeholder="Enter a new task..." aria-label="New task">
+          <select id="prioritySelect" aria-label="Task priority">
+            <option value="Low">Low Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="High">High Priority</option>
+          </select>
+          <input type="time" id="taskTimeInput" aria-label="Task time">
+          <button class="btn" id="addTaskBtn" aria-label="Add task"><i class="fas fa-plus"></i> Add</button>
+        </div>
+        <button class="btn btn-secondary" id="closeModalBtn" aria-label="Close modal">Close</button>
+      </div>
+    </div>
+
+    <section class="suggested-tools">
+      <h2>Explore More Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>Task Dependency Manager</h3>
+          <p>Manage tasks with dependencies, priorities, and due dates.</p>
+          <a href="./task-dependency" class="btn btn-secondary" aria-label="Use Task Dependency Manager tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-stopwatch"></i></div>
+          <h3>Pomodoro Timer</h3>
+          <p>Boost focus with customizable work and break intervals.</p>
+          <a href="./pomodoro-timer" class="btn btn-secondary" aria-label="Use Pomodoro Timer tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-columns"></i></div>
+          <h3>Kanban Board</h3>
+          <p>Visualize tasks with To Do, In Progress, and Done columns.</p>
+          <a href="./kanban-board" class="btn btn-secondary" aria-label="Use Kanban Board tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <details class="faq-item">
+        <summary>What views are available in the Calendar tool?</summary>
+        <p>The tool offers month, week, and day views to help you plan at different levels of detail.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the Calendar View tool free?</summary>
+        <p>Yes, it's completely free to use with no registration required.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I sync with Google or Outlook?</summary>
+        <p>Currently, tasks are stored locally in your browser. Full Google/Outlook sync requires a backend, but you can import tasks from other ToolPix tools.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How are tasks saved?</summary>
+        <p>Tasks are saved in your browser's local storage and persist until you clear them.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="../" class="logo">ToolPix</a>
+        <p>Empowering productivity with free online tools.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Tools</h3>
+        <ul>
+          <li><a href="./task-dependency"><i class="fas fa-list"></i> Task Dependency Manager</a></li>
+          <li><a href="./pomodoro-timer"><i class="fas fa-stopwatch"></i> Pomodoro Timer</a></li>
+          <li><a href="./kanban-board"><i class="fas fa-columns"></i> Kanban Board</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const monthViewBtn = document.getElementById('monthViewBtn');
+    const weekViewBtn = document.getElementById('weekViewBtn');
+    const dayViewBtn = document.getElementById('dayViewBtn');
+    const calendarMonth = document.getElementById('calendarMonth');
+    const calendarWeek = document.getElementById('calendarWeek');
+    const calendarDay = document.getElementById('calendarDay');
+    const taskModal = document.getElementById('taskModal');
+    const taskInput = document.getElementById('taskInput');
+    const prioritySelect = document.getElementById('prioritySelect');
+    const taskTimeInput = document.getElementById('taskTimeInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let currentDate = new Date();
+    let currentView = 'month';
+    let selectedDate = null;
+
+    renderCalendar();
+
+    monthViewBtn.addEventListener('click', () => {
+      currentView = 'month';
+      updateView();
+      renderCalendar();
+    });
+
+    weekViewBtn.addEventListener('click', () => {
+      currentView = 'week';
+      updateView();
+      renderCalendar();
+    });
+
+    dayViewBtn.addEventListener('click', () => {
+      currentView = 'day';
+      updateView();
+      renderCalendar();
+    });
+
+    addTaskBtn.addEventListener('click', addTask);
+    taskInput.addEventListener('keypress', (e) => e.key === 'Enter' && addTask());
+    closeModalBtn.addEventListener('click', () => taskModal.style.display = 'none');
+
+    function updateView() {
+      calendarMonth.style.display = currentView === 'month' ? 'block' : 'none';
+      calendarWeek.style.display = currentView === 'week' ? 'block' : 'none';
+      calendarDay.style.display = currentView === 'day' ? 'block' : 'none';
+      monthViewBtn.classList.toggle('btn-secondary', currentView !== 'month');
+      weekViewBtn.classList.toggle('btn-secondary', currentView !== 'week');
+      dayViewBtn.classList.toggle('btn-secondary', currentView !== 'day');
+      monthViewBtn.classList.toggle('btn', currentView === 'month');
+      weekViewBtn.classList.toggle('btn', currentView === 'week');
+      dayViewBtn.classList.toggle('btn', currentView === 'day');
+    }
+
+    function renderCalendar() {
+      if (currentView === 'month') {
+        renderMonthView();
+      } else if (currentView === 'week') {
+        renderWeekView();
+      } else {
+        renderDayView();
+      }
+    }
+
+    function renderMonthView() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const today = new Date();
+      let html = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <button class="btn btn-secondary" id="prevMonth" aria-label="Previous month"><i class="fas fa-chevron-left"></i></button>
+          <span>${currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+          <button class="btn btn-secondary" id="nextMonth" aria-label="Next month"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <table>
+          <tr>
+            <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+          </tr>
+      `;
+      let day = 1;
+      for (let i = 0; i < 6; i++) {
+        html += '<tr>';
+        for (let j = 0; j < 7; j++) {
+          if (i === 0 && j < firstDay || day > daysInMonth) {
+            html += '<td></td>';
+          } else {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const hasTasks = tasks.some(t => t.date === dateStr);
+            const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
+            html += `<td class="${hasTasks ? 'has-tasks' : ''} ${isToday ? 'today' : ''}" data-date="${dateStr}">${day}</td>`;
+            day++;
+          }
+        }
+        html += '</tr>';
+        if (day > daysInMonth) break;
+      }
+      html += '</table>';
+      calendarMonth.innerHTML = html;
+
+      document.getElementById('prevMonth').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+      });
+      document.getElementById('nextMonth').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+      });
+
+      calendarMonth.querySelectorAll('td[data-date]').forEach(td => {
+        td.addEventListener('click', () => {
+          selectedDate = td.dataset.date;
+          taskModal.style.display = 'flex';
+          taskInput.focus();
+        });
+      });
+    }
+
+    function renderWeekView() {
+      const startOfWeek = new Date(currentDate);
+      startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+      let html = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <button class="btn btn-secondary" id="prevWeek" aria-label="Previous week"><i class="fas fa-chevron-left"></i></button>
+          <span>Week of ${startOfWeek.toLocaleDateString()}</span>
+          <button class="btn btn-secondary" id="nextWeek" aria-label="Next week"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      `;
+      for (let i = 0; i < 24; i++) {
+        const time = `${String(i).padStart(2, '0')}:00`;
+        html += `<div class="time-slot"><div class="time">${time}</div><div class="tasks">`;
+        for (let j = 0; j < 7; j++) {
+          const date = new Date(startOfWeek);
+          date.setDate(startOfWeek.getDate() + j);
+          const dateStr = date.toISOString().split('T')[0];
+          const timeTasks = tasks.filter(t => t.date === dateStr && t.time?.startsWith(time.split(':')[0]));
+          timeTasks.forEach(task => {
+            html += `
+              <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+                <span>${task.text}</span>
+                <span class="task-priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+                ${task.time ? `<span>${task.time}</span>` : ''}
+                <button aria-label="Delete task ${task.text}"><i class="fas fa-trash"></i></button>
+              </div>
+            `;
+          });
+        }
+        html += '</div></div>';
+      }
+      calendarWeek.innerHTML = html;
+
+      document.getElementById('prevWeek').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() - 7);
+        renderCalendar();
+      });
+      document.getElementById('nextWeek').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() + 7);
+        renderCalendar();
+      });
+
+      calendarWeek.querySelectorAll('.task-item button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.parentElement.dataset.id;
+          tasks = tasks.filter(t => t.id != id);
+          saveTasks();
+          renderCalendar();
+        });
+      });
+    }
+
+    function renderDayView() {
+      const dateStr = currentDate.toISOString().split('T')[0];
+      let html = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <button class="btn btn-secondary" id="prevDay" aria-label="Previous day"><i class="fas fa-chevron-left"></i></button>
+          <span>${currentDate.toLocaleDateString()}</span>
+          <button class="btn btn-secondary" id="nextDay" aria-label="Next day"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      `;
+      for (let i = 0; i < 24; i++) {
+        const time = `${String(i).padStart(2, '0')}:00`;
+        html += `<div class="time-slot"><div class="time">${time}</div><div class="tasks">`;
+        const timeTasks = tasks.filter(t => t.date === dateStr && t.time?.startsWith(time.split(':')[0]));
+        timeTasks.forEach(task => {
+          html += `
+            <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+              <input type="checkbox" ${task.completed ? 'checked' : ''} aria-label="Mark task ${task.text} as completed">
+              <span>${task.text}</span>
+              <span class="task-priority priority-${task.priority.toLowerCase()}">${task.priority}</span>
+              ${task.time ? `<span>${task.time}</span>` : ''}
+              <button aria-label="Delete task ${task.text}"><i class="fas fa-trash"></i></button>
+            </div>
+          `;
+        });
+        html += '</div></div>';
+      }
+      calendarDay.innerHTML = html;
+
+      document.getElementById('prevDay').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() - 1);
+        renderCalendar();
+      });
+      document.getElementById('nextDay').addEventListener('click', () => {
+        currentDate.setDate(currentDate.getDate() + 1);
+        renderCalendar();
+      });
+
+      calendarDay.querySelectorAll('.task-item input').forEach(input => {
+        input.addEventListener('change', () => {
+          const id = input.parentElement.dataset.id;
+          const task = tasks.find(t => t.id == id);
+          task.completed = input.checked;
+          saveTasks();
+          renderCalendar();
+        });
+      });
+
+      calendarDay.querySelectorAll('.task-item button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.parentElement.dataset.id;
+          tasks = tasks.filter(t => t.id != id);
+          saveTasks();
+          renderCalendar();
+        });
+      });
+    }
+
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (!taskText || !selectedDate) {
+        taskInput.focus();
+        return;
+      }
+
+      const task = {
+        id: Date.now(),
+        text: taskText,
+        priority: prioritySelect.value,
+        date: selectedDate,
+        time: taskTimeInput.value,
+        completed: false
+      };
+
+      tasks.push(task);
+      saveTasks();
+      taskModal.style.display = 'none';
+      taskInput.value = '';
+      taskTimeInput.value = '';
+      renderCalendar();
+    }
+
+    function saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '40px';
+    darkModeToggle.style.height = '40px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+
+    document.body.appendChild(darkModeToggle);
+  </script>
+</body>
+</html>

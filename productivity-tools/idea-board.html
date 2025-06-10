@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idea Board Tool - Capture & Organize Ideas | ToolPix</title>
+  <meta name="description" content="Capture and organize your ideas with ToolPix's free Idea Board tool. Brainstorm, categorize, tag, and convert ideas to tasks for productivity. Perfect for brainstorming and project planning. No sign-up required.">
+  <meta name="keywords" content="idea board tool, brainstorming, idea management, productivity tools, organizational tools, capture ideas, convert ideas to tasks, free idea board, ToolPix, project planning, creative thinking, task management">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ToolPix">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpixs.github.io/tools/productivity-tools/idea-board" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Idea Board Tool - Capture & Organize Ideas | ToolPix">
+  <meta property="og:description" content="Use ToolPix's free Idea Board to brainstorm, organize, and convert ideas into tasks. Categorize, tag, and search ideas easily for enhanced productivity.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/productivity-tools/idea-board">
+  <meta property="og:image" alt="Idea Board Tool" content="https://toolpixs.github.io/tools/images/idea-board-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Idea Board Tool - Capture & Organize Ideas | ToolPix">
+  <meta name="twitter:description" content="Brainstorm and manage ideas with ToolPix's free Idea Board tool. Save, categorize, and convert to tasks. No registration needed.">
+  <meta name="twitter:image" alt="Idea Board Tool Image" content="https://toolpixs.github.io/tools/images/idea-board-twitter-card.jpg">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Idea Board Tool",
+      "description": "A free tool to capture, organize, and convert ideas into tasks with categorization, tagging, and search functionality for brainstorming and project planning.",
+      "url": "https://toolpixs.github.io/tools/productivity-tools/idea-board",
+      "applicationCategory": "Productivity",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "keywords": "idea board, brainstorming, idea management, productivity, organizational tools, ToolPix"
+    }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --primary-light: #e8f5e9;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --secondary-light: #e3f2fd;
+      --accent: #FF5722;
+      --accent-dark: #E64A19;
+      --text: #333;
+      --text-light: #666;
+      --text-lighter: #888;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --border-light: #eee;
+      --shadow: rgba(0,0,0,0.1);
+      --shadow-md: rgba(0,0,0,0.15);
+      --shadow-lg: rgba(0,0,0,0.2);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    html.dark-mode {
+      --text: #f0f0f0;
+      --text-light: #bbb;
+      --text-lighter: #888;
+      --bg: #121212;
+      --card-bg: #1e1e1e;
+      --border: #333;
+      --border-light: #444;
+      --shadow: rgba(0,0,0,0.3);
+      --shadow-md: rgba(0,0,0,0.4);
+      --shadow-lg: rgba(0,0,0,0.5);
+      --primary-light: #1b5e20;
+      --secondary-light: #0d47a1;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not(.dark-mode):not(.light-mode) {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --text-lighter: #888;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --border-light: #444;
+        --shadow: rgba(0,0,0,0.3);
+        --shadow-md: rgba(0,0,0,0.4);
+        --shadow-lg: rgba(0,0,0,0.5);
+        --primary-light: #1b5e20;
+        --secondary-light: #0d47a1;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 56px;
+      width: auto;
+    }
+
+    .header-left, .header-center, .header-right {
+      flex: 1;
+    }
+
+    .header-center {
+      text-align: center;
+    }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .search-icon-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: var(--transition);
+    }
+
+    .search-icon-btn:hover {
+      color: var(--primary-light);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
+    }
+
+    .btn-danger {
+      background: var(--accent);
+    }
+
+    .btn-danger:hover {
+      background: var(--accent-dark);
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .search {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .search input {
+      padding: 0.75rem 1rem;
+      padding-left: 3rem;
+      padding-right: 5rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: var(--transition);
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .search input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .search button {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.5rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    #clearSearchBtn {
+      position: absolute;
+      right: 3.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 2;
+      padding: 1rem;
+      display: none;
+    }
+
+    .search button:hover {
+      background: var(--primary-dark);
+    }
+
+    .category-intro {
+      background: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .category-intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .category-intro p {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .tool-section {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .tool-section h2 {
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .tool-section p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .idea-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .idea-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .idea-input input[type="text"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .idea-input select {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      min-width: 120px;
+    }
+
+    .idea-input input:focus,
+    .idea-input select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .idea-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .idea-details textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      background: var(--card-bg);
+      color: var(--text);
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .idea-details textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .tags-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--card-bg);
+    }
+
+    .tags-input input {
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      color: var(--text);
+      outline: none;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .tag {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .tag button {
+      background: none;
+      border: none;
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .idea-controls {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .idea-list {
+      list-style: none;
+      padding: 0;
+      min-height: 50px;
+    }
+
+    .idea-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .idea-item:hover {
+      background: var(--primary-light);
+    }
+
+    .idea-item.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    .idea-item .idea-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .idea-item .idea-category {
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .idea-item .idea-category.project {
+      background: var(--accent);
+    }
+
+    .idea-item .idea-category.personal {
+      background: #FFA500;
+    }
+
+    .idea-item .idea-category.work {
+      background: var(--secondary);
+    }
+
+    .idea-item .idea-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .idea-item .idea-tags span {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+    }
+
+    .idea-item .idea-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .idea-item button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .idea-item button:hover {
+      background: var(--accent-dark);
+    }
+
+    .suggested-tools {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .suggested-tools h2 {
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      box-shadow: 0 1px 4px var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border-light);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .tool-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .tool-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .tool-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .tool-card .btn {
+      background: var(--secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .tool-card .btn:hover {
+      background: var(--secondary-dark);
+    }
+
+    .ad-space {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      margin: 2rem 0;
+      text-align: center;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ad-space.banner {
+      height: 90px;
+      max-width: 728px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ad-space.rectangle {
+      height: 250px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 -2px 5px var(--shadow);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      main {
+        padding: 1rem;
+      }
+      .tools-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .tool-card {
+        padding: 1rem;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      .ad-space.banner {
+        height: 60px;
+        max-width: 100%;
+      }
+      .ad-space.rectangle {
+        height: 250px;
+        max-width: 100%;
+      }
+      .idea-input {
+        flex-direction: column;
+      }
+      .idea-input input,
+      .idea-input select {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-container {
+        padding: 1rem;
+      }
+      .header-title {
+        font-size: 1.2rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+      .tool-card h3 {
+        font-size: 1rem;
+      }
+      .category-intro h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="../" class="logo">
+          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
+        </a>
+      </div>
+      <div class="header-center">
+        <h1 class="header-title">Idea Board Tool</h1>
+      </div>
+      <div class="header-right">
+        <button class="search-icon-btn" aria-label="Focus search bar"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="category-intro">
+      <h1>Idea Board Tool - Spark Your Creativity</h1>
+      <p>Capture and organize your ideas with ToolPix's free Idea Board Tool. Brainstorm, categorize, tag, and convert ideas into tasks for seamless project planning. Ideal for creative thinking, productivity, and organization. No sign-up required.</p>
+    </section>
+
+    <!-- Ad Space: Banner Ad at the Top -->
+    <div class="ad-space banner">
+      <!-- Insert banner ad code here (e.g., Google AdSense, 728x90) -->
+      <p>Advertisement</p>
+    </div>
+
+    <section class="search-container">
+      <div class="search">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Search ideas..." aria-label="Search ideas">
+        <button type="button" id="clearSearchBtn" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
+        <button id="searchButton" aria-label="Search ideas"><i class="fas fa-search"></i></button>
+      </div>
+    </section>
+
+    <section class="tool-section">
+      <h2>Capture and Manage Ideas</h2>
+      <p>Save rough ideas or plans, add notes, tag them, and convert them into tasks. Integrate with tools like our <a href="./subtasks">Subtasks Tool</a> or <a href="./daily-planner">Daily Planner</a> for a complete productivity system.</p>
+      <div class="idea-container">
+        <div class="idea-input">
+          <input type="text" id="ideaTitle" placeholder="Idea title (e.g., New App Feature)..." aria-label="Add idea title">
+          <select id="categorySelect" aria-label="Select category">
+            <option value="project">Project</option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+          </select>
+          <button class="btn" id="addIdeaBtn" aria-label="Add idea">Add Idea</button>
+        </div>
+        <div class="idea-details">
+          <textarea id="ideaNotes" placeholder="Add notes or details for your idea..." aria-label="Idea notes"></textarea>
+          <div class="tags-input" id="tagsInput">
+            <input type="text" id="tagInput" placeholder="Add tags (press Enter to add)..." aria-label="Add tags">
+          </div>
+        </div>
+        <div class="idea-controls">
+          <button class="btn btn-secondary" id="saveIdeaBtn" aria-label="Save idea">Save Idea</button>
+          <button class="btn btn-secondary" id="convertToTaskBtn" aria-label="Convert to task">Convert to Task</button>
+          <button class="btn btn-danger" id="clearAllBtn" aria-label="Clear all ideas">Clear All</button>
+        </div>
+        <ul class="idea-list" id="ideaList" role="listbox"></ul>
+      </div>
+    </section>
+
+    <!-- Ad Space: Rectangle Ad -->
+    <div class="ad-space rectangle">
+      <!-- Insert medium rectangle ad code here (e.g., Google AdSense, 300x250) -->
+      <p>Advertisement</p>
+    </div>
+
+    <section class="suggested-tools">
+      <h2>Suggested Productivity Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-list"></i></div>
+          <h3>Subtasks Tool</h3>
+          <p>Break down tasks into smaller steps with due dates and priorities.</p>
+          <a href="./subtasks" class="btn" aria-label="Use Subtasks tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-check-square"></i></div>
+          <h3>Priority Labels</h3>
+          <p>Create and color-code custom priority labels for tasks.</p>
+          <a href="./priority-labels" class="btn" aria-label="Use Priority Labels tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-sticky-note"></i></div>
+          <h3>Notes + Markdown Editor</h3>
+          <p>Write and organize notes in simple Markdown format.</p>
+          <a href="./notes-editor" class="btn" aria-label="Use Notes + Markdown Editor tool">Use Tool</a>
+        </div>
+        <div class="tool-card">
+          <div class="icon"><i class="fas fa-clipboard-list"></i></div>
+          <h3>Checklist Generator</h3>
+          <p>Create and save custom templates like packing lists.</p>
+          <a href="./checklist-generator" class="btn" aria-label="Use Checklist Generator tool">Use Tool</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ad Space: Banner Ad at the Bottom -->
+    <div class="ad-space banner">
+      <!-- Insert banner ad code here (e.g., Google AdSense, 728x90) -->
+      <p>Advertisement</p>
+    </div>
+
+    <section class="tool-section">
+      <h2>About the Idea Board Tool</h2>
+      <p>ToolPix's Idea Board Tool is designed for capturing and organizing your creative thoughts. Save rough ideas, add detailed notes, tag them for easy retrieval, and convert them into actionable tasks. Key features include:</p>
+      <ul>
+        <li>Create unlimited ideas with titles, categories, notes, and tags.</li>
+        <li>Categorize ideas as Project, Personal, or Work for better organization.</li>
+        <li>Add tags to filter and search ideas efficiently.</li>
+        <li>Convert ideas into tasks to integrate with other productivity tools.</li>
+        <li>Search and filter ideas by title, category, or tags.</li>
+        <li>Persistent storage using your browser's localStorage.</li>
+        <li>Responsive design optimized for desktop and mobile.</li>
+        <li>No sign-up or installation required—start instantly.</li>
+      </ul>
+      <p>Combine this tool with our <a href="./subtasks">Subtasks Tool</a> or <a href="./kanban-board">Kanban Board</a> to turn your ideas into actionable plans. Perfect for creatives, entrepreneurs, and project managers.</p>
+    </section>
+
+    <section class="tool-section">
+      <h2>Benefits of Brainstorming with an Idea Board</h2>
+      <p>Using an Idea Board fosters creativity and organization. With ToolPix's Idea Board Tool, you can:</p>
+      <ul>
+        <li><strong>Spark Creativity:</strong> Capture ideas as they come, without losing inspiration.</li>
+        <li><strong>Stay Organized:</strong> Categorize and tag ideas for quick access.</li>
+        <li><strong>Streamline Planning:</strong> Convert ideas into tasks for seamless project execution.</li>
+        <li><strong>Enhance Collaboration:</strong> Share ideas with teams for collective brainstorming.</li>
+      </ul>
+      <p>Explore our <a href="./pomodoro-timer">Task Timer</a> to stay focused during brainstorming or <a href="./daily-planner">Daily Planner</a> to schedule idea development.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="../" class="logo">ToolPix</a>
+          <p>Free online tools for productivity, project management, and more.</p>
+        </div>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Productivity Tools</h3>
+        <ul>
+          <li><a href="./subtasks"><i class="fas fa-list"></i> Subtasks Tool</a></li>
+          <li><a href="./priority-labels"><i class="fas fa-check-square"></i> Priority Labels</a></li>
+          <li><a href="./routine-scheduler"><i class="fas fa-clock"></i> Routine Scheduler</a></li>
+          <li><a href="./event-planner"><i class="fas fa-calendar-plus"></i> Event Planner</a></li>
+          <li><a href="./notes-editor"><i class="fas fa-sticky-note"></i> Notes + Markdown Editor</a></li>
+          <li><a href="./checklist-generator"><i class="fas fa-clipboard-list"></i> Checklist Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="../about"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="../blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="../sitemap.xml">Sitemap</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../terms">Terms of Service</a>
+      <a href="../contact">Contact Us</a>
+    </div>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const ideaTitleInput = document.getElementById('ideaTitle');
+    const categorySelect = document.getElementById('categorySelect');
+    const ideaNotesInput = document.getElementById('ideaNotes');
+    const tagInput = document.getElementById('tagInput');
+    const tagsInput = document.getElementById('tagsInput');
+    const addIdeaBtn = document.getElementById('addIdeaBtn');
+    const saveIdeaBtn = document.getElementById('saveIdeaBtn');
+    const convertToTaskBtn = document.getElementById('convertToTaskBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const ideaList = document.getElementById('ideaList');
+
+    // Load ideas from localStorage
+    let ideas = [];
+    let currentIdeaIndex = null;
+    try {
+      ideas = JSON.parse(localStorage.getItem('ideas')) || [];
+    } catch (e) {
+      console.error('Error loading ideas from localStorage:', e);
+    }
+
+    function saveIdeas() {
+      try {
+        localStorage.setItem('ideas', JSON.stringify(ideas));
+      } catch (e) {
+        console.error('Error saving ideas to localStorage:', e);
+      }
+    }
+
+    function renderIdeas(query = '') {
+      ideaList.innerHTML = '';
+      const normalizedQuery = query.toLowerCase().trim();
+      ideas
+        .filter(idea => 
+          idea.title.toLowerCase().includes(normalizedQuery) ||
+          idea.category.toLowerCase().includes(normalizedQuery) ||
+          idea.tags.some(tag => tag.toLowerCase().includes(normalizedQuery))
+        )
+        .forEach((idea, index) => {
+          const li = document.createElement('li');
+          li.className = `idea-item ${currentIdeaIndex === index ? 'active' : ''}`;
+          li.setAttribute('data-index', index);
+          li.setAttribute('role', 'option');
+          li.innerHTML = `
+            <div class="idea-title">${idea.title}</div>
+            <span class="idea-category ${idea.category}">${idea.category.charAt(0).toUpperCase() + idea.category.slice(1)}</span>
+            <div class="idea-tags">
+              ${idea.tags.map(tag => `<span>${tag}</span>`).join('')}
+            </div>
+            <div class="idea-actions">
+              <button class="convert-btn" aria-label="Convert ${idea.title} to task">Convert to Task</button>
+              <button class="delete-btn" aria-label="Delete ${idea.title}">Delete</button>
+            </div>
+          `;
+          li.addEventListener('click', () => {
+            currentIdeaIndex = index;
+            ideaTitleInput.value = idea.title;
+            categorySelect.value = idea.category;
+            ideaNotesInput.value = idea.notes;
+            tagsInput.innerHTML = idea.tags.map(tag => `<span class="tag">${tag}<button aria-label="Remove tag ${tag}">&times;</button></span>`).join('');
+            renderIdeas(normalizedQuery);
+            addRemoveTagListeners();
+          });
+          li.querySelector('.delete-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            ideas.splice(index, 1);
+            if (currentIdeaIndex === index) {
+              currentIdeaIndex = null;
+              ideaTitleInput.value = '';
+              categorySelect.value = 'project';
+              ideaNotesInput.value = '';
+              tagsInput.innerHTML = '<input type="text" id="tagInput" placeholder="Add tags (press Enter to add)..." aria-label="Add tags">';
+              tagInput = document.getElementById('tagInput');
+            }
+            saveIdeas();
+            renderIdeas(normalizedQuery);
+          });
+          li.querySelector('.convert-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const task = {
+              id: Date.now(),
+              title: idea.title,
+              description: idea.notes,
+              category: idea.category,
+              tags: idea.tags,
+              completed: false
+            };
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            alert('Idea converted to task! Check your Subtasks Tool.');
+            ideas.splice(index, 1);
+            if (currentIdeaIndex === index) {
+              currentIdeaIndex = null;
+              ideaTitleInput.value = '';
+              categorySelect.value = 'project';
+              ideaNotesInput.value = '';
+              tagsInput.innerHTML = '<input type="text" id="tagInput" placeholder="Add tags (press Enter to add)..." aria-label="Add tags">';
+              tagInput = document.getElementById('tagInput');
+            }
+            saveIdeas();
+            renderIdeas(normalizedQuery);
+          });
+          li.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              li.click();
+            }
+          });
+          ideaList.appendChild(li);
+        });
+    }
+
+    function addRemoveTagListeners() {
+      document.querySelectorAll('.tag button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.parentElement.remove();
+        });
+      });
+    }
+
+    addIdeaBtn.addEventListener('click', () => {
+      const title = ideaTitleInput.value.trim();
+      const category = categorySelect.value;
+      if (title) {
+        ideas.push({
+          id: Date.now(),
+          title,
+          category,
+          notes: '',
+          tags: []
+        });
+        currentIdeaIndex = ideas.length - 1;
+        ideaTitleInput.value = '';
+        categorySelect.value = 'project';
+        ideaNotesInput.value = '';
+        tagsInput.innerHTML = '<input type="text" id="tagInput" placeholder="Add tags (press Enter to add)..." aria-label="Add tags">';
+        tagInput = document.getElementById('tagInput');
+        saveIdeas();
+        renderIdeas();
+        ideaNotesInput.focus();
+      }
+    });
+
+    saveIdeaBtn.addEventListener('click', () => {
+      if (currentIdeaIndex !== null) {
+        const tags = Array.from(tagsInput.querySelectorAll('.tag')).map(tag => tag.innerText.slice(0, -1));
+        ideas[currentIdeaIndex] = {
+          id: ideas[currentIdeaIndex].id,
+          title: ideaTitleInput.value.trim() || 'Untitled',
+          category: categorySelect.value,
+          notes: ideaNotesInput.value,
+          tags
+        };
+        saveIdeas();
+        renderIdeas();
+      }
+    });
+
+    convertToTaskBtn.addEventListener('click', () => {
+      if (currentIdeaIndex !== null) {
+        const idea = ideas[currentIdeaIndex];
+        const task = {
+          id: Date.now(),
+          title: idea.title,
+          description: idea.notes,
+          category: idea.category,
+          tags: idea.tags,
+          completed: false
+        };
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        alert('Idea converted to task! Check your Subtasks Tool.');
+        ideas.splice(currentIdeaIndex, 1);
+        currentIdeaIndex = null;
+        ideaTitleInput.value = '';
+        categorySelect.value = 'project';
+        ideaNotesInput.value = '';
+        tagsInput.innerHTML = '<input type="text" id="tagInput" placeholder="Add tags (press Enter to add)..." aria-label="Add tags">';
+        tagInput = document.getElementById('tagInput');
+        saveIdeas();
+        renderIdeas();
+      }
+    });
+
+    ideaTitleInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addIdeaBtn.click();
+    });
+
+    tagInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const tag = tagInput.value.trim();
+        if (tag) {
+          const span = document.createElement('span');
+          span.className = 'tag';
+          span.innerHTML = `${tag}<button aria-label="Remove tag ${tag}">&times;</button>`;
+          tagsInput.insertBefore(span, tagInput);
+          tagInput.value = '';
+          addRemoveTagListeners();
+        }
+      }
+    });
+
+    clearAllBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all ideas?')) {
+        ideas = [];
+        currentIdeaIndex = null;
+        ideaTitleInput.value = '';
+        categorySelect.value = 'project';
+        ideaNotesInput.value = '';
+        tagsInput.innerHTML = '<input type="text" id="tagInput" placeholder="Add tags (press Enter to add)..." aria-label="Add tags">';
+        tagInput = document.getElementById('tagInput');
+        saveIdeas();
+        renderIdeas();
+      }
+    });
+
+    searchInput.addEventListener('input', () => {
+      renderIdeas(searchInput.value);
+      clearSearchBtn.style.display = searchInput.value ? 'block' : 'none';
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      renderIdeas();
+      clearSearchBtn.style.display = 'none';
+      searchInput.focus();
+    });
+
+    searchButton.addEventListener('click', () => renderIdeas(searchInput.value));
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') renderIdeas(searchInput.value);
+    });
+
+    // Focus search bar on icon click
+    document.querySelector('.search-icon-btn').addEventListener('click', () => {
+      searchInput.focus();
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.createElement('button');
+    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    darkModeToggle.style.position = 'fixed';
+    darkModeToggle.style.bottom = '20px';
+    darkModeToggle.style.right = '20px';
+    darkModeToggle.style.background = 'var(--primary)';
+    darkModeToggle.style.color = 'white';
+    darkModeToggle.style.border = 'none';
+    darkModeToggle.style.borderRadius = '50%';
+    darkModeToggle.style.width = '50px';
+    darkModeToggle.style.height = '50px';
+    darkModeToggle.style.cursor = 'pointer';
+    darkModeToggle.style.zIndex = '99';
+    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
+    darkModeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark-mode')) {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+      }
+    });
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+    } else if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        document.documentElement.classList.add('light-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      }
+    }
+
+    document.body.appendChild(darkModeToggle);
+
+    // Initialize
+    renderIdeas();
+  </script>
+</body>
+</html>
