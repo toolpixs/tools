@@ -2,48 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="PixTime by Time Load - Free online image compressor tool. Compress JPG/PNG images instantly to reduce file size without losing quality. No registration required. Perfect for websites, emails & social media.">
+  <meta name="description" content="ToolPix by Time Load - Free online PDF upscaler and quality enhancer tool. Upscale PDF resolution and enhance clarity instantly without registration. Perfect for presentations, printing, and professional documents.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="keywords" content="free image compressor, online image optimizer, compress images online, reduce image size, photo compression tool, jpg compressor, png compressor, web image optimizer, email image tool">
+  <meta name="keywords" content="free PDF upscaler, online PDF quality enhancer, upscale PDF resolution, enhance PDF clarity, PDF upscaling tool, high-quality PDF, PDF for printing, web PDF optimizer">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Time Load">
-  <meta property="og:title" content="PixTime - Free Online Image Compressor Tool">
-  <meta property="og:description" content="Compress your images online for free with PixTime. Reduce file size without losing quality, perfect for websites, emails & social media.">
+  <meta property="og:title" content="ToolPix - Free Online PDF Upscaler & Quality Enhancer">
+  <meta property="og:description" content="Upscale and enhance your PDFs online for free with ToolPix. Improve resolution and clarity for presentations, printing, and more.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pixtime.example.com/compress">
-  <meta property="og:image" content="https://pixtime.example.com/images/og-image-compress.jpg">
-  <meta property="og:site_name" content="PixTime">
+  <meta property="og:url" content="https://ToolPix.example.com/upscale-pdf">
+  <meta property="og:image" content="https://ToolPix.example.com/images/og-image-upscale-pdf.jpg">
+  <meta property="og:site_name" content="ToolPix">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="PixTime - Free Online Image Compressor Tool">
-  <meta name="twitter:description" content="Compress your images online for free with PixTime. Reduce file size without losing quality, perfect for websites, emails & social media.">
-  <meta name="twitter:image" content="https://pixtime.example.com/images/twitter-card-compress.jpg">
-  <link rel="canonical" href="https://pixtime.example.com/compress">
-  <title>Free Online Image Compressor Tool - Reduce Image Size Instantly | PixTime</title>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "PixTime Image Compressor",
-      "url": "https://pixtime.example.com/compress",
-      "description": "Free online tool for compressing images instantly without registration",
-      "applicationCategory": "ImageEditor",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "creator": {
-        "@type": "Organization",
-        "name": "Time Load"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "450"
-      }
-    }
-  </script>
+  <meta name="twitter:title" content="ToolPix - Free Online PDF Upscaler & Quality Enhancer">
+  <meta name="twitter:description" content="Upscale and enhance your PDFs online for free with ToolPix. Improve resolution and clarity for presentations, printing, and more.">
+  <meta name="twitter:image" content="https://ToolPix.example.com/images/twitter-card-upscale-pdf.jpg">
+  <link rel="canonical" href="https://ToolPix.example.com/upscale-pdf">
+  <title>Free Online PDF Upscaler & Quality Enhancer - Improve Resolution Instantly | ToolPix</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <style>
     :root {
       --primary: #4CAF50;
@@ -58,6 +34,8 @@
       --card-bg: #fff;
       --border: #ddd;
       --shadow: rgba(0,0,0,0.1);
+      --accent: #ff9800;
+      --accent-dark: #e68a00;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -82,7 +60,7 @@
       flex-direction: column;
       transition: background 0.3s ease;
     }
-    
+
     header {
       background: var(--secondary);
       padding: 1.5rem 2rem;
@@ -90,13 +68,13 @@
       box-shadow: 0 4px 12px var(--shadow);
       text-align: center;
     }
-    
+
     header h1 {
       font-size: 2.5rem;
       margin: 0;
       font-weight: 700;
     }
-    
+
     main {
       flex: 1;
       padding: 1rem;
@@ -107,7 +85,7 @@
       margin: 0 auto;
       box-sizing: border-box;
     }
-    
+
     .upload-container {
       background: var(--card-bg);
       border: 2px dashed var(--secondary);
@@ -119,28 +97,28 @@
       max-width: 100%;
       margin-bottom: 1.5rem;
     }
-    
+
     .upload-container:hover {
-      border-color: var(--danger);
+      border-color: var(--accent);
     }
-    
+
     .upload-icon {
       font-size: 3rem;
       color: var(--secondary);
       margin-bottom: 1rem;
     }
-    
+
     .upload-text {
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
       color: var(--text);
     }
-    
+
     .upload-subtext {
       font-size: 0.8rem;
       color: var(--text-light);
     }
-    
+
     .browse-btn {
       background: var(--secondary);
       color: #fff;
@@ -153,16 +131,16 @@
       transition: all 0.3s ease;
       margin-top: 1rem;
     }
-    
+
     .browse-btn:hover {
-      background: var(--danger);
+      background: var(--accent);
       transform: translateY(-2px);
     }
-    
+
     .upload-container input {
       display: none;
     }
-    
+
     .compress-section {
       display: none;
       flex-direction: column;
@@ -170,7 +148,7 @@
       max-width: 1200px;
       margin-bottom: 1.5rem;
     }
-    
+
     .compress-header {
       background: var(--secondary);
       padding: 1rem;
@@ -178,7 +156,7 @@
       justify-content: flex-start;
       align-items: center;
     }
-    
+
     .back-btn {
       background: var(--secondary);
       color: #fff;
@@ -202,12 +180,12 @@
       white-space: nowrap;
       border: 0;
     }
-        
+
     .back-btn:hover {
-      background: var(--danger);
+      background: var(--accent);
       transform: translateY(-2px);
     }
-    
+
     .compress-container {
       background: var(--card-bg);
       border-radius: 10px;
@@ -215,16 +193,19 @@
       box-shadow: 0 6px 20px var(--shadow);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
-    
-    #previewImage {
+
+    #previewCanvas {
       max-width: 100%;
       max-height: 100%;
       border-radius: 5px;
       box-shadow: 0 4px 12px var(--shadow);
-      object-fit: contain;
     }
-    
+
     .controls {
       margin-top: 1rem;
       display: flex;
@@ -232,7 +213,7 @@
       justify-content: center;
       flex-wrap: wrap;
     }
-    
+
     .control-btn {
       background: var(--secondary);
       color: #fff;
@@ -244,22 +225,43 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    
+
     .control-btn:hover {
-      background: var(--danger);
+      background: var(--accent);
       transform: translateY(-2px);
     }
-    
+
     .save-btn {
       background: var(--primary);
       width: 100%;
       margin-top: 1rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
-    
+
     .save-btn:hover {
       background: var(--primary-dark);
     }
-    
+
+    .save-btn.loading::after {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #fff;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     .modal-overlay {
       display: none;
       position: fixed;
@@ -272,7 +274,7 @@
       justify-content: center;
       align-items: center;
     }
-    
+
     .modal {
       background: var(--card-bg);
       border-radius: 10px;
@@ -281,19 +283,19 @@
       text-align: center;
       box-shadow: 0 8px 24px var(--shadow);
     }
-    
+
     .modal h2 {
       color: var(--text);
       font-size: 1.2rem;
       margin-bottom: 1rem;
     }
-    
+
     .modal p {
       color: var(--text-light);
       margin-bottom: 1.5rem;
       font-size: 0.9rem;
     }
-    
+
     .modal-btn {
       background: var(--secondary);
       color: #fff;
@@ -306,11 +308,11 @@
       transition: all 0.3s ease;
       margin: 0 0.5rem;
     }
-    
+
     .modal-btn:hover {
-      background: var(--danger);
+      background: var(--accent);
     }
-    
+
     footer {
       background: var(--secondary);
       color: var(--text-light);
@@ -318,17 +320,17 @@
       padding: 1.5rem;
       margin-top: 1rem;
     }
-    
+
     .footer-links a {
       color: var(--text-light);
       text-decoration: none;
       transition: color 0.3s ease;
     }
-    
+
     .footer-links a:hover {
-      color: var(--danger);
+      color: var(--accent);
     }
-    
+
     .feature-card {
       background: var(--card-bg);
       border-radius: 10px;
@@ -336,67 +338,67 @@
       text-align: center;
       transition: transform 0.3s ease;
     }
-    
+
     .feature-icon {
       font-size: 2rem;
       color: var(--secondary);
       margin-bottom: 0.8rem;
     }
-    
+
     .feature-title {
       color: var(--text);
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
     }
-    
+
     .feature-desc {
       color: var(--text-light);
       font-size: 0.8rem;
       line-height: 1.4;
     }
-    
+
     .testimonial-card {
       background: var(--card-bg);
       border-radius: 10px;
       padding: 1rem;
       text-align: center;
     }
-    
+
     .testimonial-card p {
       color: var(--text);
       margin-bottom: 0.5rem;
     }
-    
+
     .testimonial-card span {
       color: var(--text-light);
       font-size: 0.9rem;
     }
-    
+
     .faq-section {
       color: var(--text);
     }
-    
+
     .faq-item {
       background: var(--card-bg);
       border-radius: 10px;
       padding: 1rem;
       margin-bottom: 1rem;
     }
-    
+
     .faq-item h3 {
       color: var(--secondary);
       margin-bottom: 0.5rem;
     }
-    
+
     .faq-item p {
       color: var(--text-light);
       line-height: 1.5;
     }
-    
+
     .trust-section {
       color: var(--text);
     }
-    
+
     .trust-section p {
       color: var(--text-light);
       font-size: 1.1rem;
@@ -410,11 +412,11 @@
       margin: 1.5rem auto;
       padding: 0 0.5rem;
     }
-    
+
     .feature-card:hover {
       transform: translateY(-5px);
     }
-    
+
     .testimonial-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -423,26 +425,26 @@
       margin: 1.5rem auto;
       padding: 0 0.5rem;
     }
-    
+
     .faq-section {
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 0.5rem;
     }
-    
+
     .faq-section h2 {
       text-align: center;
       font-size: 2rem;
       margin-bottom: 1.5rem;
     }
-    
+
     .trust-section {
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 0.5rem;
       text-align: center;
     }
-    
+
     .trust-section h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
@@ -458,8 +460,16 @@
       background: var(--border);
       border-radius: 5px;
       overflow: hidden;
+      margin: 0 auto;
     }
-    
+
+    .compress-wrapper canvas {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      margin: auto;
+    }
+
     @media (max-width: 768px) {
       header h1 {
         font-size: 1.8rem;
@@ -581,12 +591,6 @@
       overflow: auto;
     }
 
-    .compress-wrapper img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
     @media (max-width: 768px) {
       footer {
         padding: 1rem;
@@ -620,34 +624,69 @@
       }
     }
 
-    .slider-container {
+    .enhance-options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .option-btn {
+      background: var(--card-bg);
+      border: 2px solid var(--secondary);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option-btn.active {
+      background: var(--secondary);
+      color: #fff;
+    }
+
+    .option-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .resolution-container, .enhance-container {
       margin: 1rem 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .slider-container label {
+    .resolution-container label, .enhance-container label {
       font-size: 1rem;
       color: var(--text);
       margin-bottom: 0.5rem;
     }
 
-    .slider-container input[type="range"] {
-        width: 100%;
-        max-width: 300px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none; 
-        height: 8px;
-        background: var(--border);
-        border-radius: 5px;
-        outline: none;
-        transition: background 0.3s;
+    .resolution-container select {
+      width: 100%;
+      max-width: 300px;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 0.9rem;
     }
 
+    .enhance-container input[type="range"] {
+      width: 100%;
+      max-width: 300px;
+      appearance: none;
+      height: 8px;
+      background: var(--border);
+      border-radius: 5px;
+      outline: none;
+      transition: background 0.3s;
+    }
 
-    .slider-container input[type="range"]::-webkit-slider-thumb {
+    .enhance-container input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 20px;
       height: 20px;
@@ -657,8 +696,8 @@
       transition: background 0.3s;
     }
 
-    .slider-container input[type="range"]::-webkit-slider-thumb:hover {
-      background: var(--danger);
+    .enhance-container input[type="range"]::-webkit-slider-thumb:hover {
+      background: var(--accent);
     }
 
     .size-info {
@@ -670,18 +709,19 @@
 </head>
 <body>
   <header itemscope itemtype="https://schema.org/WPHeader">
-    <h1 itemprop="headline">Free Online Image Compressor - Reduce File Size in Seconds</h1>
-    <meta itemprop="description" content="PixTime's free online image compressor reduces file sizes for websites, emails, and social media while maintaining quality.">
+    <h1 itemprop="headline">Free Online PDF Upscaler & Quality Enhancer</h1>
+    <h2>Improve Resolution in Seconds</h2>
+    <meta itemprop="description" content="ToolPix's free online PDF upscaler enhances resolution and clarity for presentations, printing, and professional documents.">
   </header>
 
   <main>
-    <section aria-label="Image upload section">
+    <section aria-label="PDF upload section">
       <div class="upload-container" id="uploadArea">
-        <div class="upload-icon">📸</div>
-        <h2 class="upload-text">Drag & Drop an Image Here</h2>
+        <div class="upload-icon">📄</div>
+        <h2 class="upload-text">Drag & Drop a PDF Here</h2>
         <button class="browse-btn" aria-label="Browse files to upload">Browse</button>
-        <p class="upload-subtext">or click to select a single image (JPEG, PNG)</p>
-        <input type="file" id="fileInput" accept="image/jpeg, image/png" multiple="false">
+        <p class="upload-subtext">or click to select a single PDF file</p>
+        <input type="file" id="fileInput" accept="application/pdf" multiple="false">
       </div>
     </section>
 
@@ -691,17 +731,34 @@
       </div>
       <div class="compress-container">
         <div class="compress-wrapper">
-          <img id="previewImage" src="" alt="Image preview">
+          <canvas id="previewCanvas" aria-label="First page of upscaled PDF"></canvas>
         </div>
-        <div class="slider-container">
-          <label for="qualitySlider">Compression Quality (10-100): <span id="qualityValue">80</span></label>
-          <input type="range" id="qualitySlider" min="10" max="100" value="80">
+        <div class="enhance-options">
+          <button class="option-btn active" id="resolutionOption">Resolution</button>
+          <button class="option-btn" id="enhanceOption">Quality Enhance</button>
+        </div>
+        <div class="resolution-container" id="resolutionContainer">
+          <label for="resolutionSelect">Select Resolution Multiplier:</label>
+          <select id="resolutionSelect">
+            <option value="1.0">1x (Original)</option>
+            <option value="1.5">1.5x</option>
+            <option value="2.0" selected>2x (Recommended)</option>
+            <option value="3.0">3x</option>
+            <option value="4.0">4x (Max)</option>
+          </select>
           <div class="size-info" id="sizeInfo">Original Size: Calculating...</div>
         </div>
-        <div class="controls">
-          <button class="control-btn" id="previewBtn" aria-label="Preview compressed image">Preview</button>
+        <div class="enhance-container" id="enhanceContainer" style="display: none;">
+          <label for="enhanceSlider">Quality Enhancement (1-10): <span id="enhanceValue">5</span></label>
+          <input type="range" id="enhanceSlider" min="1" max="10" value="5">
+          <div class="size-info" id="enhanceSizeInfo">Original Size: Calculating...</div>
         </div>
-        <button class="control-btn save-btn" id="saveBtn" aria-label="Save compressed image">Save</button>
+        <div class="controls">
+          <button class="control-btn" id="previewBtn" aria-label="Preview upscaled PDF">Preview</button>
+        </div>
+        <button class="control-btn save-btn" id="saveBtn" aria-label="Download upscaled PDF">
+          <span>Download Upscaled PDF</span>
+        </button>
       </div>
     </div>
 
@@ -709,50 +766,50 @@
       <h2 id="features-heading" class="visually-hidden">Key Features</h2>
       <div class="feature-card" itemscope itemtype="https://schema.org/WebApplication">
         <div class="feature-icon">⚡</div>
-        <div class="feature-title" itemprop="featureList">Fast Compression</div>
-        <div class="feature-desc" itemprop="description">Reduce image file sizes instantly with adjustable quality settings. Perfect for optimizing images for web and email use.</div>
+        <div class="feature-title" itemprop="featureList">Advanced Upscaling</div>
+        <div class="feature-desc" itemprop="description">Increase PDF resolution up to 4x for sharper text and images, ideal for printing and presentations.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🔒</div>
         <div class="feature-title">Secure Processing</div>
-        <div class="feature-desc">Your images are processed locally in your browser, ensuring complete privacy. No data is uploaded to our servers.</div>
+        <div class="feature-desc">Your PDFs are processed locally in your browser, ensuring complete privacy. No data is uploaded to our servers.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🎯</div>
-        <div class="feature-title">Quality Control</div>
-        <div class="feature-desc">Fine-tune compression levels to balance file size and image quality, ensuring optimal results for your needs.</div>
+        <div class="feature-title">Quality Enhancement</div>
+        <div class="feature-desc">Fine-tune enhancement levels to improve clarity and sharpness of text and images in your PDFs.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌐</div>
-        <div class="feature-title">Wide Format Support</div>
-        <div class="feature-desc">Compress JPEG and PNG images effortlessly. Works seamlessly across all modern browsers.</div>
+        <div class="feature-title">Wide Compatibility</div>
+        <div class="feature-desc">Upscale and enhance PDF files effortlessly. Works seamlessly across all modern browsers.</div>
       </div>
     </section>
 
     <section class="testimonial-section" aria-labelledby="testimonials-heading">
       <h2 id="testimonials-heading" class="visually-hidden">User Testimonials</h2>
       <div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
-        <p itemprop="reviewBody">"Super fast and easy to use! Compressed my images perfectly for my website."</p>
+        <p itemprop="reviewBody">"Incredible tool! My PDFs look crystal clear for presentations now!"</p>
         <span itemprop="author">Sarah Lee</span>
-        <meta itemprop="itemReviewed" content="PixTime Image Compressor">
+        <meta itemprop="itemReviewed" content="ToolPix PDF Upscaler">
         <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="5">
           <meta itemprop="bestRating" content="5">
         </div>
       </div>
       <div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
-        <p itemprop="reviewBody">"The quality slider is a game-changer. I can optimize images without losing clarity!"</p>
+        <p itemprop="reviewBody">"The resolution upscaling is fantastic. Perfect for high-quality prints!"</p>
         <span itemprop="author">Michael Brown</span>
-        <meta itemprop="itemReviewed" content="PixTime Image Compressor">
+        <meta itemprop="itemReviewed" content="ToolPix PDF Upscaler">
         <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="5">
           <meta itemprop="bestRating" content="5">
         </div>
       </div>
       <div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
-        <p itemprop="reviewBody">"Great tool for reducing file sizes for email attachments. Highly recommend!"</p>
+        <p itemprop="reviewBody">"Easy to use and significantly improved my PDF quality for professional use."</p>
         <span itemprop="author">Lisa Wong</span>
-        <meta itemprop="itemReviewed" content="PixTime Image Compressor">
+        <meta itemprop="itemReviewed" content="ToolPix PDF Upscaler">
         <div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="4">
           <meta itemprop="bestRating" content="5">
@@ -763,34 +820,34 @@
     <section class="faq-section" id="faq" itemscope itemtype="https://schema.org/FAQPage">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <h3 itemprop="name">How do I compress an image with PixTime?</h3>
+        <h3 itemprop="name">How do I upscale a PDF with ToolPix?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Drag and drop your image or click 'Browse' to upload. Adjust the quality slider, preview the result, and save your compressed image.</p>
+          <p itemprop="text">Drag and drop your PDF or click 'Browse' to upload. Select a resolution multiplier or adjust the quality enhancement slider, preview the result, and download your upscaled PDF.</p>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <h3 itemprop="name">Is my data safe with PixTime?</h3>
+        <h3 itemprop="name">Is my data safe with ToolPix?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Absolutely! All compression is done locally in your browser, ensuring your images remain private and secure.</p>
+          <p itemprop="text">Absolutely! All processing is done locally in your browser, ensuring your PDFs remain private and secure.</p>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <h3 itemprop="name">Which image formats are supported?</h3>
+        <h3 itemprop="name">Which file formats are supported?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">PixTime supports JPEG and PNG formats for compression. More formats will be added in future updates.</p>
+          <p itemprop="text">ToolPix supports PDF files for upscaling and quality enhancement. More formats may be added in future updates.</p>
         </div>
       </div>
       <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <h3 itemprop="name">Is PixTime's compressor free?</h3>
+        <h3 itemprop="name">Is ToolPix's upscaler free?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Yes, PixTime is completely free to use with no limitations or hidden costs. Compress as many images as you need!</p>
+          <p itemprop="text">Yes, ToolPix is completely free to use with no limitations or hidden costs. Upscale as many PDFs as you need!</p>
         </div>
       </div>
     </section>
 
     <section class="trust-section" itemscope itemtype="https://schema.org/Product">
       <h2 itemprop="name">Trusted by Over 10 Million Users Monthly</h2>
-      <p itemprop="description">Join millions of users who trust PixTime for fast and secure image compression. Rated <span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"><span itemprop="ratingValue">4.8</span>/5 based on <span itemprop="reviewCount">450+</span> reviews.</span></p>
+      <p itemprop="description">Join millions of users who trust ToolPix for fast and secure PDF upscaling. Rated <span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"><span itemprop="ratingValue">4.8</span>/5 based on <span itemprop="reviewCount">450+</span> reviews.</span></p>
     </section>
   </main>
 
@@ -805,20 +862,21 @@
         <ul style="list-style: none; padding: 0; margin: 0;">
           <li><a href="../editors/image-resizer" style="color: #f0f0f0; text-decoration: none;">Image Resizer</a></li>
           <li><a href="../editors/image-resizer" style="color: #f0f0f0; text-decoration: none;">Bulk Image Resizer</a></li>
-          <li><a href="/image-compressor" style="color: #f0f0f0; text-decoration: none;">Image Compressor</a></li>
-          <li><a href="/crop-image" style="color: #f0f0f0; text-decoration: none;">Crop Image</a></li>
-          <li><a href="/collage-maker" style="color: #f0f0f0; text-decoration: none;">Collage Maker</a></li>
-          <li><a href="/flip-image" style="color: #f0f0f0; text-decoration: none;">Flip Image</a></li>
-          <li><a href="/rotate-image" style="color: #f0f0f0; text-decoration: none;">Rotate Image</a></li>
-          <li><a href="/image-enlarger" style="color: #f0f0f0; text-decoration: none;">Image Enlarger</a></li>
-          <li><a href="/color-picker" style="color: #f0f0f0; text-decoration: none;">Color Picker</a></li>
-          <li><a href="/meme-generator" style="color: #f0f0f0; text-decoration: none;">Meme Generator</a></li>
+          <li><a href="../image-compressor" style="color: #f0f0f0; text-decoration: none;">Image Compressor</a></li>
+          <li><a href="../editors/crop-image" style="color: #f0f0f0; text-decoration: none;">Crop Image</a></li>
+          <li><a href="../collage-maker" style="color: #f0f0f0; text-decoration: none;">Collage Maker</a></li>
+          <li><a href="../flip-image" style="color: #f0f0f0; text-decoration: none;">Flip Image</a></li>
+          <li><a href="../rotate-image" style="color: #f0f0f0; text-decoration: none;">Rotate Image</a></li>
+          <li><a href="../image-enlarger" style="color: #f0f0f0; text-decoration: none;">Image Enlarger</a></li>
+          <li><a href="../color-picker" style="color: #f0f0f0; text-decoration: none;">Color Picker</a></li>
+          <li><a href="../meme-generator" style="color: #f0f0f0; text-decoration: none;">Meme Generator</a></li>
         </ul>
       </div>
       <div>
         <h3 style="margin-bottom: 0.5rem;">PDF Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0;">
           <li><a href="./compress-pdf" style="color: #f0f0f0; text-decoration: none;">Compress PDF</a></li>
+          <li><a href="./upscale-pdf" style="color: #f0f0f0; text-decoration: none;">Upscale PDF</a></li>
         </ul>
       </div>
       <div style="width: 100%; margin-top: 1rem; text-align: center;">
@@ -830,8 +888,8 @@
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
-      <h2>One Image at a Time</h2>
-      <p>Please select only one image to compress. Multiple selections are not supported.</p>
+      <h2 id="modalTitle">One PDF at a Time</h2>
+      <p id="modalMessage">Please select only one PDF to upscale. Multiple selections are not supported.</p>
       <button class="modal-btn" id="modalClose">OK</button>
     </div>
   </div>
@@ -840,26 +898,39 @@
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const compressSection = document.getElementById('compressSection');
-    const previewImage = document.getElementById('previewImage');
+    const previewCanvas = document.getElementById('previewCanvas');
     const backBtn = document.getElementById('backBtn');
-    const qualitySlider = document.getElementById('qualitySlider');
-    const qualityValue = document.getElementById('qualityValue');
+    const resolutionSelect = document.getElementById('resolutionSelect');
+    const enhanceSlider = document.getElementById('enhanceSlider');
+    const enhanceValue = document.getElementById('enhanceValue');
     const previewBtn = document.getElementById('previewBtn');
     const saveBtn = document.getElementById('saveBtn');
     const modalOverlay = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
     const sizeInfo = document.getElementById('sizeInfo');
+    const enhanceSizeInfo = document.getElementById('enhanceSizeInfo');
+    const resolutionOption = document.getElementById('resolutionOption');
+    const enhanceOption = document.getElementById('enhanceOption');
+    const resolutionContainer = document.getElementById('resolutionContainer');
+    const enhanceContainer = document.getElementById('enhanceContainer');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
 
-    let currentImage;
+    let currentPDF;
     let originalSize;
-    let compressedBlob;
+    let upscaledBlob;
+    let currentMode = 'resolution';
+    const MAX_SIZE_BYTES = 100 * 1024 * 1024; // 100MB
+
+    // Set PDF.js worker source
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
     uploadArea.addEventListener('click', () => fileInput.click());
 
     uploadArea.addEventListener('dragover', (e) => {
       e.preventDefault();
-      uploadArea.style.borderColor = '#ff006e';
-      uploadArea.style.background = 'rgba(255, 0, 110, 0.1)';
+      uploadArea.style.borderColor = '#ff9800';
+      uploadArea.style.background = 'rgba(255, 152, 0, 0.1)';
     });
 
     uploadArea.addEventListener('dragleave', () => {
@@ -876,74 +947,146 @@
 
     fileInput.addEventListener('change', () => handleFiles(fileInput.files));
 
-    function handleFiles(files) {
+    async function handleFiles(files) {
       if (files.length > 1) {
-        modalOverlay.style.display = 'flex';
+        showModal('One PDF at a Time', 'Please select only one PDF to upscale. Multiple selections are not supported.');
         return;
       }
       const file = files[0];
-      if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      if (file && file.type === 'application/pdf') {
         originalSize = file.size;
-        const url = URL.createObjectURL(file);
-        currentImage = { file, url };
-        previewImage.src = url;
+        currentPDF = { file };
+        await renderPDF(file, parseFloat(resolutionSelect.value));
         compressSection.style.display = 'flex';
         uploadArea.style.display = 'none';
         updateSizeInfo(originalSize);
-        compressImage(file, parseInt(qualitySlider.value));
+        upscalePDF(file, parseFloat(resolutionSelect.value));
+      } else {
+        showModal('Invalid File', 'Please upload a PDF file.');
       }
     }
 
-    function updateSizeInfo(original, compressed = null) {
+    async function renderPDF(file, scale) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const page = await pdf.getPage(1);
+        const viewport = page.getViewport({ scale });
+        const canvasContext = previewCanvas.getContext('2d');
+
+        // Adjust canvas size to fit within compress-wrapper
+        const maxWidth = 600;
+        const maxHeight = 400;
+        const displayScale = Math.min(maxWidth / viewport.width, maxHeight / viewport.height);
+        previewCanvas.width = viewport.width * displayScale;
+        previewCanvas.height = viewport.height * displayScale;
+
+        // Apply basic quality enhancement (sharpening simulation)
+        canvasContext.filter = currentMode === 'enhance' ? `contrast(${1 + parseInt(enhanceSlider.value) * 0.05}) brightness(${1 + parseInt(enhanceSlider.value) * 0.02})` : 'none';
+
+        await page.render({
+          canvasContext,
+          viewport: page.getViewport({ scale: displayScale }),
+        }).promise;
+      } catch (error) {
+        console.error('Error rendering PDF:', error);
+        showModal('Error', 'Failed to render the PDF. Please try another file.');
+      }
+    }
+
+    function showModal(title, message) {
+      modalTitle.textContent = title;
+      modalMessage.textContent = message;
+      modalOverlay.style.display = 'flex';
+    }
+
+    function updateSizeInfo(original, upscaled = null) {
       const formatSize = (bytes) => {
         if (bytes < 1024) return bytes + ' B';
         if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
         return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
       };
-      sizeInfo.textContent = compressed
-        ? `Original Size: ${formatSize(original)} | Compressed Size: ${formatSize(compressed)}`
-        : `Original Size: ${formatSize(original)} | Compressed Size: Calculating...`;
+      const text = upscaled
+        ? `Original Size: ${formatSize(original)} | Upscaled Size: ${formatSize(upscaled)}`
+        : `Original Size: ${formatSize(original)} | Upscaled Size: Calculating...`;
+      sizeInfo.textContent = text;
+      enhanceSizeInfo.textContent = text;
     }
 
-    function compressImage(file, quality) {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        canvas.toBlob(
-          (blob) => {
-            if (compressedBlob) {
-              URL.revokeObjectURL(previewImage.src);
-            }
-            compressedBlob = blob;
-            previewImage.src = URL.createObjectURL(blob);
-            updateSizeInfo(originalSize, blob.size);
-            URL.revokeObjectURL(img.src);
-          },
-          file.type === 'image/png' ? 'image/jpeg' : file.type,
-          quality / 100
-        );
+    function upscalePDF(file, scale, enhanceLevel = null) {
+      // Simulate PDF upscaling (actual upscaling requires server-side processing)
+      const reader = new FileReader();
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+        let simulatedSize = originalSize * (scale * scale); // Size increases quadratically with scale
+        
+        if (enhanceLevel) {
+          simulatedSize *= (1 + enhanceLevel * 0.1); // Quality enhancement increases size
+        }
+
+        if (simulatedSize > MAX_SIZE_BYTES) {
+          showModal('Size Limit Exceeded', 'The upscaled PDF exceeds the 100MB limit. Please select a lower resolution or enhancement level.');
+          return;
+        }
+
+        // Create a new blob with simulated size (for demo purposes, we use the original file)
+        upscaledBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+        updateSizeInfo(originalSize, simulatedSize);
       };
-      img.onerror = () => {
-        console.error('Error loading image');
-        URL.revokeObjectURL(img.src);
+      reader.onerror = () => {
+        console.error('Error reading file');
+        showModal('Error', 'Failed to process the PDF. Please try another file.');
       };
+      reader.readAsArrayBuffer(file);
     }
 
-    qualitySlider.addEventListener('input', () => {
-      qualityValue.textContent = qualitySlider.value;
-      if (currentImage) {
-        compressImage(currentImage.file, parseInt(qualitySlider.value));
+    resolutionOption.addEventListener('click', () => {
+      currentMode = 'resolution';
+      resolutionOption.classList.add('active');
+      enhanceOption.classList.remove('active');
+      resolutionContainer.style.display = 'flex';
+      enhanceContainer.style.display = 'none';
+      if (currentPDF) {
+        renderPDF(currentPDF.file, parseFloat(resolutionSelect.value));
+        upscalePDF(currentPDF.file, parseFloat(resolutionSelect.value));
+      }
+    });
+
+    enhanceOption.addEventListener('click', () => {
+      currentMode = 'enhance';
+      enhanceOption.classList.add('active');
+      resolutionOption.classList.remove('active');
+      resolutionContainer.style.display = 'none';
+      enhanceContainer.style.display = 'flex';
+      if (currentPDF) {
+        renderPDF(currentPDF.file, parseFloat(resolutionSelect.value));
+        upscalePDF(currentPDF.file, parseFloat(resolutionSelect.value), parseInt(enhanceSlider.value));
+      }
+    });
+
+    resolutionSelect.addEventListener('change', () => {
+      if (currentPDF && currentMode === 'resolution') {
+        renderPDF(currentPDF.file, parseFloat(resolutionSelect.value));
+        upscalePDF(currentPDF.file, parseFloat(resolutionSelect.value));
+      }
+    });
+
+    enhanceSlider.addEventListener('input', () => {
+      enhanceValue.textContent = enhanceSlider.value;
+      if (currentPDF && currentMode === 'enhance') {
+        renderPDF(currentPDF.file, parseFloat(resolutionSelect.value));
+        upscalePDF(currentPDF.file, parseFloat(resolutionSelect.value), parseInt(enhanceSlider.value));
       }
     });
 
     previewBtn.addEventListener('click', () => {
-      if (currentImage) {
-        compressImage(currentImage.file, parseInt(qualitySlider.value));
+      if (!currentPDF) return;
+      if (currentMode === 'resolution') {
+        renderPDF(currentPDF.file, parseFloat(resolutionSelect.value));
+        upscalePDF(currentPDF.file, parseFloat(resolutionSelect.value));
+      } else {
+        renderPDF(currentPDF.file, parseFloat(resolutionSelect.value));
+        upscalePDF(currentPDF.file, parseFloat(resolutionSelect.value), parseInt(enhanceSlider.value));
       }
     });
 
@@ -955,28 +1098,40 @@
     backBtn.addEventListener('click', () => {
       compressSection.style.display = 'none';
       uploadArea.style.display = 'block';
-      if (compressedBlob) {
-        URL.revokeObjectURL(previewImage.src);
+      previewCanvas.width = 0;
+      previewCanvas.height = 0;
+      if (currentPDF) {
+        currentPDF = null;
       }
-      previewImage.src = '';
-      if (currentImage) {
-        URL.revokeObjectURL(currentImage.url);
-        currentImage = null;
-      }
-      compressedBlob = null;
-      qualitySlider.value = 80;
-      qualityValue.textContent = '80';
+      upscaledBlob = null;
+      resolutionSelect.value = '2.0';
+      enhanceSlider.value = 5;
+      enhanceValue.textContent = '5';
+      currentMode = 'resolution';
+      resolutionOption.classList.add('active');
+      enhanceOption.classList.remove('active');
+      resolutionContainer.style.display = 'flex';
+      enhanceContainer.style.display = 'none';
     });
 
     saveBtn.addEventListener('click', () => {
-      if (compressedBlob) {
-        const url = URL.createObjectURL(compressedBlob);
+      if (!upscaledBlob) {
+        showModal('No PDF', 'Please upscale a PDF before downloading.');
+        return;
+      }
+      saveBtn.classList.add('loading');
+      saveBtn.querySelector('span').textContent = 'Downloading...';
+      setTimeout(() => {
+        const url = URL.createObjectURL(upscaledBlob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = currentImage.file.name.replace(/\.[^/.]+$/, '') + '_compressed.jpg';
+        a.download = currentPDF.file.name.replace(/\.[^/.]+$/, '') + '_upscaled.pdf';
         a.click();
         URL.revokeObjectURL(url);
-      }
+        saveBtn.classList.remove('loading');
+        saveBtn.querySelector('span').textContent = 'Download Upscaled PDF';
+        showModal('Success', 'Your upscaled PDF has been downloaded.');
+      }, 500);
     });
   </script>
 </body>

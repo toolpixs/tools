@@ -1,0 +1,3143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEditor - Image, Photo Editor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #6200ee;
+            --primary-light: #9e47ff;
+            --primary-dark: #0400ba;
+            --secondary-color: #03dac6;
+            --background: #f5f5f5;
+            --surface: #ffffff;
+            --error: #b00020;
+            --on-primary: #ffffff;
+            --on-secondary: #000000;
+            --on-background: #000000;
+            --on-surface: #000000;
+            --on-error: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--on-background);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: var(--on-primary);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--on-secondary);
+        }
+
+        .btn-primary:hover {
+            background-color: #00b4a0;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--on-primary);
+            border: 1px solid var(--on-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: var(--surface);
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-title {
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .sidebar-tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sidebar-tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .sidebar-tab:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .project-item {
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .project-item.active {
+            background-color: rgba(98, 0, 238, 0.1);
+        }
+
+        .project-thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .project-name {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .project-date {
+            font-size: 0.75rem;
+            color: #757575;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-item:hover .project-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Editor Area */
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            padding: 0.5rem 1rem;
+            background-color: var(--surface);
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .tool-group {
+            display: flex;
+            gap: 0.5rem;
+            padding-right: 0.5rem;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .tool-group:last-child {
+            border-right: none;
+        }
+
+        .tool-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-btn.active {
+            background-color: rgba(98, 0, 238, 0.1);
+            color: var(--primary-color);
+        }
+
+        .canvas-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            padding: 1rem;
+            background-color: #e0e0e0;
+            background-image: 
+                linear-gradient(45deg, #f5f5f5 25%, transparent 25%),
+                linear-gradient(-45deg, #f5f5f5 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #f5f5f5 75%),
+                linear-gradient(-45deg, transparent 75%, #f5f5f5 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        #editor-canvas {
+            max-width: 100%;
+            max-height: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+
+        /* Properties Panel */
+        .properties-panel {
+            width: 280px;
+            background-color: var(--surface);
+            border-left: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .properties-panel.collapsed {
+            width: 60px;
+        }
+
+        .property-section {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .property-title {
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .property-group {
+            margin-bottom: 1rem;
+        }
+
+        .property-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #616161;
+        }
+
+        .property-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .slider {
+            flex: 1;
+        }
+
+        .slider-value {
+            width: 40px;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid #e0e0e0;
+        }
+
+        .font-selector {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1000;
+                transform: translateX(-100%);
+                box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+
+            .properties-panel {
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1000;
+                transform: translateX(100%);
+                box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .properties-panel.visible {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 260px;
+            }
+
+            .properties-panel {
+                width: 260px;
+            }
+
+            .toolbar {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                padding: 0.25rem;
+            }
+
+            .tool-group {
+                padding-right: 0.25rem;
+                gap: 0.25rem;
+            }
+
+            .tool-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background-color: var(--surface);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #757575;
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        .modal-footer {
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .dropzone {
+            border: 2px dashed #bdbdbd;
+            border-radius: 4px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .dropzone:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(98, 0, 238, 0.05);
+        }
+
+        .dropzone.active {
+            border-color: var(--primary-color);
+            background-color: rgba(98, 0, 238, 0.1);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #323232;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast.visible {
+            opacity: 1;
+        }
+
+        /* Loading Indicator */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 4000;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Context Menu */
+        .context-menu {
+            position: absolute;
+            background-color: var(--surface);
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 5000;
+            min-width: 160px;
+            display: none;
+        }
+
+        .context-menu.visible {
+            display: block;
+        }
+
+        .context-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .context-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Template Grid */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .template-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .template-name {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Asset Library */
+        .asset-tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .asset-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .asset-tab.active {
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .asset-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .asset-item:hover {
+            border-color: var(--primary-color);
+        }
+
+        .asset-thumbnail {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #bdbdbd;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9e9e9e;
+        }
+
+        /* Orientation Grid */
+        .orientation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .orientation-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .orientation-option:hover {
+            background-color: rgba(98, 0, 238, 0.1);
+        }
+
+        .orientation-option.selected {
+            background-color: rgba(98, 0, 238, 0.2);
+            border: 1px solid var(--primary-color);
+        }
+
+        .orientation-preview {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orientation-preview i {
+            color: #757575;
+        }
+
+        .square { background-color: #f5f5f5; }
+        .youtube { background-color: #f5f5f5; width: 100px; height: 56px; }
+        .facebook { background-color: #f5f5f5; width: 100px; height: 38px; }
+        .facebook-post { background-color: #f5f5f5; width: 100px; height: 52px; }
+        .avatar { background-color: #f5f5f5; width: 60px; height: 60px; border-radius: 50%; }
+        .banner { background-color: #f5f5f5; width: 100px; height: 25px; }
+        .custom { background-color: #f5f5f5; }
+
+        /* Background Options */
+        .background-options {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .background-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .background-option:hover {
+            background-color: rgba(98, 0, 238, 0.1);
+        }
+
+        .background-option[data-selected="true"] {
+            background-color: rgba(98, 0, 238, 0.2);
+            border: 1px solid var(--primary-color);
+        }
+
+        .bg-preview {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 0.25rem;
+        }
+
+        .checkerboard {
+            background-image: 
+                linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+                linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
+                linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+            background-size: 10px 10px;
+            background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+        }
+
+        .white { background-color: white; }
+        .black { background-color: black; }
+        .gradient { background: linear-gradient(45deg, #ff0000, #ff00ff, #0000ff); }
+
+        /* Layer Panel */
+        .layer-panel {
+            padding: 0.5rem;
+        }
+
+        .layer-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .layer-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .layer-item.active {
+            background-color: rgba(98, 0, 238, 0.1);
+        }
+
+        .layer-preview {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+        }
+
+        .layer-name {
+            flex: 1;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .layer-actions {
+            display: flex;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .layer-item:hover .layer-actions {
+            opacity: 1;
+        }
+
+        /* Zoom Controls */
+        .zoom-controls {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: var(--surface);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .zoom-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .zoom-value {
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --background: #121212;
+            --surface: #1e1e1e;
+            --on-background: #ffffff;
+            --on-surface: #ffffff;
+        }
+
+        body.dark-mode .sidebar,
+        body.dark-mode .properties-panel,
+        body.dark-mode .toolbar {
+            background-color: var(--surface);
+            border-color: #333;
+        }
+
+        body.dark-mode .property-section,
+        body.dark-mode .modal-content {
+            border-color: #333;
+        }
+
+        body.dark-mode .canvas-container {
+            background-color: #333;
+            background-image: 
+                linear-gradient(45deg, #444 25%, transparent 25%),
+                linear-gradient(-45deg, #444 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #444 75%),
+                linear-gradient(-45deg, transparent 75%, #444 75%);
+        }
+
+        body.dark-mode .project-item:hover,
+        body.dark-mode .layer-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body.dark-mode .property-control,
+        body.dark-mode .form-control {
+            background-color: #333;
+            border-color: #444;
+            color: white;
+        }
+
+        body.dark-mode .property-label,
+        body.dark-mode .form-label,
+        body.dark-mode .project-date {
+            color: #bdbdbd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="material-icons">photo_filter</i>
+            <span>TEditor - Image, Photo Editor</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-outline" id="toggle-sidebar">
+                <i class="material-icons">menu</i>
+                <span>Projects</span>
+            </button>
+            <button class="btn btn-primary" id="new-project">
+                <i class="material-icons">add</i>
+                <span>New Project</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">Projects</h3>
+                <button class="action-btn" id="close-sidebar">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <div class="sidebar-tabs">
+                <div class="sidebar-tab active" data-tab="recent">Recent</div>
+                <div class="sidebar-tab" data-tab="templates">Templates</div>
+                <div class="sidebar-tab" data-tab="assets">Assets</div>
+            </div>
+            <div class="sidebar-content">
+                <div class="tab-content active" id="recent-tab">
+                    <div class="project-item active">
+                        <div class="project-thumbnail">
+                            <i class="material-icons">image</i>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-name">My Awesome Design</div>
+                            <div class="project-date">Today, 3:45 PM</div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn" title="Open in new tab">
+                                <i class="material-icons">open_in_new</i>
+                            </button>
+                            <button class="action-btn" title="Export">
+                                <i class="material-icons">file_download</i>
+                            </button>
+                            <button class="action-btn" title="Delete">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-thumbnail">
+                            <i class="material-icons">image</i>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-name">Social Media Post</div>
+                            <div class="project-date">Yesterday, 2:30 PM</div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn" title="Open in new tab">
+                                <i class="material-icons">open_in_new</i>
+                            </button>
+                            <button class="action-btn" title="Export">
+                                <i class="material-icons">file_download</i>
+                            </button>
+                            <button class="action-btn" title="Delete">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-thumbnail">
+                            <i class="material-icons">image</i>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-name">Birthday Invitation</div>
+                            <div class="project-date">May 15, 2023</div>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn" title="Open in new tab">
+                                <i class="material-icons">open_in_new</i>
+                            </button>
+                            <button class="action-btn" title="Export">
+                                <i class="material-icons">file_download</i>
+                            </button>
+                            <button class="action-btn" title="Delete">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="templates-tab">
+                    <div class="template-grid">
+                        <div class="template-item">
+                            <img src="https://via.placeholder.com/300x200?text=Instagram+Post" class="template-thumbnail">
+                            <div class="template-name">Instagram Post</div>
+                        </div>
+                        <div class="template-item">
+                            <img src="https://via.placeholder.com/300x200?text=Facebook+Cover" class="template-thumbnail">
+                            <div class="template-name">Facebook Cover</div>
+                        </div>
+                        <div class="template-item">
+                            <img src="https://via.placeholder.com/300x200?text=YouTube+Thumbnail" class="template-thumbnail">
+                            <div class="template-name">YouTube Thumbnail</div>
+                        </div>
+                        <div class="template-item">
+                            <img src="https://via.placeholder.com/300x200?text=Business+Card" class="template-thumbnail">
+                            <div class="template-name">Business Card</div>
+                        </div>
+                        <div class="template-item">
+                            <img src="https://via.placeholder.com/300x200?text=Flyer" class="template-thumbnail">
+                            <div class="template-name">Flyer</div>
+                        </div>
+                        <div class="template-item">
+                            <img src="https://via.placeholder.com/300x200?text=Poster" class="template-thumbnail">
+                            <div class="template-name">Poster</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="assets-tab">
+                    <div class="asset-tabs">
+                        <div class="asset-tab active" data-asset-tab="local">Local</div>
+                        <div class="asset-tab" data-asset-tab="global">Global</div>
+                    </div>
+                    <div class="asset-tab-content active" id="local-assets">
+                        <div class="dropzone" id="local-dropzone">
+                            <i class="material-icons">cloud_upload</i>
+                            <p>Drag & drop images here or click to upload</p>
+                        </div>
+                        <div class="asset-grid">
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Photo+1" class="asset-thumbnail">
+                            </div>
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Photo+2" class="asset-thumbnail">
+                            </div>
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Photo+3" class="asset-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="asset-tab-content" id="global-assets">
+                        <div class="asset-grid">
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Global+1" class="asset-thumbnail">
+                            </div>
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Global+2" class="asset-thumbnail">
+                            </div>
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Global+3" class="asset-thumbnail">
+                            </div>
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Global+4" class="asset-thumbnail">
+                            </div>
+                            <div class="asset-item">
+                                <img src="https://via.placeholder.com/300x200?text=Global+5" class="asset-thumbnail">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Area -->
+        <div class="editor-area">
+            <div class="toolbar">
+                <div class="tool-group">
+                    <button class="tool-btn" title="Undo" id="undo-btn">
+                        <i class="material-icons">undo</i>
+                    </button>
+                    <button class="tool-btn" title="Redo" id="redo-btn">
+                        <i class="material-icons">redo</i>
+                    </button>
+                </div>
+                <div class="tool-group">
+                    <button class="tool-btn active" title="Select" id="select-tool">
+                        <i class="material-icons">near_me</i>
+                    </button>
+                    <button class="tool-btn" title="Crop" id="crop-tool">
+                        <i class="material-icons">crop</i>
+                    </button>
+                    <button class="tool-btn" title="Text" id="text-tool">
+                        <i class="material-icons">text_fields</i>
+                    </button>
+                    <button class="tool-btn" title="Shapes" id="shapes-tool">
+                        <i class="material-icons">category</i>
+                    </button>
+                    <button class="tool-btn" title="Brush" id="brush-tool">
+                        <i class="material-icons">brush</i>
+                    </button>
+                    <button class="tool-btn" title="Eraser" id="eraser-tool">
+                        <i class="material-icons">ink_eraser</i>
+                    </button>
+                </div>
+                <div class="tool-group">
+                    <button class="tool-btn" title="Filters" id="filters-tool">
+                        <i class="material-icons">photo_filter</i>
+                    </button>
+                    <button class="tool-btn" title="Adjustments" id="adjustments-tool">
+                        <i class="material-icons">tune</i>
+                    </button>
+                    <button class="tool-btn" title="Layers" id="toggle-layers">
+                        <i class="material-icons">layers</i>
+                    </button>
+                </div>
+                <div class="tool-group">
+                    <button class="tool-btn" title="Save" id="save-project">
+                        <i class="material-icons">save</i>
+                    </button>
+                    <button class="tool-btn" title="Export" id="export-project">
+                        <i class="material-icons">file_download</i>
+                    </button>
+                    <button class="tool-btn" title="Share" id="share-project">
+                        <i class="material-icons">share</i>
+                    </button>
+                    <button class="tool-btn" title="Dark Mode" id="toggle-dark-mode">
+                        <i class="material-icons">dark_mode</i>
+                    </button>
+                </div>
+            </div>
+            <div class="canvas-container">
+                <canvas id="editor-canvas" width="800" height="600"></canvas>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" id="zoom-in">
+                        <i class="material-icons">zoom_in</i>
+                    </button>
+                    <div class="zoom-value" id="zoom-value">100%</div>
+                    <button class="zoom-btn" id="zoom-out">
+                        <i class="material-icons">zoom_out</i>
+                    </button>
+                    <button class="zoom-btn" id="zoom-reset">
+                        <i class="material-icons">refresh</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties Panel -->
+        <div class="properties-panel" id="properties-panel">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">Properties</h3>
+                <button class="action-btn" id="close-properties">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="property-section">
+                    <h4 class="property-title">Canvas</h4>
+                    <div class="property-group">
+                        <label class="property-label">Width</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="100" max="2000" value="800" id="canvas-width">
+                            <span class="slider-value" id="canvas-width-value">800</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Height</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="100" max="2000" value="600" id="canvas-height">
+                            <span class="slider-value" id="canvas-height-value">600</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Background</label>
+                        <select class="property-control" id="canvas-bg">
+                            <option value="transparent">Transparent</option>
+                            <option value="white" selected>White</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    <div class="property-group" id="canvas-bg-color-container" style="display: none;">
+                        <label class="property-label">Background Color</label>
+                        <input type="color" id="canvas-bg-color" value="#ffffff" class="property-control">
+                    </div>
+                </div>
+                <div class="property-section" id="text-properties" style="display: none;">
+                    <h4 class="property-title">Text</h4>
+                    <div class="property-group">
+                        <label class="property-label">Text Content</label>
+                        <textarea class="property-control" id="text-content" rows="3"></textarea>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Font Family</label>
+                        <select class="font-selector" id="text-font">
+                            <option value="Arial">Arial</option>
+                            <option value="Roboto">Roboto</option>
+                            <option value="Open Sans">Open Sans</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Playfair Display">Playfair Display</option>
+                        </select>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Font Size</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="8" max="120" value="24" id="text-size">
+                            <span class="slider-value" id="text-size-value">24</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Color</label>
+                        <div class="color-picker">
+                            <div class="color-swatch" style="background-color: #000000;" data-color="#000000"></div>
+                            <div class="color-swatch" style="background-color: #ffffff; border: 1px solid #000;" data-color="#ffffff"></div>
+                            <div class="color-swatch" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                            <div class="color-swatch" style="background-color: #00ff00;" data-color="#00ff00"></div>
+                            <div class="color-swatch" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                            <div class="color-swatch" id="custom-color-picker">
+                                <i class="material-icons">colorize</i>
+                            </div>
+                        </div>
+                        <input type="color" id="text-color" value="#000000" style="display: none;">
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Alignment</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="tool-btn" id="text-align-left">
+                                <i class="material-icons">format_align_left</i>
+                            </button>
+                            <button class="tool-btn" id="text-align-center">
+                                <i class="material-icons">format_align_center</i>
+                            </button>
+                            <button class="tool-btn" id="text-align-right">
+                                <i class="material-icons">format_align_right</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Style</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="tool-btn" id="text-bold">
+                                <i class="material-icons">format_bold</i>
+                            </button>
+                            <button class="tool-btn" id="text-italic">
+                                <i class="material-icons">format_italic</i>
+                            </button>
+                            <button class="tool-btn" id="text-underline">
+                                <i class="material-icons">format_underlined</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-section" id="image-properties" style="display: none;">
+                    <h4 class="property-title">Image</h4>
+                    <div class="property-group">
+                        <label class="property-label">Opacity</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="100" id="image-opacity">
+                            <span class="slider-value" id="image-opacity-value">100%</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Brightness</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-100" max="100" value="0" id="image-brightness">
+                            <span class="slider-value" id="image-brightness-value">0</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Contrast</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="-100" max="100" value="0" id="image-contrast">
+                            <span class="slider-value" id="image-contrast-value">0</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <button class="btn btn-primary" id="replace-image">
+                            <i class="material-icons">image</i>
+                            <span>Replace Image</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="property-section" id="shape-properties" style="display: none;">
+                    <h4 class="property-title">Shape</h4>
+                    <div class="property-group">
+                        <label class="property-label">Fill Color</label>
+                        <div class="color-picker">
+                            <div class="color-swatch" style="background-color: #000000;" data-color="#000000"></div>
+                            <div class="color-swatch" style="background-color: #ffffff; border: 1px solid #000;" data-color="#ffffff"></div>
+                            <div class="color-swatch" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                            <div class="color-swatch" style="background-color: #00ff00;" data-color="#00ff00"></div>
+                            <div class="color-swatch" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                            <div class="color-swatch" id="shape-fill-color-picker">
+                                <i class="material-icons">colorize</i>
+                            </div>
+                        </div>
+                        <input type="color" id="shape-fill-color" value="#000000" style="display: none;">
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Stroke Color</label>
+                        <div class="color-picker">
+                            <div class="color-swatch" style="background-color: #000000;" data-color="#000000"></div>
+                            <div class="color-swatch" style="background-color: #ffffff; border: 1px solid #000;" data-color="#ffffff"></div>
+                            <div class="color-swatch" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                            <div class="color-swatch" style="background-color: #00ff00;" data-color="#00ff00"></div>
+                            <div class="color-swatch" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                            <div class="color-swatch" id="shape-stroke-color-picker">
+                                <i class="material-icons">colorize</i>
+                            </div>
+                        </div>
+                        <input type="color" id="shape-stroke-color" value="#000000" style="display: none;">
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Stroke Width</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="1" id="shape-stroke-width">
+                            <span class="slider-value" id="shape-stroke-width-value">1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-section" id="drawing-properties" style="display: none;">
+                    <h4 class="property-title">Drawing</h4>
+                    <div class="property-group">
+                        <label class="property-label">Brush Color</label>
+                        <div class="color-picker">
+                            <div class="color-swatch" style="background-color: #000000;" data-color="#000000"></div>
+                            <div class="color-swatch" style="background-color: #ffffff; border: 1px solid #000;" data-color="#ffffff"></div>
+                            <div class="color-swatch" style="background-color: #ff0000;" data-color="#ff0000"></div>
+                            <div class="color-swatch" style="background-color: #00ff00;" data-color="#00ff00"></div>
+                            <div class="color-swatch" style="background-color: #0000ff;" data-color="#0000ff"></div>
+                            <div class="color-swatch" id="brush-color-picker">
+                                <i class="material-icons">colorize</i>
+                            </div>
+                        </div>
+                        <input type="color" id="brush-color" value="#000000" style="display: none;">
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Brush Size</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="1" max="50" value="5" id="brush-size">
+                            <span class="slider-value" id="brush-size-value">5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-section" id="effects-properties">
+                    <h4 class="property-title">Effects</h4>
+                    <div class="property-group">
+                        <label class="property-label">Opacity</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="100" value="100" id="object-opacity">
+                            <span class="slider-value" id="object-opacity-value">100%</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Shadow</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="0" id="object-shadow">
+                            <span class="slider-value" id="object-shadow-value">0</span>
+                        </div>
+                    </div>
+                    <div class="property-group">
+                        <label class="property-label">Blur</label>
+                        <div class="slider-container">
+                            <input type="range" class="slider" min="0" max="20" value="0" id="object-blur">
+                            <span class="slider-value" id="object-blur-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layers Panel -->
+        <div class="properties-panel" id="layers-panel" style="display: none;">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">Layers</h3>
+                <button class="action-btn" id="close-layers">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="layer-panel" id="layers-container">
+                    <!-- Layers will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Project Modal -->
+    <div class="modal" id="new-project-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">New Project</h3>
+                <button class="modal-close" id="close-new-project-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-control" placeholder="My Awesome Design" id="project-name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Choose Orientation</label>
+                    <div class="orientation-grid">
+                        <div class="orientation-option" data-width="1080" data-height="1080" data-name="Square">
+                            <div class="orientation-preview square"></div>
+                            <span>Square</span>
+                        </div>
+                        <div class="orientation-option" data-width="1920" data-height="1080" data-name="YouTube Thumbnail">
+                            <div class="orientation-preview youtube"></div>
+                            <span>YouTube</span>
+                        </div>
+                        <div class="orientation-option" data-width="820" data-height="312" data-name="Facebook Cover">
+                            <div class="orientation-preview facebook"></div>
+                            <span>Facebook</span>
+                        </div>
+                        <div class="orientation-option" data-width="1200" data-height="630" data-name="Facebook Post">
+                            <div class="orientation-preview facebook-post"></div>
+                            <span>Facebook Post</span>
+                        </div>
+                        <div class="orientation-option" data-width="150" data-height="150" data-name="Avatar">
+                            <div class="orientation-preview avatar"></div>
+                            <span>Avatar</span>
+                        </div>
+                        <div class="orientation-option" data-width="800" data-height="200" data-name="Banner">
+                            <div class="orientation-preview banner"></div>
+                            <span>Banner</span>
+                        </div>
+                        <div class="orientation-option" data-width="custom" data-name="Custom">
+                            <div class="orientation-preview custom">
+                                <i class="material-icons">settings</i>
+                            </div>
+                            <span>Custom</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="custom-size-container" id="custom-size-container" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Custom Size</label>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 0.5rem;">
+                            <div style="flex: 1;">
+                                <input type="number" class="form-control" placeholder="Width" id="custom-width">
+                            </div>
+                            <div style="flex: 1;">
+                                <input type="number" class="form-control" placeholder="Height" id="custom-height">
+                            </div>
+                        </div>
+                        <select class="form-control" id="size-unit">
+                            <option value="px">Pixels (px)</option>
+                            <option value="in">Inches (in)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="mm">Millimeters (mm)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Background</label>
+                    <div class="background-options">
+                        <div class="background-option" data-bg="transparent">
+                            <div class="bg-preview checkerboard"></div>
+                            <span>Transparent</span>
+                        </div>
+                        <div class="background-option" data-bg="white" data-selected="true">
+                            <div class="bg-preview white"></div>
+                            <span>White</span>
+                        </div>
+                        <div class="background-option" data-bg="black">
+                            <div class="bg-preview black"></div>
+                            <span>Black</span>
+                        </div>
+                        <div class="background-option" data-bg="color">
+                            <div class="bg-preview color">
+                                <i class="material-icons">color_lens</i>
+                            </div>
+                            <span>Color</span>
+                        </div>
+                        <div class="background-option" data-bg="gradient">
+                            <div class="bg-preview gradient"></div>
+                            <span>Gradient</span>
+                        </div>
+                    </div>
+                    <div class="color-picker-container" id="color-picker-container" style="display: none; margin-top: 0.5rem;">
+                        <input type="color" id="bg-color-picker" value="#ffffff">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-new-project">Cancel</button>
+                <button class="btn btn-primary" id="create-project">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Upload Modal -->
+    <div class="modal" id="font-upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Upload Font</h3>
+                <button class="modal-close" id="close-font-upload-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Font Name</label>
+                    <input type="text" class="form-control" placeholder="e.g., My Custom Font" id="font-name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Font File (.ttf, .otf)</label>
+                    <div class="dropzone" id="font-dropzone">
+                        <i class="material-icons">font_download</i>
+                        <p>Drag & drop font file here or click to upload</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Or select from Google Fonts</label>
+                    <select class="form-control" id="google-fonts">
+                        <option value="">Select Google Font</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Playfair Display">Playfair Display</option>
+                        <option value="Lato">Lato</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-font-upload">Cancel</button>
+                <button class="btn btn-primary" id="upload-font">Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="export-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Export Project</h3>
+                <button class="modal-close" id="close-export-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">File Name</label>
+                    <input type="text" class="form-control" value="My Awesome Design" id="export-name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Format</label>
+                    <select class="form-control" id="export-format">
+                        <option value="png">PNG (Transparent Background)</option>
+                        <option value="jpg" selected>JPEG (High Quality)</option>
+                        <option value="pdf">PDF (Vector Format)</option>
+                        <option value="svg">SVG (Scalable Vector)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Quality</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" min="50" max="100" value="90" id="export-quality">
+                        <span class="slider-value" id="export-quality-value">90%</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Size</label>
+                    <select class="form-control" id="export-size">
+                        <option value="original" selected>Original Size</option>
+                        <option value="instagram">Instagram (1080x1080)</option>
+                        <option value="facebook">Facebook (1200x630)</option>
+                        <option value="twitter">Twitter (1024x512)</option>
+                        <option value="custom">Custom Size</option>
+                    </select>
+                </div>
+                <div class="form-group" id="export-custom-size-container" style="display: none;">
+                    <label class="form-label">Custom Size</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <input type="number" class="form-control" placeholder="Width" id="export-custom-width">
+                        </div>
+                        <div style="flex: 1;">
+                            <input type="number" class="form-control" placeholder="Height" id="export-custom-height">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-export">Cancel</button>
+                <button class="btn btn-primary" id="confirm-export">Export</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="material-icons" id="toast-icon">check_circle</i>
+        <span id="toast-message">Project saved successfully!</span>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loading" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu">
+        <div class="context-item" id="context-copy">
+            <i class="material-icons">content_copy</i>
+            <span>Copy</span>
+        </div>
+        <div class="context-item" id="context-paste">
+            <i class="material-icons">content_paste</i>
+            <span>Paste</span>
+        </div>
+        <div class="context-item" id="context-delete">
+            <i class="material-icons">delete</i>
+            <span>Delete</span>
+        </div>
+        <div class="context-item" id="context-bring-forward">
+            <i class="material-icons">layers</i>
+            <span>Bring Forward</span>
+        </div>
+        <div class="context-item" id="context-send-backward">
+            <i class="material-icons">layers_clear</i>
+            <span>Send Backward</span>
+        </div>
+        <div class="context-item" id="context-bring-to-front">
+            <i class="material-icons">vertical_align_top</i>
+            <span>Bring to Front</span>
+        </div>
+        <div class="context-item" id="context-send-to-back">
+            <i class="material-icons">vertical_align_bottom</i>
+            <span>Send to Back</span>
+        </div>
+    </div>
+
+    <script>
+        // Main Application Class
+        class TEditor {
+            constructor() {
+                this.canvas = null;
+                this.currentTool = 'select';
+                this.activeObject = null;
+                this.clipboard = null;
+                this.zoomLevel = 1;
+                this.undoStack = [];
+                this.redoStack = [];
+                this.maxUndoSteps = 50;
+                this.autoSaveInterval = null;
+                this.currentProject = {
+                    name: 'Untitled Project',
+                    canvas: null,
+                    objects: [],
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                };
+                this.projects = [];
+                this.fonts = ['Arial', 'Roboto', 'Open Sans', 'Montserrat', 'Playfair Display'];
+                this.templates = [
+                    { name: 'Instagram Post', thumbnail: 'https://via.placeholder.com/300x200?text=Instagram+Post', width: 1080, height: 1080 },
+                    { name: 'Facebook Cover', thumbnail: 'https://via.placeholder.com/300x200?text=Facebook+Cover', width: 820, height: 312 },
+                    { name: 'YouTube Thumbnail', thumbnail: 'https://via.placeholder.com/300x200?text=YouTube+Thumbnail', width: 1280, height: 720 },
+                    { name: 'Business Card', thumbnail: 'https://via.placeholder.com/300x200?text=Business+Card', width: 850, height: 550 },
+                    { name: 'Flyer', thumbnail: 'https://via.placeholder.com/300x200?text=Flyer', width: 1240, height: 1754 },
+                    { name: 'Poster', thumbnail: 'https://via.placeholder.com/300x200?text=Poster', width: 1240, height: 1754 }
+                ];
+                this.assets = {
+                    local: [],
+                    global: []
+                };
+                
+                this.initCanvas();
+                this.initEventListeners();
+                this.loadProjects();
+                this.startAutoSave();
+                this.setupDefaultProject();
+            }
+            
+            initCanvas() {
+                this.canvas = new fabric.Canvas('editor-canvas', {
+                    width: 800,
+                    height: 600,
+                    backgroundColor: '#ffffff',
+                    selection: true,
+                    preserveObjectStacking: true
+                });
+                
+                // Set up event listeners for the canvas
+                this.canvas.on('object:selected', (e) => this.onObjectSelected(e));
+                this.canvas.on('selection:cleared', () => this.onSelectionCleared());
+                this.canvas.on('object:modified', () => this.saveState());
+                this.canvas.on('object:added', () => this.saveState());
+                this.canvas.on('object:removed', () => this.saveState());
+                
+                // Set up keyboard shortcuts
+                document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+            }
+            
+            initEventListeners() {
+                // Sidebar and panel toggles
+                document.getElementById('toggle-sidebar').addEventListener('click', () => {
+                    document.getElementById('sidebar').classList.toggle('visible');
+                });
+                
+                document.getElementById('close-sidebar').addEventListener('click', () => {
+                    document.getElementById('sidebar').classList.remove('visible');
+                });
+                
+                document.getElementById('close-properties').addEventListener('click', () => {
+                    document.getElementById('properties-panel').classList.remove('visible');
+                });
+                
+                document.getElementById('toggle-layers').addEventListener('click', () => {
+                    document.getElementById('layers-panel').classList.toggle('visible');
+                    this.updateLayersPanel();
+                });
+                
+                document.getElementById('close-layers').addEventListener('click', () => {
+                    document.getElementById('layers-panel').classList.remove('visible');
+                });
+                
+                // Tool buttons
+                document.getElementById('select-tool').addEventListener('click', () => this.setTool('select'));
+                document.getElementById('text-tool').addEventListener('click', () => this.setTool('text'));
+                document.getElementById('crop-tool').addEventListener('click', () => this.setTool('crop'));
+                document.getElementById('shapes-tool').addEventListener('click', () => this.setTool('shapes'));
+                document.getElementById('brush-tool').addEventListener('click', () => this.setTool('brush'));
+                document.getElementById('eraser-tool').addEventListener('click', () => this.setTool('eraser'));
+                document.getElementById('filters-tool').addEventListener('click', () => this.setTool('filters'));
+                document.getElementById('adjustments-tool').addEventListener('click', () => this.setTool('adjustments'));
+                
+                // Undo/Redo
+                document.getElementById('undo-btn').addEventListener('click', () => this.undo());
+                document.getElementById('redo-btn').addEventListener('click', () => this.redo());
+                
+                // Project actions
+                document.getElementById('new-project').addEventListener('click', () => this.showNewProjectModal());
+                document.getElementById('close-new-project-modal').addEventListener('click', () => this.hideNewProjectModal());
+                document.getElementById('cancel-new-project').addEventListener('click', () => this.hideNewProjectModal());
+                document.getElementById('create-project').addEventListener('click', () => this.createNewProject());
+                
+                document.getElementById('save-project').addEventListener('click', () => this.saveProject());
+                document.getElementById('export-project').addEventListener('click', () => this.showExportModal());
+                document.getElementById('close-export-modal').addEventListener('click', () => this.hideExportModal());
+                document.getElementById('cancel-export').addEventListener('click', () => this.hideExportModal());
+                document.getElementById('confirm-export').addEventListener('click', () => this.exportProject());
+                
+                // Zoom controls
+                document.getElementById('zoom-in').addEventListener('click', () => this.zoomIn());
+                document.getElementById('zoom-out').addEventListener('click', () => this.zoomOut());
+                document.getElementById('zoom-reset').addEventListener('click', () => this.resetZoom());
+                
+                // Dark mode toggle
+                document.getElementById('toggle-dark-mode').addEventListener('click', () => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+                });
+                
+                // Sidebar tabs
+                document.querySelectorAll('.sidebar-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.getAttribute('data-tab');
+                        
+                        document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        
+                        tab.classList.add('active');
+                        document.getElementById(`${tabId}-tab`).classList.add('active');
+                    });
+                });
+                
+                // Asset tabs
+                document.querySelectorAll('.asset-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.getAttribute('data-asset-tab');
+                        
+                        document.querySelectorAll('.asset-tab').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.asset-tab-content').forEach(c => c.classList.remove('active'));
+                        
+                        tab.classList.add('active');
+                        document.getElementById(`${tabId}-assets`).classList.add('active');
+                    });
+                });
+                
+                // Template items
+                document.querySelectorAll('.template-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const templateName = item.querySelector('.template-name').textContent;
+                        const template = this.templates.find(t => t.name === templateName);
+                        if (template) {
+                            this.loadTemplate(template);
+                        }
+                    });
+                });
+                
+                // Asset items
+                document.querySelectorAll('.asset-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const img = item.querySelector('img');
+                        if (img) {
+                            this.addImageToCanvas(img.src);
+                        }
+                    });
+                });
+                
+                // Dropzones
+                document.getElementById('local-dropzone').addEventListener('click', () => this.triggerFileUpload('local'));
+                document.getElementById('font-dropzone').addEventListener('click', () => this.triggerFileUpload('font'));
+                
+                // Handle file drops
+                document.getElementById('local-dropzone').addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    document.getElementById('local-dropzone').classList.add('active');
+                });
+                
+                document.getElementById('local-dropzone').addEventListener('dragleave', () => {
+                    document.getElementById('local-dropzone').classList.remove('active');
+                });
+                
+                document.getElementById('local-dropzone').addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    document.getElementById('local-dropzone').classList.remove('active');
+                    this.handleFileDrop(e.dataTransfer.files, 'local');
+                });
+                
+                // Text properties
+                document.getElementById('text-content').addEventListener('input', (e) => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        this.activeObject.set('text', e.target.value);
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-font').addEventListener('change', (e) => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        this.activeObject.set('fontFamily', e.target.value);
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-size').addEventListener('input', (e) => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        this.activeObject.set('fontSize', parseInt(e.target.value));
+                        document.getElementById('text-size-value').textContent = e.target.value;
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-align-left').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        this.activeObject.set('textAlign', 'left');
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-align-center').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        this.activeObject.set('textAlign', 'center');
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-align-right').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        this.activeObject.set('textAlign', 'right');
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-bold').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        const isBold = !this.activeObject.fontWeight || this.activeObject.fontWeight === 'normal';
+                        this.activeObject.set('fontWeight', isBold ? 'bold' : 'normal');
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-italic').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        const isItalic = this.activeObject.fontStyle === 'italic';
+                        this.activeObject.set('fontStyle', isItalic ? 'normal' : 'italic');
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('text-underline').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'textbox') {
+                        const isUnderline = this.activeObject.underline;
+                        this.activeObject.set('underline', !isUnderline);
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                // Color pickers
+                document.querySelectorAll('.color-swatch').forEach(swatch => {
+                    if (!swatch.id) {
+                        swatch.addEventListener('click', () => {
+                            const color = swatch.getAttribute('data-color');
+                            this.setActiveObjectColor(color);
+                        });
+                    }
+                });
+                
+                document.getElementById('custom-color-picker').addEventListener('click', () => {
+                    document.getElementById('text-color').click();
+                });
+                
+                document.getElementById('text-color').addEventListener('input', (e) => {
+                    this.setActiveObjectColor(e.target.value);
+                });
+                
+                // Image properties
+                document.getElementById('image-opacity').addEventListener('input', (e) => {
+                    if (this.activeObject && this.activeObject.type === 'image') {
+                        this.activeObject.set('opacity', parseInt(e.target.value) / 100);
+                        document.getElementById('image-opacity-value').textContent = `${e.target.value}%`;
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('image-brightness').addEventListener('input', (e) => {
+                    if (this.activeObject && this.activeObject.type === 'image') {
+                        const brightness = parseInt(e.target.value);
+                        this.applyImageFilter('brightness', brightness);
+                        document.getElementById('image-brightness-value').textContent = brightness;
+                    }
+                });
+                
+                document.getElementById('image-contrast').addEventListener('input', (e) => {
+                    if (this.activeObject && this.activeObject.type === 'image') {
+                        const contrast = parseInt(e.target.value);
+                        this.applyImageFilter('contrast', contrast);
+                        document.getElementById('image-contrast-value').textContent = contrast;
+                    }
+                });
+                
+                document.getElementById('replace-image').addEventListener('click', () => {
+                    if (this.activeObject && this.activeObject.type === 'image') {
+                        this.triggerFileUpload('replace');
+                    }
+                });
+                
+                // Shape properties
+                document.getElementById('shape-fill-color-picker').addEventListener('click', () => {
+                    document.getElementById('shape-fill-color').click();
+                });
+                
+                document.getElementById('shape-fill-color').addEventListener('input', (e) => {
+                    if (this.activeObject && (this.activeObject.type === 'rect' || this.activeObject.type === 'circle' || this.activeObject.type === 'triangle')) {
+                        this.activeObject.set('fill', e.target.value);
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('shape-stroke-color-picker').addEventListener('click', () => {
+                    document.getElementById('shape-stroke-color').click();
+                });
+                
+                document.getElementById('shape-stroke-color').addEventListener('input', (e) => {
+                    if (this.activeObject && (this.activeObject.type === 'rect' || this.activeObject.type === 'circle' || this.activeObject.type === 'triangle')) {
+                        this.activeObject.set('stroke', e.target.value);
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('shape-stroke-width').addEventListener('input', (e) => {
+                    if (this.activeObject && (this.activeObject.type === 'rect' || this.activeObject.type === 'circle' || this.activeObject.type === 'triangle')) {
+                        this.activeObject.set('strokeWidth', parseInt(e.target.value));
+                        document.getElementById('shape-stroke-width-value').textContent = e.target.value;
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                // Drawing properties
+                document.getElementById('brush-color-picker').addEventListener('click', () => {
+                    document.getElementById('brush-color').click();
+                });
+                
+                document.getElementById('brush-color').addEventListener('input', (e) => {
+                    this.setBrushColor(e.target.value);
+                });
+                
+                document.getElementById('brush-size').addEventListener('input', (e) => {
+                    this.setBrushSize(parseInt(e.target.value));
+                    document.getElementById('brush-size-value').textContent = e.target.value;
+                });
+                
+                // Effects properties
+                document.getElementById('object-opacity').addEventListener('input', (e) => {
+                    if (this.activeObject) {
+                        this.activeObject.set('opacity', parseInt(e.target.value) / 100);
+                        document.getElementById('object-opacity-value').textContent = `${e.target.value}%`;
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('object-shadow').addEventListener('input', (e) => {
+                    if (this.activeObject) {
+                        const shadowValue = parseInt(e.target.value);
+                        if (shadowValue > 0) {
+                            this.activeObject.set('shadow', new fabric.Shadow({
+                                color: 'rgba(0,0,0,0.3)',
+                                blur: shadowValue * 2,
+                                offsetX: shadowValue,
+                                offsetY: shadowValue
+                            }));
+                        } else {
+                            this.activeObject.set('shadow', null);
+                        }
+                        document.getElementById('object-shadow-value').textContent = shadowValue;
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                document.getElementById('object-blur').addEventListener('input', (e) => {
+                    if (this.activeObject) {
+                        const blurValue = parseInt(e.target.value);
+                        if (blurValue > 0) {
+                            this.activeObject.set('blur', blurValue);
+                        } else {
+                            this.activeObject.set('blur', 0);
+                        }
+                        document.getElementById('object-blur-value').textContent = blurValue;
+                        this.canvas.renderAll();
+                    }
+                });
+                
+                // Canvas properties
+                document.getElementById('canvas-width').addEventListener('input', (e) => {
+                    this.canvas.setWidth(parseInt(e.target.value));
+                    document.getElementById('canvas-width-value').textContent = e.target.value;
+                    this.canvas.renderAll();
+                });
+                
+                document.getElementById('canvas-height').addEventListener('input', (e) => {
+                    this.canvas.setHeight(parseInt(e.target.value));
+                    document.getElementById('canvas-height-value').textContent = e.target.value;
+                    this.canvas.renderAll();
+                });
+                
+                document.getElementById('canvas-bg').addEventListener('change', (e) => {
+                    if (e.target.value === 'custom') {
+                        document.getElementById('canvas-bg-color-container').style.display = 'block';
+                        this.canvas.setBackgroundColor(document.getElementById('canvas-bg-color').value, () => {
+                            this.canvas.renderAll();
+                        });
+                    } else if (e.target.value === 'transparent') {
+                        document.getElementById('canvas-bg-color-container').style.display = 'none';
+                        this.canvas.setBackgroundColor(null, () => {
+                            this.canvas.renderAll();
+                        });
+                    } else {
+                        document.getElementById('canvas-bg-color-container').style.display = 'none';
+                        this.canvas.setBackgroundColor(e.target.value === 'white' ? '#ffffff' : '#000000', () => {
+                            this.canvas.renderAll();
+                        });
+                    }
+                });
+                
+                document.getElementById('canvas-bg-color').addEventListener('input', (e) => {
+                    this.canvas.setBackgroundColor(e.target.value, () => {
+                        this.canvas.renderAll();
+                    });
+                });
+                
+                // Context menu
+                document.getElementById('context-copy').addEventListener('click', () => this.copyObject());
+                document.getElementById('context-paste').addEventListener('click', () => this.pasteObject());
+                document.getElementById('context-delete').addEventListener('click', () => this.deleteObject());
+                document.getElementById('context-bring-forward').addEventListener('click', () => this.bringForward());
+                document.getElementById('context-send-backward').addEventListener('click', () => this.sendBackward());
+                document.getElementById('context-bring-to-front').addEventListener('click', () => this.bringToFront());
+                document.getElementById('context-send-to-back').addEventListener('click', () => this.sendToBack());
+                
+                // New project modal
+                document.querySelectorAll('.orientation-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        document.querySelectorAll('.orientation-option').forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        
+                        if (option.dataset.width === 'custom') {
+                            document.getElementById('custom-size-container').style.display = 'block';
+                        } else {
+                            document.getElementById('custom-size-container').style.display = 'none';
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.background-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        document.querySelectorAll('.background-option').forEach(opt => opt.removeAttribute('data-selected'));
+                        option.setAttribute('data-selected', 'true');
+                        
+                        if (option.dataset.bg === 'color') {
+                            document.getElementById('color-picker-container').style.display = 'block';
+                        } else {
+                            document.getElementById('color-picker-container').style.display = 'none';
+                        }
+                    });
+                });
+                
+                // Export modal
+                document.getElementById('export-size').addEventListener('change', (e) => {
+                    if (e.target.value === 'custom') {
+                        document.getElementById('export-custom-size-container').style.display = 'block';
+                    } else {
+                        document.getElementById('export-custom-size-container').style.display = 'none';
+                    }
+                });
+                
+                document.getElementById('export-quality').addEventListener('input', (e) => {
+                    document.getElementById('export-quality-value').textContent = `${e.target.value}%`;
+                });
+                
+                // Font upload modal
+                document.getElementById('upload-font').addEventListener('click', () => {
+                    const fontName = document.getElementById('font-name').value;
+                    const googleFont = document.getElementById('google-fonts').value;
+                    
+                    if (googleFont) {
+                        this.addGoogleFont(googleFont);
+                        this.showToast(`Font "${googleFont}" added successfully!`, 'check_circle');
+                        document.getElementById('font-upload-modal').classList.remove('active');
+                    } else {
+                        // In a real app, we would handle the font file upload here
+                        this.showToast('Please select a font file or choose from Google Fonts', 'error');
+                    }
+                });
+                
+                document.getElementById('cancel-font-upload').addEventListener('click', () => {
+                    document.getElementById('font-upload-modal').classList.remove('active');
+                });
+                
+                // Responsive adjustments
+                window.addEventListener('resize', () => this.handleResize());
+                
+                // Initialize dark mode if previously set
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.body.classList.add('dark-mode');
+                }
+            }
+            
+            setTool(tool) {
+                this.currentTool = tool;
+                
+                // Update active state of tool buttons
+                document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+                
+                switch (tool) {
+                    case 'select':
+                        document.getElementById('select-tool').classList.add('active');
+                        this.canvas.isDrawingMode = false;
+                        this.canvas.selection = true;
+                        this.canvas.defaultCursor = 'default';
+                        this.canvas.forEachObject(obj => obj.selectable = true);
+                        break;
+                        
+                    case 'text':
+                        document.getElementById('text-tool').classList.add('active');
+                        this.canvas.isDrawingMode = false;
+                        this.canvas.selection = false;
+                        this.canvas.defaultCursor = 'text';
+                        this.canvas.forEachObject(obj => obj.selectable = false);
+                        
+                        // Create a new text object when clicking on canvas
+                        this.canvas.off('mouse:down');
+                        this.canvas.on('mouse:down', (options) => {
+                            if (options.target) return;
+                            
+                            const text = new fabric.Textbox('Type here', {
+                                left: options.pointer.x,
+                                top: options.pointer.y,
+                                width: 200,
+                                fontSize: 24,
+                                fontFamily: 'Arial',
+                                fill: '#000000',
+                                hasControls: true
+                            });
+                            
+                            this.canvas.add(text);
+                            this.canvas.setActiveObject(text);
+                            this.onObjectSelected({ target: text });
+                            text.enterEditing();
+                            text.selectAll();
+                            
+                            this.saveState();
+                        });
+                        break;
+                        
+                    case 'crop':
+                        document.getElementById('crop-tool').classList.add('active');
+                        this.canvas.isDrawingMode = false;
+                        this.canvas.selection = true;
+                        this.canvas.defaultCursor = 'crosshair';
+                        // Crop functionality would be implemented here
+                        break;
+                        
+                    case 'shapes':
+                        document.getElementById('shapes-tool').classList.add('active');
+                        this.canvas.isDrawingMode = false;
+                        this.canvas.selection = false;
+                        this.canvas.defaultCursor = 'crosshair';
+                        
+                        // Add shape when clicking on canvas
+                        this.canvas.off('mouse:down');
+                        this.canvas.on('mouse:down', (options) => {
+                            if (options.target) return;
+                            
+                            // For demo, we'll just add a rectangle
+                            const rect = new fabric.Rect({
+                                left: options.pointer.x,
+                                top: options.pointer.y,
+                                width: 100,
+                                height: 100,
+                                fill: '#ff0000',
+                                stroke: '#000000',
+                                strokeWidth: 1,
+                                hasControls: true
+                            });
+                            
+                            this.canvas.add(rect);
+                            this.canvas.setActiveObject(rect);
+                            this.onObjectSelected({ target: rect });
+                            
+                            this.saveState();
+                        });
+                        break;
+                        
+                    case 'brush':
+                        document.getElementById('brush-tool').classList.add('active');
+                        this.canvas.isDrawingMode = true;
+                        this.canvas.selection = false;
+                        this.canvas.defaultCursor = 'crosshair';
+                        this.canvas.freeDrawingBrush = new fabric.PencilBrush(this.canvas);
+                        this.canvas.freeDrawingBrush.color = document.getElementById('brush-color').value;
+                        this.canvas.freeDrawingBrush.width = parseInt(document.getElementById('brush-size').value);
+                        break;
+                        
+                    case 'eraser':
+                        document.getElementById('eraser-tool').classList.add('active');
+                        this.canvas.isDrawingMode = true;
+                        this.canvas.selection = false;
+                        this.canvas.defaultCursor = 'crosshair';
+                        this.canvas.freeDrawingBrush = new fabric.PencilBrush(this.canvas);
+                        this.canvas.freeDrawingBrush.color = this.canvas.backgroundColor || '#ffffff';
+                        this.canvas.freeDrawingBrush.width = 10;
+                        break;
+                        
+                    case 'filters':
+                        document.getElementById('filters-tool').classList.add('active');
+                        this.canvas.isDrawingMode = false;
+                        this.canvas.selection = true;
+                        this.canvas.defaultCursor = 'default';
+                        // Filter functionality would be implemented here
+                        break;
+                        
+                    case 'adjustments':
+                        document.getElementById('adjustments-tool').classList.add('active');
+                        this.canvas.isDrawingMode = false;
+                        this.canvas.selection = true;
+                        this.canvas.defaultCursor = 'default';
+                        // Adjustment functionality would be implemented here
+                        break;
+                }
+                
+                this.canvas.renderAll();
+            }
+            
+            onObjectSelected(e) {
+                this.activeObject = e.target;
+                
+                // Show relevant properties panel
+                document.getElementById('text-properties').style.display = 'none';
+                document.getElementById('image-properties').style.display = 'none';
+                document.getElementById('shape-properties').style.display = 'none';
+                document.getElementById('drawing-properties').style.display = 'none';
+                
+                if (this.activeObject.type === 'textbox') {
+                    document.getElementById('text-properties').style.display = 'block';
+                    document.getElementById('text-content').value = this.activeObject.text;
+                    document.getElementById('text-font').value = this.activeObject.fontFamily || 'Arial';
+                    document.getElementById('text-size').value = this.activeObject.fontSize;
+                    document.getElementById('text-size-value').textContent = this.activeObject.fontSize;
+                    
+                    // Set color swatch
+                    const color = this.activeObject.fill || '#000000';
+                    document.getElementById('text-color').value = color;
+                } else if (this.activeObject.type === 'image') {
+                    document.getElementById('image-properties').style.display = 'block';
+                    document.getElementById('image-opacity').value = (this.activeObject.opacity || 1) * 100;
+                    document.getElementById('image-opacity-value').textContent = `${(this.activeObject.opacity || 1) * 100}%`;
+                } else if (this.activeObject.type === 'rect' || this.activeObject.type === 'circle' || this.activeObject.type === 'triangle') {
+                    document.getElementById('shape-properties').style.display = 'block';
+                    document.getElementById('shape-fill-color').value = this.activeObject.fill || '#000000';
+                    document.getElementById('shape-stroke-color').value = this.activeObject.stroke || '#000000';
+                    document.getElementById('shape-stroke-width').value = this.activeObject.strokeWidth || 1;
+                    document.getElementById('shape-stroke-width-value').textContent = this.activeObject.strokeWidth || 1;
+                }
+                
+                // Always show effects properties
+                document.getElementById('effects-properties').style.display = 'block';
+                document.getElementById('object-opacity').value = (this.activeObject.opacity || 1) * 100;
+                document.getElementById('object-opacity-value').textContent = `${(this.activeObject.opacity || 1) * 100}%`;
+                
+                const shadow = this.activeObject.shadow;
+                if (shadow) {
+                    document.getElementById('object-shadow').value = shadow.offsetX;
+                    document.getElementById('object-shadow-value').textContent = shadow.offsetX;
+                } else {
+                    document.getElementById('object-shadow').value = 0;
+                    document.getElementById('object-shadow-value').textContent = 0;
+                }
+                
+                document.getElementById('object-blur').value = this.activeObject.blur || 0;
+                document.getElementById('object-blur-value').textContent = this.activeObject.blur || 0;
+                
+                // Update layers panel
+                this.updateLayersPanel();
+            }
+            
+            onSelectionCleared() {
+                this.activeObject = null;
+                
+                // Hide all property panels except canvas
+                document.getElementById('text-properties').style.display = 'none';
+                document.getElementById('image-properties').style.display = 'none';
+                document.getElementById('shape-properties').style.display = 'none';
+                document.getElementById('drawing-properties').style.display = 'none';
+                
+                // Update layers panel
+                this.updateLayersPanel();
+            }
+            
+            setActiveObjectColor(color) {
+                if (this.activeObject) {
+                    if (this.activeObject.type === 'textbox') {
+                        this.activeObject.set('fill', color);
+                    } else if (this.activeObject.type === 'rect' || this.activeObject.type === 'circle' || this.activeObject.type === 'triangle') {
+                        this.activeObject.set('fill', color);
+                    }
+                    this.canvas.renderAll();
+                }
+            }
+            
+            applyImageFilter(filter, value) {
+                if (!this.activeObject || this.activeObject.type !== 'image') return;
+                
+                const filters = this.activeObject.filters || [];
+                
+                if (filter === 'brightness') {
+                    // Remove existing brightness filter if any
+                    filters.forEach((f, i) => {
+                        if (f.type === 'brightness') {
+                            filters.splice(i, 1);
+                        }
+                    });
+                    
+                    if (value !== 0) {
+                        filters.push(new fabric.Image.filters.Brightness({
+                            brightness: value / 100
+                        }));
+                    }
+                } else if (filter === 'contrast') {
+                    // Remove existing contrast filter if any
+                    filters.forEach((f, i) => {
+                        if (f.type === 'contrast') {
+                            filters.splice(i, 1);
+                        }
+                    });
+                    
+                    if (value !== 0) {
+                        filters.push(new fabric.Image.filters.Contrast({
+                            contrast: value / 100
+                        }));
+                    }
+                }
+                
+                this.activeObject.filters = filters;
+                this.activeObject.applyFilters();
+                this.canvas.renderAll();
+            }
+            
+            setBrushColor(color) {
+                if (this.canvas.isDrawingMode) {
+                    this.canvas.freeDrawingBrush.color = color;
+                }
+            }
+            
+            setBrushSize(size) {
+                if (this.canvas.isDrawingMode) {
+                    this.canvas.freeDrawingBrush.width = size;
+                }
+            }
+            
+            saveState() {
+                // Limit the number of undo steps
+                if (this.undoStack.length >= this.maxUndoSteps) {
+                    this.undoStack.shift();
+                }
+                
+                // Save current canvas state to undo stack
+                this.undoStack.push(JSON.stringify(this.canvas.toJSON()));
+                
+                // Clear redo stack when making a new change
+                this.redoStack = [];
+                
+                // Update undo/redo button states
+                document.getElementById('undo-btn').disabled = this.undoStack.length === 0;
+                document.getElementById('redo-btn').disabled = this.redoStack.length === 0;
+                
+                // Update layers panel
+                this.updateLayersPanel();
+            }
+            
+            undo() {
+                if (this.undoStack.length > 0) {
+                    // Save current state to redo stack
+                    this.redoStack.push(JSON.stringify(this.canvas.toJSON()));
+                    
+                    // Restore previous state from undo stack
+                    const state = this.undoStack.pop();
+                    this.canvas.loadFromJSON(state, () => {
+                        this.canvas.renderAll();
+                        
+                        // Update undo/redo button states
+                        document.getElementById('undo-btn').disabled = this.undoStack.length === 0;
+                        document.getElementById('redo-btn').disabled = this.redoStack.length === 0;
+                        
+                        // Update layers panel
+                        this.updateLayersPanel();
+                    });
+                }
+            }
+            
+            redo() {
+                if (this.redoStack.length > 0) {
+                    // Save current state to undo stack
+                    this.undoStack.push(JSON.stringify(this.canvas.toJSON()));
+                    
+                    // Restore next state from redo stack
+                    const state = this.redoStack.pop();
+                    this.canvas.loadFromJSON(state, () => {
+                        this.canvas.renderAll();
+                        
+                        // Update undo/redo button states
+                        document.getElementById('undo-btn').disabled = this.undoStack.length === 0;
+                        document.getElementById('redo-btn').disabled = this.redoStack.length === 0;
+                        
+                        // Update layers panel
+                        this.updateLayersPanel();
+                    });
+                }
+            }
+            
+            updateLayersPanel() {
+                const layersContainer = document.getElementById('layers-container');
+                layersContainer.innerHTML = '';
+                
+                const objects = this.canvas.getObjects();
+                
+                // Add layers in reverse order (top to bottom)
+                for (let i = objects.length - 1; i >= 0; i--) {
+                    const obj = objects[i];
+                    const layerItem = document.createElement('div');
+                    layerItem.className = `layer-item ${this.activeObject === obj ? 'active' : ''}`;
+                    
+                    const layerPreview = document.createElement('div');
+                    layerPreview.className = 'layer-preview';
+                    
+                    // Create a thumbnail for the layer
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 40;
+                    canvas.height = 40;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Draw a representation of the object
+                    if (obj.type === 'textbox') {
+                        ctx.fillStyle = '#f5f5f5';
+                        ctx.fillRect(0, 0, 40, 40);
+                        ctx.fillStyle = obj.fill || '#000000';
+                        ctx.font = '12px Arial';
+                        ctx.fillText('T', 15, 25);
+                    } else if (obj.type === 'image') {
+                        // For demo, just show a generic image icon
+                        ctx.fillStyle = '#f5f5f5';
+                        ctx.fillRect(0, 0, 40, 40);
+                        ctx.fillStyle = '#999';
+                        ctx.fillRect(10, 10, 20, 20);
+                    } else if (obj.type === 'rect') {
+                        ctx.fillStyle = obj.fill || '#ff0000';
+                        ctx.fillRect(5, 5, 30, 30);
+                    } else if (obj.type === 'circle') {
+                        ctx.fillStyle = obj.fill || '#00ff00';
+                        ctx.beginPath();
+                        ctx.arc(20, 20, 15, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (obj.type === 'triangle') {
+                        ctx.fillStyle = obj.fill || '#0000ff';
+                        ctx.beginPath();
+                        ctx.moveTo(20, 5);
+                        ctx.lineTo(35, 35);
+                        ctx.lineTo(5, 35);
+                        ctx.closePath();
+                        ctx.fill();
+                    } else {
+                        // Generic shape
+                        ctx.fillStyle = '#f5f5f5';
+                        ctx.fillRect(0, 0, 40, 40);
+                        ctx.fillStyle = '#999';
+                        ctx.fillText('?', 15, 25);
+                    }
+                    
+                    layerPreview.appendChild(canvas);
+                    
+                    const layerName = document.createElement('div');
+                    layerName.className = 'layer-name';
+                    layerName.textContent = obj.type || 'Layer';
+                    
+                    const layerActions = document.createElement('div');
+                    layerActions.className = 'layer-actions';
+                    
+                    const visibilityBtn = document.createElement('button');
+                    visibilityBtn.className = 'action-btn';
+                    visibilityBtn.title = obj.visible ? 'Hide' : 'Show';
+                    visibilityBtn.innerHTML = `<i class="material-icons">${obj.visible ? 'visibility' : 'visibility_off'}</i>`;
+                    visibilityBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        obj.set('visible', !obj.visible);
+                        this.canvas.renderAll();
+                        this.updateLayersPanel();
+                    });
+                    
+                    layerActions.appendChild(visibilityBtn);
+                    
+                    layerItem.appendChild(layerPreview);
+                    layerItem.appendChild(layerName);
+                    layerItem.appendChild(layerActions);
+                    
+                    layerItem.addEventListener('click', () => {
+                        this.canvas.setActiveObject(obj);
+                        this.onObjectSelected({ target: obj });
+                        this.canvas.renderAll();
+                    });
+                    
+                    layersContainer.appendChild(layerItem);
+                }
+            }
+            
+            copyObject() {
+                if (this.activeObject) {
+                    this.clipboard = this.activeObject;
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Object copied', 'content_copy');
+                }
+            }
+            
+            pasteObject() {
+                if (this.clipboard) {
+                    this.clipboard.clone(clonedObj => {
+                        this.canvas.discardActiveObject();
+                        clonedObj.set({
+                            left: clonedObj.left + 10,
+                            top: clonedObj.top + 10
+                        });
+                        this.canvas.add(clonedObj);
+                        this.canvas.setActiveObject(clonedObj);
+                        this.onObjectSelected({ target: clonedObj });
+                        this.canvas.renderAll();
+                        this.saveState();
+                    });
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Object pasted', 'content_paste');
+                }
+            }
+            
+            deleteObject() {
+                if (this.activeObject) {
+                    this.canvas.remove(this.activeObject);
+                    this.activeObject = null;
+                    this.canvas.renderAll();
+                    this.saveState();
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Object deleted', 'delete');
+                }
+            }
+            
+            bringForward() {
+                if (this.activeObject) {
+                    this.canvas.bringForward(this.activeObject);
+                    this.canvas.renderAll();
+                    this.saveState();
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Brought forward', 'layers');
+                }
+            }
+            
+            sendBackward() {
+                if (this.activeObject) {
+                    this.canvas.sendBackwards(this.activeObject);
+                    this.canvas.renderAll();
+                    this.saveState();
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Sent backward', 'layers_clear');
+                }
+            }
+            
+            bringToFront() {
+                if (this.activeObject) {
+                    this.canvas.bringToFront(this.activeObject);
+                    this.canvas.renderAll();
+                    this.saveState();
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Brought to front', 'vertical_align_top');
+                }
+            }
+            
+            sendToBack() {
+                if (this.activeObject) {
+                    this.canvas.sendToBack(this.activeObject);
+                    this.canvas.renderAll();
+                    this.saveState();
+                    document.getElementById('context-menu').classList.remove('visible');
+                    this.showToast('Sent to back', 'vertical_align_bottom');
+                }
+            }
+            
+            zoomIn() {
+                this.zoomLevel = Math.min(this.zoomLevel + 0.1, 3);
+                this.updateZoom();
+            }
+            
+            zoomOut() {
+                this.zoomLevel = Math.max(this.zoomLevel - 0.1, 0.1);
+                this.updateZoom();
+            }
+            
+            resetZoom() {
+                this.zoomLevel = 1;
+                this.updateZoom();
+            }
+            
+            updateZoom() {
+                this.canvas.setZoom(this.zoomLevel);
+                document.getElementById('zoom-value').textContent = `${Math.round(this.zoomLevel * 100)}%`;
+            }
+            
+            handleKeyDown(e) {
+                // Handle keyboard shortcuts
+                if (e.ctrlKey || e.metaKey) {
+                    switch (e.key.toLowerCase()) {
+                        case 'z':
+                            if (e.shiftKey) {
+                                this.redo();
+                            } else {
+                                this.undo();
+                            }
+                            e.preventDefault();
+                            break;
+                            
+                        case 'y':
+                            this.redo();
+                            e.preventDefault();
+                            break;
+                            
+                        case 'c':
+                            this.copyObject();
+                            e.preventDefault();
+                            break;
+                            
+                        case 'v':
+                            this.pasteObject();
+                            e.preventDefault();
+                            break;
+                            
+                        case 'd':
+                            if (this.activeObject) {
+                                this.deleteObject();
+                            }
+                            e.preventDefault();
+                            break;
+                    }
+                }
+                
+                // Delete key
+                if (e.key === 'Delete' && this.activeObject) {
+                    this.deleteObject();
+                }
+            }
+            
+            showContextMenu(x, y) {
+                if (this.activeObject) {
+                    const contextMenu = document.getElementById('context-menu');
+                    contextMenu.style.left = `${x}px`;
+                    contextMenu.style.top = `${y}px`;
+                    contextMenu.classList.add('visible');
+                }
+            }
+            
+            showNewProjectModal() {
+                document.getElementById('new-project-modal').classList.add('active');
+                // Set default selected orientation
+                document.querySelector('.orientation-option[data-name="Square"]').click();
+                document.querySelector('.background-option[data-bg="white"]').click();
+            }
+            
+            hideNewProjectModal() {
+                document.getElementById('new-project-modal').classList.remove('active');
+            }
+            
+            createNewProject() {
+                const projectName = document.getElementById('project-name').value || 'Untitled Project';
+                const selectedOrientation = document.querySelector('.orientation-option.selected');
+                const selectedBg = document.querySelector('.background-option[data-selected="true"]');
+                
+                let width, height;
+                
+                if (selectedOrientation.dataset.width === 'custom') {
+                    width = parseInt(document.getElementById('custom-width').value) || 800;
+                    height = parseInt(document.getElementById('custom-height').value) || 600;
+                } else {
+                    width = parseInt(selectedOrientation.dataset.width);
+                    height = parseInt(selectedOrientation.dataset.height);
+                }
+                
+                // Set canvas size
+                this.canvas.setWidth(width);
+                this.canvas.setHeight(height);
+                
+                // Set background
+                let bgColor;
+                switch (selectedBg.dataset.bg) {
+                    case 'transparent':
+                        bgColor = null;
+                        break;
+                    case 'white':
+                        bgColor = '#ffffff';
+                        break;
+                    case 'black':
+                        bgColor = '#000000';
+                        break;
+                    case 'color':
+                        bgColor = document.getElementById('bg-color-picker').value;
+                        break;
+                    case 'gradient':
+                        // For demo, we'll just use a solid color
+                        bgColor = '#ffffff';
+                        break;
+                    default:
+                        bgColor = '#ffffff';
+                }
+                
+                this.canvas.setBackgroundColor(bgColor, () => {
+                    this.canvas.renderAll();
+                });
+                
+                // Clear canvas
+                this.canvas.clear();
+                
+                // Update current project
+                this.currentProject = {
+                    name: projectName,
+                    canvas: {
+                        width,
+                        height,
+                        backgroundColor: bgColor
+                    },
+                    objects: [],
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                };
+                
+                // Save state
+                this.saveState();
+                
+                // Hide modal
+                this.hideNewProjectModal();
+                
+                // Show success message
+                this.showToast(`New project "${projectName}" created`, 'check_circle');
+            }
+            
+            showExportModal() {
+                document.getElementById('export-modal').classList.add('active');
+                document.getElementById('export-name').value = this.currentProject.name;
+            }
+            
+            hideExportModal() {
+                document.getElementById('export-modal').classList.remove('active');
+            }
+            
+            exportProject() {
+                const format = document.getElementById('export-format').value;
+                const quality = parseInt(document.getElementById('export-quality').value) / 100;
+                const name = document.getElementById('export-name').value || 'export';
+                
+                let width = this.canvas.width;
+                let height = this.canvas.height;
+                
+                const size = document.getElementById('export-size').value;
+                if (size === 'custom') {
+                    width = parseInt(document.getElementById('export-custom-width').value) || width;
+                    height = parseInt(document.getElementById('export-custom-height').value) || height;
+                } else if (size === 'instagram') {
+                    width = 1080;
+                    height = 1080;
+                } else if (size === 'facebook') {
+                    width = 1200;
+                    height = 630;
+                } else if (size === 'twitter') {
+                    width = 1024;
+                    height = 512;
+                }
+                
+                // Show loading indicator
+                this.showLoading();
+                
+                // In a real app, we would properly handle the export with the specified dimensions
+                setTimeout(() => {
+                    // Create a temporary canvas with the desired size
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = width;
+                    tempCanvas.height = height;
+                    const tempCtx = tempCanvas.getContext('2d');
+                    
+                    // Fill with white background (for JPG)
+                    if (format === 'jpg') {
+                        tempCtx.fillStyle = '#ffffff';
+                        tempCtx.fillRect(0, 0, width, height);
+                    }
+                    
+                    // Draw the original canvas content scaled to fit
+                    tempCtx.drawImage(this.canvas.getElement(), 0, 0, width, height);
+                    
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.download = `${name}.${format}`;
+                    
+                    if (format === 'png') {
+                        link.href = tempCanvas.toDataURL('image/png');
+                    } else if (format === 'jpg') {
+                        link.href = tempCanvas.toDataURL('image/jpeg', quality);
+                    } else if (format === 'svg') {
+                        // In a real app, we would generate proper SVG
+                        link.href = tempCanvas.toDataURL('image/png');
+                    } else if (format === 'pdf') {
+                        // In a real app, we would generate a PDF
+                        link.href = tempCanvas.toDataURL('image/png');
+                    }
+                    
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Hide loading indicator
+                    this.hideLoading();
+                    
+                    // Hide modal
+                    this.hideExportModal();
+                    
+                    // Show success message
+                    this.showToast(`Project exported as ${format.toUpperCase()}`, 'file_download');
+                }, 500);
+            }
+            
+            saveProject() {
+                // In a real app, we would save to IndexedDB or localStorage
+                this.currentProject.updatedAt = new Date();
+                this.currentProject.canvasData = JSON.stringify(this.canvas.toJSON());
+                
+                // Show success message
+                this.showToast('Project saved', 'save');
+            }
+            
+            loadProjects() {
+                // In a real app, we would load from IndexedDB or localStorage
+                this.projects = [
+                    {
+                        name: 'My Awesome Design',
+                        createdAt: new Date(),
+                        updatedAt: new Date()
+                    },
+                    {
+                        name: 'Social Media Post',
+                        createdAt: new Date(Date.now() - 86400000),
+                        updatedAt: new Date(Date.now() - 86400000)
+                    },
+                    {
+                        name: 'Birthday Invitation',
+                        createdAt: new Date(Date.now() - 86400000 * 7),
+                        updatedAt: new Date(Date.now() - 86400000 * 7)
+                    }
+                ];
+            }
+            
+            addImageToCanvas(src) {
+                fabric.Image.fromURL(src, (img) => {
+                    // Scale image to fit canvas if it's too large
+                    const maxWidth = this.canvas.width * 0.8;
+                    const maxHeight = this.canvas.height * 0.8;
+                    
+                    if (img.width > maxWidth || img.height > maxHeight) {
+                        const scale = Math.min(maxWidth / img.width, maxHeight / img.height);
+                        img.scale(scale);
+                    }
+                    
+                    // Center the image
+                    img.set({
+                        left: (this.canvas.width - img.width * img.scaleX) / 2,
+                        top: (this.canvas.height - img.height * img.scaleY) / 2,
+                        hasControls: true
+                    });
+                    
+                    this.canvas.add(img);
+                    this.canvas.setActiveObject(img);
+                    this.onObjectSelected({ target: img });
+                    this.canvas.renderAll();
+                    this.saveState();
+                });
+            }
+            
+            loadTemplate(template) {
+                // For demo, we'll just set the canvas size
+                this.canvas.setWidth(template.width);
+                this.canvas.setHeight(template.height);
+                this.canvas.renderAll();
+                
+                // Update current project
+                this.currentProject = {
+                    name: template.name,
+                    canvas: {
+                        width: template.width,
+                        height: template.height,
+                        backgroundColor: '#ffffff'
+                    },
+                    objects: [],
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                };
+                
+                // Save state
+                this.saveState();
+                
+                // Show success message
+                this.showToast(`Template "${template.name}" loaded`, 'check_circle');
+            }
+            
+            addGoogleFont(fontName) {
+                if (!this.fonts.includes(fontName)) {
+                    this.fonts.push(fontName);
+                    
+                    // Add to font selector
+                    const fontSelector = document.getElementById('text-font');
+                    const option = document.createElement('option');
+                    option.value = fontName;
+                    option.textContent = fontName;
+                    fontSelector.appendChild(option);
+                    
+                    // Load the font from Google Fonts
+                    const link = document.createElement('link');
+                    link.href = `https://fonts.googleapis.com/css?family=${fontName.replace(' ', '+')}`;
+                    link.rel = 'stylesheet';
+                    document.head.appendChild(link);
+                }
+            }
+            
+            triggerFileUpload(type) {
+                // In a real app, we would create a file input and trigger it
+                if (type === 'local') {
+                    this.showToast('File upload dialog would appear here', 'info');
+                } else if (type === 'font') {
+                    this.showToast('Font upload dialog would appear here', 'info');
+                } else if (type === 'replace') {
+                    this.showToast('Image replacement dialog would appear here', 'info');
+                }
+            }
+            
+            handleFileDrop(files, type) {
+                // In a real app, we would process the files
+                this.showToast(`${files.length} files dropped`, 'cloud_done');
+            }
+            
+            showToast(message, icon) {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                const toastIcon = document.getElementById('toast-icon');
+                
+                toastMessage.textContent = message;
+                toastIcon.textContent = icon;
+                toast.classList.add('visible');
+                
+                setTimeout(() => {
+                    toast.classList.remove('visible');
+                }, 3000);
+            }
+            
+            showLoading() {
+                document.getElementById('loading').style.display = 'flex';
+            }
+            
+            hideLoading() {
+                document.getElementById('loading').style.display = 'none';
+            }
+            
+            startAutoSave() {
+                this.autoSaveInterval = setInterval(() => {
+                    this.saveProject();
+                }, 30000); // Auto-save every 30 seconds
+            }
+            
+            stopAutoSave() {
+                clearInterval(this.autoSaveInterval);
+            }
+            
+            handleResize() {
+                // In a real app, we would handle responsive adjustments
+                if (window.innerWidth < 1024) {
+                    document.getElementById('sidebar').classList.remove('collapsed');
+                    document.getElementById('properties-panel').classList.remove('collapsed');
+                }
+            }
+            
+            setupDefaultProject() {
+                // Set up a default project with some sample content
+                this.currentProject = {
+                    name: 'Untitled Project',
+                    canvas: {
+                        width: 800,
+                        height: 600,
+                        backgroundColor: '#ffffff'
+                    },
+                    objects: [],
+                    createdAt: new Date(),
+                    updatedAt: new Date()
+                };
+                
+                // Add some sample text
+                const text = new fabric.Textbox('Welcome to TEditor', {
+                    left: 100,
+                    top: 100,
+                    width: 200,
+                    fontSize: 36,
+                    fontFamily: 'Roboto',
+                    fill: '#6200ee',
+                    hasControls: true
+                });
+                
+                this.canvas.add(text);
+                
+                // Add a sample shape
+                const rect = new fabric.Rect({
+                    left: 300,
+                    top: 200,
+                    width: 150,
+                    height: 150,
+                    fill: '#03dac6',
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    hasControls: true
+                });
+                
+                this.canvas.add(rect);
+                
+                // Save initial state
+                this.saveState();
+            }
+        }
+        
+        // Initialize the application when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const tEditor = new TEditor();
+            
+            // Set up context menu
+            document.addEventListener('click', () => {
+                document.getElementById('context-menu').classList.remove('visible');
+            });
+            
+            document.getElementById('editor-canvas').addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                tEditor.showContextMenu(e.clientX, e.clientY);
+            });
+        });
+    </script>
+</body>
+</html>

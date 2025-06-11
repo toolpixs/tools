@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play the ultimate Wordle experience! Test your vocabulary with our enhanced word guessing game. Guess the 5-letter word in 6 tries or less with improved accuracy and additional features.">
+  <meta name="keywords" content="play Wordle online, free Wordle game, online Wordle, word puzzle, Wordle daily, Wordle guide, learn Wordle, Wordle rules, Wordle strategy, Wordle for beginners, advanced Wordle, Wordle with statistics, Wordle tips, Toolpix Games">
+  <meta name="author" content="Toolpix Games">
+  <meta name="robots" content="index, follow">
+  <title>Advanced Wordle Game - Toolpix Games</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #1c2526;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-section {
+      background: linear-gradient(135deg, #2d3839 0%, #1c2526 100%);
+      border-radius: 15px;
+      margin: 1rem;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(212, 163, 115, 0.2) 0%, transparent 70%);
+      opacity: 0.5;
+      z-index: 0;
+    }
+    .game-modes-section {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .feature-card {
+      background-color: #2d3839;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    .feature-card h3 {
+      color: #d4a373;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+    .feature-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #d4a373;
+    }
+    .guide-section {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    h1, h2, h3, h4 {
+      color: #d4a373;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    h1 {
+      font-size: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    strong {
+      color: #d4a373;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .btn-primary {
+      background-color: #d4a373;
+      color: #1c2526;
+    }
+    .btn-primary:hover {
+      background-color: #e0c4a8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4);
+    }
+    .btn-secondary {
+      background-color: #3a4b4c;
+      color: #e0e0e0;
+    }
+    .btn-secondary:hover {
+      background-color: #4d5e5f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .btn-large {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+    .btn-mute {
+      background-color: #3a4b4c;
+      color: #e0e0e0;
+      padding: 0.8rem;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #d4a373;
+    }
+    .btn-mute:hover {
+      background-color: #4d5e5f;
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4);
+    }
+    .mute-button-container {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 10;
+    }
+    .game-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      background-color: #1c2526;
+      position: relative;
+    }
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      gap: 5px;
+      background-color: #2d3839;
+      padding: 10px;
+      border-radius: 10px;
+      user-select: none;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background-color: #3a4b4c;
+      border: 2px solid #4d5e5f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #e0e0e0;
+      text-transform: uppercase;
+      border-radius: 5px;
+    }
+    .cell.correct {
+      background-color: #6aaa64;
+      border-color: #6aaa64;
+    }
+    .cell.present {
+      background-color: #c9b458;
+      border-color: #c9b458;
+    }
+    .cell.absent {
+      background-color: #787c7e;
+      border-color: #787c7e;
+    }
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #2d3839;
+      border-radius: 10px;
+      max-width: 650px;
+      width: 90%;
+    }
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+    }
+    .keyboard-row:nth-child(2) {
+      margin-left: 20px;
+    }
+    .keyboard-row:nth-child(3) {
+      margin-left: 40px;
+    }
+    .key {
+      width: 45px;
+      height: 55px;
+      background-color: #818384;
+      border: 1px solid #4d5e5f;
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .key.enter, .key.backspace {
+      width: 70px;
+      font-size: 0.9rem;
+      background-color: #5a6b6c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .key.enter::before {
+      content: '⏎';
+      font-size: 1.2rem;
+    }
+    .key.backspace::before {
+      content: '⌫';
+      font-size: 1.2rem;
+    }
+    .key.correct {
+      background-color: #6aaa64;
+      border-color: #6aaa64;
+      color: #ffffff;
+    }
+    .key.present {
+      background-color: #c9b458;
+      border-color: #c9b458;
+      color: #ffffff;
+    }
+    .key.absent {
+      background-color: #3a3f44;
+      border-color: #3a3f44;
+      color: #a0a0a0;
+    }
+    .key:hover {
+      background-color: #9a9c9e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    .key:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .game-info {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #2d3839;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      text-align: center;
+      z-index: 2000;
+      animation: popIn 0.4s ease;
+      width: 90%;
+      max-width: 400px;
+    }
+    .hint-popup {
+      max-width: 300px;
+    }
+    .popup h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #d4a373;
+    }
+    .popup-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .ad-banner {
+      height: 60px;
+      width: 100%;
+      background-color: #2d3839;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      color: #e0e0e0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    }
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      80% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+    @media (max-width: 768px) {
+      .section {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .game-board {
+        grid-template-columns: repeat(5, 50px);
+      }
+      .cell {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      .keyboard {
+        gap: 6px;
+        padding: 10px;
+      }
+      .keyboard-row {
+        gap: 4px;
+      }
+      .keyboard-row:nth-child(2) {
+        margin-left: 15px;
+      }
+      .keyboard-row:nth-child(3) {
+        margin-left: 30px;
+      }
+      .key {
+        width: 35px;
+        height: 45px;
+        font-size: 0.9rem;
+      }
+      .key.enter, .key.backspace {
+        width: 55px;
+        font-size: 0.8rem;
+      }
+      .btn-mute {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+    footer {
+      background-color: #0f3460;
+      padding: 20px 50px;
+      text-align: center;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      font-size: 16px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+    .stats-popup {
+      max-width: 600px;
+    }
+    .statistics {
+      background-color: #2d3839;
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .statistics h3 {
+      margin-bottom: 1.5rem;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .difficulty-selector {
+      margin: 1.5rem 0;
+    }
+    .difficulty-selector select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+      margin-left: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="section" id="welcomeScreen">
+    <div class="hero-section">
+      <div class="mute-button-container">
+        <button class="btn btn-mute" id="muteButtonWelcome" onclick="toggleMute()" aria-label="Mute background music">🔊</button>
+      </div>
+      <h1>Play Advanced Wordle Online Free at Toolpix Games</h1>
+      <p>Test your vocabulary with our enhanced daily word guessing game. Guess words of varying difficulty in 6 tries or less!</p>
+    </div>
+    
+    <div class="difficulty-selector">
+      <label for="difficulty"><strong>Select Difficulty:</strong></label>
+      <select id="difficulty" onchange="updateWordList()">
+        <option value="easy">Easy (Common Words)</option>
+        <option value="medium" selected>Medium (Standard Words)</option>
+        <option value="hard">Hard (Complex Vocabulary)</option>
+        <option value="expert">Expert (Rare & Technical Terms)</option>
+      </select>
+    </div>
+    
+    <div class="game-modes-section">
+      <h2>Start Playing Wordle</h2>
+      <p>Click the button below to begin your Wordle challenge!</p>
+      <button class="btn btn-primary btn-large" onclick="startGame()" aria-label="Start Wordle game">Start Game</button>
+      <button class="btn btn-primary" onclick="scrollToGuide()" aria-label="Learn how to play Wordle">How to Play Wordle</button>
+      <button class="btn btn-secondary" onclick="showStatistics()" aria-label="View game statistics">View Statistics</button>
+    </div>
+    
+    <div class="features-section">
+      <div class="feature-card">
+        <i>🆓</i>
+        <h3>Free to Play</h3>
+        <p>Enjoy daily Wordle puzzles without any cost or registration.</p>
+      </div>
+      <div class="feature-card">
+        <i>⌨️</i>
+        <h3>Multiple Difficulties</h3>
+        <p>Choose from 4 difficulty levels to match your skill level.</p>
+      </div>
+      <div class="feature-card">
+        <i>📊</i>
+        <h3>Statistics Tracking</h3>
+        <p>Track your progress and improve over time with detailed stats.</p>
+      </div>
+      <div class="feature-card">
+        <i>🧠</i>
+        <h3>Brain Training</h3>
+        <p>Challenge your vocabulary and deduction skills with better feedback.</p>
+      </div>
+      <div class="feature-card">
+        <i>🎯</i>
+        <h3>Performance Analysis</h3>
+        <p>Get insights on which letters you guess most successfully.</p>
+      </div>
+      <div class="feature-card">
+        <i>💡</i>
+        <h3>Hint System</h3>
+        <p>Use hints when you're stuck with our integrated clue system.</p>
+      </div>
+    </div>
+    
+    <div class="statistics" id="statisticsSection" style="display: none;">
+      <h2>Your Wordle Statistics</h2>
+      <div class="stat-row">
+        <span>Total Games Played:</span>
+        <span id="gamesPlayed">0</span>
+      </div>
+      <div class="stat-row">
+        <span>Win Rate:</span>
+        <span id="winRate">0%</span>
+      </div>
+      <div class="stat-row">
+        <span>Average Attempts:</span>
+        <span id="avgAttempts">0.0</span>
+      </div>
+      <div class="stat-row">
+        <span>Current Streak:</span>
+        <span id="currentStreak">0</span>
+      </div>
+      <div class="stat-row">
+        <span>Max Streak:</span>
+        <span id="maxStreak">0</span>
+      </div>
+      <div class="stat-row">
+        <span>Last Played:</span>
+        <span id="lastPlayed">Never</span>
+      </div>
+      <button class="btn btn-secondary" onclick="resetStatistics()" style="margin-top: 1rem;">Reset Stats</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('statisticsSection').style.display='none'" style="margin-top: 1rem;">Close</button>
+    </div>
+    
+    <div class="guide-section" id="guideSection">
+      <h2>How to Play Wordle: A Beginner's Guide</h2>
+      <p>Wordle is a word puzzle game where you guess a 5-letter word in up to 6 tries. Here's how to play:</p>
+      
+      <h3>Objective</h3>
+      <p>Guess the hidden 5-letter word within 6 attempts. Each guess provides feedback to guide you.</p>
+      
+      <h3>Controls</h3>
+      <ul>
+        <li>Use the <strong>on-screen keyboard</strong> or type directly to enter a 5-letter word.</li>
+        <li>Press <strong>Enter</strong> to submit your guess.</li>
+        <li>Use <strong>Backspace</strong> to delete letters.</li>
+      </ul>
+      
+      <h3>Game Rules</h3>
+      <ol>
+        <li><strong>Guessing:</strong> Enter a valid 5-letter word and submit it.</li>
+        <li><strong>Feedback:</strong> Each tile will change color to indicate:
+          <ul>
+            <li><strong>Green:</strong> The letter is correct and in the right position.</li>
+            <li><strong>Yellow:</strong> The letter is in the word but in the wrong position.</li>
+            <li><strong>Gray:</strong> The letter is not in the word.</li>
+          </ul>
+        </li>
+        <li><strong>Tries:</strong> You have 6 attempts to guess the word correctly.</li>
+        <li><strong>Winning:</strong> You win if you guess the word within 6 tries.</li>
+        <li><strong>Losing:</strong> The game ends if you fail to guess the word after 6 tries.</li>
+      </ol>
+      
+      <h3>Advanced Features</h3>
+      <ul>
+        <li><strong>Difficulty Levels:</strong> Choose from easy, medium, hard, or expert difficulty.</li>
+        <li><strong>Statistics:</strong> Track your performance and improve over time.</li>
+        <li><strong>Hint System:</strong> Get clues when you're stuck using the hint button.</li>
+        <li><strong>Daily Challenge:</strong> Try the same word as everyone else each day.</li>
+        <li><strong>Dark/Light Mode:</strong> Switch between modes based on your preference.</li>
+      </ul>
+      
+      <h3>Tips for Beginners</h3>
+      <ul>
+        <li>Start with a word containing common letters like vowels (A, E) and consonants (R, S, T).</li>
+        <li>Use feedback to eliminate incorrect letters and reposition misplaced ones.</li>
+        <li>Try to guess words with unique letters to gather more information.</li>
+        <li>Pay attention to letter frequency patterns in English words.</li>
+        <li>Don't forget to use the hint system when you're really stuck.</li>
+      </ul>
+      
+      <h3>Ready to Play?</h3>
+      <p>Start your Wordle challenge now and test your word skills!</p>
+    </div>
+    
+    <div class="ad-banner">Advertisement</div>
+    
+    <footer>
+      <a href="../">Home</a>
+      <a href="./">Games</a>
+      <a href="../all-tools">All Tools</a>
+      <a href="../terms">Terms</a>
+      <a href="../privacy">Privacy Policy</a>
+      <a href="../blog">Blog</a>
+      <a href="../contact">Contact</a>
+    </footer>
+  </div>
+  
+  <div class="game-section" id="gameSection">
+    <div class="back-button-container" style="position: absolute; top: 1.5rem; left: 1.5rem;">
+      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+    </div>
+    
+    <div class="mute-button-container">
+      <button class="btn btn-mute" id="muteButtonGame" onclick="toggleMute()" aria-label="Mute background music">🔊</button>
+    </div>
+    
+    <div class="game-board" id="gameBoard"></div>
+    <div class="keyboard" id="keyboard"></div>
+    
+    <div class="game-info" id="gameInfo">Guess the 5-letter word!</div>
+    
+    <div style="display: flex; justify-content: center; gap: 1rem; margin: 1rem 0;">
+      <button class="btn btn-secondary" onclick="useHint()" aria-label="Get a hint">Hint</button>
+      <button class="btn btn-secondary" onclick="showStatistics()" aria-label="View game statistics">Stats</button>
+    </div>
+    
+    <div class="ad-banner">Advertisement</div>
+  </div>
+  
+  <div class="popup stats-popup" id="gamePopup">
+    <h3 id="popupMessage"></h3>
+    <div class="popup-buttons">
+      <button class="btn btn-primary" onclick="restartGame()" aria-label="Restart the game">Restart Game</button>
+      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+    </div>
+  </div>
+
+  <div class="popup hint-popup" id="hintPopup">
+    <h3 id="hintMessage"></h3>
+    <div class="popup-buttons">
+      <button class="btn btn-secondary" onclick="document.getElementById('hintPopup').style.display = 'none'" aria-label="Close hint popup">Close</button>
+    </div>
+  </div>
+  
+  <audio id="bgMusic" loop>
+    <source src="../static/sfx/game-song.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="moveSound">
+    <source src="../static/sfx/2048move-sfx.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="buttonSound">
+    <source src="../static/sfx/game-button-press.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="successSound">
+    <source src="../static/sfx/success-sound.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="failureSound">
+    <source src="../static/sfx/failure-sound.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let board = [];
+    const rows = 6;
+    const cols = 5;
+    let currentRow = 0;
+    let currentCol = 0;
+    let gameActive = true;
+    let targetWord = '';
+    let isMuted = false;
+    let keyboardState = {};
+    let hintUsed = false;
+    let stats = {
+      gamesPlayed: 0,
+      gamesWon: 0,
+      totalAttempts: 0,
+      currentStreak: 0,
+      maxStreak: 0,
+      lastPlayed: null
+    };
+    
+    const wordLists = {
+      easy: ['APPLE', 'BREAD', 'CLOUD', 'DREAM', 'EAGLE', 'FLOOR', 'GLASS', 'HAPPY', 'IMAGE', 'JOKER', 'KNIFE', 'LEMON', 'MUSIC', 'NIGHT', 'OCEAN', 'PIZZA', 'QUEEN', 'RIVER', 'STONE', 'TABLE', 'UNITY', 'VIVID', 'WATCH', 'YOUTH'],
+      medium: ['HOUSE', 'CRANE', 'FLAME', 'SIGHT', 'BRICK', 'TREND', 'SMILE', 'BLANK', 'CHARM', 'DANCE', 'FEAST', 'GHOST', 'HONEY', 'JUDGE', 'KINGS', 'LIGHT', 'MOUSE', 'NOVEL', 'PHOTO', 'QUICK', 'ROBOT', 'SHADE', 'TRAIL', 'UNION'],
+      hard: ['ABYSS', 'BEGET', 'CHIRP', 'DECRY', 'EXALT', 'FRUMP', 'GRACE', 'HUMOR', 'INANE', 'JUICY', 'KRILL', 'LURID', 'MOTET', 'NOXIOUS', 'OPINE', 'PRANK', 'QUASH', 'RANCH', 'STOIC', 'TACIT', 'USHER', 'VAPOR', 'WRYLY', 'YEARN'],
+      expert: ['ABATE', 'BLEAK', 'COWER', 'DEIFY', 'ELITE', 'FABLE', 'GAFFE', 'HEDGE', 'ISSUE', 'JOVIAL', 'KEBAB', 'LASSO', 'MEWLS', 'NOBLE', 'OUGHT', 'POISE', 'QUELL', 'REACT', 'SOBER', 'TENSE', 'URGED', 'VITAL', 'WEAVE', 'YEAST']
+    };
+    
+    const bgMusic = document.getElementById('bgMusic');
+    const moveSound = document.getElementById('moveSound');
+    const buttonSound = document.getElementById('buttonSound');
+    const successSound = document.getElementById('successSound');
+    const failureSound = document.getElementById('failureSound');
+    
+    bgMusic.volume = 0.2;
+    moveSound.volume = 0.5;
+    buttonSound.volume = 0.5;
+    successSound.volume = 0.7;
+    failureSound.volume = 0.7;
+    
+    function initGame() {
+      isMuted = localStorage.getItem('isMutedWordle') === 'true';
+      updateMuteButton();
+      
+      if (!isMuted) bgMusic.play().catch(e => console.log('Background music play failed:', e));
+      
+      loadStatistics();
+      
+      const savedGame = localStorage.getItem('wordleGame');
+      if (savedGame) {
+        const gameState = JSON.parse(savedGame);
+        board = gameState.board;
+        currentRow = gameState.currentRow;
+        currentCol = gameState.currentCol;
+        targetWord = gameState.targetWord;
+        keyboardState = gameState.keyboardState || {};
+        gameActive = gameState.gameActive !== undefined ? gameState.gameActive : true;
+        hintUsed = gameState.hintUsed || false;
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.getElementById('gameSection').style.display = 'flex';
+        updateUI();
+        updateKeyboard();
+      } else {
+        initBoard();
+      }
+    }
+    
+    function initBoard() {
+      board = Array(rows).fill().map(() => Array(cols).fill(''));
+      currentRow = 0;
+      currentCol = 0;
+      gameActive = true;
+      hintUsed = false;
+      keyboardState = {};
+      
+      const difficulty = document.getElementById('difficulty').value;
+      targetWord = wordLists[difficulty][Math.floor(Math.random() * wordLists[difficulty].length)].toUpperCase();
+      
+      document.getElementById('gameInfo').textContent = 'Guess the 5-letter word!';
+      updateUI();
+      updateKeyboard();
+      saveGameState();
+    }
+    
+    function updateUI() {
+      const gameBoard = document.getElementById('gameBoard');
+      gameBoard.innerHTML = '';
+      
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          
+          if (r < currentRow) {
+            const letter = board[r][c];
+            cell.textContent = letter.letter || letter;
+            if (letter.status) cell.classList.add(letter.status);
+          } else if (r === currentRow && c < currentCol) {
+            cell.textContent = board[r][c];
+          }
+          
+          gameBoard.appendChild(cell);
+        }
+      }
+    }
+    
+    function updateKeyboard() {
+      const keyboard = document.getElementById('keyboard');
+      keyboard.innerHTML = '';
+      
+      const rows = [
+        ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+        ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+        ['BACKSPACE', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'ENTER']
+      ];
+      
+      rows.forEach(rowKeys => {
+        const row = document.createElement('div');
+        row.className = 'keyboard-row';
+        
+        rowKeys.forEach(key => {
+          const button = document.createElement('button');
+          button.className = 'key';
+          
+          if (key === 'ENTER') button.classList.add('enter');
+          if (key === 'BACKSPACE') button.classList.add('backspace');
+          
+          if (key !== 'ENTER' && key !== 'BACKSPACE') button.textContent = key;
+          
+          if (keyboardState[key]) button.classList.add(keyboardState[key]);
+          
+          button.setAttribute('aria-label', 
+            key === 'ENTER' ? 'Submit guess' : 
+            key === 'BACKSPACE' ? 'Delete letter' : 
+            `Letter ${key}`
+          );
+          
+          button.onclick = () => handleKey(key);
+          row.appendChild(button);
+        });
+        
+        keyboard.appendChild(row);
+      });
+    }
+    
+    function getLetterStatuses(guess) {
+      const statuses = Array(cols).fill('absent');
+      const targetLetters = [...targetWord];
+      const guessLetters = [...guess];
+      
+      // First pass: Mark correct letters
+      for (let i = 0; i < cols; i++) {
+        if (guessLetters[i] === targetLetters[i]) {
+          statuses[i] = 'correct';
+          targetLetters[i] = null;
+          guessLetters[i] = null;
+        }
+      }
+      
+      // Second pass: Mark present letters
+      for (let i = 0; i < cols; i++) {
+        if (guessLetters[i] && targetLetters.includes(guessLetters[i])) {
+          statuses[i] = 'present';
+          targetLetters[targetLetters.indexOf(guessLetters[i])] = null;
+        }
+      }
+      
+      return statuses.map((status, i) => ({
+        letter: guess[i],
+        status: status
+      }));
+    }
+    
+    function handleKey(key) {
+      if (!gameActive) return;
+      
+      moveSound.currentTime = 0;
+      moveSound.play().catch(e => console.log('Move sound play failed:', e));
+      
+      if (key === 'ENTER') {
+        if (currentCol !== cols) {
+          showMessage('Please enter a 5-letter word!', 1500);
+          return;
+        }
+        
+        const guess = board[currentRow].join('');
+        const difficulty = document.getElementById('difficulty').value;
+        
+        if (!wordLists[difficulty].includes(guess)) {
+          showMessage('Not a valid word!', 1500);
+          return;
+        }
+        
+        board[currentRow] = getLetterStatuses(guess);
+        updateKeyboardState();
+        currentRow++;
+        currentCol = 0;
+        updateUI();
+        saveGameState();
+        
+        if (guess === targetWord) {
+          showPopup('Congratulations! You guessed the word!');
+          updateStatistics(true);
+          successSound.play().catch(e => console.log('Success sound play failed:', e));
+          gameActive = false;
+        } else if (currentRow >= rows) {
+          showPopup(`Game Over! The word was ${targetWord}.`);
+          updateStatistics(false);
+          failureSound.play().catch(e => console.log('Failure sound play failed:', e));
+          gameActive = false;
+        }
+      } else if (key === 'BACKSPACE') {
+        if (currentCol > 0) {
+          currentCol--;
+          board[currentRow][currentCol] = '';
+          updateUI();
+          saveGameState();
+        }
+      } else if (/^[A-Z]$/.test(key) && currentCol < cols) {
+        board[currentRow][currentCol] = key;
+        currentCol++;
+        updateUI();
+        saveGameState();
+      }
+    }
+    
+    function updateKeyboardState() {
+      board[currentRow - 1].forEach(({ letter, status }) => {
+        if (!keyboardState[letter] || status === 'correct' || 
+           (status === 'present' && keyboardState[letter] !== 'correct')) {
+          keyboardState[letter] = status;
+        }
+      });
+      updateKeyboard();
+    }
+    
+    function saveGameState() {
+      const gameState = { 
+        board, 
+        currentRow, 
+        currentCol, 
+        targetWord, 
+        keyboardState,
+        gameActive,
+        hintUsed
+      };
+      localStorage.setItem('wordleGame', JSON.stringify(gameState));
+    }
+    
+    function toggleMute() {
+      isMuted = !isMuted;
+      localStorage.setItem('isMutedWordle', isMuted);
+      updateMuteButton();
+      
+      if (isMuted) {
+        bgMusic.pause();
+      } else {
+        bgMusic.play().catch(e => console.log('Background music play failed:', e));
+      }
+    }
+    
+    function updateMuteButton() {
+      const muteButtonWelcome = document.getElementById('muteButtonWelcome');
+      const muteButtonGame = document.getElementById('muteButtonGame');
+      const icon = isMuted ? '🔇' : '🔊';
+      const label = isMuted ? 'Unmute background music' : 'Mute background music';
+      
+      muteButtonWelcome.textContent = icon;
+      muteButtonGame.textContent = icon;
+      muteButtonWelcome.setAttribute('aria-label', label);
+      muteButtonGame.setAttribute('aria-label', label);
+    }
+    
+    document.addEventListener('keydown', (e) => {
+      if (!gameActive) return;
+      e.preventDefault();
+      const key = e.key.toUpperCase();
+      
+      if (key === 'ENTER' || key === 'BACKSPACE' || /^[A-Z]$/.test(key)) {
+        handleKey(key);
+      }
+    });
+    
+    document.addEventListener('touchstart', (e) => {
+      if (e.target.classList.contains('key')) {
+        e.preventDefault();
+        const keyText = e.target.textContent || '';
+        const key = e.target.classList.contains('backspace') ? 'BACKSPACE' : 
+                    e.target.classList.contains('enter') ? 'ENTER' : keyText;
+        handleKey(key);
+      }
+    });
+    
+    function startGame() {
+      buttonSound.currentTime = 0;
+      buttonSound.play().catch(e => console.log('Button sound play failed:', e));
+      
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('gameSection').style.display = 'flex';
+      initBoard();
+    }
+    
+    function backToWelcome() {
+      buttonSound.currentTime = 0;
+      buttonSound.play().catch(e => console.log('Button sound play failed:', e));
+      
+      gameActive = false;
+      localStorage.removeItem('wordleGame');
+      document.getElementById('gameSection').style.display = 'none';
+      document.getElementById('welcomeScreen').style.display = 'block';
+      document.getElementById('gamePopup').style.display = 'none';
+      document.getElementById('hintPopup').style.display = 'none';
+      
+      if (!isMuted) bgMusic.play().catch(e => console.log('Background music play failed:', e));
+    }
+    
+    function restartGame() {
+      buttonSound.currentTime = 0;
+      buttonSound.play().catch(e => console.log('Button sound play failed:', e));
+      
+      initBoard();
+      document.getElementById('gamePopup').style.display = 'none';
+      document.getElementById('hintPopup').style.display = 'none';
+    }
+    
+    function scrollToGuide() {
+      buttonSound.currentTime = 0;
+      buttonSound.play().catch(e => console.log('Button sound play failed:', e));
+      
+      document.getElementById('guideSection').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function showPopup(message) {
+      document.getElementById('popupMessage').textContent = message;
+      document.getElementById('gamePopup').style.display = 'block';
+      document.getElementById('hintPopup').style.display = 'none';
+    }
+    
+    function showMessage(message, duration) {
+      document.getElementById('hintMessage').textContent = message;
+      document.getElementById('hintPopup').style.display = 'block';
+      document.getElementById('gamePopup').style.display = 'none';
+      setTimeout(() => document.getElementById('hintPopup').style.display = 'none', duration);
+    }
+    
+    function useHint() {
+      if (!gameActive || hintUsed) {
+        showMessage(hintUsed ? 'Hint already used!' : 'Game is over!', 1500);
+        return;
+      }
+      
+      buttonSound.currentTime = 0;
+      buttonSound.play().catch(e => console.log('Button sound play failed:', e));
+      
+      const unrevealedIndices = [];
+      for (let i = 0; i < cols; i++) {
+        const currentCell = board[currentRow][i];
+        if (!currentCell && (!keyboardState[targetWord[i]] || keyboardState[targetWord[i]] !== 'correct')) {
+          unrevealedIndices.push(i);
+        }
+      }
+      
+      if (unrevealedIndices.length === 0) {
+        showMessage('No hints available!', 1500);
+        return;
+      }
+      
+      const randomIndex = unrevealedIndices[Math.floor(Math.random() * unrevealedIndices.length)];
+      const hintLetter = targetWord[randomIndex];
+      
+      board[currentRow][randomIndex] = hintLetter;
+      currentCol = Math.max(currentCol, randomIndex + 1);
+      hintUsed = true;
+      
+      showMessage(`Hint: Letter at position ${randomIndex + 1} is "${hintLetter}"`, 3000);
+      
+      updateUI();
+      saveGameState();
+    }
+    
+    function loadStatistics() {
+      const savedStats = localStorage.getItem('wordleStats');
+      if (savedStats) {
+        stats = JSON.parse(savedStats);
+        
+        document.getElementById('gamesPlayed').textContent = stats.gamesPlayed;
+        document.getElementById('winRate').textContent = stats.gamesPlayed > 0 
+          ? `${Math.round((stats.gamesWon / stats.gamesPlayed) * 100)}%` 
+          : '0%';
+        document.getElementById('avgAttempts').textContent = stats.gamesWon > 0 
+          ? (stats.totalAttempts / stats.gamesWon).toFixed(1) 
+          : '0.0';
+        document.getElementById('currentStreak').textContent = stats.currentStreak;
+        document.getElementById('maxStreak').textContent = stats.maxStreak;
+        document.getElementById('lastPlayed').textContent = stats.lastPlayed 
+          ? new Date(stats.lastPlayed).toLocaleDateString() 
+          : 'Never';
+      }
+    }
+    
+    function updateStatistics(won) {
+      stats.gamesPlayed++;
+      
+      if (won) {
+        stats.gamesWon++;
+        stats.currentStreak++;
+        stats.totalAttempts += currentRow;
+        
+        if (stats.currentStreak > stats.maxStreak) {
+          stats.maxStreak = stats.currentStreak;
+        }
+      } else {
+        stats.currentStreak = 0;
+      }
+      
+      stats.lastPlayed = new Date().toISOString();
+      
+      localStorage.setItem('wordleStats', JSON.stringify(stats));
+      loadStatistics();
+    }
+    
+    function resetStatistics() {
+      if (confirm('Are you sure you want to reset all statistics?')) {
+        stats = {
+          gamesPlayed: 0,
+          gamesWon: 0,
+          totalAttempts: 0,
+          currentStreak: 0,
+          maxStreak: 0,
+          lastPlayed: null
+        };
+        
+        localStorage.setItem('wordleStats', JSON.stringify(stats));
+        loadStatistics();
+      }
+    }
+    
+    function showStatistics() {
+      buttonSound.currentTime = 0;
+      buttonSound.play().catch(e => console.log('Button sound play failed:', e));
+      
+      document.getElementById('statisticsSection').style.display = 'block';
+      loadStatistics();
+    }
+    
+    function updateWordList() {
+      localStorage.setItem('wordleDifficulty', document.getElementById('difficulty').value);
+    }
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedDifficulty = localStorage.getItem('wordleDifficulty');
+      if (savedDifficulty) document.getElementById('difficulty').value = savedDifficulty;
+      
+      initGame();
+    });
+  </script>
+</body>
+</html>

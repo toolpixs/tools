@@ -441,10 +441,14 @@
   </style>
 </head>
 <body>
+  <!-- Audio Elements -->
+  <audio id="buttonClickSfx" src="../static/sfx/game-button-press.mp3" preload="auto"></audio>
+  <audio id="chessMoveSfx" src="../static/sfx/chessmove-sfx.mp3" preload="auto"></audio>
+
   <!-- Welcome Screen -->
   <div class="section" id="welcomeScreen">
     <div class="home-link">
-      <a href="./" class="btn btn-secondary" aria-label="Return to home page">🏠 Home</a>
+      <a href="./" class="btn btn-secondary" onclick="playButtonClick()" aria-label="Return to home page">🏠 Home</a>
     </div>
     
     <div class="hero-section">
@@ -457,10 +461,10 @@
       <p>Select how you want to play and start your chess adventure!</p>
       
       <div class="mode-selection" id="modeSelection">
-        <button class="btn btn-primary btn-large" onclick="showDifficultySelection()" aria-label="Start single-player game against bot">
+        <button class="btn btn-primary btn-large" onclick="showDifficultySelection(); playButtonClick()" aria-label="Start single-player game against bot">
           Single Player (vs Bot)
         </button>
-        <button class="btn btn-primary btn-large" onclick="startGame('multi', 'none')" aria-label="Start two-player game">
+        <button class="btn btn-primary btn-large" onclick="startGame('multi', 'none'); playButtonClick()" aria-label="Start two-player game">
           Two Players
         </button>
       </div>
@@ -472,16 +476,16 @@
           <option value="hard" selected>Hard</option>
         </select>
         <div class="mode-selection">
-          <button class="btn btn-primary" onclick="startGame('single', document.getElementById('difficultyLevel').value)" aria-label="Start single-player game">
+          <button class="btn btn-primary" onclick="startGame('single', document.getElementById('difficultyLevel').value); playButtonClick()" aria-label="Start single-player game">
             Start Game
           </button>
-          <button class="btn btn-secondary" onclick="backToModeSelection()" aria-label="Back to mode selection">
+          <button class="btn btn-secondary" onclick="backToModeSelection(); playButtonClick()" aria-label="Back to mode selection">
             Back
           </button>
         </div>
       </div>
       
-      <button class="btn btn-primary" onclick="scrollToGuide()" aria-label="Learn how to play chess">
+      <button class="btn btn-primary" onclick="scrollToGuide(); playButtonClick()" aria-label="Learn how to play chess">
         How to Play Chess
       </button>
     </div>
@@ -505,8 +509,6 @@
         <p>Challenge friends or family members on the same device.</p>
       </div>
     </div>
-    
-    
     
     <div class="guide-section" id="guideSection">
       <h2>How to Play Chess: A Beginner's Guide</h2>
@@ -553,28 +555,24 @@
       <h3>Ready to Play?</h3>
       <p>Jump into a game now or scroll up to choose your mode! Play chess online free, challenge our AI, or enjoy a two-player chess match with friends.</p>
     </div>
-
-
     
     <div class="ad-banner">Advertisement</div>
 
-
-  <footer>
-    <a href="../" class="tooltip"><span class="tooltiptext">Home</span></a>
-    <a href="./" class="tooltip"><span class="tooltiptext">Games</span></a>
-    <a href="../all-tools" class="tooltip"><span class="tooltiptext">All Tools</span></a>
-    <a href="../terms" class="tooltip"><span class="tooltiptext">Terms</span></a>
-    <a href="../privacy" class="tooltip"><span class="tooltiptext">Privacy Policy</span></a>
-    <a href="../blog" class="tooltip"><span class="tooltiptext">Blog</span></a>
-    <a href="../contact" class="tooltip"><span class="tooltiptext">Contact</span></a>
-  </footer>
-
+    <footer>
+      <a href="../" class="tooltip"><span class="tooltiptext">Home</span></a>
+      <a href="./" class="tooltip"><span class="tooltiptext">Games</span></a>
+      <a href="../all-tools" class="tooltip"><span class="tooltiptext">All Tools</span></a>
+      <a href="../terms" class="tooltip"><span class="tooltiptext">Terms</span></a>
+      <a href="../privacy" class="tooltip"><span class="tooltiptext">Privacy Policy</span></a>
+      <a href="../blog" class="tooltip"><span class="tooltiptext">Blog</span></a>
+      <a href="../contact" class="tooltip"><span class="tooltiptext">Contact</span></a>
+    </footer>
   </div>
 
   <!-- Game Screen -->
   <div class="game-section" id="gameSection">
     <div class="back-button-container">
-      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+      <button class="btn btn-secondary" onclick="backToWelcome(); playButtonClick()" aria-label="Return to welcome screen">Back</button>
     </div>
     <div class="chessboard-container">
       <div class="chessboard" id="chessboard"></div>
@@ -587,8 +585,8 @@
   <div class="popup" id="gamePopup">
     <h3 id="popupMessage"></h3>
     <div class="popup-buttons">
-      <button class="btn btn-primary" onclick="restartGame()" aria-label="Restart the game">Restart Game</button>
-      <button class="btn btn-secondary" onclick="backToWelcome()" aria-label="Return to welcome screen">Back</button>
+      <button class="btn btn-primary" onclick="restartGame(); playButtonClick()" aria-label="Restart the game">Restart Game</button>
+      <button class="btn btn-secondary" onclick="backToWelcome(); playButtonClick()" aria-label="Return to welcome screen">Back</button>
     </div>
   </div>
 
@@ -628,6 +626,22 @@
     let difficulty = 'hard';
     let selectedPiece = null;
     let possibleMoves = [];
+
+    // Audio elements
+    const buttonClickSfx = document.getElementById('buttonClickSfx');
+    const chessMoveSfx = document.getElementById('chessMoveSfx');
+
+    // Function to play button click sound
+    function playButtonClick() {
+      buttonClickSfx.currentTime = 0;
+      buttonClickSfx.play().catch(error => console.log('Button click sound error:', error));
+    }
+
+    // Function to play chess move sound
+    function playChessMove() {
+      chessMoveSfx.currentTime = 0;
+      chessMoveSfx.play().catch(error => console.log('Chess move sound error:', error));
+    }
 
     // Initialize the game
     function initGame() {
@@ -767,6 +781,7 @@
         const move = possibleMoves.find(m => m.row === row && m.col === col);
         if (move) {
           makeMove(selectedPiece.row, selectedPiece.col, row, col);
+          playChessMove();
         }
         selectedPiece = null;
         possibleMoves = [];
@@ -847,6 +862,7 @@
       }
       
       makeMove(move.fromRow, move.fromCol, move.toRow, move.toCol);
+      playChessMove();
       renderBoard();
     }
 

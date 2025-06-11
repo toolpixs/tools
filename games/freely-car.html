@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play a 3D Car Free Roam Game online! Drive a custom car across a GTA-style open-world city map.">
+  <meta name="keywords" content="3D car game, free roam, open world, GTA-style, racing map, Toolpix Games">
+  <meta name="author" content="Toolpix Games">
+  <title>GTA-Style 3D Car Free Roam</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    body {
+      background-color: #1c2526;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+    .game-section {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      background-color: #d4a373;
+      color: #1c2526;
+    }
+    .btn:hover {
+      background-color: #e0c4a8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4);
+    }
+    .btn-mute {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background-color: #3a4b4c;
+      color: #e0e0e0;
+      padding: 0.8rem;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #d4a373;
+    }
+    .btn-mute:hover {
+      background-color: #4d5e5f;
+      transform: scale(1.1);
+    }
+    .game-info {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d4a373;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    .countdown {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      font-weight: bold;
+      color: #d4a373;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    .mobile-controls {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      z-index: 100;
+    }
+    .control-left, .control-right {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .control-left {
+      left: 20px;
+    }
+    .control-right {
+      right: 20px;
+    }
+    .control-btn {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(212, 163, 115, 0.7);
+      color: #1c2526;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      touch-action: manipulation;
+      user-select: none;
+    }
+    .control-btn:active {
+      background-color: rgba(212, 163, 115, 1);
+      transform: scale(0.95);
+    }
+    @media (max-width: 768px) {
+      .section {
+        padding: 1rem;
+      }
+      .game-info {
+        font-size: 1rem;
+      }
+      .countdown {
+        font-size: 2rem;
+      }
+      .mobile-controls {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="section" id="welcomeScreen">
+    <h1>GTA-Style 3D Car Free Roam</h1>
+    <p>Drive freely across a dynamic open-world city inspired by GTA!</p>
+    <button class="btn" onclick="startGame()">Start Game</button>
+  </div>
+  <div class="section" id="loadingScreen" style="display: none;">
+    <h2>Loading...</h2>
+  </div>
+  <div class="game-section" id="gameSection">
+    <div class="game-info" id="gameInfo">Speed: 0 | Pos: (0, 0)</div>
+    <button class="btn btn-mute" id="muteButton" onclick="toggleMute()">🔊</button>
+    <div class="countdown" id="countdown"></div>
+    <div class="mobile-controls">
+      <div class="control-left">
+        <div class="control-btn" id="leftBtn">&lt;</div>
+        <div class="control-btn" id="rightBtn">&gt;</div>
+      </div>
+      <div class="control-right">
+        <div class="control-btn" id="upBtn">↑</div>
+        <div class="control-btn" id="downBtn">↓</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script>
+    let scene, camera, renderer, car, mapGroup;
+    let keys = {};
+    let speed = 0;
+    let maxSpeed = 0.5;
+    let acceleration = 0.01;
+    let steering = 0.05;
+    let gameActive = false;
+    let startTime;
+    let isMuted = false;
+    let countdownInterval;
+    let mobileControls = { left: false, right: false, up: false, down: false };
+
+    function init() {
+      // Scene setup
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      document.getElementById('gameSection').appendChild(renderer.domElement);
+
+      // Create custom city mapGroup
+      mapGroup = new THREE.Group();
+
+      // Generate city roads (grid with intersections and curves)
+      const roadGeometry = new THREE.PlaneGeometry(20, 20);
+      const roadTexture = new THREE.TextureLoader().load('https://threejs.org/textures/road.jpg');
+      roadTexture.wrapS = roadTexture.wrapT = 'repeat';
+      roadTexture.repeat.set(4, 4);
+      const roadMaterial = new THREE.MeshLambertMaterial({ map: roadTexture });
+      const citySize = 10; // 10x10
+      for (let x = -citySize; x <= citySize; x++) {
+        for (let z = -citySize; z <= citySize; z++) {
+          if (Math.abs(x) % 2 === 0 || Math.abs(z) % 2 === 0) { // Create grid pattern
+            const road = new THREE.Mesh(roadGeometry, roadMaterial);
+            road.position.set(x * 20, 0.01, z * 20);
+            road.rotation.x = -Math.PI / 2;
+            road.receiveShadow = true;
+            mapGroup.add(road);
+          }
+        }
+      }
+
+      // Add curved roads (circular intersections)
+      // NOTE: There is no THREE.RadiusGeometry or MeshChild/addChild in Three.js, using TorusGeometry for curves and correct methods
+      const curveGeometry = new THREE.TorusGeometry(10, 1, 16, 100, Math.PI / 2);
+      const curveMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 });
+      for (let x = -citySize; x <= citySize; x += 4) {
+        for (let z = -citySize; z <= citySize; z += 4) {
+          const curve = new THREE.Mesh(curveGeometry, curveMaterial);
+          curve.position.set(x * 20, 0.02, z * 20);
+          curve.rotation.x = -Math.PI / 2;
+          curve.receiveShadow = true;
+          mapGroup.add(curve);
+        }
+      }
+
+      // Add buildings
+      const buildingMaterial = new THREE.MeshStandardMaterial({ color: 0x666666 });
+      for (let x = -citySize; x <= citySize; x++) {
+        for (let z = -citySize; z <= citySize; z++) {
+          if (Math.abs(x) % 2 === 1 && Math.abs(z) % 2 === 1) { // Place between roads
+            const height = Math.random() * 20 + 10;
+            const buildingGeometry = new THREE.BoxGeometry(8, height, 8);
+            const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
+            building.position.set(x * 20, height / 2, z * 20);
+            building.castShadow = true;
+            building.receiveShadow = true;
+            mapGroup.add(building);
+          }
+        }
+      }
+      // Add trees
+      const treeTrunkGeometry = new THREE.CylinderGeometry(0.5, 0.5, 3, 16);
+      const treeTrunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+      const treeFoliageGeometry = new THREE.SphereGeometry(2, 8, 8);
+      const treeFoliageMaterial = new THREE.MeshLambertMaterial({ color: 0x228B22 });
+      for (let x = -citySize; x <= citySize; x += 2) {
+        for (let z = -citySize; z <= citySize; z += 2) {
+          if (Math.random() < 0.3 && (Math.abs(x) % 2 === 0 || Math.abs(z) % 2 === 0)) {
+            const trunk = new THREE.Mesh(treeTrunkGeometry, treeTrunkMaterial);
+            trunk.position.set(x * 20 + Math.random() * 5, 1.5, z * 20 + Math.random() * 5);
+            mapGroup.add(trunk);
+            const foliage = new THREE.Mesh(treeFoliageGeometry, treeFoliageMaterial);
+            foliage.position.set(trunk.position.x, trunk.position.y + 2.5, trunk.position.z);
+            mapGroup.add(foliage);
+          }
+        }
+      }
+
+      scene.add(mapGroup);
+      // Create custom car
+      const carBodyGeometry = new THREE.BoxGeometry(2, 1, 4);
+      const carBodyMaterial = new THREE.MeshStandardMaterial({ color: 0xFF4500, metalness: 0.5, roughness: 0.3 });
+      car = new THREE.Group();
+      const carBody = new THREE.Mesh(carBodyGeometry, carBodyMaterial);
+      carBody.position.y = 1;
+      car.add(carBody);
+
+      // Add wheels
+      const wheelGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.2, 16);
+      const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x222222 });
+      const wheelPositions = [[0.8, 0.4, 1], [-0.8, 0.4, 1], [0.8, 0.4, -1], [-0.8, 0.4, -1]];
+      wheelPositions.forEach(pos => {
+        const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        wheel.position.set(...pos);
+        wheel.rotation.z = Math.PI / 2;
+        car.add(wheel);
+      });
+
+      car.position.y = 1;
+      car.rotation.y = Math.PI;
+      car.castShadow = true;
+      scene.add(car);
+      car.rotation.y = Math.PI;
+      car.castShadow = true;
+      scene.add(car);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0x404040);
+      scene.add(ambientLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      directionalLight.position.set(0, 50, 50);
+      directionalLight.castShadow = true;
+      scene.add(directionalLight);
+
+      // Background
+      scene.background = new THREE.Color(0x87CEFA);
+
+      // Camera position
+      camera.position.set(0, 5, 10);
+      // camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+      // Event listeners
+      window.addEventListener('keydown', (e) => { keys[e.key] = true; });
+      window.addEventListener('keyup', (e) => { keys[e.key] = false; });
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      // Mobile control listeners
+      const leftBtn = document.querySelector('#leftBtn');
+      const rightBtn = document.querySelector('#rightBtn');
+      const upBtn = document.querySelector('#upBtn');
+      const downBtn = document.querySelector('#downBtn');
+
+      leftBtn.addEventListener('touchstart', () => { mobileControls.left = true; });
+      leftBtn.addEventListener('touchend', () => { mobileControls.left = false; });
+      rightBtn.addEventListener('touchstart', () => { mobileControls.right = true; });
+      rightBtn.addEventListener('touchend', () => { mobileControls.right = false; });
+      upBtn.addEventListener('touchstart', () => { mobileControls.up = true; });
+      upBtn.addEventListener('touchend', () => { mobileControls.up = false; });
+      downBtn.addEventListener('touchstart', () => { mobileControls.down = true; });
+      downBtn.addEventListener('touchend', () => { mobileControls.down = false; });
+
+      isMuted = localStorage.getItem('isMutedCarGame') === 'true';
+      updateMuteButton();
+    }
+
+    function update() {
+      if (!gameActive || !car) return;
+
+      // Car movement (keyboard or mobile)
+      const isAccelerating = keys['ArrowUp'] || mobileControls.up;
+      const isBraking = keys['ArrowDown'] || mobileControls.down;
+      const isSteeringLeft = keys['ArrowLeft'] || mobileControls.left;
+      const isSteeringRight = keys['ArrowRight'] || mobileControls.right;
+
+      if (isAccelerating) {
+        speed = Math.min(speed + acceleration, maxSpeed);
+      } else if (isBraking) {
+        speed = Math.max(speed - acceleration, -maxSpeed / 2);
+      } else {
+        speed *= 0.98;
+      }
+
+      if (isSteeringLeft) {
+        car.rotation.y += steering;
+      }
+      if (isSteeringRight) {
+        car.rotation.y -= steering;
+      }
+
+      // Update car position
+      car.position.x += Math.sin(car.rotation.y) * speed;
+      car.position.z += Math.cos(car.rotation.y) * speed;
+
+      // Basic collision detection with map bounds
+      const cityLimit = 200;
+      car.position.x = Math.max(-cityLimit, Math.min(cityLimit, car.position.x));
+      car.position.z = Math.max(-cityLimit, Math.min(cityLimit, car.position.z));
+
+      // Update camera
+      camera.position.set(
+        car.position.x - Math.sin(car.rotation.y) * 10,
+        car.position.y + 5,
+        car.position.z - Math.cos(car.rotation.y) * 10
+      );
+      camera.lookAt(car.position);
+
+      // Update HUD
+      document.getElementById('gameInfo').textContent = 
+        `Speed: ${Math.round(speed * 100)} | Pos: (${Math.round(car.position.x)}, ${Math.round(car.position.z)})`;
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      update();
+      renderer.render(scene, camera);
+    }
+
+    function startGame() {
+      document.getElementById('welcomeScreen').style.display = 'none';
+      document.getElementById('loadingScreen').style.display = 'block';
+
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('gameSection').style.display = 'flex';
+        init();
+        startCountdown();
+        animate();
+      }, 1000);
+    }
+
+    function startCountdown() {
+      let count = 3;
+      const countdownElement = document.getElementById('countdown');
+      countdownElement.style.display = 'block';
+      countdownElement.textContent = count;
+
+      countdownInterval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownElement.textContent = count;
+        } else if (count === 0) {
+          countdownElement.textContent = 'Go!';
+        } else {
+          countdownElement.style.display = 'none';
+          clearInterval(countdownInterval);
+          gameActive = true;
+          startTime = Date.now();
+        }
+      }, 1000);
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      localStorage.setItem('isMutedCarGame', isMuted);
+      updateMuteButton();
+    }
+
+    function updateMuteButton() {
+      const muteButton = document.getElementById('muteButton');
+      muteButton.textContent = isMuted ? '🔇' : '🔊';
+      muteButton.setAttribute('aria-label', isMuted ? 'Unmute sounds' : 'Mute sounds');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('welcomeScreen').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

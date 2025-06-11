@@ -3,783 +3,1447 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Play free online games at Toolpix Games! Enjoy Sudoku, Chess, 2048, Wordle, Tic Tac Toe, and Memory Game. No installation needed, play on any device, and challenge your friends with fun puzzle and strategy games.">
-  <meta name="keywords" content="free online games, puzzle games, strategy games, Sudoku, Chess, 2048, Wordle, Tic Tac Toe, Memory Game, Toolpix Games, play games online, browser games, brain games, online gaming platform">
-  <meta name="author" content="Toolpix Games">
+  <meta name="description" content="Play free online games at ToolPix Games! Enjoy puzzles like Sudoku, strategy games like Chess, and addictive challenges like 2048, Wordle, Tic Tac Toe, and Memory Game. No downloads, instant fun on any device.">
+  <meta name="keywords" content="free online games, browser games, Sudoku, Chess, 2048, Wordle, Tic Tac Toe, Memory Game, online puzzle games, strategy games, casual games, ToolPix Games, play games online, mobile games">
+  <meta name="author" content="ToolPix Games">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Toolpix Games - Play Free Online Puzzle & Strategy Games">
-  <meta property="og:description" content="Discover a variety of free online games like Sudoku, Chess, 2048, Wordle, and more at Toolpix Games. Play instantly on any device with no downloads required!">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://toolpix.com/games">
-  <meta property="og:image" content="https://toolpix.com/images/toolpix-games-og.jpg">
-  <meta property="og:site_name" content="Toolpix Games">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Toolpix Games - Free Online Puzzle & Strategy Games">
-  <meta name="twitter:description" content="Play Sudoku, Chess, 2048, Wordle, and more for free at Toolpix Games. Enjoy puzzle and strategy games on any device, no installation needed.">
-  <meta name="twitter:image" content="https://toolpix.com/images/toolpix-games-og.jpg">
-  <title>Toolpix Games - Play Free Online Puzzle & Strategy Games</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Toolpix Games",
-    "description": "Play free online puzzle and strategy games like Sudoku, Chess, 2048, Wordle, Tic Tac Toe, and Memory Game on Toolpix Games. No installation needed, playable on any device.",
-    "url": "https://toolpix.com/games",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Toolpix",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://toolpix.com/images/logo.png"
-      }
-    },
-    "mainEntity": {
-      "@type": "ItemList",
-      "itemListElement": [
-        {
-          "@type": "Game",
-          "name": "Sudoku",
-          "description": "Classic number puzzle game with multiple difficulty levels",
-          "url": "https://toolpix.com/games/sudoku"
-        },
-        {
-          "@type": "Game",
-          "name": "Chess",
-          "description": "Play chess against the computer or a friend",
-          "url": "https://toolpix.com/games/chess"
-        },
-        {
-          "@type": "Game",
-          "name": "2048",
-          "description": "Addictive number merging puzzle game",
-          "url": "https://toolpix.com/games/2048"
-        },
-        {
-          "@type": "Game",
-          "name": "Wordle",
-          "description": "Popular word guessing game with daily challenges",
-          "url": "https://toolpix.com/games/wordle"
-        },
-        {
-          "@type": "Game",
-          "name": "Tic Tac Toe",
-          "description": "Classic X and O game against the computer",
-          "url": "https://toolpix.com/games/tic-tac-toe"
-        },
-        {
-          "@type": "Game",
-          "name": "Memory Game",
-          "description": "Test your memory with this card matching game",
-          "url": "https://toolpix.com/games/memory-game"
-        }
-      ]
-    },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://toolpix.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Games",
-          "item": "https://toolpix.com/games"
-        }
-      ]
-    }
-  }
-  </script>
+  <title>ToolPix Games - Free Online Games for Everyone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
+    /* Base Styles */
+    :root {
+      --primary: #00ff9d;
+      --primary-dark: #00c97a;
+      --secondary: #7b2dff;
+      --accent: #ff2d7b;
+      --dark: #0a0a1a;
+      --darker: #050510;
+      --light: #f0f0ff;
+      --gray: #a0a0b0;
+      --card-bg: rgba(20, 20, 40, 0.7);
+      --card-border: rgba(123, 45, 255, 0.3);
+      --glow: 0 0 15px rgba(0, 255, 157, 0.5);
+      --section-gap: 4rem;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
 
     body {
-      background-color: #1a1a2e;
-      color: #fff;
+      background-color: var(--darker);
+      color: var(--light);
       overflow-x: hidden;
-    }
-
-    .header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background-color: #16213e;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(123, 45, 255, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(255, 45, 123, 0.15) 0%, transparent 30%);
     }
 
-    .header h1 {
-      font-size: 28px;
-      display: flex;
-      align-items: center;
-      animation: slideInLeft 1s ease-out;
+    h1, h2, h3, h4, h5 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
-    .header h1 img {
-      width: 40px;
-      margin-right: 10px;
-      transition: transform 0.3s ease;
+    /* Layout Sections */
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
 
-    .header h1 img:hover {
-      transform: rotate(360deg);
+    .section {
+      padding: 4rem 0;
+      position: relative;
     }
 
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background-color: #0f3460;
-      padding: 10px 20px;
-      border-radius: 25px;
-      width: 300px;
-      transition: transform 0.3s ease;
-    }
-
-    .search-bar:hover {
-      transform: scale(1.05);
-    }
-
-    .search-bar input {
-      background: none;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-size: 16px;
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      display: inline-block;
       width: 100%;
     }
 
-    .search-bar .search-icon {
-      margin-right: 10px;
-      font-size: 20px;
-      animation: pulse 2s infinite;
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
     }
 
-    .banner {
+    /* Hero Section */
+    .hero-section {
       position: relative;
-      background: linear-gradient(135deg, #e94560, #1a1a2e);
-      padding: 40px;
+      padding: 6rem 0;
       text-align: center;
-      margin: 20px 50px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-      animation: fadeIn 1s ease-in-out;
       overflow: hidden;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
     }
 
-    .banner canvas {
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.1) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(123, 45, 255, 0.1) 0%, transparent 30%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+      animation: textGlow 2s infinite alternate;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--gray);
+    }
+
+    .particles {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
-      opacity: 0.5;
+      overflow: hidden;
     }
 
-    .banner h2, .banner p {
+    .particle {
+      position: absolute;
+      background-color: var(--primary);
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.5;
+      }
+      90% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes textGlow {
+      0% {
+        text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+      }
+      100% {
+        text-shadow: 0 0 20px rgba(0, 255, 157, 0.6);
+      }
+    }
+
+    /* Banner Overlay */
+    .banner-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 5, 16, 0.95);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.5s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .banner-content {
+      background: linear-gradient(145deg, rgba(30, 30, 60, 0.9), rgba(10, 10, 30, 0.9));
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      animation: popIn 0.4s ease;
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .banner-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    }
+
+    .banner-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    .banner-image {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border: 2px solid var(--card-border);
+      box-shadow: var(--glow);
+    }
+
+    .banner-link:hover .banner-image {
+      transform: scale(1.03);
+    }
+
+    .banner-title {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .banner-description {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+
+    .banner-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: var(--light);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .banner-close:hover {
+      background: var(--primary);
+      color: var(--dark);
+      transform: rotate(90deg);
+    }
+
+    /* Games Grid */
+    .games-section {
       position: relative;
       z-index: 1;
     }
 
-    .banner h2 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      animation: bounceIn 1.5s ease;
+    .games-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
     }
 
-    .banner p {
-      font-size: 18px;
-      opacity: 0.8;
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 2rem;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      background: rgba(20, 20, 40, 0.8);
+      color: var(--light);
+      font-size: 1rem;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 0 10px rgba(123, 45, 255, 0.2);
+      transition: all 0.3s ease;
     }
 
-    @keyframes slideInLeft {
-      from { transform: translateX(-100%); }
-      to { transform: translateX(0); }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 15px rgba(123, 45, 255, 0.4);
+      border-color: var(--primary);
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+    .search-icon {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
     }
 
-    @keyframes bounceIn {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-30px); }
-      60% { transform: translateY(-15px); }
+    .filter-btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(20, 20, 40, 0.8);
+      color: var(--gray);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      text-transform: capitalize;
     }
 
-    .games-section {
-      padding: 20px 50px;
-    }
-
-    .games-section h3 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      animation: fadeIn 1s ease-in-out;
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary);
+      color: var(--dark);
+      border-color: var(--primary);
+      box-shadow: var(--glow);
     }
 
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
     .game-card {
-      background-color: #0f3460;
-      border-radius: 10px;
+      background: var(--card-bg);
+      border-radius: 15px;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
+      height: 320px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .game-card:hover {
-      transform: translateY(-10px) rotate(2deg);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .game-card .image-container {
-      position: relative;
-      width: 100%;
-      height: 150px;
-    }
-
-    .game-card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .game-card img.loaded {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-
-    .game-card .loader {
+    .game-card::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 150px;
-      background-color: #2a2a4e;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.3s ease;
+      height: 100%;
+      background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
+      z-index: 1;
     }
 
-    .game-card .loader.hidden {
-      opacity: 0;
-      pointer-events: none;
+    .game-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      border-color: var(--primary);
     }
 
-    .game-card .loader::before {
-      content: '';
-      width: 40px;
-      height: 40px;
-      border: 4px solid #e94560;
-      border-top: 4px solid transparent;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      position: absolute;
+    .game-card:hover .game-image {
+      transform: scale(1.05);
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .game-card .game-info {
-      padding: 15px;
-      text-align: center;
-    }
-
-    .game-card h4 {
-      font-size: 18px;
-      margin-bottom: 5px;
-      transition: color 0.3s ease;
-    }
-
-    .game-card:hover h4 {
-      color: #e94560;
-    }
-
-    .game-card p {
-      font-size: 14px;
-      opacity:0.7;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .seo-content,
-    .benefits-section {
-      padding: 30px 50px;
-      background-color: #16213e;
-      margin: 20px 0;
-      border-radius: 10px;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .seo-content h2,
-    .benefits-section h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .seo-content h3,
-    .benefits-section h3 {
-      font-size: 24px;
-      margin: 20px 0 10px;
-    }
-
-    .seo-content p,
-    .benefits-section p {
-      font-size: 16px;
-      line-height: 1.8;
-      margin-bottom: 15px;
-      color: #e0e0e0;
-    }
-
-    .seo-content a,
-    .benefits-section a {
-      color: #e94560;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .seo-content a:hover,
-    .benefits-section a:hover,
-    .seo-content a:focus,
-    .benefits-section a:focus {
-      color: #ff6b81;
-      outline: none;
-    }
-
-    .fab {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: #e94560;
-      color: #fff;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .fab:hover {
-      transform: scale(1.2);
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    footer {
-      background-color: #0f3460;
-      padding: 20px 50px;
-      text-align: center;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    .game-image-container {
       position: relative;
-      bottom: 0;
       width: 100%;
+      height: 60%;
+      overflow: hidden;
+    }
+
+    .game-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .game-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      z-index: 2;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .game-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      z-index: 2;
+    }
+
+    .game-title {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+    }
+
+    .game-description {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .game-categories {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
     }
 
-    footer a {
-      color: #e94560;
+    .game-category {
+      background: rgba(123, 45, 255, 0.2);
+      color: var(--light);
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      border: 1px solid var(--secondary);
+    }
+
+    /* Featured Sections */
+    .featured-section {
+      margin-bottom: var(--section-gap);
+    }
+
+    .featured-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .featured-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .view-all {
+      color: var(--primary);
       text-decoration: none;
-      font-size: 16px;
-      position: relative;
-      transition: color 0.3s ease;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    footer a:hover {
-      color: #fff;
+    .view-all:hover {
+      color: var(--light);
     }
 
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: #fff;
-      color: #1a1a2e;
+    .view-all i {
+      transition: transform 0.3s ease;
+    }
+
+    .view-all:hover i {
+      transform: translateX(3px);
+    }
+
+    /* About and Why Play Sections */
+    .about-section, .why-play-section {
+      background: linear-gradient(145deg, rgba(20, 20, 40, 0.8), rgba(10, 10, 30, 0.8));
+      border-radius: 20px;
+      padding: 3rem;
+      margin: var(--section-gap) 0;
       text-align: center;
-      border-radius: 6px;
-      padding: 5px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-section::before, .why-play-section::before {
+      content: '';
       position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.05) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(123, 45, 255, 0.05) 0%, transparent 30%);
+      z-index: 0;
+    }
+
+    .about-content, .why-play-content {
+      position: relative;
       z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -60px;
-      opacity: 0;
-      transition: opacity 0.3s;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
+    .why-play-list {
+      list-style: none;
+      margin: 2rem 0;
+      text-align: left;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    img[data-src] {
-      background-color: #2a2a4e;
-      transition: opacity 0.3s ease;
+    .why-play-item {
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-left: 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    .why-play-item::before {
+      content: '✓';
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+      font-size: 1.5rem;
+      top: -0.2rem;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: var(--section-gap) 0;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid var(--card-border);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--glow);
+      border-color: var(--primary);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      text-align: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: var(--dark);
+      box-shadow: 0 4px 15px rgba(0, 255, 157, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      box-shadow: 0 6px 20px rgba(0, 255, 157, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(90deg, var(--secondary), #6a25e0);
+      color: white;
+      box-shadow: 0 4px 15px rgba(123, 45, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(90deg, #6a25e0, var(--secondary));
+      box-shadow: 0 6px 20px rgba(123, 45, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(180deg, rgba(10, 10, 30, 0.9), rgba(5, 5, 16, 0.95));
+      padding: 4rem 1rem 2rem;
+      text-align: center;
+      width: 100%;
+      margin-top: auto;
+      position: relative;
+      border-top: 1px solid var(--card-border);
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.05) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(123, 45, 255, 0.05) 0%, transparent 30%);
+      z-index: 0;
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links-group h5 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-links-list {
+      list-style: none;
+    }
+
+    .footer-links-list li {
+      margin-bottom: 0.7rem;
+    }
+
+    .footer-link {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      color: var(--light);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      border: 1px solid var(--card-border);
+    }
+
+    .social-link:hover {
+      background: var(--primary);
+      color: var(--dark);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .footer-info {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .section {
+        padding: 3rem 0;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
     }
 
     @media (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        padding: 15px;
-        gap: 15px;
+      .container {
+        padding: 0 1rem;
       }
 
-      .search-bar {
-        width: 100%;
-        max-width: 300px;
+      .section {
+        padding: 2.5rem 0;
       }
 
-      .banner {
-        margin: 15px;
-        padding: 20px;
+      .hero-section {
+        padding: 4rem 0;
       }
 
-      .banner h2 {
-        font-size: 24px;
+      .hero-title {
+        font-size: 2.5rem;
       }
 
-      .banner p {
-        font-size: 16px;
+      .hero-subtitle {
+        font-size: 1.2rem;
       }
 
-      .games-section {
-        padding: 15px;
+      .section-title {
+        font-size: 2rem;
       }
 
       .games-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       }
 
-      .seo-content,
-      .benefits-section {
-        padding: 20px 15px;
+      .game-card {
+        height: 280px;
       }
 
-      footer {
-        padding: 15px;
-        position: sticky;
-        bottom: 0;
-        flex-direction: column;
-        gap: 10px;
+      .about-section, .why-play-section {
+        padding: 2rem;
       }
 
-      footer a {
-        font-size: 14px;
-        margin: 5px 0;
+      .why-play-item {
+        font-size: 1rem;
+        padding-left: 2rem;
       }
 
-      .fab {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .game-card {
+        max-width: 350px;
+        margin: 0 auto;
+      }
+
+      .stats-section {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 0.8rem;
+      }
+
+      .footer-links {
+        grid-template-columns: 1fr 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>
-      <img src="../static/images/icon.png" alt="Toolpix Logo" width="40" height="40">
-      Toolpix Games
-    </h1>
-    <div class="search-bar">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search games..." onkeyup="searchGames()" aria-label="Search games">
+  <!-- Audio Elements -->
+  <audio id="buttonClickSfx" src="../static/sfx/game-button-press-1.mp3" preload="auto"></audio>
+  <audio id="hoverSfx" src="../static/sfx/hover-effect.mp3" preload="auto"></audio>
+
+  <!-- Banner Overlay -->
+  <div class="banner-overlay" id="bannerOverlay">
+    <div class="banner-content" id="bannerContent">
+      <button class="banner-close" onclick="closeBanner()" aria-label="Close banner">×</button>
+      <a class="banner-link" id="bannerLink" onclick="navigateToGame()">
+        <img class="banner-image" id="bannerImage" src="" alt="Featured Game" width="600" height="338">
+        <h3 class="banner-title" id="bannerTitle"></h3>
+        <p class="banner-description" id="bannerDescription"></p>
+        <button class="btn btn-primary">Play Now!</button>
+      </a>
     </div>
   </div>
 
-  <div class="banner">
-    <canvas id="particles"></canvas>
-    <h2>Play Fun & Addictive Games!</h2>
-    <p>Explore a variety of free puzzle and strategy games on any device!</p>
-  </div>
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="particles" id="particles"></div>
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">TOOLPIX GAMES</h1>
+          <p class="hero-subtitle">Play free online games anytime, anywhere. No downloads, just pure fun!</p>
+          <button class="btn btn-primary" onclick="scrollToGames(); playButtonClick()" aria-label="Explore all games">
+            Explore Games <i>→</i>
+          </button>
+        </div>
+      </div>
+    </section>
 
-  <div class="games-section">
-    <h3>Featured Games</h3>
-    <div class="games-grid" id="gamesGrid">
-      <div class="game-card" data-name="Sudoku" data-url="./sudoku">
-        <div class="image-container">
-          <img data-src="https://i.ibb.co/Kp8zBJQm/Leonardo-Phoenix-10-A-stunning-digital-illustration-of-a-Sudok-3.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Sudoku Puzzle Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
-          <div class="loader"></div>
-        </div>
-        <div class="game-info">
-          <h4>Sudoku</h4>
-          <p>Classic number puzzle game with multiple difficulty levels</p>
-        </div>
-      </div>
-      <div class="game-card" data-name="Chess" data-url="./chess">
-        <div class="image-container">
-          <img data-src="https://i.ibb.co/j9gJPQyM/Leonardo-Phoenix-10-A-dramatic-cinematic-depiction-of-a-chessb-0.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Chess Strategy Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
-          <div class="loader"></div>
-        </div>
-        <div class="game-info">
-          <h4>Chess</h4>
-          <p>Play chess against the computer or a friend</p>
-        </div>
-      </div>
-      <div class="game-card" data-name="2048" data-url="./2048">
-        <div class="image-container">
-          <img data-src="https://i.ibb.co/YTZNN85d/Leonardo-Phoenix-10-A-vibrant-energetic-illustration-of-the-20-1.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1olM0g5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="2048 Number Puzzle Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
-          <div class="loader"></div>
-        </div>
-        <div class="game-info">
-          <h4>2048</h4>
-          <p>Addictive number merging puzzle game</p>
+    <!-- Stats Section -->
+    <section class="section">
+      <div class="container">
+        <div class="stats-section">
+          <!-- Happy Players: Corrected data-count from 5000 to 5 -->
+          <div class="stat-card">
+            <div class="stat-number" data-count="5">5M+</div>
+            <div class="stat-label">Happy Players</div>
+          </div>
+          <!-- Awesome Games: No change needed -->
+          <div class="stat-card">
+            <div class="stat-number" data-count="25">25+</div>
+            <div class="stat-label">Awesome Games</div>
+          </div>
+          <!-- Free Forever: No change needed -->
+          <div class="stat-card">
+            <div class="stat-number" data-count="100">100%</div>
+            <div class="stat-label">Free Forever</div>
+          </div>
+          <!-- Game Access: Added no-animate class and removed data-count -->
+          <div class="stat-card">
+            <div class="stat-number no-animate">24/7</div>
+            <div class="stat-label">Game Access</div>
+          </div>
         </div>
       </div>
-      <div class="game-card" data-name="Wordle" data-url="./wordle">
-        <div class="image-container">
-          <img data-src="https://i.ibb.co/NdRsbrfh/Leonardo-Phoenix-10-A-sleek-minimalist-illustration-of-a-Wordl-3.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Wordle Word Guessing Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
-          <div class="loader"></div>
-        </div>
-        <div class="game-info">
-          <h4>Wordle</h4>
-          <p>Popular word guessing game with daily challenges</p>
-        </div>
-      </div>
-      <div class="game-card" data-name="Tic Tac Toe" data-url="./tic-tac-toe">
-        <div class="image-container">
-          <img data-src="https://i.ibb.co/4ZM9T4nh/Leonardo-Phoenix-10-A-fun-retroinspired-illustration-of-a-Tic-2.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g5MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Tic Tac Toe Classic Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
-          <div class="loader"></div>
-        </div>
-        <div class="game-info">
-          <h4>Tic Tac Toe</h4>
-          <p>Classic X and O game against the computer</p>
-        </div>
-      </div>
-      <div class="game-card" data-name="Memory Game" data-url="./memory-game">
-        <div class="image-container">
-          <img data-src="https://i.ibb.co/mVKM7ZSQ/Leonardo-Phoenix-10-A-whimsical-magical-depiction-of-a-Memory-3.jpg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaXQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMyQTJBNEUiLz48cGF0aCBkPSJNMTU2LjY3IDEwMC42N0wxMjEuNjcgMTAwLjY3VjEyMy4zM0w5OS4wMDAzIDEyMy4zM1YxMDAuNjdINjQuMDAwM1Y3OC4wMDFIMTk5LjMzVjEwMC42N0gxNTYuNjdWMTIzLjMzSDE5OS4zM1YxNDYuNjdIMTY2LjdWMTY5LjMzTDEyMS42NyAxNjkuMzNWMTQ2LjY3SDk5LjAwMDNWMTEySDEyMS42N1YxNDYuNjdINjQuMDAwM1YxMjMuMzNIMzQuMDAwM1YxNDYuNjdIMjEuMzM3SDE5OS4zM1YxMjMuMzNIMjEuMzM3VjEwMC42N0g0My4zMzczSDE5OS4zM1Y3OC4wMDFIMjEuMzM3VjU1LjMzM0g0My4zMzczSDE5OS4zM1YzMi42NjdIMjEuMzM3VjkuMzMzSDExMi42N1Y1NS4zMzNIMTExLjY3SDE5OS4zM1YzMi42NjdIMTEyLjY3VjkuMzMzSDk5LjAwMDNWNTUuMzMzSDY0LjAwMDNWOS4zMzNINTEuMzM3VjMyLjY2N0g5OS4wMDAzVjU1LjMzM0g1MS4zMzczVjc4LjAwMUg5OS4wMDAzVjMyLjY2N0g2NC4wMDAzVjU1LjMzM0g5OS4wMDAzVjc4LjAwMUg2NC4wMDAzVjEwMC42N1oiIGZpbGw9IiNFOTQ1NjAiLz48L3N2Zz4=" alt="Memory Card Matching Game" width="200" height="150" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loader').classList.add('hidden');">
-          <div class="loader"></div>
-        </div>
-        <div class the="game-info">
-          <h4>Memory Game</h4>
-          <p>Test your memory with this card matching game</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <section class="benefits-section">
-    <h2>Benefits of Playing Online Games at Toolpix Games</h2>
-    <h3>Boost Your Brainpower with Puzzle Games</h3>
-    <p>Engage your mind with our puzzle games like <a href="./sudoku">Sudoku</a> and <a href="./2048">2048</a>. These games enhance logical thinking, problem-solving skills, and cognitive flexibility, offering a fun way to keep your brain sharp. Studies show puzzle games can improve memory and focus, making them ideal for all ages.</p>
-    <h3>Strategic Fun with Classic Games</h3>
-    <p>Master strategy with games like <a href="./chess">Chess</a> and <a href="./tic-tac-toe">Tic Tac Toe</a>. Chess challenges your tactical skills with deep strategic gameplay, while Tic Tac Toe offers quick, engaging matches. Both are perfect for sharpening decision-making and planning abilities.</p>
-    <h3>Daily Challenges and Wordplay</h3>
-    <p>Test your vocabulary with <a href="./wordle">Wordle</a>, a daily word guessing game that’s taken the world by storm. Each day brings a new puzzle, encouraging regular play to boost language skills and mental agility. It’s a quick, addictive way to challenge yourself.</p>
-    <h3>Enhance Memory and Focus</h3>
-    <p>Our <a href="./memory-game">Memory Game</a> is designed to improve concentration and short-term memory. Matching cards in a vibrant, interactive environment is both entertaining and beneficial, making it a great choice for players looking to enhance cognitive health.</p>
-  </section>
+    <!-- Trending Games -->
+    <section class="section featured-section">
+      <div class="container">
+        <div class="featured-header">
+          <h2 class="featured-title">🔥 Trending Now</h2>
+          <a href="javascript:void(0)" class="view-all" onclick="handleViewAllClick()">View All <i>→</i></a>
+        </div>
+        <div class="games-grid" id="trendingGames"> 
+        </div>
+      </div>
+    </section>
 
-  <section class="seo-content">
-    <h2>Why Toolpix Games is the Ultimate Destination for Free Online Gaming in 2025</h2>
-    <p>Welcome to Toolpix Games, the premier platform for <strong>free online games</strong> that captivate players of all ages and skill levels. Whether you’re passionate about <strong>puzzle games</strong>, <strong>strategy games</strong>, or casual fun, our diverse collection has something for everyone. With no downloads or installations required, you can dive into the action instantly on any device—smartphone, tablet, or computer. Explore why Toolpix Games is the top choice for <strong>online gaming</strong> in 2025.</p>
-    <h3>Discover a Wide Range of Free Browser Games</h3>
-    <p>Our curated selection includes timeless classics and modern favorites. Play <a href="./sudoku">Sudoku online</a> to tackle number puzzles with customizable difficulty levels, perfect for beginners and experts alike. For strategic minds, <a href="./chess">Chess online</a> offers challenging matches against the computer or friends, fostering critical thinking and planning skills. If you love number challenges, try the <a href="./2048">2048 game</a>, where you merge tiles to reach the elusive 2048 tile in an addictive puzzle experience.</p>
-    <p>Word game enthusiasts will adore <a href="./wordle">Wordle online</a>, a daily challenge that tests your vocabulary and keeps you coming back for more. For quick, nostalgic fun, <a href="./tic-tac-toe">Tic Tac Toe online</a> delivers classic gameplay with a modern twist. Meanwhile, our <a href="./memory-game">Memory Game online</a> sharpens your concentration with engaging card-matching challenges. Each game is optimized for seamless performance, ensuring a smooth and enjoyable experience.</p>
-    <h3>The Growing Popularity of Online Puzzle and Strategy Games</h3>
-    <p>Online gaming has transformed entertainment, blending fun with cognitive benefits. <strong>Free browser games</strong> like those on Toolpix Games are accessible to millions, offering a way to relax, learn, and connect. Research highlights that puzzle and strategy games can enhance memory, reduce stress, and improve problem-solving abilities. At Toolpix Games, we harness these benefits, providing a platform where players can enjoy <strong>brain games</strong> that are both entertaining and intellectually stimulating.</p>
-    <h3>Why Toolpix Games Stands Out</h3>
-    <p>Toolpix Games is more than just a gaming site—it’s a community for players seeking quality and convenience. Our platform features:
-      <ul>
-        <li><strong>Instant Access:</strong> Play free games online without downloads or subscriptions.</li>
-        <li><strong>Cross-Device Compatibility:</strong> Enjoy seamless gameplay on mobile, tablet, or desktop.</li>
-        <li><strong>User-Friendly Design:</strong> Navigate our intuitive interface with ease.</li>
-        <li><strong>Regular Updates:</strong> Discover new games and features to keep the excitement alive.</li>
-      </ul>
-    </p>
-    <p>We’re committed to delivering a top-tier gaming experience with fast-loading games and no hidden costs. Join players worldwide and experience the best <strong>free online games</strong> at Toolpix Games today!</p>
-    <h3>Tips for Maximizing Your Gaming Experience</h3>
-    <p>Want to get the most out of Toolpix Games? Try these tips:
-      <ul>
-        <li><strong>Explore All Games:</strong> Don’t stick to one—try <a href="./sudoku">Sudoku</a>, <a href="./2048">2048</a>, or <a href="./wordle">Wordle</a> for variety.</li>
-        <li><strong>Challenge Yourself:</strong> Increase difficulty levels in games like <a href="./sudoku">Sudoku</a> or play <a href="./chess">Chess</a> against tougher opponents.</li>
-        <li><strong>Play Daily:</strong> Engage with <a href="./wordle">Wordle</a>’s daily puzzles to build a streak and improve your skills.</li>
-        <li><strong>Share with Friends:</strong> Invite friends to play <a href="./chess">Chess</a> or compete in <a href="./tic-tac-toe">Tic Tac Toe</a> for added fun.</li>
-      </ul>
-    </p>
-    <p>Ready to start? Visit our <a href="#">games page</a> and dive into the world of Toolpix Games, where endless entertainment awaits!</p>
-  </section>
+    <!-- All Games Section -->
+    <section class="section games-section" id="gamesSection">
+      <div class="container">
+        <h2 class="section-title">Our Game Collection</h2>
+        <p class="section-subtitle" style="text-align: center;">Explore our exciting lineup of free online games. Click any game to start playing instantly!</p>
+        
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search games..." id="gameSearch" oninput="filterGames()">
+          <span class="search-icon">🔍</span>
+        </div>
+        
+        <div class="games-filter">
+          <button class="filter-btn active" onclick="filterByCategory('all')">All</button>
+          <button class="filter-btn" onclick="filterByCategory('puzzle')">Puzzle</button>
+          <button class="filter-btn" onclick="filterByCategory('strategy')">Strategy</button>
+          <button class="filter-btn" onclick="filterByCategory('classic')">Classic</button>
+          <button class="filter-btn" onclick="filterByCategory('word')">Word</button>
+          <button class="filter-btn" onclick="filterByCategory('memory')">Memory</button>
+        </div>
+        
+        <div class="games-grid" id="allGames">
+          <!-- All games will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
 
-  <div class="fab" onclick="scrollToTop()" aria-label="Scroll to top">↑</div>
+    <!-- Suggested Games -->
+    <section class="section featured-section">
+      <div class="container">
+        <div class="featured-header">
+          <h2 class="featured-title">🎮 Suggested For You</h2>
+          <a href="#" class="view-all" onclick="playButtonClick()">View All <i>→</i></a>
+        </div>
+        <div class="games-grid" id="suggestedGames">
+          <!-- Suggested games will be populated by JavaScript -->
+        </div>
+      </div>
+    </section>
 
+    <!-- About Section -->
+    <section class="section about-section">
+      <div class="container">
+        <div class="about-content">
+          <h2 class="section-title">About ToolPix Games</h2>
+          <p>ToolPix Games is your ultimate destination for free online games that spark joy and challenge your mind. Launched in 2025, we've welcomed over 5 million players worldwide, offering a diverse collection of browser-based games including brain-teasing puzzles, strategic challenges, and addictive casual games.</p>
+          <p>Our mission is to make gaming accessible, fun, and seamless. Play instantly on any device—no downloads or sign-ups required. ToolPix Games is part of the ToolPix ecosystem, which also provides productivity tools, image converters, and coding utilities, all crafted to simplify your digital life.</p>
+          <button class="btn btn-secondary" onclick="playButtonClick()">Learn More</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Play Section -->
+    <section class="section why-play-section">
+      <div class="container">
+        <div class="why-play-content">
+          <h2 class="section-title">Why Play at ToolPix Games?</h2>
+          <p>Discover why millions choose ToolPix Games for their online gaming adventures:</p>
+          <ul class="why-play-list">
+            <li class="why-play-item"><strong>Free Forever:</strong> Enjoy unlimited access to all games without any cost or subscriptions.</li>
+            <li class="why-play-item"><strong>No Downloads:</strong> Play instantly in your browser, whether on mobile, tablet, or desktop.</li>
+            <li class="why-play-item"><strong>Variety of Games:</strong> From logic puzzles to competitive strategy games, there's something for everyone.</li>
+            <li class="why-play-item"><strong>Smart AI Opponents:</strong> Challenge our intelligent AI with adjustable difficulty levels.</li>
+            <li class="why-play-item"><strong>Daily Challenges:</strong> Engage with fresh content keeping your experience exciting every day.</li>
+            <li class="why-play-item"><strong>User-Friendly Design:</strong> Intuitive interfaces and responsive layouts ensure smooth experience on any device.</li>
+          </ul>
+          <p>Whether you're sharpening your mind with puzzles, testing your strategy, or enjoying a quick game break, ToolPix Games offers endless entertainment. Start playing now and join our global community of gamers!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    <a href="../" class="tooltip"><span class="tooltiptext">Home</span></a>
-    <a href="./" class="tooltip"><span class="tooltiptext">Games</span></a>
-    <a href="../all-tools" class="tooltip"><span class="tooltiptext">All Tools</span></a>
-    <a href="../terms" class="tooltip"><span class="tooltiptext">Terms</span></a>
-    <a href="../privacy" class="tooltip"><span class="tooltiptext">Privacy Policy</span></a>
-    <a href="../blog" class="tooltip"><span class="tooltiptext">Blog</span></a>
-    <a href="../contact" class="tooltip"><span class="tooltiptext">Contact</span></a>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <div class="footer-links-group">
+          <h5>Games</h5>
+          <ul class="footer-links-list">
+            <li><a href="#" class="footer-link" onclick="playButtonClick()">All Games</a></li>
+            <li><a href="#" class="footer-link" onclick="playButtonClick()">New Releases</a></li>
+            <li><a href="#" class="footer-link" onclick="playButtonClick()">Popular Games</a></li>
+            <li><a href="#" class="footer-link" onclick="playButtonClick()">Categories</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h5>Company</h5>
+          <ul class="footer-links-list">
+            <li><a href="../about" class="footer-link" onclick="playButtonClick()">About Us</a></li>
+            <li><a href="../blog" class="footer-link" onclick="playButtonClick()">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h5>Support</h5>
+          <ul class="footer-links-list">
+            <li><a href="../help" class="footer-link" onclick="playButtonClick()">Help Center</a></li>
+            <li><a href="../contact" class="footer-link" onclick="playButtonClick()">Contact Us</a></li>
+            <li><a href="../faq" class="footer-link" onclick="playButtonClick()">FAQ</a></li>
+            <li><a href="../feedback" class="footer-link" onclick="playButtonClick()">Feedback</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h5>Legal</h5>
+          <ul class="footer-links-list">
+            <li><a href="../terms" class="footer-link" onclick="playButtonClick()">Terms of Service</a></li>
+            <li><a href="../privacy" class="footer-link" onclick="playButtonClick()">Privacy Policy</a></li>
+            <li><a href="../cookies" class="footer-link" onclick="playButtonClick()">Cookie Policy</a></li>
+            <li><a href="../copyright" class="footer-link" onclick="playButtonClick()">Copyright</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="https://twitter.com/toolpixgames" class="social-link" onclick="playButtonClick()" aria-label="Twitter">𝕏</a>
+        <a href="https://facebook.com/toolpixgames" class="social-link" onclick="playButtonClick()" aria-label="Facebook">f</a>
+        <a href="https://instagram.com/toolpixgames" class="social-link" onclick="playButtonClick()" aria-label="Instagram">📸</a>
+        <a href="https://youtube.com/toolpixgames" class="social-link" onclick="playButtonClick()" aria-label="YouTube">▶</a>
+        <a href="https://discord.gg/toolpixgames" class="social-link" onclick="playButtonClick()" aria-label="Discord">⌨</a>
+      </div>
+      
+      <div class="footer-info">
+        © 2025 ToolPix Games. All rights reserved. Providing free online games since 2025.
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Lazy loading with Intersection Observer
-    document.addEventListener('DOMContentLoaded', function () {
-      const images = document.querySelectorAll('img[data-src]');
-      
-      if ('loading' in HTMLImageElement.prototype) {
-        images.forEach(img => {
-          img.src = img.dataset.src;
-        });
-      } else {
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              img.src = img.dataset.src;
-              observer.unobserve(img);
-            }
-          });
-        }, {
-          rootMargin: '0px 0px 200px 0px',
-          threshold: 0.1
-        });
+    // Audio handling
+    const buttonClickSfx = document.getElementById('buttonClickSfx');
+    const hoverSfx = document.getElementById('hoverSfx');
 
-        images.forEach(img => observer.observe(img));
-      }
+    function playButtonClick() {
+      buttonClickSfx.currentTime = 0;
+      buttonClickSfx.play().catch(error => console.log('Button click sound error:', error));
+    }
 
-      // Add click event listeners to game cards
-      const gameCards = document.querySelectorAll('.game-card');
-      gameCards.forEach(card => {
-        card.addEventListener('click', () => {
-          const url = card.getAttribute('data-url');
-          if (url) {
-            window.location.href = url;
-          }
-        });
-      });
+    function playHoverSound() {
+      hoverSfx.currentTime = 0;
+      hoverSfx.volume = 0.3;
+      hoverSfx.play().catch(error => console.log('Hover sound error:', error));
+    }
+
+    // Add hover sound to interactive elements
+    document.querySelectorAll('.btn, .game-card, .filter-btn, .footer-link, .social-link').forEach(el => {
+      el.addEventListener('mouseenter', playHoverSound);
     });
 
-    // Search functionality
-    function searchGames() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const gameCards = document.querySelectorAll('.game-card');
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100 + 100}%`;
+        
+        // Random animation duration between 10s and 20s
+        const duration = Math.random() * 10 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        // Random color variation
+        const hue = Math.random() * 60 + 120; // Green to cyan range
+        particle.style.backgroundColor = `hsla(${hue}, 100%, 70%, 0.7)`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
 
+    // Game data with categories and popularity
+    const games = [
+      {
+        name: 'Sudoku',
+        url: './sudoku',
+        image:'../static/images/games/banner/sudoku.jpg',
+        description: 'Solve classic Sudoku puzzles with multiple difficulty levels, perfect for sharpening your logic skills.',
+        alt: 'Sudoku Puzzle Game',
+        categories: ['puzzle', 'classic'],
+        popularity: 9,
+        trending: true
+      },
+      {
+        name: 'Chess',
+        url: './chess',
+        image: '../static/images/games/banner/chess.jpg',
+        description: 'Master your strategy with Chess, playable against our smart AI or a friend in two-player mode.',
+        alt: 'Chess Strategy Game',
+        categories: ['strategy', 'classic'],
+        popularity: 10,
+        trending: true
+      },
+      {
+        name: '2048',
+        url: './2048',
+        image: '../static/images/games/banner/2048.jpg',
+        description: 'Merge tiles to reach 2048 in this addictive number puzzle that tests your planning skills.',
+        alt: '2048 Number Puzzle Game',
+        categories: ['puzzle'],
+        popularity: 8,
+        trending: true
+      },
+      {
+        name: 'Wordle',
+        url: './wordle',
+        image: '../static/images/games/banner/wordle.jpg',
+        description: 'Guess the daily word in six tries with Wordle, a fun and challenging word game.',
+        alt: 'Wordle Word Guessing Game',
+        categories: ['word', 'puzzle'],
+        popularity: 9,
+        trending: false
+      },
+      {
+        name: 'Tic Tac Toe',
+        url: './tic-tac-toe',
+        image: '../static/images/games/banner/tic-tac-toe.jpg',
+        description: 'Play the classic Tic Tac Toe against our unbeatable AI or challenge a friend.',
+        alt: 'Tic Tac Toe Classic Game',
+        categories: ['classic', 'strategy'],
+        popularity: 7,
+        trending: false
+      },
+      {
+        name: 'Memory Game',
+        url: './memory-game',
+        image: '../static/images/games/banner/memory-game.jpg',
+        description: 'Challenge your memory with our engaging card matching game, fun for all ages.',
+        alt: 'Memory Card Matching Game',
+        categories: ['memory'],
+        popularity: 6,
+        trending: false
+      }
+    ];
+
+    /*
+    
+    
+    
+    ,
+      {
+        name: 'Crossword',
+        url: './crossword',
+        image: '../static/images/games/banner/crossword.jpg',
+        description: 'Solve daily crossword puzzles with varying difficulty levels and themes.',
+        alt: 'Crossword Puzzle Game',
+        categories: ['word', 'puzzle'],
+        popularity: 7,
+        trending: true
+      },
+      {
+        name: 'Solitaire',
+        url: './solitaire',
+        image: '../static/images/games/banner/solitaire.jpg',
+        description: 'Play the classic card game Solitaire with beautiful themes and smooth gameplay.',
+        alt: 'Solitaire Card Game',
+        categories: ['classic'],
+        popularity: 8,
+        trending: false
+      },
+      {
+        name: 'Minesweeper',
+        url: './minesweeper',
+        image: '../static/images/games/banner/minesweeper.jpg',
+        description: 'The classic Minesweeper game with multiple difficulty levels and modern design.',
+        alt: 'Minesweeper Puzzle Game',
+        categories: ['puzzle', 'classic'],
+        popularity: 7,
+        trending: false
+      },
+      {
+        name: 'Snake',
+        url: './snake',
+        image: '../static/images/games/banner/snake.jpg',
+        description: 'The nostalgic Snake game with modern twists and competitive leaderboards.',
+        alt: 'Snake Classic Game',
+        categories: ['classic'],
+        popularity: 8,
+        trending: true
+      },
+      {
+        name: 'Tetris',
+        url: './tetris',
+        image: '../static/images/games/banner/tetris.jpg',
+        description: 'The iconic Tetris game with multiple modes and beautiful block designs.',
+        alt: 'Tetris Puzzle Game',
+        categories: ['puzzle', 'classic'],
+        popularity: 9,
+        trending: true
+      },
+      {
+        name: 'Hangman',
+        url: './hangman',
+        image: '../static/images/games/banner/hangman.jpg',
+        description: 'Guess the word before the hangman is complete in this classic word game.',
+        alt: 'Hangman Word Game',
+        categories: ['word'],
+        popularity: 6,
+        trending: false
+      }
+    
+    */
+
+    // Create game cards
+    function createGameCard(game) {
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.setAttribute('data-name', game.name.toLowerCase());
+      card.setAttribute('data-categories', game.categories.join(' '));
+      card.setAttribute('data-popularity', game.popularity);
+      
+      card.innerHTML = `
+        <div class="game-image-container">
+          <img class="game-image" src="${game.image}" alt="${game.alt}" loading="lazy">
+          ${game.trending ? '<span class="game-badge">Trending</span>' : ''}
+        </div>
+        <div class="game-info">
+          <h4 class="game-title">${game.name}</h4>
+          <p class="game-description">${game.description}</p>
+          <div class="game-categories">
+            ${game.categories.map(cat => `<span class="game-category">${cat}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      
+      card.addEventListener('click', () => {
+        playButtonClick();
+        window.location.href = game.url;
+      });
+      
+      return card;
+    }
+
+    // Populate games
+    function populateGames() {
+      const trendingContainer = document.getElementById('trendingGames');
+      const allGamesContainer = document.getElementById('allGames');
+      const suggestedContainer = document.getElementById('suggestedGames');
+      
+      // Clear existing content
+      trendingContainer.innerHTML = '';
+      allGamesContainer.innerHTML = '';
+      suggestedContainer.innerHTML = '';
+      
+      // Sort games by popularity
+      const sortedGames = [...games].sort((a, b) => b.popularity - a.popularity);
+      
+      // Get trending games (top 4 by popularity)
+      const trendingGames = sortedGames.slice(0, 4);
+      trendingGames.forEach(game => {
+        trendingContainer.appendChild(createGameCard(game));
+      });
+      
+      // Get suggested games (random 4 games)
+      const suggestedGames = [...games]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 4);
+      suggestedGames.forEach(game => {
+        suggestedContainer.appendChild(createGameCard(game));
+      });
+      
+      // All games
+      games.forEach(game => {
+        allGamesContainer.appendChild(createGameCard(game));
+      });
+    }
+
+    // Filter games by search
+    function filterGames() {
+      const searchTerm = document.getElementById('gameSearch').value.toLowerCase();
+      const gameCards = document.querySelectorAll('#allGames .game-card');
+      
       gameCards.forEach(card => {
-        const gameName = card.getAttribute('data-name').toLowerCase();
-        if (gameName.includes(input)) {
-          card.classList.remove('hidden');
+        const gameName = card.getAttribute('data-name');
+        if (gameName.includes(searchTerm)) {
+          card.style.display = 'block';
         } else {
-          card.classList.add('hidden');
+          card.style.display = 'none';
         }
       });
     }
 
-    // Scroll to top
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Particle animation for banner
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    const particlesArray = [];
-    const numberOfParticles = 50;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 5 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.size > 0.2) this.size -= 0.1;
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-
-      draw() {
-        ctx.fillStyle = 'rgba(233, 69, 96, 0.8)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-        if (particlesArray[i].size <= 0.2) {
-          particlesArray.splice(i, 1);
-          particlesArray.push(new Particle());
-          i--;
+    // Filter games by category
+    function filterByCategory(category) {
+      // Update active filter button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      const gameCards = document.querySelectorAll('#allGames .game-card');
+      
+      gameCards.forEach(card => {
+        const categories = card.getAttribute('data-categories');
+        if (category === 'all' || categories.includes(category)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
         }
-      }
-      requestAnimationFrame(animateParticles);
+      });
     }
 
-    initParticles();
-    animateParticles();
+    // Banner handling
+    let currentBannerGame = null;
 
-    // Resize canvas on window resize
-    window.addEventListener('resize', () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+    function showBanner() {
+      // Get random game that's not the same as the current one
+      let randomGame;
+      do {
+        randomGame = games[Math.floor(Math.random() * games.length)];
+      } while (randomGame === currentBannerGame && games.length > 1);
+      
+      currentBannerGame = randomGame;
+      
+      const bannerOverlay = document.getElementById('bannerOverlay');
+      const bannerImage = document.getElementById('bannerImage');
+      const bannerTitle = document.getElementById('bannerTitle');
+      const bannerDescription = document.getElementById('bannerDescription');
+      const bannerLink = document.getElementById('bannerLink');
+
+      bannerImage.src = randomGame.image;
+      bannerImage.alt = randomGame.alt;
+      bannerTitle.textContent = `${randomGame.name}`;
+      bannerDescription.textContent = randomGame.description;
+      bannerLink.setAttribute('data-url', randomGame.url);
+
+      bannerOverlay.style.display = 'flex';
+    }
+
+    function closeBanner() {
+      document.getElementById('bannerOverlay').style.display = 'none';
+      playButtonClick();
+    }
+
+    function navigateToGame() {
+      const url = document.getElementById('bannerLink').getAttribute('data-url');
+      playButtonClick();
+      window.location.href = url;
+    }
+
+    // Navigation
+    function scrollToGames() {
+      document.getElementById('gamesSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Animate stats counting
+    function animateStats() {
+      // Select only stat-number elements without the no-animate class
+      const statNumbers = document.querySelectorAll('.stat-number:not(.no-animate)');
+      
+      statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        const suffix = stat.textContent.replace(/[0-9]/g, '');
+        let current = 0;
+        const increment = target / 30;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            clearInterval(timer);
+            current = target;
+          }
+          stat.textContent = Math.floor(current) + suffix;
+        }, 30);
+      });
+    }
+
+    // Initialize page
+    window.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      populateGames();
+      
+      // Show banner on load only if not already shown in this session
+      if (!sessionStorage.getItem('bannerShown')) {
+        showBanner();
+        sessionStorage.setItem('bannerShown', 'true');
+      }
+      
+      animateStats();
+
+      // Show banner every 30 minutes
+      setInterval(showBanner, 30 * 60 * 1000);
+
+      // Add animation to elements when they come into view
+      const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.section, .game-card, .stat-card');
+        
+        elements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const isVisible = (rect.top <= window.innerHeight * 0.8) && (rect.bottom >= 0);
+          
+          if (isVisible) {
+            el.style.animation = 'fadeIn 0.8s ease forwards';
+          }
+        });
+      };
+
+      // Initial check
+      animateOnScroll();
+      
+      // Check on scroll
+      window.addEventListener('scroll', animateOnScroll);
     });
   </script>
 </body>
