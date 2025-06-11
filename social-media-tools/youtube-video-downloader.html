@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>YouTube Video Downloader - Download Videos Online</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Download YouTube videos online instantly with our free tool. Simply paste the video URL, and get your video in seconds. No add-ons or registration required.">
+    <meta name="keywords" content="YouTube video downloader, download YouTube videos, YouTube video saver, free YouTube downloader, online video downloader, YouTube to mp4">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Tool Pix">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="YouTube Video Downloader - Free Online Tool">
+    <meta property="og:description" content="Download YouTube videos instantly with our free online tool. Paste the video URL and download in seconds. No add-ons needed.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Tool Pix">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YouTube Video Downloader - Free Online Video Downloader">
+    <meta name="twitter:description" content="Free tool to download YouTube videos instantly. No registration needed, works on all devices.">
+    <meta name="twitter:creator" content="@harsh98trivedi">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "YouTube Video Downloader",
+        "operatingSystem": "All",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "A free online tool to download YouTube videos instantly. Simply paste the video URL to download videos without any add-ons.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Tool Pix"
+        }
+    }
+    </script>
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #FF0000;
+            --secondary-color: #282828;
+            --accent-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Input Section */
+        .input-section {
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: var(--border-radius) !important;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            padding: 0.75rem 1.25rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.1);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #d40000;
+            border-color: #d40000;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        /* Info Section */
+        .info-section {
+            margin-bottom: 3rem;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 10px;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+            
+            .footer-links a {
+                margin: 0.5rem 0;
+            }
+        }
+        
+        /* Error Message */
+        .error-message {
+            display: none;
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70447982-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-70447982-2');
+    </script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fab fa-youtube"></i>
+                    YouTube Video Downloader
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Main Card -->
+            <div class="card animate__animated animate__fadeIn">
+                <h1 class="card-title">
+                    <i class="fas fa-download"></i> Download YouTube Videos
+                </h1>
+                
+                <!-- Error Message -->
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i> The URL you entered may be incorrect. Please check and try again.
+                </div>
+                
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="ytlink" placeholder="Paste YouTube video URL here..." autofocus>
+                        <button class="btn btn-primary" id="getVideoBtn">
+                            <i class="fas fa-download"></i> Get Video
+                        </button>
+                    </div>
+                    <p class="text-muted">
+                        <i class="fas fa-info-circle"></i> Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ or https://youtu.be/dQw4w9WgXcQ
+                    </p>
+                </div>
+                
+                <!-- Loading Spinner -->
+                <div class="text-center loading-spinner" id="loadingSpinner">
+                    <i class="fas fa-spinner fa-spin"></i> Processing video URL...
+                </div>
+            </div>
+            
+            <!-- Info Section -->
+            <div class="info-section">
+                <div class="card info-card">
+                    <h2 class="info-title">
+                        <i class="fas fa-question-circle"></i> How to Download YouTube Videos?
+                    </h2>
+                    <p>
+                        Downloading YouTube videos is simple with our free online tool. Just follow these steps:
+                    </p>
+                    <div class="steps">
+                        <div class="step mb-3">
+                            <h3><span class="badge bg-primary">1</span> Copy Video URL</h3>
+                            <p>Go to YouTube, find the video you want to download, and copy its URL from the address bar.</p>
+                        </div>
+                        <div class="step mb-3">
+                            <h3><span class="badge bg-primary">2</span> Paste URL</h3>
+                            <p>Paste the YouTube video URL into the input field above.</p>
+                        </div>
+                        <div class="step mb-3">
+                            <h3><span class="badge bg-primary">3</span> Get Video</h3>
+                            <p>Click the "Get Video" button. After a brief processing time, you’ll be redirected to the download page.</p>
+                        </div>
+                        <div class="step">
+                            <h3><span class="badge bg-primary">4</span> Download</h3>
+                            <p>Choose your preferred video quality and format on the download page to save the video to your device.</p>
+                        </div>
+                    </div>
+                    <p>
+                        <strong>Tip:</strong> You can also manually add "ss" before "youtube.com" in the video URL (e.g., https://www.ssyoutube.com/watch?v=YOcmSsBfafg) to access the downloader directly.
+                    </p>
+                </div>
+                
+                <div class="card info-card">
+                    <h2 class="info-title">
+                        <i class="fas fa-lightbulb"></i> Why Use Our YouTube Video Downloader?
+                    </h2>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>No add-ons</strong> required – download directly in your browser
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Free to use</strong> – no registration or fees
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> Works on <strong>all devices</strong> – mobile, tablet, and desktop
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Simple and fast</strong> – paste the URL and download in seconds
+                        </li>
+                    </ul>
+                    <p>
+                        Our tool makes downloading YouTube videos quick and hassle-free. For more tips, check our <a href="./blog">blog</a>!
+                    </p>
+                </div>
+                
+                <div class="card info-card">
+                    <h2 class="info-title">
+                        <i class="fas fa-exclamation-triangle"></i> Important Note
+                    </h2>
+                    <p>
+                        Please use this tool responsibly and respect YouTube's <a href="./terms">Terms of Service</a> and copyright laws. Only download videos for which you have permission or that are in the public domain.
+                    </p>
+                    <p>
+                        We do not host any YouTube content on our servers. This tool redirects to a third-party service for downloading. See our <a href="./privacy">Privacy Policy</a> for more details.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="../">Home</a>
+                <a href="./">Social Media Tools</a>
+                <a href="../about">About</a>
+                <a href="../privacy">Privacy Policy</a>
+                <a href="../terms">Terms of Service</a>
+                <a href="../contact">Contact</a>
+                <a href="../blog">Blog</a>
+            </div>
+            <div class="copyright">
+                © 2025 Tool Pix. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            // Function to validate YouTube URL and extract video ID
+            function validateYouTubeUrl(url) {
+                // Add protocol if missing
+                if (!url.match(/^https?:\/\//)) {
+                    url = 'https://' + url;
+                }
+                var regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|v\/|u\/\w\/|embed\/|shorts\/)?([^#\&\?]*).*/i;
+                var match = url.match(regExp);
+                if (match && match[1] && match[1].length === 11) {
+                    return match[1];
+                }
+                return null;
+            }
+
+            // Function to show error message
+            function showError(message) {
+                $('#errorMessage').text(message).fadeIn();
+                setTimeout(function() {
+                    $('#errorMessage').fadeOut();
+                }, 5000);
+            }
+
+            // Function to handle video download redirect
+            function handleVideoDownload(url) {
+                // Ensure HTTPS protocol
+                if (!url.match(/^https?:\/\//)) {
+                    url = 'https://' + url;
+                } else if (url.startsWith('http://')) {
+                    url = url.replace('http://', 'https://');
+                }
+
+                var videoId = validateYouTubeUrl(url);
+                if (!videoId) {
+                    showError("The URL you entered may be incorrect. Please ensure it's a valid YouTube video URL.");
+                    return;
+                }
+
+                // Show the loading spinner
+                $('#loadingSpinner').show();
+                $('#errorMessage').hide();
+
+                // Convert to standard YouTube URL format
+                var standardUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+                // Simulate 5-second delay for traffic purposes
+                setTimeout(function() {
+                    // Hide the spinner
+                    $('#loadingSpinner').hide();
+
+                    // Modify standard URL to include "www.ss"
+                    var redirectUrl = standardUrl.replace(/(https:\/\/)(www\.)?(youtube\.com)/, '$1www.ssyoutube.com');
+
+                    // Redirect to the modified URL
+                    try {
+                        window.location.href = redirectUrl;
+                    } catch (e) {
+                        showError("Redirection failed. The download service may be unavailable. Please try again later.");
+                    }
+                }, 5000);
+            }
+
+            // Event listener for the "Get Video" button
+            $('#getVideoBtn').click(function() {
+                var url = $('#ytlink').val().trim();
+                if (url) {
+                    handleVideoDownload(url);
+                } else {
+                    showError("Please enter a YouTube video URL");
+                }
+            });
+
+            // Event listener for Enter key
+            $('#ytlink').on('keypress', function(e) {
+                if (e.which === 13) { // Enter key
+                    $('#getVideoBtn').click();
+                }
+            });
+
+            // Prevent default form submission
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

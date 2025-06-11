@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D2K Army - ToolPix</title>
+  <meta name="description" content="Welcome to D2K Army, your ultimate gaming destination on YouTube. Explore our store, watch epic gaming content, and connect with us on social media.">
+  <meta name="keywords" content="D2K Army, YouTube gaming channel, gaming content, game reviews, live streams, gaming store, ToolPix">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="D2K Army - ToolPix">
+  <meta property="og:description" content="Join D2K Army for top-tier gaming content, exclusive merchandise, and more. Your gaming journey starts here!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpixs.github.io/tools/d2k-army/">
+  <meta property="og:image" content="https://toolpixs.github.io/tools/images/d2k-army-og.jpg">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="D2K Army - ToolPix">
+  <meta name="twitter:description" content="Join D2K Army for top-tier gaming content, exclusive merchandise, and more. Your gaming journey starts here!">
+  <meta name="twitter:image" content="https://toolpixs.github.io/tools/images/d2k-army-twitter.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="./static/images/favicon/favicon.ico" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #00ff00; /* Neon Green */
+      --secondary: #00ffff; /* Neon Cyan */
+      --background: #0a0a0a; /* Deep Black */
+      --text: #ffffff;
+      --text-light: #b0b0b0;
+      --accent: #ff00ff; /* Neon Magenta */
+      --shadow: rgba(0, 255, 0, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', 'Poppins', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.9), rgba(0, 255, 0, 0.2));
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 0 20px var(--shadow);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo img {
+      height: 40px;
+      filter: drop-shadow(0 0 5px var(--primary));
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      left: 0;
+      bottom: -5px;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--primary);
+    }
+
+    /* Banner Section */
+    .banner {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      overflow: hidden;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('./static/images/d2k-army-banner.jpg') center/cover no-repeat;
+      opacity: 0.3;
+      z-index: 0;
+      animation: pulse 10s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.5; }
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .banner h1 {
+      font-size: 4.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px var(--shadow);
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    .banner p {
+      font-size: 1.5rem;
+      max-width: 700px;
+      margin: 1rem auto;
+      color: var(--text-light);
+      animation: fadeInUp 1s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Grid Section */
+    .grid-section {
+      padding: 5rem 2rem;
+      background: var(--background);
+      position: relative;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      border: 1px solid var(--primary);
+      animation: gridFadeIn 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .grid-item:nth-child(1) { animation-delay: 0.2s; }
+    .grid-item:nth-child(2) { animation-delay: 0.4s; }
+    .grid-item:nth-child(3) { animation-delay: 0.6s; }
+    .grid-item:nth-child(4) { animation-delay: 0.8s; }
+
+    @keyframes gridFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-item:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 0 30px var(--shadow);
+    }
+
+    .grid-icon {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .grid-item:hover .grid-icon {
+      color: var(--secondary);
+    }
+
+    .grid-item h2 {
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .grid-item a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Profile Section */
+    .profile-section {
+      padding: 5rem 2rem;
+      background: linear-gradient(180deg, var(--background), rgba(0, 255, 0, 0.1));
+      text-align: center;
+    }
+
+    .profile-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .profile-picture {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid var(--primary);
+      object-fit: cover;
+      margin-bottom: 2rem;
+      animation: profileSpin 10s linear infinite;
+      box-shadow: 0 0 20px var(--shadow);
+    }
+
+    @keyframes profileSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-container h2 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--shadow);
+    }
+
+    .profile-container p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: rgba(0, 0, 0, 0.95);
+      padding: 3rem 2rem;
+      color: var(--text-light);
+      text-align: center;
+      border-top: 1px solid var(--primary);
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 2rem;
+    }
+
+    .footer-logo a {
+      color: var(--primary);
+      font-size: 1.8rem;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.5rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .footer-links h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: var(--text-light);
+      margin: 0 1rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .banner h1 { font-size: 2.5rem; }
+      .banner p { font-size: 1rem; }
+      .grid-container { grid-template-columns: 1fr; }
+      .profile-picture { width: 150px; height: 150px; }
+      .profile-container h2 { font-size: 2rem; }
+      .footer-container { flex-direction: column; align-items: center; }
+      nav ul { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="./" class="logo">
+        <img src="./static/images/icon.png" alt="ToolPix Logo">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="./">ToolPix Home</a></li>
+          <li><a href="#" class="active">D2K Army</a></li>
+          <li><a href="./contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Banner Section -->
+    <section class="banner">
+      <div class="banner-content">
+        <h1>D2K Army</h1>
+        <p>Welcome to D2K Army, your ultimate destination for epic gaming adventures!</p>
+        <span class="visually-hidden">Banner image of D2K Army gaming channel</span>
+      </div>
+    </section>
+
+    <!-- Grid Section -->
+    <section class="grid-section">
+      <div class="grid-container">
+        <a href="./store" class="grid-item store">
+          <div class="grid-icon"><i class="fas fa-store"></i></div>
+          <h2>Store</h2>
+        </a>
+        <a href="https://www.youtube.com/@D2KArmy" target="_blank" class="grid-item youtube">
+          <div class="grid-icon"><i class="fab fa-youtube"></i></div>
+          <h2>YouTube</h2>
+        </a>
+        <a href="https://www.instagram.com/d2karmy" target="_blank" class="grid-item instagram">
+          <div class="grid-icon"><i class="fab fa-instagram"></i></div>
+          <h2>Instagram</h2>
+        </a>
+        <a href="https://www.facebook.com/d2karmy" target="_blank" class="grid-item facebook">
+          <div class="grid-icon"><i class="fab fa-facebook"></i></div>
+          <h2>Facebook</h2>
+        </a>
+      </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+      <div class="profile-container">
+        <img src="./static/images/d2k-army-profile.jpg" alt="D2K Army Profile Picture" class="profile-picture">
+        <h2>D2K Army</h2>
+        <p>D2K Army is a premier gaming channel on YouTube, delivering in-depth game reviews, thrilling walkthroughs, and electrifying live streams. Join our vibrant community of gamers, dive into the latest gaming news, and level up your experience with exclusive content and merchandise. Your gaming journey starts here!</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <a href="./">ToolPix</a>
+          <p>Free online tools for YouTube, images, productivity, code, and games</p>
+        </div>
+        <div class="social-links">
+          <a href="https://www.youtube.com/@D2KArmy" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.instagram.com/d2karmy" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/d2karmy" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="./"><i class="fas fa-home"></i> ToolPix Home</a></li>
+          <li><a href="./store"><i class="fas fa-store"></i> D2K Army Store</a></li>
+          <li><a href="./contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ToolPix. All rights reserved.</p>
+      <a href="./privacy">Privacy Policy</a>
+      <a href="./terms">Terms of Service</a>
+    </div>
+  </footer>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "D2K Army",
+    "url": "https://toolpixs.github.io/tools/d2k-army/",
+    "sameAs": [
+      "https://www.youtube.com/@D2KArmy",
+      "https://www.instagram.com/d2karmy",
+      "https://www.facebook.com/d2karmy"
+    ],
+    "description": "D2K Army is a premier gaming channel on YouTube, offering in-depth game reviews, walkthroughs, and live streams."
+  }
+  </script>
+</body>
+</html>
