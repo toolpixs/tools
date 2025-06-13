@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToolPix Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+      --radius-md: 12px;
+      --transition: all 0.3s ease;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: var(--primary);
+      padding: 1rem 2rem;
+      color: white;
+      text-align: center;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .add-btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .add-btn:hover {
+      background: var(--primary-dark);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px var(--shadow);
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-content h2 {
+      margin-bottom: 1rem;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .modal-content button {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+    .modal-content button:hover {
+      background: var(--primary-dark);
+    }
+    .cancel-btn {
+      background: #dc2626;
+    }
+    .cancel-btn:hover {
+      background: #b91c1c;
+    }
+    .close-modal {
+      float: right;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+    .close-modal:hover {
+      color: var(--text);
+    }
+    #productsList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-item {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 2px 8px var(--shadow);
+      position: relative;
+    }
+    .product-item img {
+      width: 100%;
+      height: auto;
+      max-height: 150px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+    .three-dot-menu {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+    .three-dot-menu:hover {
+      color: var(--text);
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      right: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px var(--shadow);
+      z-index: 10;
+    }
+    .dropdown-menu button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      background: none;
+      border: none;
+      text-align: left;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .dropdown-menu button:hover {
+      background: var(--bg);
+    }
+    .status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ToolPix Admin</h1>
+  </header>
+  <div class="container">
+    <button class="add-btn" onclick="openModal('add')"><i class="fas fa-plus"></i> Add Product</button>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <form id="productForm">
+          <h2 id="formTitle"><i class="fas fa-plus"></i> Add Product</h2>
+          <input type="hidden" name="ID" id="productID" />
+          <input type="hidden" name="action" id="formAction" value="add" />
+          <input type="text" name="Category" placeholder="Category" required />
+          <input type="text" name="Title" placeholder="Title" required />
+          <textarea name="Description" placeholder="Description" required></textarea>
+          <input type="number" step="0.01" name="OriginalPrice" placeholder="Original Price" required />
+          <input type="number" step="0.01" name="DiscountPercentage" placeholder="Discount %" required />
+          <input type="url" name="PurchaseLink" placeholder="Purchase Link" required />
+          <input type="text" name="Keywords" placeholder="Keywords" required />
+          <textarea name="Features" placeholder="Features (one per line)"></textarea>
+          <label>Upload Image (leave blank to keep existing):</label>
+          <input type="file" name="image" id="image" accept="image/*" />
+          <input type="hidden" name="ImageURLs" id="existingImageURLs" />
+          <button type="submit"><i class="fas fa-save"></i> Submit</button>
+          <button type="button" class="cancel-btn" onclick="closeModal()"><i class="fas fa-times"></i> Cancel</button>
+          <div class="status" id="status"></div>
+        </form>
+      </div>
+    </div>
+    <section id="productsList"></section>
+  </div>
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmOLM1U4uH1jtQAxwGCxJKTH4su7zHpfryFd7j7EdEUmcGfKz16E5XREmczPdLQaVS/exec";
+    const CLOUD_NAME = 'dokipk9pe';
+    const UPLOAD_PRESET = 'unsigned_products';
+
+    async function fetchProducts() {
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          return data;
+        } else {
+          throw new Error('Invalid data format');
+        }
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        return [];
+      }
+    }
+
+    function renderProducts(products) {
+      const productsList = document.getElementById('productsList');
+      productsList.innerHTML = '';
+      products.forEach(product => {
+        const imageUrl = product.ImageURLs || 'https://via.placeholder.com/150';
+        const item = document.createElement('div');
+        item.classList.add('product-item');
+        item.innerHTML = `
+          <img src="${imageUrl}" alt="${product.Title}">
+          <h3>${product.Title}</h3>
+          <p>${product.Category} - $${product.OriginalPrice} (${product.DiscountPercentage}% off)</p>
+          <i class="fas fa-ellipsis-v three-dot-menu" onclick="toggleDropdown('${product.ID}')"></i>
+          <div class="dropdown-menu" id="dropdown-${product.ID}">
+            <button onclick="editProduct('${product.ID}')"><i class="fas fa-edit"></i> Edit</button>
+            <button onclick="makeBanner('${product.ID}')"><i class="fas fa-star"></i> Make Banner</button>
+            <button onclick="makePbanner('${product.ID}')"><i class="fas fa-star"></i> Make Pbanner</button>
+          </div>
+        `;
+        productsList.appendChild(item);
+      });
+      document.addEventListener('click', closeDropdowns);
+    }
+
+    function toggleDropdown(productId) {
+      const dropdown = document.getElementById(`dropdown-${productId}`);
+      const isVisible = dropdown.style.display === 'block';
+      closeDropdowns();
+      dropdown.style.display = isVisible ? 'none' : 'block';
+    }
+
+    function closeDropdowns(event) {
+      const dropdowns = document.querySelectorAll('.dropdown-menu');
+      dropdowns.forEach(dropdown => {
+        if (event && event.target.closest('.three-dot-menu') !== dropdown.previousElementSibling) {
+          dropdown.style.display = 'none';
+        }
+      });
+    }
+
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      formData.append('folder', 'unsigned_products');
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      if (data.secure_url) return data.secure_url;
+      throw new Error('Image upload failed');
+    }
+
+    function openModal(mode, product = null) {
+      const modal = document.getElementById('modal');
+      const form = document.getElementById('productForm');
+      const title = document.getElementById('formTitle');
+      const action = document.getElementById('formAction');
+      const imageInput = document.getElementById('image');
+
+      if (mode === 'add') {
+        title.innerHTML = `<i class="fas fa-plus"></i> Add Product`;
+        action.value = 'add';
+        form.reset();
+        document.getElementById('productID').value = '';
+        document.getElementById('existingImageURLs').value = '';
+        imageInput.required = true;
+      } else if (mode === 'edit' && product) {
+        title.innerHTML = `<i class="fas fa-edit"></i> Edit Product`;
+        action.value = 'update';
+        document.getElementById('productID').value = product.ID;
+        form.Category.value = product.Category || '';
+        form.Title.value = product.Title || '';
+        form.Description.value = product.Description || '';
+        form.OriginalPrice.value = product.OriginalPrice || '';
+        form.DiscountPercentage.value = product.DiscountPercentage || '';
+        form.PurchaseLink.value = product.PurchaseLink || '';
+        form.Keywords.value = product.Keywords || '';
+        form.Features.value = product.Features || '';
+        document.getElementById('existingImageURLs').value = product.ImageURLs || '';
+        imageInput.required = false;
+      }
+      document.getElementById('status').textContent = '';
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+      closeDropdowns();
+    }
+
+    window.editProduct = async function(productId) {
+      const products = await fetchProducts();
+      const product = products.find(p => p.ID === productId);
+      if (product) {
+        openModal('edit', product);
+      } else {
+        alert('Product not found.');
+      }
+    };
+
+    window.makeBanner = async function(productId) {
+      try {
+        const formData = new FormData();
+        formData.append('action', 'makeBanner');
+        formData.append('ID', productId);
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert('Banner updated successfully!');
+          renderProducts(await fetchProducts());
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+      closeDropdowns();
+    };
+
+    window.makePbanner = async function(productId) {
+      try {
+        const formData = new FormData();
+        formData.append('action', 'makePbanner');
+        formData.append('ID', productId);
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert('Pbanner updated successfully!');
+          renderProducts(await fetchProducts());
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+      closeDropdowns();
+    };
+
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById('status');
+      const formData = new FormData(e.target);
+      const action = formData.get('action');
+      const imageFile = document.getElementById('image').files[0];
+      let imageUrl = formData.get('ImageURLs');
+
+      try {
+        if (imageFile) {
+          statusEl.textContent = 'Uploading image...';
+          imageUrl = await uploadToCloudinary(imageFile);
+          formData.set('ImageURLs', imageUrl);
+        } else if (action === 'add' && !imageUrl) {
+          statusEl.textContent = '❌ Please select an image.';
+          return;
+        }
+
+        statusEl.textContent = action === 'update' ? 'Updating product...' : 'Submitting product data...';
+
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          statusEl.textContent = action === 'update' ? '✅ Product updated successfully!' : '✅ Product submitted successfully!';
+          closeModal();
+          renderProducts(await fetchProducts());
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (err) {
+        statusEl.textContent = '❌ Error: ' + err.message;
+      }
+    });
+
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('modal')) {
+        closeModal();
+      }
+    });
+
+    fetchProducts()
+      .then(products => {
+        console.log('Products fetched:', products);
+        renderProducts(products);
+      })
+      .catch(err => console.error('Error fetching products:', err));
+  </script>
+</body>
+</html>

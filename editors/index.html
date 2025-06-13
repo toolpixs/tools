@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="ToolPix by Time Load - Free online image and PDF editing tools. Compress, crop, resize, enlarge, flip, rotate, and enhance images and PDFs instantly. Create collages, memes, and more. No registration required.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="keywords" content="free image editor, free PDF editor, online image compressor, image cropper, image resizer, PDF enhancer, collage maker, meme generator, image enlarger, color picker, flip image, rotate image, image converter, PNG to JPG, JPG to PNG, PDF to JPG, web editing tool">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load">
+  <meta name="revisit-after" content="7 days">
+  <meta name="distribution" content="global">
+  <meta property="og:title" content="ToolPix - Free Online Image & PDF Editing Tools">
+  <meta property="og:description" content="Edit images and PDFs online for free with ToolPix. Compress, crop, resize, enlarge, flip, rotate, and enhance with ease. Create collages, memes, and convert formats like PNG to JPG, JPG to PNG, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ToolPix.example.com/editors">
+  <meta property="og:image" content="https://ToolPix.example.com/images/og-image-editors.jpg">
+  <meta property="og:site_name" content="ToolPix">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ToolPix - Free Online Image & PDF Editing Tools">
+  <meta name="twitter:description" content="Edit images and PDFs online for free with ToolPix. Compress, crop, resize, enlarge, flip, rotate, and enhance with ease. Create collages, memes, and convert formats like PNG to JPG, JPG to PNG, and more.">
+  <meta name="twitter:image" content="https://ToolPix.example.com/images/twitter-card-editors.jpg">
+  <link rel="canonical" href="https://ToolPix.example.com/editors">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <title>Free Online Image & PDF Editing Tools - Compress, Crop, Resize, Convert & More | ToolPix</title>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ToolPix Editors",
+      "url": "https://ToolPix.example.com/editors",
+      "description": "Free online tools for editing and converting images and PDFs instantly without registration. Compress, crop, resize, enlarge, flip, rotate, create collages, memes, and convert formats like PNG to JPG, JPG to PNG, PDF to JPG, and more.",
+      "applicationCategory": "DocumentEditor",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Time Load"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "450"
+      },
+      "featureList": [
+        "Image Compressor",
+        "Image Cropper",
+        "Image Resizer",
+        "Image Enlarger",
+        "Flip Image",
+        "Rotate Image",
+        "Collage Maker",
+        "Meme Generator",
+        "Color Picker",
+        "PDF Compressor",
+        "PDF Upscaler Enhancer",
+        "Improve PDF Quality",
+        "Image Converter",
+        "PNG to JPG",
+        "JPG to PNG",
+        "PDF to JPG"
+      ]
+    }
+  </script>
+  <style>
+    :root {
+      --primary: #4CAF50;
+      --primary-dark: #45a049;
+      --secondary: #2196F3;
+      --secondary-dark: #1976D2;
+      --danger: #f44336;
+      --danger-dark: #d32f2f;
+      --text: #333;
+      --text-light: #666;
+      --bg: #f4f4f4;
+      --card-bg: #fff;
+      --border: #ddd;
+      --shadow: rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #f0f0f0;
+        --text-light: #bbb;
+        --bg: #121212;
+        --card-bg: #1e1e1e;
+        --border: #333;
+        --shadow: rgba(0,0,0,0.3);
+      }
+    }
+
+    /* Global rule to ensure no underlines on any links */
+    a {
+      text-decoration: none !important;
+    }
+
+    a:hover {
+      text-decoration: none !important;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease;
+    }
+    
+    header {
+      background: var(--secondary);
+      padding: 1.5rem 2rem;
+      color: var(--text);
+      box-shadow: 0 4px 12px var(--shadow);
+      text-align: center;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    main {
+      flex: 1;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 900px;
+      margin: 1rem auto;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .search-input {
+      padding: 0.5rem 2rem 0.5rem 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      background: var(--card-bg);
+      color: var(--text);
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 5px rgba(46,204,113,0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1.75rem;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .editor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 0.5rem;
+    }
+
+    .editor-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .editor-card a {
+      text-decoration: none;
+    }
+
+    .editor-card.hidden {
+      display: none;
+    }
+
+    .editor-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .editor-icon {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 0.8rem;
+    }
+
+    .editor-title {
+      color: var(--text);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .editor-desc {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    p, ul {
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 0.5rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-item h3 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-item p {
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    footer {
+      background: var(--secondary);
+      color: var(--text-light);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--danger);
+    }
+
+    footer a {
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--danger);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    .modal h2 {
+      color: var(--text);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .modal-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0 0.5rem;
+    }
+
+    .modal-btn:hover {
+      background: var(--danger);
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      .editor-grid {
+        grid-template-columns: 1fr;
+        padding: 0 0.5rem;
+      }
+      .editor-card {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+      }
+      .search-input {
+        padding: 0.4rem 1.5rem 0.4rem 2rem;
+        font-size: 0.85rem;
+      }
+      .search-icon {
+        left: 1.5rem;
+        font-size: 0.9rem;
+      }
+      footer {
+        padding: 1rem;
+      }
+      footer > div {
+        flex-direction: column;
+        align-items: center;
+      }
+      footer > div > div {
+        width: 100%;
+        text-align: center;
+      }
+      .faq-item h3 {
+        font-size: 0.9rem;
+        word-break: break-word;
+        line-height: 1.2;
+        margin-bottom: 0.25rem;
+      }
+      .faq-item p {
+        font-size: 0.75rem;
+        word-break: break-word;
+        line-height: 1.3;
+      }
+      .modal {
+        max-width: 90%;
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .editor-desc {
+        font-size: 0.75rem;
+        line-height: 1.3;
+      }
+      .editor-icon {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header itemscope itemtype="https://schema.org/WPHeader">
+    <h1 itemprop="headline">Free Online Image & PDF Editing Tools - ToolPix</h1>
+    <meta itemprop="description" content="ToolPix offers free online tools to edit and convert images and PDFs. Compress, crop, resize, enlarge, flip, rotate, create collages, memes, and convert formats like PNG to JPG, JPG to PNG, PDF to JPG, and more.">
+  </header>
+
+  <main>
+    <div class="card introduction">
+      <h2>Welcome to ToolPix Editing Tools</h2>
+      <p>Discover ToolPix by Time Load, your go-to platform for free online image and PDF editing tools. Whether you need to compress images, crop photos, resize images, enlarge pictures, flip or rotate images, create stunning collages, generate memes, pick colors, or enhance PDFs, we have you covered. Our tools also support a wide range of conversions, including PNG to JPG, JPG to PNG, PDF to JPG, HEIC to JPG, and more. No registration or software downloads are required—edit and convert instantly in your browser with complete privacy.</p>
+    </div>
+
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="editorSearch" placeholder="Search editors and converters..." aria-label="Search editors and converters">
+    </div>
+
+    <div class="editor-grid" id="editorGrid">
+      <a href="./compress-image.html" class="editor-card" data-tool="compress-image">
+        <div class="editor-icon">🖼️</div>
+        <div class="editor-title">Image Compressor</div>
+        <div class="editor-desc">Reduce image file sizes instantly without losing quality.</div>
+      </a>
+      <a href="./compress-pdf.html" class="editor-card" data-tool="compress-pdf">
+        <div class="editor-icon">📄</div>
+        <div class="editor-title">PDF Compressor</div>
+        <div class="editor-desc">Compress PDF files to reduce size while maintaining quality.</div>
+      </a>
+      <a href="./image-crop.html" class="editor-card" data-tool="image-crop">
+        <div class="editor-icon">✂️</div>
+        <div class="editor-title">Image Cropper</div>
+        <div class="editor-desc">Crop images to remove unwanted areas with precision.</div>
+      </a>
+      <a href="./image-resizer.html" class="editor-card" data-tool="image-resizer">
+        <div class="editor-icon">📏</div>
+        <div class="editor-title">Image Resizer</div>
+        <div class="editor-desc">Resize images to specific dimensions for any use case.</div>
+      </a>
+      <a href="./image-shape-cropper.html" class="editor-card" data-tool="image-shape-cropper">
+        <div class="editor-icon">🔲</div>
+        <div class="editor-title">Image Shape Cropper</div>
+        <div class="editor-desc">Crop images into custom shapes for creative projects.</div>
+      </a>
+      <a href="./improve-pdf-quality.html" class="editor-card" data-tool="improve-pdf-quality">
+        <div class="editor-icon">✨</div>
+        <div class="editor-title">Improve PDF Quality</div>
+        <div class="editor-desc">Enhance the clarity and quality of your PDF documents.</div>
+      </a>
+      <a href="./pdf-upscaler-enhancer.html" class="editor-card" data-tool="pdf-upscaler-enhancer">
+        <div class="editor-icon">📈</div>
+        <div class="editor-title">PDF Upscaler Enhancer</div>
+        <div class="editor-desc">Upscale and enhance PDFs for better resolution.</div>
+      </a>
+      <div class="editor-card coming-soon" data-tool="image-enlarger">
+        <div class="editor-icon">🔍</div>
+        <div class="editor-title">Image Enlarger</div>
+        <div class="editor-desc">Enlarge images without losing quality for high-resolution needs.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="flip-image">
+        <div class="editor-icon">↔️</div>
+        <div class="editor-title">Flip Image</div>
+        <div class="editor-desc">Flip images horizontally or vertically with ease.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="rotate-image">
+        <div class="editor-icon">🔄</div>
+        <div class="editor-title">Rotate Image</div>
+        <div class="editor-desc">Rotate images to any angle for perfect orientation.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="collage-maker">
+        <div class="editor-icon">🖼️</div>
+        <div class="editor-title">Collage Maker</div>
+        <div class="editor-desc">Create beautiful photo collages with customizable layouts.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="meme-generator">
+        <div class="editor-icon">😂</div>
+        <div class="editor-title">Meme Generator</div>
+        <div class="editor-desc">Design and share memes with easy text and image editing.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="color-picker">
+        <div class="editor-icon">🎨</div>
+        <div class="editor-title">Color Picker</div>
+        <div class="editor-desc">Extract colors from images for design and creativity.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="image-converter">
+        <div class="editor-icon">🔄</div>
+        <div class="editor-title">Image Converter</div>
+        <div class="editor-desc">Convert images between formats like PNG, JPG, WebP, and more.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="png-to-jpg">
+        <div class="editor-icon">📸</div>
+        <div class="editor-title">PNG to JPG</div>
+        <div class="editor-desc">Convert PNG images to JPG for smaller file sizes.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="jpg-to-png">
+        <div class="editor-icon">📸</div>
+        <div class="editor-title">JPG to PNG</div>
+        <div class="editor-desc">Convert JPG images to PNG for transparency support.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="pdf-to-jpg">
+        <div class="editor-icon">📄</div>
+        <div class="editor-title">PDF to JPG</div>
+        <div class="editor-desc">Convert PDF documents to JPG images effortlessly.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="webp-to-jpg">
+        <div class="editor-icon">🌐</div>
+        <div class="editor-title">WebP to JPG</div>
+        <div class="editor-desc">Convert WebP images to JPG for universal compatibility.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="png-to-svg">
+        <div class="editor-icon">📐</div>
+        <div class="editor-title">PNG to SVG</div>
+        <div class="editor-desc">Convert PNG images to SVG for scalable vector graphics.</div>
+      </div>
+      <div class="editor-card coming-soon" data-tool="heic-to-jpg">
+        <div class="editor-icon">📸</div>
+        <div class="editor-title">HEIC to JPG</div>
+        <div class="editor-desc">Convert HEIC images to JPG for broader compatibility.</div>
+      </div>
+    </div>
+
+    <div class="card features">
+      <h2>Why Choose ToolPix for Image & PDF Editing?</h2>
+      <ul>
+        <li><strong>Comprehensive Editing Tools:</strong> Compress, crop, resize, enlarge, flip, rotate images, and enhance PDFs with precision.</li>
+        <li><strong>Creative Features:</strong> Create stunning collages, generate memes, and pick colors from images for design projects.</li>
+        <li><strong>Format Conversion:</strong> Convert images between formats like PNG to JPG, JPG to PNG, PDF to JPG, HEIC to JPG, WebP to JPG, and more.</li>
+        <li><strong>Secure Processing:</strong> All edits and conversions are processed locally in your browser, ensuring privacy.</li>
+        <li><strong>No Registration Needed:</strong> Access all tools instantly without sign-ups or downloads.</li>
+        <li><strong>Wide Compatibility:</strong> Works seamlessly across all modern browsers on any device.</li>
+      </ul>
+    </div>
+
+    <div class="card benefits">
+      <h2>Benefits of Using ToolPix Editing Tools</h2>
+      <ul>
+        <li><strong>Optimize for Web:</strong> Compress and resize images for faster website loading and better SEO.</li>
+        <li><strong>Enhance Creativity:</strong> Create collages, memes, and custom shapes to bring your ideas to life.</li>
+        <li><strong>Save Time:</strong> Convert multiple images or PDFs at once with our bulk tools like Bulk Image Resizer.</li>
+        <li><strong>Professional Results:</strong> Enhance PDFs and images for presentations, portfolios, and social media.</li>
+        <li><strong>Efficient Storage:</strong> Reduce file sizes with compression tools to save storage space.</li>
+      </ul>
+    </div>
+
+    <div class="card how-to-use">
+      <h2>How to Use ToolPix Editing & Conversion Tools</h2>
+      <ol>
+        <li>Select a tool (e.g., Image Compressor, PDF to JPG Converter) from the grid above.</li>
+        <li>Upload your image or PDF file by dragging and dropping or browsing.</li>
+        <li>Apply edits like compressing, cropping, resizing, or converting to your desired format.</li>
+        <li>Download your edited or converted file instantly.</li>
+      </ol>
+      <p>Explore our wide range of tools for a seamless editing and conversion experience.</p>
+    </div>
+
+    <div class="card testimonials">
+      <h2>What Our Users Say</h2>
+      <p>"ToolPix's collage maker helped me create stunning photo layouts for my blog!" - Emily, Blogger</p>
+      <p>"The PNG to JPG converter is so fast and easy to use. Perfect for my projects." - Mark, Graphic Designer</p>
+      <p>"I love how I can resize and compress images without losing quality. Great tool!" - Sarah, Web Developer</p>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">How do I compress an image with ToolPix?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Select the Image Compressor tool, upload your image, adjust the quality settings, and download the compressed file. It's fast and maintains quality.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Can I convert PNG to JPG for free?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes! Use our PNG to JPG converter to transform your images for free. No registration is required.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Is my data safe with ToolPix?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Absolutely! All editing and conversion processes happen locally in your browser, ensuring your files remain private and secure.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">What formats can I convert to with ToolPix?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">ToolPix supports conversions like PNG to JPG, JPG to PNG, PDF to JPG, HEIC to JPG, WebP to JPG, PNG to SVG, and more. Check our converter tools for the full list.</p>
+        </div>
+      </div>
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Can I create memes with ToolPix?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes, our Meme Generator tool lets you add text and customize images to create hilarious memes in minutes.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="background-color: var(--secondary-dark); color: #f0f0f0; padding: 1.5rem; text-align: left;" itemscope itemtype="https://schema.org/WPFooter">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
+      <div style="width: 100%; margin-bottom: 1rem; text-align: center;">
+        <p style="margin: 0;">"Incredibly fast and reliable, no annoying ads, just pure functionality!"</p>
+        <p style="margin: 0.5rem 0 0;">Rated 4.8/5 based on 450+ reviews. Showing our latest reviews, <span style="color: red;">★ Trustpilot</span></p>
+      </div>
+      <div style="width: 100%; margin-top: 1rem; text-align: center;">
+        <p>© 2025 Time Load. All rights reserved.</p>
+        <p class="footer-links"><a href="../privacy">Privacy Policy</a> | <a href="../terms">Terms of Service</a> | <a href="../contact">Contact Us</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 id="modalTitle">Coming Soon!</h2>
+      <p id="modalMessage">This feature is under development and will be available soon. Stay tuned!</p>
+      <button class="modal-btn" id="modalClose">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('editorSearch');
+    const editorGrid = document.getElementById('editorGrid');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      const editorCards = document.querySelectorAll('.editor-card');
+
+      editorCards.forEach(card => {
+        const tool = card.getAttribute('data-tool').toLowerCase();
+        if (tool.includes(searchTerm)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+
+    document.querySelectorAll('.coming-soon, .coming-soon-footer').forEach(element => {
+      element.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalOverlay.style.display = 'flex';
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modalOverlay.style.display = 'none';
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

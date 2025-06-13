@@ -860,23 +860,21 @@
       <div>
         <h3 style="margin-bottom: 0.5rem;">Image Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0;">
-          <li><a href="../editors/image-resizer" style="color: #f0f0f0; text-decoration: none;">Image Resizer</a></li>
-          <li><a href="../editors/image-resizer" style="color: #f0f0f0; text-decoration: none;">Bulk Image Resizer</a></li>
-          <li><a href="../image-compressor" style="color: #f0f0f0; text-decoration: none;">Image Compressor</a></li>
-          <li><a href="../editors/crop-image" style="color: #f0f0f0; text-decoration: none;">Crop Image</a></li>
-          <li><a href="../collage-maker" style="color: #f0f0f0; text-decoration: none;">Collage Maker</a></li>
-          <li><a href="../flip-image" style="color: #f0f0f0; text-decoration: none;">Flip Image</a></li>
-          <li><a href="../rotate-image" style="color: #f0f0f0; text-decoration: none;">Rotate Image</a></li>
-          <li><a href="../image-enlarger" style="color: #f0f0f0; text-decoration: none;">Image Enlarger</a></li>
-          <li><a href="../color-picker" style="color: #f0f0f0; text-decoration: none;">Color Picker</a></li>
-          <li><a href="../meme-generator" style="color: #f0f0f0; text-decoration: none;">Meme Generator</a></li>
+          <li><a href="./image-resizer" style="color: #f0f0f0; text-decoration: none;">Image Resizer</a></li>
+          <li><a href="./bulk-image-resizer" style="color: #f0f0f0; text-decoration: none;">Bulk Image Resizer</a></li>
+          <li><a href="./compress-image" style="color: #f0f0f0; text-decoration: none;">Image Compressor</a></li>
+          <li><a href="./image-crop" style="color: #f0f0f0; text-decoration: none;">Image Crop</a></li>
+          <li><a href="./image-shape-croper" style="color: #f0f0f0; text-decoration: none;">Image Shape Crop</a></li>
+          <li><a href="../converters" style="color: #f0f0f0; text-decoration: none;">Convert Image Type</a></li>
         </ul>
       </div>
       <div>
         <h3 style="margin-bottom: 0.5rem;">PDF Tools</h3>
         <ul style="list-style: none; padding: 0; margin: 0;">
           <li><a href="./compress-pdf" style="color: #f0f0f0; text-decoration: none;">Compress PDF</a></li>
-          <li><a href="./upscale-pdf" style="color: #f0f0f0; text-decoration: none;">Upscale PDF</a></li>
+          <li><a href="#" style="color: #f0f0f0; text-decoration: none;">Upscale PDF</a></li>
+          <li><a href="./improve-pdf-quality" style="color: #f0f0f0; text-decoration: none;">Improve PDF Quality</a></li>
+
         </ul>
       </div>
       <div style="width: 100%; margin-top: 1rem; text-align: center;">
@@ -920,7 +918,7 @@
     let originalSize;
     let upscaledBlob;
     let currentMode = 'resolution';
-    const MAX_SIZE_BYTES = 100 * 1024 * 1024; // 100MB
+    const MAX_SIZE_BYTES = 100 * 1024 * 1024;  
 
     // Set PDF.js worker source
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
@@ -1013,15 +1011,14 @@
       enhanceSizeInfo.textContent = text;
     }
 
-    function upscalePDF(file, scale, enhanceLevel = null) {
-      // Simulate PDF upscaling (actual upscaling requires server-side processing)
+    function upscalePDF(file, scale, enhanceLevel = null) { 
       const reader = new FileReader();
       reader.onload = () => {
         const arrayBuffer = reader.result;
-        let simulatedSize = originalSize * (scale * scale); // Size increases quadratically with scale
+        let simulatedSize = originalSize * (scale * scale);  
         
         if (enhanceLevel) {
-          simulatedSize *= (1 + enhanceLevel * 0.1); // Quality enhancement increases size
+          simulatedSize *= (1 + enhanceLevel * 0.1);  
         }
 
         if (simulatedSize > MAX_SIZE_BYTES) {

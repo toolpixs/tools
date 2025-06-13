@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ToolPix - Free Online Social Media & Image Editing Tools</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="ToolPix offers free online tools for social media and image editing. Download videos from Instagram, Facebook, TikTok, and more. Compress, crop, resize images, and enhance PDFs instantly. No registration required.">
+    <meta name="keywords" content="social media downloader, Instagram video downloader, Facebook story saver, TikTok video downloader, free image editor, online image compressor, image resizer, PDF enhancer, collage maker">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Tool Pix">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="ToolPix - Free Online Social Media & Image Editing Tools">
+    <meta property="og:description" content="Download videos from Instagram, Facebook, TikTok, and more. Edit images and PDFs online for free with ToolPix. Compress, crop, resize, and enhance with ease.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Tool Pix">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ToolPix - Free Online Social Media & Image Editing Tools">
+    <meta name="twitter:description" content="Free tools to download social media videos and edit images/PDFs instantly. Works on all devices, no registration needed.">
+    <meta name="twitter:creator" content="@harsh98trivedi">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ToolPix",
+        "operatingSystem": "All",
+        "applicationCategory": "UtilityApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Free online tools for downloading social media videos and editing images/PDFs. Supports Instagram, Facebook, TikTok, and more. Compress, crop, resize images, and enhance PDFs instantly.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Tool Pix"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "450"
+        }
+    }
+    </script>
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #FF0000;
+            --secondary-color: #282828;
+            --accent-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global rule to ensure no underlines on any links */
+        a {
+            text-decoration: none !important;
+        }
+
+        a:hover {
+            text-decoration: none !important;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Tools Grid (for both main grid and intro card grid) */
+        .tools-grid, .intro-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .intro-tools-grid {
+            gap: 1rem;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .tool-card a {
+            text-decoration: none;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tool-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-title {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .tool-desc {
+            font-size: 0.8rem;
+            color: var(--light-text);
+        }
+
+        /* Info Section */
+        .info-section {
+            margin-bottom: 3rem;
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 10px;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal h2 {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .modal-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-btn:hover {
+            background: #d40000;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+            
+            .footer-links a {
+                margin: 0.5rem 0;
+            }
+
+            .tools-grid, .intro-tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tool-card {
+                padding: 0.8rem;
+            }
+
+            .tool-icon {
+                font-size: 1.5rem;
+            }
+
+            .tool-title {
+                font-size: 0.9rem;
+            }
+
+            .tool-desc {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70447982-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-70447982-2');
+    </script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-tools"></i>
+                    ToolPix - Social Media & Image Tools
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Introduction Card with YouTube Tools -->
+            <div class="card animate__animated animate__fadeIn">
+                <h1 class="card-title">
+                    <i class="fas fa-tools"></i> Welcome to ToolPix
+                </h1>
+                <p>
+                    ToolPix offers free online tools for social media and image editing. Download videos from Instagram, Facebook, TikTok, and more. Compress, crop, resize images, and enhance PDFs instantly. No registration required—start exploring now!
+                </p>
+                <!-- Featured YouTube Tools in Intro Card -->
+                <div class="intro-tools-grid"> 
+                    <a href="./youtube-thumbnail-downloader" class="tool-card"  data-tool="youtube-thumbnail-downloader">
+                        <div class="tool-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="tool-title">YouTube Thumbnail Downloader</div>
+                        <div class="tool-desc">Download YouTube video thumbnails easily.</div>
+                    </a>
+                    <a href="./youtube-video-downloader" class="tool-card coming-soon" data-tool="youtube-video-downloader">
+                        <div class="tool-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="tool-title">YouTube Video Downloader</div>
+                        <div class="tool-desc">Download full YouTube videos in various formats.</div>
+                    </a>
+                    <a href="./youtube-shorts-downloader" class="tool-card coming-soon" data-tool="youtube-shorts-downloader">
+                        <div class="tool-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="tool-title">YouTube Shorts Downloader</div>
+                        <div class="tool-desc">Download YouTube Shorts in seconds.</div>
+                    </a>
+                    <a href="./youtube-shorts-and-video-downloader" class="tool-card coming-soon" data-tool="youtube-shorts-and-video-downloader">
+                        <div class="tool-icon"><i class="fab fa-youtube"></i></div>
+                        <div class="tool-title">YouTube Shorts & Video Downloader</div>
+                        <div class="tool-desc">Download both Shorts and videos from YouTube.</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tools Grid (Remaining Tools) -->
+            <div class="tools-grid animate__animated animate__fadeIn">
+                <!-- Social Media Tools (Coming Soon) -->
+                <div class="tool-card coming-soon" data-tool="instagram-video-downloader">
+                    <div class="tool-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="tool-title">Instagram Video Downloader</div>
+                    <div class="tool-desc">Download Instagram videos and reels instantly.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="facebook-story-saver">
+                    <div class="tool-icon"><i class="fab fa-facebook"></i></div>
+                    <div class="tool-title">Facebook Story Saver</div>
+                    <div class="tool-desc">Save Facebook stories to your device with ease.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="tiktok-video-downloader">
+                    <div class="tool-icon"><i class="fab fa-tiktok"></i></div>
+                    <div class="tool-title">TikTok Video Downloader</div>
+                    <div class="tool-desc">Download TikTok videos without watermarks.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="twitter-video-downloader">
+                    <div class="tool-icon"><i class="fab fa-twitter"></i></div>
+                    <div class="tool-title">Twitter Video Downloader</div>
+                    <div class="tool-desc">Save videos and GIFs from Twitter posts.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="linkedin-video-downloader">
+                    <div class="tool-icon"><i class="fab fa-linkedin"></i></div>
+                    <div class="tool-title">LinkedIn Video Downloader</div>
+                    <div class="tool-desc">Download videos shared on LinkedIn.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="snapchat-saver">
+                    <div class="tool-icon"><i class="fab fa-snapchat"></i></div>
+                    <div class="tool-title">Snapchat Saver</div>
+                    <div class="tool-desc">Save Snapchat stories and snaps easily.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="pinterest-downloader">
+                    <div class="tool-icon"><i class="fab fa-pinterest"></i></div>
+                    <div class="tool-title">Pinterest Downloader</div>
+                    <div class="tool-desc">Download images and videos from Pinterest.</div>
+                </div>
+
+                <!-- Image Tools -->
+                <a href="../editors/compress-image" class="tool-card" data-tool="compress-image">
+                    <div class="tool-icon"><i class="fas fa-image"></i></div>
+                    <div class="tool-title">Image Compressor</div>
+                    <div class="tool-desc">Reduce image file sizes without losing quality.</div>
+                </a>
+                <a href="../editors/image-crop" class="tool-card" data-tool="image-crop">
+                    <div class="tool-icon"><i class="fas fa-crop"></i></div>
+                    <div class="tool-title">Image Cropper</div>
+                    <div class="tool-desc">Crop images to remove unwanted areas.</div>
+                </a>
+                <a href="../editors/image-resizer" class="tool-card" data-tool="image-resizer">
+                    <div class="tool-icon"><i class="fas fa-ruler"></i></div>
+                    <div class="tool-title">Image Resizer</div>
+                    <div class="tool-desc">Resize images to specific dimensions.</div>
+                </a>
+                <div class="tool-card coming-soon" data-tool="collage-maker">
+                    <div class="tool-icon"><i class="fas fa-images"></i></div>
+                    <div class="tool-title">Collage Maker</div>
+                    <div class="tool-desc">Create photo collages with custom layouts.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="image-enlarger">
+                    <div class="tool-icon"><i class="fas fa-search-plus"></i></div>
+                    <div class="tool-title">Image Enlarger</div>
+                    <div class="tool-desc">Enlarge images without losing quality.</div>
+                </div>
+                <div class="tool-card coming-soon" data-tool="meme-generator">
+                    <div class="tool-icon"><i class="fas fa-laugh"></i></div>
+                    <div class="tool-title">Meme Generator</div>
+                    <div class="tool-desc">Design memes with text and images.</div>
+                </div>
+
+                <!-- PDF Tools (Functional, from editors.html) -->
+                <a href="../editors/compress-pdf" class="tool-card" data-tool="compress-pdf">
+                    <div class="tool-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="tool-title">PDF Compressor</div>
+                    <div class="tool-desc">Compress PDFs while maintaining quality.</div>
+                </a>
+                <a href="../editors/pdf-upscaler-enhancer" class="tool-card" data-tool="pdf-upscaler-enhancer">
+                    <div class="tool-icon"><i class="fas fa-arrow-up"></i></div>
+                    <div class="tool-title">PDF Upscaler Enhancer</div>
+                    <div class="tool-desc">Upscale and enhance PDFs for better resolution.</div>
+                </a>
+            </div>
+
+            <!-- Info Section -->
+            <div class="info-section">
+                <div class="card info-card">
+                    <h2 class="info-title">
+                        <i class="fas fa-question-circle"></i> How to Use ToolPix?
+                    </h2>
+                    <div class="steps">
+                        <div class="step mb-3">
+                            <h3><span class="badge bg-primary">1</span> Select a Tool</h3>
+                            <p>Choose a tool from the grid above, such as Instagram Video Downloader or Image Compressor.</p>
+                        </div>
+                        <div class="step mb-3">
+                            <h3><span class="badge bg-primary">2</span> Follow Instructions</h3>
+                            <p>For social media tools, paste the video URL (coming soon). For image tools, upload your file and edit.</p>
+                        </div>
+                        <div class="step">
+                            <h3><span class="badge bg-primary">3</span> Download or Save</h3>
+                            <p>Download your edited image, PDF, or social media content directly to your device.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card info-card">
+                    <h2 class="info-title">
+                        <i class="fas fa-lightbulb"></i> Why Choose ToolPix?
+                    </h2>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>No registration</strong> – access tools instantly
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Free to use</strong> – no fees or subscriptions
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> Works on <strong>all devices</strong> – mobile, tablet, desktop
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-check-circle text-success"></i> <strong>Secure processing</strong> – your files stay private
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card info-card">
+                    <h2 class="info-title">
+                        <i class="fas fa-exclamation-triangle"></i> Important Note
+                    </h2>
+                    <p>
+                        Please use our tools responsibly and respect the terms of service of social media platforms. Only download content you have permission to use.
+                    </p>
+                    <p>
+                        See our <a href="../privacy">Privacy Policy</a> and <a href="../terms">Terms of Service</a> for more details.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="../">Home</a>
+                <a href="../editors">Image & PDF Tools</a>
+                <a href="#">Social Media Tools</a>
+                <a href="../about">About</a>
+                <a href="../privacy">Privacy Policy</a>
+                <a href="../terms">Terms of Service</a>
+                <a href="../contact">Contact</a>
+                <a href="../blog">Blog</a>
+            </div>
+            <div class="copyright">
+                © 2025 Tool Pix. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Coming Soon!</h2>
+            <p id="modalMessage">This feature is under development and will be available soon. Stay tuned!</p>
+            <button class="modal-btn" id="modalClose">OK</button>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalClose = document.getElementById('modalClose');
+
+            // Add click event for "Coming Soon" tools
+            document.querySelectorAll('.coming-soon').forEach(element => {
+                element.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modalOverlay.style.display = 'flex';
+                });
+            });
+
+            // Close modal on button click
+            modalClose.addEventListener('click', () => {
+                modalOverlay.style.display = 'none';
+            });
+
+            // Close modal on overlay click
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
