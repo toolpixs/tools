@@ -203,7 +203,7 @@
       text-align: center;
       position: relative;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-      animation: popIn 0.4s ease;
+      animation: pop	In 0.4s ease;
       border: 1px solid var(--card-border);
       overflow: hidden;
       transition: transform 0.3s ease;
@@ -284,7 +284,7 @@
     .games-filter {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       margin-bottom: 2rem;
       justify-content: center;
     }
@@ -292,18 +292,18 @@
     .search-container {
       position: relative;
       width: 100%;
-      max-width: 500px;
+      max-width: 400px;
       margin: 0 auto 2rem;
     }
 
     .search-input {
       width: 100%;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 2.5ram 0.8rem 1.2rem;
       border-radius: 50px;
       border: none;
       background: rgba(20, 20, 40, 0.8);
       color: var(--light);
-      font-size: 1rem;
+      font-size: 0.95rem;
       border: 1px solid var(--card-border);
       box-shadow: 0 0 10px rgba(123, 45, 255, 0.2);
       transition: all 0.3s ease;
@@ -317,21 +317,21 @@
 
     .search-icon {
       position: absolute;
-      right: 1.5rem;
+      right: 1rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--gray);
     }
 
     .filter-btn {
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1rem;
       border-radius: 50px;
       background: rgba(20, 20, 40, 0.8);
       color: var(--gray);
       border: 1px solid var(--card-border);
       cursor: pointer;
       transition: all 0.3s ease;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-transform: capitalize;
     }
 
@@ -344,49 +344,48 @@
 
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem;
       margin-top: 2rem;
+      justify-content: center;
     }
 
     .game-card {
       background: var(--card-bg);
-      border-radius: 15px;
+      border-radius: 20px;
       overflow: hidden;
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
-      height: 320px;
+      height: 340px;
       border: 1px solid var(--card-border);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
     }
 
-    .game-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
-      z-index: 1;
-    }
-
-    .game-card:hover {
-      transform: translateY(-10px);
+    .game-card:hover, .game-card:focus {
+      transform: translateY(-8px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
       border-color: var(--primary);
-    }
-
-    .game-card:hover .game-image {
-      transform: scale(1.05);
     }
 
     .game-image-container {
       position: relative;
       width: 100%;
-      height: 60%;
+      height: 65%;
       overflow: hidden;
+    }
+
+    .game-image-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6));
+      z-index: 1;
     }
 
     .game-image {
@@ -394,6 +393,10 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
+    }
+
+    .game-card:hover .game-image, .game-card:focus .game-image {
+      transform: scale(1.08);
     }
 
     .game-badge {
@@ -411,28 +414,29 @@
     }
 
     .game-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.5rem;
+      position: relative;
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       z-index: 2;
     }
 
     .game-title {
       color: var(--primary);
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 0.5rem;
       text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
     }
 
     .game-description {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--gray);
       margin-bottom: 0.5rem;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -440,16 +444,15 @@
     .game-categories {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+      gap: 0.4rem;
     }
 
     .game-category {
-      background: rgba(123, 45, 255, 0.2);
+      background: rgba(123, 45, 255, 0.25);
       color: var(--light);
-      padding: 0.2rem 0.5rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 50px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       border: 1px solid var(--secondary);
     }
 
@@ -782,7 +785,7 @@
       }
 
       .section {
-        padding: 2.5rem 0;
+        padding: 2rem 0;
       }
 
       .hero-section {
@@ -802,11 +805,48 @@
       }
 
       .games-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
       }
 
       .game-card {
-        height: 280px;
+        height: 300px;
+        border-radius: 15px;
+      }
+
+      .game-title {
+        font-size: 1.2rem;
+      }
+
+      .game-description {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+
+      .game-category {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.5rem;
+      }
+
+      .search-container {
+        max-width: 100%;
+        padding: 0 0.5rem;
+      }
+
+      .search-input {
+        padding: 0.7rem 2rem 0.7rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .games-filter {
+        gap: 0.5rem;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
       }
 
       .about-section, .why-play-section {
@@ -838,20 +878,50 @@
 
       .games-grid {
         grid-template-columns: 1fr;
+        gap: 1.2rem;
       }
 
       .game-card {
-        max-width: 350px;
+        max-width: 320px;
+        height: 360px;
         margin: 0 auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .game-image-container {
+        height: 70%;
+      }
+
+      .game-title {
+        font-size: 1.3rem;
+      }
+
+      .game-description {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+      }
+
+      .game-category {
+        font-size: 0.65rem;
+      }
+
+      .search-input {
+        padding: 0.6rem 1.8rem 0.6rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .search-icon {
+        right: 0.8rem;
+      }
+
+      .filter-btn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
       }
 
       .stats-section {
         grid-template-columns: 1fr;
-      }
-
-      .btn {
-        width: 100%;
-        padding: 0.8rem;
       }
 
       .footer-links {
@@ -898,22 +968,18 @@
     <section class="section">
       <div class="container">
         <div class="stats-section">
-          <!-- Happy Players: Corrected data-count from 5000 to 5 -->
           <div class="stat-card">
             <div class="stat-number" data-count="5">5M+</div>
             <div class="stat-label">Happy Players</div>
           </div>
-          <!-- Awesome Games: No change needed -->
           <div class="stat-card">
             <div class="stat-number" data-count="25">25+</div>
             <div class="stat-label">Awesome Games</div>
           </div>
-          <!-- Free Forever: No change needed -->
           <div class="stat-card">
             <div class="stat-number" data-count="100">100%</div>
             <div class="stat-label">Free Forever</div>
           </div>
-          <!-- Game Access: Added no-animate class and removed data-count -->
           <div class="stat-card">
             <div class="stat-number no-animate">24/7</div>
             <div class="stat-label">Game Access</div>
@@ -929,8 +995,7 @@
           <h2 class="featured-title">🔥 Trending Now</h2>
           <a href="javascript:void(0)" class="view-all" onclick="handleViewAllClick()">View All <i>→</i></a>
         </div>
-        <div class="games-grid" id="trendingGames"> 
-        </div>
+        <div class="games-grid" id="trendingGames"></div>
       </div>
     </section>
 
@@ -954,9 +1019,7 @@
           <button class="filter-btn" onclick="filterByCategory('memory')">Memory</button>
         </div>
         
-        <div class="games-grid" id="allGames">
-          <!-- All games will be populated by JavaScript -->
-        </div>
+        <div class="games-grid" id="allGames"></div>
       </div>
     </section>
 
@@ -967,9 +1030,7 @@
           <h2 class="featured-title">🎮 Suggested For You</h2>
           <a href="#" class="view-all" onclick="playButtonClick()">View All <i>→</i></a>
         </div>
-        <div class="games-grid" id="suggestedGames">
-          <!-- Suggested games will be populated by JavaScript -->
-        </div>
+        <div class="games-grid" id="suggestedGames"></div>
       </div>
     </section>
 
@@ -1089,36 +1150,31 @@
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
-        // Random size between 2px and 6px
         const size = Math.random() * 4 + 2;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         
-        // Random position
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.top = `${Math.random() * 100 + 100}%`;
         
-        // Random animation duration between 10s and 20s
         const duration = Math.random() * 10 + 10;
         particle.style.animationDuration = `${duration}s`;
         
-        // Random delay
         particle.style.animationDelay = `${Math.random() * 5}s`;
         
-        // Random color variation
-        const hue = Math.random() * 60 + 120; // Green to cyan range
+        const hue = Math.random() * 60 + 120;
         particle.style.backgroundColor = `hsla(${hue}, 100%, 70%, 0.7)`;
         
         particlesContainer.appendChild(particle);
       }
     }
 
-    // Game data with categories and popularity
+    // Game data
     const games = [
       {
         name: 'Sudoku',
         url: './sudoku',
-        image:'../static/images/games/banner/sudoku.jpg',
+        image: '../static/images/games/banner/sudoku.jpg',
         description: 'Solve classic Sudoku puzzles with multiple difficulty levels, perfect for sharpening your logic skills.',
         alt: 'Sudoku Puzzle Game',
         categories: ['puzzle', 'classic'],
@@ -1177,74 +1233,6 @@
       }
     ];
 
-    /*
-    
-    
-    
-    ,
-      {
-        name: 'Crossword',
-        url: './crossword',
-        image: '../static/images/games/banner/crossword.jpg',
-        description: 'Solve daily crossword puzzles with varying difficulty levels and themes.',
-        alt: 'Crossword Puzzle Game',
-        categories: ['word', 'puzzle'],
-        popularity: 7,
-        trending: true
-      },
-      {
-        name: 'Solitaire',
-        url: './solitaire',
-        image: '../static/images/games/banner/solitaire.jpg',
-        description: 'Play the classic card game Solitaire with beautiful themes and smooth gameplay.',
-        alt: 'Solitaire Card Game',
-        categories: ['classic'],
-        popularity: 8,
-        trending: false
-      },
-      {
-        name: 'Minesweeper',
-        url: './minesweeper',
-        image: '../static/images/games/banner/minesweeper.jpg',
-        description: 'The classic Minesweeper game with multiple difficulty levels and modern design.',
-        alt: 'Minesweeper Puzzle Game',
-        categories: ['puzzle', 'classic'],
-        popularity: 7,
-        trending: false
-      },
-      {
-        name: 'Snake',
-        url: './snake',
-        image: '../static/images/games/banner/snake.jpg',
-        description: 'The nostalgic Snake game with modern twists and competitive leaderboards.',
-        alt: 'Snake Classic Game',
-        categories: ['classic'],
-        popularity: 8,
-        trending: true
-      },
-      {
-        name: 'Tetris',
-        url: './tetris',
-        image: '../static/images/games/banner/tetris.jpg',
-        description: 'The iconic Tetris game with multiple modes and beautiful block designs.',
-        alt: 'Tetris Puzzle Game',
-        categories: ['puzzle', 'classic'],
-        popularity: 9,
-        trending: true
-      },
-      {
-        name: 'Hangman',
-        url: './hangman',
-        image: '../static/images/games/banner/hangman.jpg',
-        description: 'Guess the word before the hangman is complete in this classic word game.',
-        alt: 'Hangman Word Game',
-        categories: ['word'],
-        popularity: 6,
-        trending: false
-      }
-    
-    */
-
     // Create game cards
     function createGameCard(game) {
       const card = document.createElement('div');
@@ -1252,6 +1240,7 @@
       card.setAttribute('data-name', game.name.toLowerCase());
       card.setAttribute('data-categories', game.categories.join(' '));
       card.setAttribute('data-popularity', game.popularity);
+      card.setAttribute('aria-label', `Play ${game.name} game`);
       
       card.innerHTML = `
         <div class="game-image-container">
@@ -1275,27 +1264,37 @@
       return card;
     }
 
+    // Progressive card animation
+    function animateGameCards() {
+      const gameCards = document.querySelectorAll('.game-card');
+      gameCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }
+
     // Populate games
     function populateGames() {
       const trendingContainer = document.getElementById('trendingGames');
       const allGamesContainer = document.getElementById('allGames');
       const suggestedContainer = document.getElementById('suggestedGames');
       
-      // Clear existing content
       trendingContainer.innerHTML = '';
       allGamesContainer.innerHTML = '';
       suggestedContainer.innerHTML = '';
       
-      // Sort games by popularity
       const sortedGames = [...games].sort((a, b) => b.popularity - a.popularity);
       
-      // Get trending games (top 4 by popularity)
       const trendingGames = sortedGames.slice(0, 4);
       trendingGames.forEach(game => {
         trendingContainer.appendChild(createGameCard(game));
       });
       
-      // Get suggested games (random 4 games)
       const suggestedGames = [...games]
         .sort(() => 0.5 - Math.random())
         .slice(0, 4);
@@ -1303,10 +1302,11 @@
         suggestedContainer.appendChild(createGameCard(game));
       });
       
-      // All games
       games.forEach(game => {
         allGamesContainer.appendChild(createGameCard(game));
       });
+      
+      animateGameCards();
     }
 
     // Filter games by search
@@ -1326,7 +1326,6 @@
 
     // Filter games by category
     function filterByCategory(category) {
-      // Update active filter button
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
       });
@@ -1348,7 +1347,6 @@
     let currentBannerGame = null;
 
     function showBanner() {
-      // Get random game that's not the same as the current one
       let randomGame;
       do {
         randomGame = games[Math.floor(Math.random() * games.length)];
@@ -1389,7 +1387,6 @@
 
     // Animate stats counting
     function animateStats() {
-      // Select only stat-number elements without the no-animate class
       const statNumbers = document.querySelectorAll('.stat-number:not(.no-animate)');
       
       statNumbers.forEach(stat => {
@@ -1414,7 +1411,6 @@
       createParticles();
       populateGames();
       
-      // Show banner on load only if not already shown in this session
       if (!sessionStorage.getItem('bannerShown')) {
         showBanner();
         sessionStorage.setItem('bannerShown', 'true');
@@ -1422,12 +1418,10 @@
       
       animateStats();
 
-      // Show banner every 30 minutes
       setInterval(showBanner, 30 * 60 * 1000);
 
-      // Add animation to elements when they come into view
       const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.section, .game-card, .stat-card');
+        const elements = document.querySelectorAll('.section, .stat-card');
         
         elements.forEach(el => {
           const rect = el.getBoundingClientRect();
@@ -1439,11 +1433,22 @@
         });
       };
 
-      // Initial check
       animateOnScroll();
-      
-      // Check on scroll
       window.addEventListener('scroll', animateOnScroll);
+
+      // Add touch feedback for mobile
+      document.querySelectorAll('.game-card').forEach(card => {
+        card.addEventListener('touchstart', () => {
+          card.style.transform = 'scale(0.98)';
+          card.style.transition = 'transform 0.1s ease';
+        });
+        card.addEventListener('touchend', () => {
+          card.style.transform = 'scale(1)';
+          setTimeout(() => {
+            card.style.transition = 'all 0.3s ease';
+          }, 100);
+        });
+      });
     });
   </script>
 </body>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D2K Air Drop - Buy Digital Products</title>
-  <meta name="description" content="D2K Air Drop offers a wide range of digital products and tools. Find the best deals and discounts on software, e-books, and more.">
+  <title>ToolPix Store - Buy Digital Products</title>
+  <meta name="description" content="ToolPix Store offers a wide range of digital products and tools. Find the best deals and discounts on software, e-books, and more.">
   <meta name="keywords" content="digital products, software, e-books, tools, discounts, deals">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -60,7 +60,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
       </svg>
     </div>
-    <h1 class="text-4xl font-bold text-white mb-2">D2K Air Drop</h1>
+    <h1 class="text-4xl font-bold text-white mb-2">ToolPix Store</h1>
     <p class="text-white opacity-80">Loading amazing products...</p>
     <div class="mt-8 w-64 bg-white bg-opacity-20 rounded-full h-2">
       <div class="bg-white h-2 rounded-full animate-progress"></div>
@@ -74,7 +74,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex-shrink-0 flex items-center">
-            <h1 class="text-xl font-bold gradient-text">D2K Air Drop</h1>
+            <h1 class="text-xl font-bold gradient-text">ToolPix</h1>
           </div>
           
           <div class="hidden md:flex flex-1 max-w-md mx-4">
@@ -210,7 +210,7 @@
             View All
           </button>
         </div>
-        <div id="trending-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4">
+        <div id="trending-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           <!-- Trending products will be added here by JavaScript -->
         </div>
       </section>
@@ -218,7 +218,7 @@
       <!-- Featured Products -->
       <section id="featured-section" class="mb-12">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Featured Products</h2>
-        <div id="featured-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4">
+        <div id="featured-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           <!-- Featured products will be added here by JavaScript -->
         </div>
       </section>
@@ -245,7 +245,7 @@
             </button>
           </div>
         </div>
-        <div id="filtered-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div id="filtered-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <!-- Filtered products will be added here by JavaScript -->
         </div>
         <div id="pagination" class="flex justify-center mt-8 hidden">
@@ -463,7 +463,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">D2K Air Drop</h3>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">ToolPix Store</h3>
             <p class="text-gray-600">Your one-stop shop for digital products and tools.</p>
           </div>
           <div>
@@ -486,7 +486,7 @@
           </div>
         </div>
         <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
-          <p>© <span id="current-year"></span> D2K Air Drop. All rights reserved.</p>
+          <p>© <span id="current-year"></span> ToolPix Store. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -494,8 +494,8 @@
 
   <script>
     // Constants
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-gJTI2VPDNsWdKP_-kBJvDY2YHTHz5V1fmh0dV0e1UW8cbX8i9E1SWtdusGZFJ2ze/exec";
-    const PLACEHOLDER_IMAGE = "https://placehold.co/600x400?text=D2KARMY";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmOLM1U4uH1jtQAxwGCxJKTH4su7zHpfryFd7j7EdEUmcGfKz16E5XREmczPdLQaVS/exec";
+    const PLACEHOLDER_IMAGE = "https://placehold.co/600x400?text=ToolPix";
     const CACHE_KEY = 'toolpix_products_v3';
     const FAVORITES_KEY = 'toolpix_favorites';
     const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes cache
@@ -677,7 +677,7 @@
           </button>
           
           <div 
-            class="relative h-40 md:h-48 overflow-hidden cursor-pointer view-product"
+            class="relative h-48 overflow-hidden cursor-pointer view-product"
             data-id="${product.Id}"
           >
             <img
@@ -713,12 +713,12 @@
             </div>
           </div>
           
-          <div class="p-3 md:p-4 view-product" data-id="${product.Id}">
-            <h3 class="text-base md:text-lg font-semibold text-gray-800 mb-1 truncate cursor-pointer hover:text-green-600 transition">
+          <div class="p-4 view-product" data-id="${product.Id}">
+            <h3 class="font-semibold text-gray-800 mb-1 truncate cursor-pointer hover:text-green-600 transition">
               ${product.Title}
             </h3>
             <div class="flex items-center">
-              <span class="text-base md:text-lg font-bold text-green-600">${formatPrice(product.currentPrice)}</span>
+              <span class="text-lg font-bold text-green-600">${formatPrice(product.currentPrice)}</span>
               ${isDiscounted ? `<span class="text-xs text-gray-500 line-through ml-2">${formatPrice(product.originalPrice)}</span>` : ''}
             </div>
           </div>
@@ -876,7 +876,7 @@
       
       // Update modal content
       modalContent.innerHTML = `
-        <div class="relative h-64 md:h-96">
+        <div class="relative h-96 md:h-auto">
           <img
             src="${product.ImageURLs[0] || PLACEHOLDER_IMAGE}"
             alt="${product.Title}"
@@ -885,14 +885,14 @@
           />
         </div>
         
-        <div class="p-4 md:p-6 overflow-y-auto max-h-[90vh]">
+        <div class="p-6 overflow-y-auto max-h-[90vh]">
           <div class="flex items-start justify-between mb-4">
             <div>
-              <h2 class="text-xl md:text-2xl font-bold text-gray-800">${product.Title}</h2>
+              <h2 class="text-2xl font-bold text-gray-800">${product.Title}</h2>
             </div>
             
             <div class="text-right">
-             Tagged <div class="text-2xl md:text-3xl font-bold text-green-600">${formatPrice(product.currentPrice)}</div>
+              <div class="text-3xl font-bold text-green-600">${formatPrice(product.currentPrice)}</div>
               ${product.discountPercentage > 0 ? `
                 <div class="text-sm text-gray-500 line-through">${formatPrice(product.originalPrice)}</div>
                 <div class="text-sm font-semibold text-orange-500">Save ${product.discountPercentage}%</div>
@@ -918,7 +918,7 @@
               </nav>
             </div>
             
-            <div class="mt-4 text-gray-600 text-sm md:text-base">
+            <div class="mt-4 text-gray-600">
               <div id="tab-details" class="tab-content active">
                 <p>${product.Description || 'No detailed description available.'}</p>
               </div>
@@ -933,17 +933,17 @@
             </div>
           </div>
           
-          <div class="flex flex-row gap-3">
+          <div class="flex flex-col sm:flex-row gap-3">
             <a
               href="${product.PurchaseLink || '#'}"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg text-center transition flex items-center justify-center gap-2 text-sm md:text-base"
+              class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg text-center transition flex items-center justify-center gap-2"
             >
               <i class="fas fa-shopping-cart"></i> Buy Now
             </a>
             <button 
-              class="flex-1 ${favorites.includes(product.Id) ? 'bg-red-100 hover:bg-red-200 text-red-700' : 'bg-blue-100 hover:bg-blue-200 text-blue-700'} font-medium py-2 px-4 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal text-sm md:text-base"
+              class="flex-1 ${favorites.includes(product.Id) ? 'bg-red-100 hover:bg-red-200 text-red-700' : 'bg-blue-100 hover:bg-blue-200 text-blue-700'} font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal"
               data-id="${product.Id}"
             >
               <i class="${favorites.includes(product.Id) ? 'fas' : 'far'} fa-heart"></i> ${favorites.includes(product.Id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
@@ -992,10 +992,10 @@
         const button = modalContent.querySelector('.favorite-button-modal');
         if (favorites.includes(productId)) {
           button.innerHTML = '<i class="fas fa-heart"></i> Remove from Wishlist';
-          button.className = 'flex-1 bg-red-100 hover:bg-red-200 text-red-700 font-medium py-2 px-4 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal text-sm md:text-base';
+          button.className = 'flex-1 bg-red-100 hover:bg-red-200 text-red-700 font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal';
         } else {
           button.innerHTML = '<i class="far fa-heart"></i> Add to Wishlist';
-          button.className = 'flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-2 px-4 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal text-sm md:text-base';
+          button.className = 'flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal';
         }
         button.setAttribute('data-id', productId);
         
@@ -1031,11 +1031,11 @@
                   />
                 </div>
                 <div class="flex-1">
-                  <h4 class="text-sm md:text-base font-medium text-gray-800 cursor-pointer hover:text-green-600 view-product" data-id="${product.Id}">
+                  <h4 class="font-medium text-gray-800 cursor-pointer hover:text-green-600 view-product" data-id="${product.Id}">
                     ${product.Title}
                   </h4>
                   <div class="flex items-center justify-between mt-1">
-                    <span class="text-sm md:text-base text-green-600 font-semibold">
+                    <span class="text-green-600 font-semibold">
                       ${formatPrice(product.currentPrice)}
                     </span>
                     <button 
@@ -1156,7 +1156,7 @@
     async function fetchProducts() {
       let cachedData;
       try {
-        const stored = sessionStorage.getItem(CACHE_KEY);
+        const stored = localStorage.getItem(CACHE_KEY);
         if (stored) {
           cachedData = JSON.parse(stored);
           if (!cachedData || !Array.isArray(cachedData.products)) {
@@ -1208,7 +1208,7 @@
           };
         });
         
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
           products: normalizedData,
           timestamp: now
         }));
@@ -1311,7 +1311,7 @@
         if (product) {
           viewProduct(product);
         } else {
-          history.replaceState(null, null, window.location.pathname + window.location.search);
+          window.location.hash = '';
           // Show popup banner if not shown yet
           if (!sessionStorage.getItem('bannerShown') && popupProduct) {
             renderPopupBanner();
@@ -1341,15 +1341,11 @@
           viewProduct(bannerProduct);
         }
       });
-      
-      // Debounced search input
-      let searchTimeout;
+            
+      // Search input
       searchInput.addEventListener('input', () => {
         clearSearch.classList.toggle('hidden', !searchInput.value);
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          filterProducts();
-        }, 300);
+        filterProducts();
       });
       
       clearSearch.addEventListener('click', () => {
@@ -1407,27 +1403,23 @@
         mobileSearch.classList.add('hidden');
       });
       
-      // Debounced mobile search input
-      let mobileSearchTimeout;
       mobileSearchInput.addEventListener('input', () => {
         clearMobileSearch.classList.toggle('hidden', !mobileSearchInput.value);
-        clearTimeout(mobileSearchTimeout);
-        mobileSearchTimeout = setTimeout(() => {
-          const query = mobileSearchInput.value.toLowerCase();
-          const filtered = products.filter(p => 
-            p.Title.toLowerCase().includes(query) || 
-            (p.Keywords && p.Keywords.toLowerCase().includes(query)) ||
-            p.Id.toLowerCase().includes(query)
-          );
-          
-          if (filtered.length === 0) {
-            mobileSearchResults.innerHTML = '<p class="text-center text-gray-500">No products found</p>';
-          } else {
-            mobileSearchResults.innerHTML = '<div class="grid grid-cols-1 gap-4"></div>';
-            const container = mobileSearchResults.querySelector('div');
-            renderProducts(filtered, container);
-          }
-        }, 300);
+        
+        const query = mobileSearchInput.value.toLowerCase();
+        const filtered = products.filter(p => 
+          p.Title.toLowerCase().includes(query) || 
+          (p.Keywords && p.Keywords.toLowerCase().includes(query)) ||
+          p.Id.toLowerCase().includes(query)
+        );
+        
+        if (filtered.length === 0) {
+          mobileSearchResults.innerHTML = '<p class="text-center text-gray-500">No products found</p>';
+        } else {
+          mobileSearchResults.innerHTML = '<div class="grid grid-cols-1 gap-4"></div>';
+          const container = mobileSearchResults.querySelector('div');
+          renderProducts(filtered, container);
+        }
       });
       
       clearMobileSearch.addEventListener('click', () => {
@@ -1514,13 +1506,11 @@
         favoritesPanel.classList.add('hidden');
       });
       
-      // Product modal close with hash removal and scroll preservation
+      // Product modal
       closeProductModal.addEventListener('click', () => {
-        const scrollY = window.scrollY;
         productModal.classList.add('hidden');
         selectedProduct = null;
-        history.replaceState(null, null, window.location.pathname + window.location.search);
-        window.scrollTo(0, scrollY);
+        window.location.hash = '';
       });
       
       // Popup banner

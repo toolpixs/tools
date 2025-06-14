@@ -6,9 +6,6 @@
   <title>ToolPix Store - Buy Digital Products</title>
   <meta name="description" content="ToolPix Store offers a wide range of digital products and tools. Find the best deals and discounts on software, e-books, and more.">
   <meta name="keywords" content="digital products, software, e-books, tools, discounts, deals">
-  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
@@ -40,13 +37,6 @@
       transform: translateY(10px);
       transition: all 0.3s ease;
     }
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none;
-    }
-    .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
     .gradient-text {
       background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
       -webkit-background-clip: text;
@@ -61,578 +51,1058 @@
       animation: progress 2s linear infinite;
     }
   </style>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "https://toolpixstore.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://toolpixstore.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
 </head>
 <body class="bg-gray-50">
-  <div id="root"></div>
-  <script type="text/babel">
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmOLM1U4uH1jtQAxwGCxJKTH4su7zHpfryFd7j7EdEUmcGfKz16E5XREmczPdLQaVS/exec";
-  const PLACEHOLDER_IMAGE = "https://placehold.co/600x400?text=ToolPix";
-  const CACHE_KEY = 'toolpix_products_v3';
-  const FAVORITES_KEY = 'toolpix_favorites';
-  const CACHE_DURATION = 6 * 60 * 60 * 1000; // 6 hours cache
-  const ITEMS_PER_PAGE = 12;
-  const EXCHANGE_RATE = 0.012; // 1 INR = 0.012 USD
+  <!-- Splash Screen -->
+  <div id="splash-screen" class="fixed inset-0 bg-gradient-to-br from-green-500 to-blue-600 flex flex-col items-center justify-center z-50">
+    <div class="animate-bounce mb-8">
+      <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+      </svg>
+    </div>
+    <h1 class="text-4xl font-bold text-white mb-2">ToolPix Store</h1>
+    <p class="text-white opacity-80">Loading amazing products...</p>
+    <div class="mt-8 w-64 bg-white bg-opacity-20 rounded-full h-2">
+      <div class="bg-white h-2 rounded-full animate-progress"></div>
+    </div>
+  </div>
 
-  // Utility functions
-  const formatPrice = (priceInINR) => {
-    const priceInUSD = priceInINR * EXCHANGE_RATE;
-    return `$${priceInUSD.toFixed(2)}`;
-  };
-  const isNewProduct = (date) => new Date(date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-
-  // Fetch products with caching
-  const fetchProducts = async () => {
-    let cachedData;
-    try {
-      const stored = localStorage.getItem(CACHE_KEY);
-      if (stored) {
-        cachedData = JSON.parse(stored);
-        if (!cachedData || !Array.isArray(cachedData.products)) {
-          console.warn('Invalid cached data format, fetching new data');
-          cachedData = null;
-        }
-      }
-    } catch (e) {
-      console.error('Error parsing cached data:', e);
-      cachedData = null;
-    }
-    
-    const now = Date.now();
-    
-    if (cachedData && now - cachedData.timestamp < CACHE_DURATION) {
-      return cachedData.products;
-    }
-    
-    try {
-      const response = await fetch(SCRIPT_URL);
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-      const data = await response.json();
-      
-      if (!Array.isArray(data)) {
-        throw new Error('Expected an array of products, but received: ' + JSON.stringify(data));
-      }
-      
-      const normalizedData = data.map(product => ({
-        ...product,
-        Id: product.Id || product.ID || `product-${Math.random.toString(36).substr(2, 9)}`,
-        ImageURLs: (product.ImageURLs || product.imageURLs || product.ImageUrl || product.imageUrl || '')
-          .split(',')
-          .map(url => url.trim())
-          .filter(url => url),
-        Keywords: product.Keywords || '',
-        originalPrice: Number(product.OriginalPrice) || 0,
-        currentPrice: product.DiscountPercentage ? Number(product.DiscountPercentage) : Number(product.OriginalPrice) || 0,
-        discountPercentage: product.DiscountPercentage && product.OriginalPrice && Number(product.OriginalPrice) > 0 ?
-          ((Number(product.OriginalPrice) - Number(product.DiscountPercentage)) / Number(product.OriginalPrice) * 100).toFixed(2) : 0,
-        Timestamp: product.Timestamp ? new Date(product.Timestamp) : new Date(),
-        Rating: Math.min(5, Math.max(0, Number(product.Rating) || Math.random() * 4 + 1)),
-        Banner: product.Banner || false,
-        Pbanner: product.Pbanner || false
-      }));
-      
-      localStorage.setItem(CACHE_KEY, JSON.stringify({
-        products: normalizedData,
-        timestamp: now
-      }));
-      
-      return normalizedData;
-    } catch (error) {
-      console.error('Fetch error:', error);
-      if (cachedData && Array.isArray(cachedData.products)) {
-        return cachedData.products;
-      }
-      return [];
-    }
-  };
-
-  // Favorites management
-  const getFavorites = () => JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
-  const toggleFavorite = (productId) => {
-    const favorites = getFavorites();
-    const newFavorites = favorites.includes(productId)
-      ? favorites.filter(id => id !== productId)
-      : [...favorites, productId];
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
-    return newFavorites;
-  };
-
-  // Component: Splash Screen
-  const SplashScreen = ({ isVisible }) => {
-    if (!isVisible) return null;
-    return (
-      <div className="fixed inset-0 bg-gradient-to-br from-green-500 to-blue-600 flex flex-col items-center justify-center z-50">
-        <div className="animate-bounce mb-8">
-          <svg className="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-          </svg>
-        </div>
-        <h1 className="text-4xl font-bold text-white mb-2">ToolPix Store</h1>
-        <p className="text-white opacity-80">Loading amazing products...</p>
-        <div className="mt-8 w-64 bg-white bg-opacity-20 rounded-full h-2">
-          <div className="bg-white h-2 rounded-full animate-progress"></div>
+  <!-- Main App -->
+  <div id="app" class="min-h-screen hidden">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex-shrink-0 flex items-center">
+            <h1 class="text-xl font-bold gradient-text">ToolPix</h1>
+          </div>
+          
+          <div class="hidden md:flex flex-1 max-w-md mx-4">
+            <div class="relative w-full">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search products..."
+                class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+              <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+              <button
+                id="clear-search"
+                class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 hidden"
+                aria-label="Clear search"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="hidden md:flex items-center space-x-4">
+            <button 
+              id="favorites-button"
+              class="p-2 rounded-full text-gray-600 hover:text-red-500 relative"
+              aria-label="Favorites"
+            >
+              <i class="fas fa-heart"></i>
+              <span id="favorites-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">
+                0
+              </span>
+            </button>
+            
+            <div class="relative">
+              <select
+                id="category-filter"
+                class="appearance-none bg-gray-100 border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              >
+                <option value="all">All Categories</option>
+                <!-- Categories will be populated by JavaScript -->
+              </select>
+              <i class="fas fa-chevron-down absolute right-3 top-3 text-xs text-gray-500 pointer-events-none"></i>
+            </div>
+            
+            <div class="relative">
+              <select
+                id="sort-select"
+                class="appearance-none bg-gray-100 border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              >
+                <option value="default">Sort By</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="discount-high">Highest Discount</option>
+                <option value="newest">Newest First</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+              <i class="fas fa-chevron-down absolute right-3 top-3 text-xs text-gray-500 pointer-events-none"></i>
+            </div>
+          </div>
+          
+          <div class="md:hidden flex items-center">
+            <button 
+              id="mobile-search-button"
+              class="p-2 text-gray-600 hover:text-gray-900"
+              aria-label="Search"
+            >
+              <i class="fas fa-search"></i>
+            </button>
+            <button 
+              id="mobile-menu-button"
+              class="p-2 text-gray-600 hover:text-gray-900 ml-2"
+              aria-label="Menu"
+            >
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
         </div>
       </div>
-    );
-  };
-
-  // Component: Product Card
-  const ProductCard = ({ product, onView, isFavorite, onToggleFavorite }) => {
-    const isDiscounted = product.discountPercentage > 0;
+    </header>
     
-    return (
-      <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 relative fade-in">
+    <!-- Active Filters -->
+    <div id="active-filters" class="bg-white py-2 px-4 border-b border-gray-200 hidden">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-2">
+        <!-- Filters will be added here by JavaScript -->
         <button 
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleFavorite(product.Id);
-          }}
-          className="absolute top-3 right-3 z-10 p-2 bg-white bg-opacity-80 rounded-full shadow hover:bg-opacity-100 transition"
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          id="clear-all-filters"
+          class="text-green-600 text-sm font-medium hover:text-green-800 ml-auto"
         >
-          <i className={`${isFavorite ? 'fas text-red-500' : 'far text-gray-400'} fa-heart`}></i>
+          Clear all
+        </button>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <!-- Error State (hidden by default) -->
+      <div id="error-state" class="text-center py-12 hidden">
+        <i class="fas fa-exclamation-triangle text-yellow-500 text-5xl mb-4"></i>
+        <h3 class="text-lg font-medium text-gray-700">Failed to Load Products</h3>
+        <p class="text-gray-500 mt-2">Please try refreshing the page or check your connection.</p>
+        <button 
+          id="refresh-button"
+          class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          Refresh Page
+        </button>
+      </div>
+      
+      <!-- Hero Banner -->
+      <div id="hero-banner" class="relative rounded-xl overflow-hidden h-64 md:h-80 lg:h-96 mb-8 cursor-pointer hidden">
+        <img id="banner-image" src="" alt="" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <div class="max-w-2xl">
+            <span id="banner-discount" class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-2 inline-block hidden">
+              0% OFF
+            </span>
+            <h2 id="banner-title" class="text-2xl md:text-3xl font-bold mb-2"></h2>
+            <p id="banner-description" class="text-sm md:text-base opacity-90 mb-3 line-clamp-2"></p>
+            <div class="flex items-center">
+              <span id="banner-price" class="text-xl font-bold mr-3"></span>
+              <span id="banner-original-price" class="text-sm line-through opacity-80 hidden"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Trending Products -->
+      <section id="trending-section" class="mb-12">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Trending Now</h2>
+          <button class="text-green-600 hover:text-green-800 text-sm font-medium">
+            View All
+          </button>
+        </div>
+        <div id="trending-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <!-- Trending products will be added here by JavaScript -->
+        </div>
+      </section>
+      
+      <!-- Featured Products -->
+      <section id="featured-section" class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Featured Products</h2>
+        <div id="featured-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <!-- Featured products will be added here by JavaScript -->
+        </div>
+      </section>
+      
+      <!-- Search/Filter Results -->
+      <section id="search-results" class="hidden">
+        <h2 id="search-results-title" class="text-2xl font-bold text-gray-800 mb-6"></h2>
+        <div id="search-results-empty" class="text-center py-12 hidden">
+          <i class="fas fa-search text-gray-300 text-5xl mb-4"></i>
+          <h3 class="text-lg font-medium text-gray-700">No Products Found</h3>
+          <p class="text-gray-500 mt-2">Try adjusting your search or filter criteria, or refresh the page.</p>
+          <div class="mt-4 space-x-4">
+            <button 
+              id="clear-search-filter"
+              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+            >
+              Clear All
+            </button>
+            <button 
+              id="refresh-button-2"
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+        <div id="filtered-products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Filtered products will be added here by JavaScript -->
+        </div>
+        <div id="pagination" class="flex justify-center mt-8 hidden">
+          <nav class="inline-flex rounded-md shadow">
+            <button
+              id="prev-page"
+              class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+              disabled
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <!-- Page numbers will be added here by JavaScript -->
+            <button
+              id="next-page"
+              class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+              disabled
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </nav>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Mobile Search -->
+    <div id="mobile-search" class="fixed inset-0 bg-white z-50 overflow-y-auto p-4 hidden">
+      <div class="flex items-center mb-4">
+        <button 
+          id="close-mobile-search"
+          class="mr-4 text-gray-600"
+          aria-label="Close search"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="relative flex-1">
+          <input
+            type="text"
+            id="mobile-search-input"
+            placeholder="Search products..."
+            class="w-full py-3 px-4 pl-10 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <i class="fas fa-search absolute left-3 top-3.5 text-gray-500"></i>
+          <button
+            id="clear-mobile-search"
+            class="absolute right-3 top-3.5 text-gray-500 hidden"
+            aria-label="Clear search"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-search-results" class="mt-4">
+        <!-- Mobile search results will be added here by JavaScript -->
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-end hidden">
+      <div class="bg-white w-4/5 max-w-sm h-full overflow-y-auto slide-up">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-lg font-semibold">Menu</h3>
+          <button 
+            id="close-mobile-menu"
+            class="text-gray-500 hover:text-gray-700"
+            aria-label="Close menu"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="p-4">
+          <h4 class="font-medium text-gray-700 mb-2">Filter By</h4>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Category</label>
+              <select
+                id="mobile-category-filter"
+                class="w-full p-2 border rounded-lg focus:border-green-500 focus:ring focus:ring-green-200"
+              >
+                <option value="all">All Categories</option>
+                <!-- Categories will be populated by JavaScript -->
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">Price Range</label>
+              <select
+                id="mobile-price-filter"
+                class="w-full p-2 border rounded-lg focus:border-green-500 focus:ring focus:ring-green-200"
+              >
+                <option value="all">All Prices</option>
+                <option value="0-10">Under ₹10</option>
+                <option value="10-25">₹10 - ₹25</option>
+                <option value="25-50">₹25 - ₹50</option>
+                <option value="50-100">₹50 - ₹100</option>
+                <option value="100+">Over ₹100</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-4 border-t border-gray-200">
+          <h4 class="font-medium text-gray-700 mb-2">Sort By</h4>
+          <div class="space-y-2">
+            <button 
+              id="sort-default"
+              class="w-full text-left p-2 rounded-lg bg-green-100 text-green-700"
+            >
+              Default
+            </button>
+            <button 
+              id="sort-price-low"
+              class="w-full text-left p-2 rounded-lg hover:bg-gray-100"
+            >
+              Price: Low to High
+            </button>
+            <button 
+              id="sort-price-high"
+              class="w-full text-left p-2 rounded-lg hover:bg-gray-100"
+            >
+              Price: High to Low
+            </button>
+            <button 
+              id="sort-discount-high"
+              class="w-full text-left p-2 rounded-lg hover:bg-gray-100"
+            >
+              Highest Discount
+            </button>
+            <button 
+              id="sort-newest"
+              class="w-full text-left p-2 rounded-lg hover:bg-gray-100"
+            >
+              Newest First
+            </button>
+            <button 
+              id="sort-rating"
+              class="w-full text-left p-2 rounded-lg hover:bg-gray-100"
+            >
+              Highest Rated
+            </button>
+          </div>
+        </div>
+        
+        <div class="p-4 border-t border-gray-200">
+          <button 
+            id="mobile-favorites-button"
+            class="w-full flex items-center justify-between p-2 hover:bg-gray-100 rounded-lg"
+          >
+            <span>My Favorites</span>
+            <i class="fas fa-heart text-red-500"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Favorites Panel -->
+    <div id="favorites-panel" class="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-end hidden">
+      <div class="bg-white w-full max-w-md h-full overflow-y-auto slide-up">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white z-10">
+          <h3 class="text-lg font-semibold flex items-center gap-2">
+            <i class="fas fa-heart text-red-500"></i> My Favorites
+          </h3>
+          <button 
+            id="close-favorites"
+            class="text-gray-500 hover:text-gray-700"
+            aria-label="Close favorites"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div id="favorites-content" class="p-4">
+          <!-- Favorites will be added here by JavaScript -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 hidden">
+      <div class="bg-white rounded-xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl relative">
+        <button 
+          id="close-product-modal"
+          class="absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
+          aria-label="Close modal"
+        >
+          <i class="fas fa-times text-gray-600"></i>
         </button>
         
-        <div 
-          className="relative h-48 overflow-hidden cursor-pointer" 
-          onClick={() => onView(product)}
+        <div id="modal-content" class="grid md:grid-cols-2 gap-0">
+          <!-- Product details will be added here by JavaScript -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Popup Banner -->
+    <div id="popup-banner" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 hidden">
+      <div class="relative">
+        <button 
+          id="close-popup-banner"
+          class="absolute top-0 right-0 -mt-8 -mr-8 p-2 text-white hover:text-gray-300"
+          aria-label="Close popup"
         >
-          <img
-            src={product.ImageURLs[0] || PLACEHOLDER_IMAGE}
-            alt={product.Title}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-            onError={(e) => (e.target.src = PLACEHOLDER_IMAGE)}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-          
-          <div className="absolute top-2 left-2 flex gap-2">
-            {isNewProduct(product.Timestamp) && (
-              <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</span>
-            )}
-            {isDiscounted && (
-              <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">{product.discountPercentage}% OFF</span>
-            )}
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="bg-white rounded-xl w-full max-w-md shadow-2xl">
+          <div id="popup-content" class="p-4 cursor-pointer">
+            <!-- Popup content will be added here by JavaScript -->
           </div>
-          
-          <div className="absolute bottom-0 left-0 right-0 p-3 product-actions flex justify-center gap-2">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">ToolPix Store</h3>
+            <p class="text-gray-600">Your one-stop shop for digital products and tools.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-600 hover:text-green-600">Home</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-green-600">Products</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-green-600">Categories</a></li>
+              <li><a href="#" class="text-gray-600 hover:text-green-600">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Contact Us</h3>
+            <p class="text-gray-600">Email: support@toolpix.com</p>
+            <div class="flex space-x-4 mt-4">
+              <a href="#" class="text-gray-600 hover:text-green-600"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="text-gray-600 hover:text-green-600"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-600 hover:text-green-600"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
+          <p>© <span id="current-year"></span> ToolPix Store. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Constants
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmOLM1U4uH1jtQAxwGCxJKTH4su7zHpfryFd7j7EdEUmcGfKz16E5XREmczPdLQaVS/exec";
+    const PLACEHOLDER_IMAGE = "https://placehold.co/600x400?text=ToolPix";
+    const CACHE_KEY = 'toolpix_products_v3';
+    const FAVORITES_KEY = 'toolpix_favorites';
+    const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes cache
+
+    const ITEMS_PER_PAGE = 12;
+    const CURRENCY_CODE = 'INR';
+
+    // State
+    let products = [];
+    let filteredProducts = [];
+    let trendingProducts = [];
+    let featuredProducts = [];
+    let currentPage = 1;
+    let filters = {};
+    let sort = 'default';
+    let favorites = [];
+    let selectedProduct = null;
+    let categories = [];
+    let bannerProduct = null;
+    let popupProduct = null;
+
+    // DOM Elements
+    const splashScreen = document.getElementById('splash-screen');
+    const app = document.getElementById('app');
+    const errorState = document.getElementById('error-state');
+    const refreshButton = document.getElementById('refresh-button');
+    const refreshButton2 = document.getElementById('refresh-button-2');
+    const heroBanner = document.getElementById('hero-banner');
+    const bannerImage = document.getElementById('banner-image');
+    const bannerDiscount = document.getElementById('banner-discount');
+    const bannerTitle = document.getElementById('banner-title');
+    const bannerDescription = document.getElementById('banner-description');
+    const bannerPrice = document.getElementById('banner-price');
+    const bannerOriginalPrice = document.getElementById('banner-original-price');
+    const trendingSection = document.getElementById('trending-section');
+    const trendingProductsContainer = document.getElementById('trending-products');
+    const featuredSection = document.getElementById('featured-section');
+    const featuredProductsContainer = document.getElementById('featured-products');
+    const searchResults = document.getElementById('search-results');
+    const searchResultsTitle = document.getElementById('search-results-title');
+    const searchResultsEmpty = document.getElementById('search-results-empty');
+    const filteredProductsContainer = document.getElementById('filtered-products');
+    const pagination = document.getElementById('pagination');
+    const prevPageButton = document.getElementById('prev-page');
+    const nextPageButton = document.getElementById('next-page');
+    const clearSearchFilter = document.getElementById('clear-search-filter');
+    const activeFilters = document.getElementById('active-filters');
+    const clearAllFilters = document.getElementById('clear-all-filters');
+    const searchInput = document.getElementById('search-input');
+    const clearSearch = document.getElementById('clear-search');
+    const categoryFilter = document.getElementById('category-filter');
+    const sortSelect = document.getElementById('sort-select');
+    const favoritesButton = document.getElementById('favorites-button');
+    const favoritesCount = document.getElementById('favorites-count');
+    const mobileSearchButton = document.getElementById('mobile-search-button');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileSearch = document.getElementById('mobile-search');
+    const closeMobileSearch = document.getElementById('close-mobile-search');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    const clearMobileSearch = document.getElementById('clear-mobile-search');
+    const mobileSearchResults = document.getElementById('mobile-search-results');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileCategoryFilter = document.getElementById('mobile-category-filter');
+    const mobilePriceFilter = document.getElementById('mobile-price-filter');
+    const sortDefault = document.getElementById('sort-default');
+    const sortPriceLow = document.getElementById('sort-price-low');
+    const sortPriceHigh = document.getElementById('sort-price-high');
+    const sortDiscountHigh = document.getElementById('sort-discount-high');
+    const sortNewest = document.getElementById('sort-newest');
+    const sortRating = document.getElementById('sort-rating');
+    const mobileFavoritesButton = document.getElementById('mobile-favorites-button');
+    const favoritesPanel = document.getElementById('favorites-panel');
+    const closeFavorites = document.getElementById('close-favorites');
+    const favoritesContent = document.getElementById('favorites-content');
+    const productModal = document.getElementById('product-modal');
+    const closeProductModal = document.getElementById('close-product-modal');
+    const modalContent = document.getElementById('modal-content');
+    const popupBanner = document.getElementById('popup-banner');
+    const closePopupBanner = document.getElementById('close-popup-banner');
+    const popupContent = document.getElementById('popup-content');
+    const currentYear = document.getElementById('current-year');
+
+    // Helper Functions
+    function formatPrice(price) {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: CURRENCY_CODE
+      }).format(price);
+    }
+
+    function isNewProduct(date) {
+      return new Date(date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    }
+
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+    }
+
+    function toggleFavorite(productId) {
+      const favorites = getFavorites();
+      const newFavorites = favorites.includes(productId)
+        ? favorites.filter(id => id !== productId)
+        : [...favorites, productId];
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(newFavorites));
+      return newFavorites;
+    }
+
+    function renderActiveFilters() {
+      const activeFiltersContainer = activeFilters.querySelector('div');
+      activeFiltersContainer.innerHTML = '';
+      
+      let hasFilters = false;
+      
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          hasFilters = true;
+          const filterElement = document.createElement('div');
+          filterElement.className = 'bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center';
+          filterElement.innerHTML = `
+            <span class="capitalize">${key}: ${value}</span>
             <button 
-              className="bg-white text-green-600 p-2 rounded-full shadow hover:bg-green-50 transition"
-              onClick={(e) => {
-                e.stopPropagation();
-                onView(product);
-              }}
-              aria-label="Quick view"
+              data-filter="${key}"
+              class="ml-2 text-gray-500 hover:text-gray-700 remove-filter"
+              aria-label="Remove ${key} filter"
             >
-              <i className="fas fa-eye"></i>
+              <i class="fas fa-times text-xs"></i>
             </button>
-            <a 
-              href={product.PurchaseLink || '#'} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-green-600 text-white p-2 rounded-full shadow hover:bg-green-700 transition"
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Buy now"
-            >
-              <i className="fas fa-shopping-cart"></i>
-            </a>
-          </div>
-        </div>
-        
-        <div className="p-4" onClick={() => onView(product)}>
-          <h3 className="font-semibold text-gray-800 mb-1 truncate cursor-pointer hover:text-green-600 transition">
-            {product.Title}
-          </h3>
-          <div className="flex items-center">
-            <span className="text-lg font-bold text-green-600">{formatPrice(product.currentPrice)}</span>
-            {isDiscounted && (
-              <span className="text-xs text-gray-500 line-through ml-2">{formatPrice(product.originalPrice)}</span>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // Component: Product Modal
-  const ProductModal = ({ product, isOpen, onClose, isFavorite, onToggleFavorite }) => {
-    const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-    const [activeTab, setActiveTab] = React.useState('details');
-    
-    if (!isOpen || !product) return null;
-
-    const isDiscounted = product.discountPercentage > 0;
-    const images = product.ImageURLs.length > 0 ? product.ImageURLs : [PLACEHOLDER_IMAGE];
-    const isNew = isNewProduct(product.Timestamp);
-
-    const handlePrev = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-    const handleNext = () => setCurrentImageIndex((prev) => (prev + 1) % images.length);
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 slide-up">
-        <div className="bg-white rounded-xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl relative">
+          `;
+          activeFiltersContainer.appendChild(filterElement);
+        }
+      });
+      
+      if (sort !== 'default') {
+        hasFilters = true;
+        const sortElement = document.createElement('div');
+        sortElement.className = 'bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center';
+        sortElement.innerHTML = `
+          <span>Sort: ${
+            sort === 'price-low' ? 'Price: Low to High' :
+            sort === 'price-high' ? 'Price: High to Low' :
+            sort === 'discount-high' ? 'Highest Discount' :
+            sort === 'newest' ? 'Newest First' :
+            'Highest Rated'
+          }</span>
           <button 
-            onClick={onClose} 
-            className="absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
-            aria-label="Close modal"
+            class="ml-2 text-gray-500 hover:text-gray-700 remove-sort"
+            aria-label="Remove sort"
           >
-            <i className="fas fa-times text-gray-600"></i>
+            <i class="fas fa-times text-xs"></i>
+          </button>
+        `;
+        activeFiltersContainer.appendChild(sortElement);
+      }
+      
+      if (hasFilters) {
+        activeFilters.classList.remove('hidden');
+      } else {
+        activeFilters.classList.add('hidden');
+      }
+    }
+
+    function renderProducts(products, container) {
+      container.innerHTML = '';
+      
+      products.forEach(product => {
+        const isFavorite = favorites.includes(product.Id);
+        const isDiscounted = product.discountPercentage > 0;
+        
+        const productElement = document.createElement('div');
+        productElement.className = 'bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 relative fade-in';
+        productElement.innerHTML = `
+          <button 
+            class="absolute top-3 right-3 z-10 p-2 bg-white bg-opacity-80 rounded-full shadow hover:bg-opacity-100 transition favorite-button"
+            data-id="${product.Id}"
+            aria-label="${isFavorite ? "Remove from favorites" : "Add to favorites"}"
+          >
+            <i class="${isFavorite ? 'fas text-red-500' : 'far text-gray-400'} fa-heart"></i>
           </button>
           
-          <div className="grid md:grid-cols-2 gap-0">
-            <div className="relative bg-gray-100 h-96 md:h-auto">
-              <img
-                src={images[currentImageIndex]}
-                alt={`${product.Title} - Image ${currentImageIndex + 1}`}
-                className="w-full h-full object-contain"
-                onError={(e) => (e.target.src = PLACEHOLDER_IMAGE)}
-              />
-              
-              {images.length > 1 && (
-                <>
-                  <button 
-                    onClick={handlePrev} 
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
-                    aria-label="Previous image"
-                  >
-                    <i className="fas fa-chevron-left"></i>
-                  </button>
-                  <button 
-                    onClick={handleNext} 
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
-                    aria-label="Next image"
-                  >
-                    <i className="fas fa-chevron-right"></i>
-                  </button>
-                </>
-              )}
-              
-              {images.length > 1 && (
-                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-                  {images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentImageIndex(idx)}
-                      className={`w-10 h-10 rounded border-2 ${currentImageIndex === idx ? 'border-green-500' : 'border-transparent'} overflow-hidden`}
-                      aria-label={`View image ${idx + 1}`}
-                    >
-                      <img 
-                        src={img} 
-                        alt={`Thumbnail ${idx + 1}`} 
-                        className="w-full h-full object-cover"
-                        onError={(e) => (e.target.src = PLACEHOLDER_IMAGE)}
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            
-            <div className="p-6 overflow-y-auto max-h-[90vh]">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-800">{product.Title}</h2>
-                </div>
-                
-                <div className="text-right">
-                  <div className="text-3xl font-bold text-green-600">{formatPrice(product.currentPrice)}</div>
-                  {isDiscounted && (
-                    <>
-                      <div className="text-sm text-gray-500 line-through">{formatPrice(product.originalPrice)}</div>
-                      <div className="text-sm font-semibold text-orange-500">Save {product.discountPercentage}%</div>
-                    </>
-                  )}
-                </div>
-              </div>
-              
-              {isNew && (
-                <div className="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full inline-block mb-4">
-                  <i className="fas fa-bolt mr-1"></i> New Arrival
-                </div>
-              )}
-              
-              <div className="mb-6">
-                <div className="border-b border-gray-200">
-                  <nav className="flex -mb-px">
-                    <button
-                      onClick={() => setActiveTab('details')}
-                      className={`py-2 px-4 text-center border-b-2 font-medium text-sm ${activeTab === 'details' ? 'border-green-500 text-green-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
-                    >
-                      Details
-                    </button>
-                    <button
-                      onClick={() => setActiveTab('features')}
-                      className={`py-2 px-4 text-center border-b-2 font-medium text-sm ${activeTab === 'features' ? 'border-green-500 text-green-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
-                    >
-                      Features
-                    </button>
-                  </nav>
-                </div>
-                
-                <div className="mt-4 text-gray-600">
-                  {activeTab === 'details' ? (
-                    <p>{product.Description || 'No detailed description available.'}</p>
-                  ) : (
-                    <ul className="list-disc pl-5 space-y-1">
-                      {product.Features ? (
-                        product.Features.split('\n').filter(f => f.trim()).map((feature, i) => (
-                          <li key={i}>{feature}</li>
-                        ))
-                      ) : (
-                        <li>No features listed</li>
-                      )}
-                    </ul>
-                  )}
-                </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href={product.PurchaseLink || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg text-center transition flex items-center justify-center gap-2"
-                >
-                  <i className="fas fa-shopping-cart"></i> Buy Now
-                </a>
-                <button 
-                  onClick={() => onToggleFavorite(product.Id)}
-                  className={`flex-1 ${isFavorite ? 'bg-red-100 hover:bg-red-200 text-red-700' : 'bg-blue-100 hover:bg-blue-200 text-blue-700'} font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2`}
-                >
-                  <i className={`${isFavorite ? 'fas' : 'far'} fa-heart`}></i> {isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'}
-                </button>
-              </div>
-              
-              {product.Category && (
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <span className="text-sm text-gray-500">Category: </span>
-                  <span className="text-sm font-medium">{product.Category}</span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // Component: Popup Banner
-  const PopupBanner = ({ product, onClose, onView }) => {
-    if (!product) return null;
-    
-    const isDiscounted = product.discountPercentage > 0;
-    
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="relative">
-          <button 
-            onClick={onClose} 
-            className="absolute top-0 right-0 -mt-8 -mr-8 p-2 text-white hover:text-gray-300"
-            aria-label="Close popup"
+          <div 
+            class="relative h-48 overflow-hidden cursor-pointer view-product"
+            data-id="${product.Id}"
           >
-            <i className="fas fa-times text-2xl"></i>
-          </button>
-          <div className="bg-white rounded-xl w-full max-w-md shadow-2xl">
-            <div className="p-4 cursor-pointer" onClick={() => onView(product)}>
-              <img
-                src={product.ImageURLs[0] || PLACEHOLDER_IMAGE}
-                alt={product.Title}
-                className="w-full h-48 object-cover rounded-t-xl"
-                onError={(e) => (e.target.src = PLACEHOLDER_IMAGE)}
-              />
-              <div className="p-4">
-                <h2 className="text-xl font-bold text-gray-800 mb-2">{product.Title}</h2>
-                <p className="text-gray-600 mb-2">{product.Description}</p>
-                <div className="flex items-center">
-                  <span className="text-lg font-bold text-green-600">{formatPrice(product.currentPrice)}</span>
-                  {isDiscounted && (
-                    <span className="text-xs text-gray-500 line-through ml-2">{formatPrice(product.originalPrice)}</span>
-                  )}
-                </div>
+            <img
+              src="${product.ImageURLs[0] || PLACEHOLDER_IMAGE}"
+              alt="${product.Title}"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+              onerror="this.src='${PLACEHOLDER_IMAGE}'"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            
+            <div class="absolute top-2 left-2 flex gap-2">
+              ${isNewProduct(product.Timestamp) ? '<span class="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</span>' : ''}
+              ${isDiscounted ? `<span class="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">${product.discountPercentage}% OFF</span>` : ''}
+            </div>
+            
+            <div class="absolute bottom-0 left-0 right-0 p-3 product-actions flex justify-center gap-2">
+              <button 
+                class="bg-white text-green-600 p-2 rounded-full shadow hover:bg-green-50 transition view-product"
+                data-id="${product.Id}"
+                aria-label="Quick view"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+              <a 
+                href="${product.PurchaseLink || '#'}" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="bg-green-600 text-white p-2 rounded-full shadow hover:bg-green-700 transition"
+                aria-label="Buy now"
+              >
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="p-4 view-product" data-id="${product.Id}">
+            <h3 class="font-semibold text-gray-800 mb-1 truncate cursor-pointer hover:text-green-600 transition">
+              ${product.Title}
+            </h3>
+            <div class="flex items-center">
+              <span class="text-lg font-bold text-green-600">${formatPrice(product.currentPrice)}</span>
+              ${isDiscounted ? `<span class="text-xs text-gray-500 line-through ml-2">${formatPrice(product.originalPrice)}</span>` : ''}
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(productElement);
+      });
+      
+      // Add event listeners for view and favorite buttons
+      container.querySelectorAll('.view-product').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const productId = button.getAttribute('data-id');
+          const product = products.find(p => p.Id === productId);
+          if (product) {
+            viewProduct(product);
+          }
+        });
+      });
+      
+      container.querySelectorAll('.favorite-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const productId = button.getAttribute('data-id');
+          favorites = toggleFavorite(productId);
+          updateFavoritesCount();
+          renderAllProducts();
+        });
+      });
+    }
+
+    function renderPagination() {
+      const pageCount = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+      
+      if (pageCount <= 1) {
+        pagination.classList.add('hidden');
+        return;
+      }
+      
+      pagination.classList.remove('hidden');
+      const paginationContainer = pagination.querySelector('nav');
+      
+      // Clear existing page buttons (keep prev and next)
+      while (paginationContainer.children.length > 2) {
+        paginationContainer.removeChild(paginationContainer.children[1]);
+      }
+      
+      // Add page buttons
+      const maxPagesToShow = 5;
+      let startPage, endPage;
+      
+      if (pageCount <= maxPagesToShow) {
+        startPage = 1;
+        endPage = pageCount;
+      } else if (currentPage <= Math.ceil(maxPagesToShow / 2)) {
+        startPage = 1;
+        endPage = maxPagesToShow;
+      } else if (currentPage >= pageCount - Math.floor(maxPagesToShow / 2)) {
+        startPage = pageCount - maxPagesToShow + 1;
+        endPage = pageCount;
+      } else {
+        startPage = currentPage - Math.floor(maxPagesToShow / 2);
+        endPage = currentPage + Math.floor(maxPagesToShow / 2);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = `px-4 py- personally-2 border-t border-b border-gray-300 ${currentPage === i ? 'bg-green-600 text-white' : 'bg-white text-gray-500 hover:bg-gray-50'}`;
+        pageButton.addEventListener('click', () => {
+          currentPage = i;
+          renderFilteredProducts();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        paginationContainer.insertBefore(pageButton, paginationContainer.lastChild);
+      }
+      
+      prevPageButton.disabled = currentPage === 1;
+      nextPageButton.disabled = currentPage === pageCount;
+    }
+
+    function renderFilteredProducts() {
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      const paginatedProducts = filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+      
+      renderProducts(paginatedProducts, filteredProductsContainer);
+      renderPagination();
+    }
+
+    function renderAllProducts() {
+      // Update favorites count
+      updateFavoritesCount();
+      
+      // Check if we're showing search results or featured/trending
+      const hasSearchOrFilters = searchInput.value || Object.keys(filters).length > 0 || sort !== 'default';
+      
+      if (hasSearchOrFilters) {
+        // Show search results
+        trendingSection.classList.add('hidden');
+        featuredSection.classList.add('hidden');
+        searchResults.classList.remove('hidden');
+        
+        if (filteredProducts.length === 0) {
+          searchResultsEmpty.classList.remove('hidden');
+          filteredProductsContainer.classList.add('hidden');
+          pagination.classList.add('hidden');
+          
+          if (searchInput.value) {
+            searchResultsTitle.textContent = `Search Results for "${searchInput.value}"`;
+          } else {
+            searchResultsTitle.textContent = 'Filtered Products';
+          }
+        } else {
+          searchResultsEmpty.classList.add('hidden');
+          filteredProductsContainer.classList.remove('hidden');
+          
+          if (searchInput.value) {
+            searchResultsTitle.textContent = `Search Results for "${searchInput.value}" (${filteredProducts.length})`;
+          } else {
+            searchResultsTitle.textContent = `Filtered Products (${filteredProducts.length})`;
+          }
+          
+          renderFilteredProducts();
+        }
+      } else {
+        // Show featured and trending
+        trendingSection.classList.remove('hidden');
+        featuredSection.classList.remove('hidden');
+        searchResults.classList.add('hidden');
+        
+        renderProducts(trendingProducts, trendingProductsContainer);
+        renderProducts(featuredProducts, featuredProductsContainer);
+      }
+      
+      // Show/hide hero banner
+      if (hasSearchOrFilters || selectedProduct) {
+        heroBanner.classList.add('hidden');
+      } else {
+        heroBanner.classList.remove('hidden');
+      }
+    }
+
+    function updateFavoritesCount() {
+      const count = favorites.length;
+      if (count > 0) {
+        favoritesCount.textContent = count;
+        favoritesCount.classList.remove('hidden');
+      } else {
+        favoritesCount.classList.add('hidden');
+      }
+    }
+
+    function viewProduct(product) {
+      selectedProduct = product;
+      window.location.hash = product.Id;
+      
+      // Update modal content
+      modalContent.innerHTML = `
+        <div class="relative h-96 md:h-auto">
+          <img
+            src="${product.ImageURLs[0] || PLACEHOLDER_IMAGE}"
+            alt="${product.Title}"
+            class="w-full h-full object-contain"
+            onerror="this.src='${PLACEHOLDER_IMAGE}'"
+          />
+        </div>
+        
+        <div class="p-6 overflow-y-auto max-h-[90vh]">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-800">${product.Title}</h2>
+            </div>
+            
+            <div class="text-right">
+             Tagged <div class="text-3xl font-bold text-green-600">${formatPrice(product.currentPrice)}</div>
+              ${product.discountPercentage > 0 ? `
+                <div class="text-sm text-gray-500 line-through">${formatPrice(product.originalPrice)}</div>
+                <div class="text-sm font-semibold text-orange-500">Save ${product.discountPercentage}%</div>
+              ` : ''}
+            </div>
+          </div>
+          
+          ${isNewProduct(product.Timestamp) ? `
+            <div class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full inline-block mb-4">
+              <i class="fas fa-bolt mr-1"></i> New Arrival
+            </div>
+          ` : ''}
+          
+          <div class="mb-6">
+            <div class="border-b border-gray-200">
+              <nav class="flex -mb-px">
+                <button class="py-2 px-4 text-center border-b-2 font-medium text-sm border-green-500 text-green-600 tab-button active" data-tab="details">
+                  Details
+                </button>
+                <button class="py-2 px-4 text-center border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 tab-button" data-tab="features">
+                  Features
+                </button>
+              </nav>
+            </div>
+            
+            <div class="mt-4 text-gray-600">
+              <div id="tab-details" class="tab-content active">
+                <p>${product.Description || 'No detailed description available.'}</p>
+              </div>
+              <div id="tab-features" class="tab-content hidden">
+                <ul class="list-disc pl-5 space-y-1">
+                  ${product.Features ? 
+                    product.Features.split('\n').filter(f => f.trim()).map(feature => `<li>${feature}</li>`).join('') : 
+                    '<li>No features listed</li>'
+                  }
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    );
-  };
-
-  // Component: Hero Banner
-  const HeroBanner = ({ product, onView }) => {
-    if (!product) return null;
-    
-    const isDiscounted = product.discountPercentage > 0;
-    
-    return (
-      <div 
-        className="relative rounded-xl overflow-hidden h-64 md:h-80 lg:h-96 mb-8 cursor-pointer"
-        onClick={() => onView(product)}
-      >
-        <img
-          src={product.ImageURLs[0] || PLACEHOLDER_IMAGE}
-          alt={product.Title}
-          className="w-full h-full object-cover"
-          onError={(e) => (e.target.src = PLACEHOLDER_IMAGE)}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <div className="max-w-2xl">
-            {isDiscounted && (
-              <span className="bg-green-588 text-white text-xs font-bold px-2 py-1 rounded-full mb-2 inline-block">
-                {product.discountPercentage}% OFF
-              </span>
-            )}
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">{product.Title}</h2>
-            <p className="text-sm md:text-base opacity-90 mb-3 line-clamp-2">{product.Description}</p>
-            <div className="flex items-center">
-              <span className="text-xl font-bold mr-3">{formatPrice(product.currentPrice)}</span>
-              {isDiscounted && (
-                <span className="text-sm line-through opacity-80">{formatPrice(product.originalPrice)}</span>
-              )}
-            </div>
+          
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="${product.PurchaseLink || '#'}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg text-center transition flex items-center justify-center gap-2"
+            >
+              <i class="fas fa-shopping-cart"></i> Buy Now
+            </a>
+            <button 
+              class="flex-1 ${favorites.includes(product.Id) ? 'bg-red-100 hover:bg-red-200 text-red-700' : 'bg-blue-100 hover:bg-blue-200 text-blue-700'} font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal"
+              data-id="${product.Id}"
+            >
+              <i class="${favorites.includes(product.Id) ? 'fas' : 'far'} fa-heart"></i> ${favorites.includes(product.Id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+            </button>
           </div>
+          
+          ${product.Category ? `
+            <div class="mt-6 pt-6 border-t border-gray-200">
+              <span class="text-sm text-gray-500">Category: </span>
+              <span class="text-sm font-medium">${product.Category}</span>
+            </div>
+          ` : ''}
         </div>
-      </div>
-    );
-  };
-
-  // Main App Component
-  const App = () => {
-    const getInitialProducts = () => {
-      const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        try {
-          const data = JSON.parse(cached);
-          if (data && Array.isArray(data.products) && Date.now() - data.timestamp < CACHE_DURATION) {
-            return data.products;
-          }
-        } catch (e) {
-          console.error('Error parsing cached data:', e);
+      `;
+      
+      // Add tab switching functionality
+      modalContent.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const tab = button.getAttribute('data-tab');
+          
+          // Update active tab button
+          modalContent.querySelectorAll('.tab-button').forEach(btn => {
+            btn.classList.remove('border-green-500', 'text-green-600');
+            btn.classList.add('border-transparent', 'text-gray-500');
+          });
+          button.classList.add('border-green-500', 'text-green-600');
+          button.classList.remove('border-transparent', 'text-gray-500');
+          
+          // Show corresponding tab content
+          modalContent.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+            content.classList.remove('active');
+          });
+          modalContent.querySelector(`#tab-${tab}`).classList.remove('hidden');
+          modalContent.querySelector(`#tab-${tab}`).classList.add('active');
+        });
+      });
+      
+      // Add favorite button functionality
+      modalContent.querySelector('.favorite-button-modal').addEventListener('click', () => {
+        const productId = modalContent.querySelector('.favorite-button-modal').getAttribute('data-id');
+        favorites = toggleFavorite(productId);
+        updateFavoritesCount();
+        
+        // Update button in modal
+        const button = modalContent.querySelector('.favorite-button-modal');
+        if (favorites.includes(productId)) {
+          button.innerHTML = '<i class="fas fa-heart"></i> Remove from Wishlist';
+          button.className = 'flex-1 bg-red-100 hover:bg-red-200 text-red-700 font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal';
+        } else {
+          button.innerHTML = '<i class="far fa-heart"></i> Add to Wishlist';
+          button.className = 'flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 favorite-button-modal';
         }
-      }
-      return [];
-    };
+        button.setAttribute('data-id', productId);
+        
+        // Update all product cards
+        renderAllProducts();
+      });
+      
+      productModal.classList.remove('hidden');
+    }
 
-    const [products, setProducts] = React.useState(getInitialProducts);
-    const [filteredProducts, setFilteredProducts] = React.useState(products);
-    const [trendingProducts, setTrendingProducts] = React.useState([]);
-    const [featuredProducts, setFeaturedProducts] = React.useState([]);
-    const [currentPage, setCurrentPage] = React.useState(1);
-    const [filters, setFilters] = React.useState({});
-    const [sort, setSort] = React.useState('default');
-    const [isLoading, setIsLoading] = React.useState(products.length === 0);
-    const [selectedProduct, setSelectedProduct] = React.useState(null);
-    const [categories, setCategories] = React.useState([]);
-    const [favorites, setFavorites] = React.useState(getFavorites());
-    const [showMobileSearch, setShowMobileSearch] = React.useState(false);
-    const [showMobileMenu, setShowMobileMenu] = React.useState(false);
-    const [showFavorites, setShowFavorites] = React.useState(false);
-    const [searchQuery, setSearchQuery] = React.useState('');
-    const [showHeroBanner, setShowHeroBanner] = React.useState(true);
-    const [showPopupBanner, setShowPopupBanner] = React.useState(false);
-    const [popupProduct, setPopupProduct] = React.useState(null);
-
-    // Load products and initialize state
-    React.useEffect(() => {
-      if (products.length === 0) {
-        const loadProducts = async () => {
-          try {
-            const data = await fetchProducts();
-            setProducts(data);
-            
-            const uniqueCategories = [...new Set(data.map(p => p.Category).filter(c => c))];
-            setCategories(uniqueCategories);
-            
-            const trending = data.length > 0 ? [...data]
-              .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
-              .slice(0, Math.min(8, data.length))
-              .sort(() => Math.random() - 0.5) : [];
-            setTrendingProducts(trending);
-            
-            const featured = data.length > 0 ? [...data]
-              .sort(() => Math.random() - 0.5)
-              .slice(0, Math.min(8, data.length)) : [];
-            setFeaturedProducts(featured);
-          } catch (error) {
-            console.error('Error loading products:', error);
-          } finally {
-            setIsLoading(false);
-          }
-        };
-        loadProducts();
+    function renderFavorites() {
+      const favoriteProducts = products.filter(p => favorites.includes(p.Id));
+      
+      if (favoriteProducts.length === 0) {
+        favoritesContent.innerHTML = `
+          <div class="text-center py-10">
+            <i class="far fa-heart text-gray-300 text-5xl mb-4"></i>
+            <h4 class="text-lg font-medium text-gray-700">No favorites yet</h4>
+            <p class="text-gray-500 mt-2">Tap the heart icon on products to add them here</p>
+          </div>
+        `;
       } else {
-        const uniqueCategories = [...new Set(products.map(p => p.Category).filter(c => c))];
-        setCategories(uniqueCategories);
+        favoritesContent.innerHTML = `
+          <div class="grid grid-cols-1 gap-4">
+            ${favoriteProducts.map(product => `
+              <div class="flex items-center border-b border-gray-100 pb-4">
+                <div class="w-16 h-16 rounded-lg overflow-hidden mr-4 cursor-pointer view-product" data-id="${product.Id}">
+                  <img
+                    src="${product.ImageURLs[0] || PLACEHOLDER_IMAGE}"
+                    alt="${product.Title}"
+                    class="w-full h-full object-cover"
+                    onerror="this.src='${PLACEHOLDER_IMAGE}'"
+                  />
+                </div>
+                <div class="flex-1">
+                  <h4 class="font-medium text-gray-800 cursor-pointer hover:text-green-600 view-product" data-id="${product.Id}">
+                    ${product.Title}
+                  </h4>
+                  <div class="flex items-center justify-between mt-1">
+                    <span class="text-green-600 font-semibold">
+                      ${formatPrice(product.currentPrice)}
+                    </span>
+                    <button 
+                      class="text-red-500 hover:text-red-700 remove-favorite"
+                      data-id="${product.Id}"
+                      aria-label="Remove from favorites"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
         
-        const trending = products.length > 0 ? [...products]
-          .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
-          .slice(0, Math.min(8, products.length))
-          .sort(() => Math.random() - 0.5) : [];
-        setTrendingProducts(trending);
-        
-        const featured = products.length > 0 ? [...products]
-          .sort(() => Math.random() - 0.5)
-          .slice(0, Math.min(8, products.length)) : [];
-        setFeaturedProducts(featured);
-        setIsLoading(false);
-      }
-      setFavorites(getFavorites());
-    }, [products]);
-
-    // Handle hash changes and popup banner logic
-    React.useEffect(() => {
-      const handleHashChange = () => {
-        if (!isLoading && products.length > 0) {
-          const productId = window.location.hash.replace('#', '');
-          if (productId) {
+        // Add event listeners
+        favoritesContent.querySelectorAll('.view-product').forEach(button => {
+          button.addEventListener('click', () => {
+            const productId = button.getAttribute('data-id');
             const product = products.find(p => p.Id === productId);
             if (product) {
-              setSelectedProduct(product);
-              setShowHeroBanner(false);
-              setShowPopupBanner(false);
-            } else {
-              if (!sessionStorage.getItem('bannerShown')) {
-                const pbannerProduct = products.find(p => p.Pbanner === true);
-                if (pbannerProduct) {
-                  setPopupProduct(pbannerProduct);
-                  setShowPopupBanner(true);
-                  sessionStorage.setItem('bannerShown', 'true');
-                }
-              }
-              window.history.replaceState(null, null, ' ');
+              viewProduct(product);
+              favoritesPanel.classList.add('hidden');
             }
-          } else {
-            setSelectedProduct(null);
-            setShowHeroBanner(true);
-            if (!sessionStorage.getItem('bannerShown')) {
-              const pbannerProduct = products.find(p => p.Pbanner === true);
-              if (pbannerProduct) {
-                setPopupProduct(pbannerProduct);
-                setShowPopupBanner(true);
-                sessionStorage.setItem('bannerShown', 'true');
-              }
-            }
-          }
-        }
-      };
-      
-      handleHashChange();
-      window.addEventListener('hashchange', handleHashChange);
-      return () => window.removeEventListener('hashchange', handleHashChange);
-    }, [isLoading, products]);
+          });
+        });
+        
+        favoritesContent.querySelectorAll('.remove-favorite').forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const productId = button.getAttribute('data-id');
+            favorites = toggleFavorite(productId);
+            updateFavoritesCount();
+            renderFavorites();
+            renderAllProducts();
+          });
+        });
+      }
+    }
 
-    // Filter and sort products
-    React.useEffect(() => {
+    function renderPopupBanner() {
+      if (!popupProduct) return;
+      
+      const isDiscounted = popupProduct.discountPercentage > 0;
+      
+      popupContent.innerHTML = `
+        <img
+          src="${popupProduct.ImageURLs[0] || PLACEHOLDER_IMAGE}"
+          alt="${popupProduct.Title}"
+          class="w-full h-48 object-cover rounded-t-xl"
+          onerror="this.src='${PLACEHOLDER_IMAGE}'"
+        />
+        <div class="p-4">
+          <h2 class="text-xl font-bold text-gray-800 mb-2">${popupProduct.Title}</h2>
+          <p class="text-gray-600 mb-2">${popupProduct.Description}</p>
+          <div class="flex items-center">
+            <span class="text-lg font-bold text-green-600">${formatPrice(popupProduct.currentPrice)}</span>
+            ${isDiscounted ? `<span class="text-xs text-gray-500 line-through ml-2">${formatPrice(popupProduct.originalPrice)}</span>` : ''}
+          </div>
+        </div>
+      `;
+      
+      popupBanner.classList.remove('hidden');
+    }
+
+    function filterProducts() {
       let filtered = [...products];
       
       if (filters.category && filters.category !== 'all') {
@@ -642,17 +1112,18 @@
       if (filters.price) {
         const [min, max] = filters.price.split('-').map(Number);
         if (filters.price === '100+') {
-          filtered = filtered.filter(p => p.currentPrice * EXCHANGE_RATE >= 100);
+          filtered = filtered.filter(p => p.currentPrice >= 100);
         } else if (!isNaN(min) && !isNaN(max)) {
-          filtered = filtered.filter(p => p.currentPrice * EXCHANGE_RATE >= min && p.currentPrice * EXCHANGE_RATE <= max);
+          filtered = filtered.filter(p => p.currentPrice >= min && p.currentPrice <= max);
         }
       }
       
-      if (searchQuery) {
+      if (searchInput.value) {
+        const query = searchInput.value.toLowerCase();
         filtered = filtered.filter(p => 
-          (p.Title || '').toLowerCase().includes(searchQuery.toLowerCase()) || 
-          (p.Keywords || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (p.Id || '').toLowerCase().includes(searchQuery.toLowerCase())
+          p.Title.toLowerCase().includes(query) || 
+          (p.Keywords && p.Keywords.toLowerCase().includes(query)) ||
+          p.Id.toLowerCase().includes(query)
         );
       }
       
@@ -662,6 +1133,9 @@
           break;
         case 'price-high':
           filtered.sort((a, b) => b.currentPrice - a.currentPrice);
+          break;
+        case 'discount-high':
+          filtered.sort((a, b) => (b.discountPercentage || 0) - (a.discountPercentage || 0));
           break;
         case 'newest':
           filtered.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp));
@@ -673,616 +1147,417 @@
           break;
       }
       
-      setFilteredProducts(filtered);
-      setCurrentPage(1);
-    }, [filters, sort, searchQuery, products]);
+      filteredProducts = filtered;
+      currentPage = 1;
+      renderAllProducts();
+      renderActiveFilters();
+    }
 
-    // Select banner product
-    const bannerProduct = React.useMemo(() => {
-      return products.find(p => p.Banner === true) || null;
-    }, [products]);
-
-    const handlePageChange = (page) => {
-      setCurrentPage(page);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-    
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedProducts = filteredProducts.slice(start, start + ITEMS_PER_PAGE);
-    const pageCount = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-    
-    const toggleFavoriteHandler = (productId) => {
-      const newFavorites = toggleFavorite(productId);
-      setFavorites(newFavorites);
-    };
-    
-    const viewProduct = (product) => {
-      setSelectedProduct(product);
-      window.location.hash = product.Id;
-      setShowHeroBanner(false);
-      setShowPopupBanner(false);
-    };
-    
-    const applyFilter = (type, value) => {
-      setFilters(prev => {
-        if (value === 'all') {
-          const newFilters = { ...prev };
-          delete newFilters[type];
-          return newFilters;
+    async function fetchProducts() {
+      let cachedData;
+      try {
+        const stored = sessionStorage.getItem(CACHE_KEY);
+        if (stored) {
+          cachedData = JSON.parse(stored);
+          if (!cachedData || !Array.isArray(cachedData.products)) {
+            console.warn('Invalid cached data format, fetching new data');
+            cachedData = null;
+          }
         }
-        return { ...prev, [type]: value };
-      });
-    };
-    
-    const removeFilter = (type) => {
-      if (type === 'all') {
-        setFilters({});
-      } else {
-        setFilters(prev => {
-          const newFilters = { ...prev };
-          delete newFilters[type];
-          return newFilters;
-        });
+      } catch (e) {
+        console.error('Error parsing cached data:', e);
+        cachedData = null;
       }
-    };
-    
-    const handleSearch = (query) => {
-      setSearchQuery(query);
-      setShowMobileSearch(false);
-      setShowHeroBanner(query === '');
-    };
-    
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <SplashScreen isVisible={isLoading} />
+      
+      const now = Date.now();
+      
+      if (cachedData && now - cachedData.timestamp < CACHE_DURATION) {
+        return cachedData.products;
+      }
+      
+      try {
+        const response = await fetch(SCRIPT_URL);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
         
-        {!isLoading && (
-          <>
-            <header className="bg-white shadow-sm sticky top-0 z-30">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                  <div className="flex-shrink-0 flex items-center">
-                    <h1 className="text-xl font-bold gradient-text">ToolPix</h1>
-                  </div>
-                  
-                  <div className="hidden md:flex flex-1 max-w-md mx-4">
-                    <div className="relative w-full">
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => handleSearch(e.target.value)}
-                        placeholder="Search products..."
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      />
-                      <i className="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                    </div>
-                  </div>
-                  
-                  <div className="hidden md:flex items-center space-x-4">
-                    <button 
-                      onClick={() => setShowFavorites(true)}
-                      className="p-2 rounded-full text-gray-600 hover:text-red-500 relative"
-                      aria-label="Favorites"
-                    >
-                      <i className="fas fa-heart"></i>
-                      {favorites.length > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                          {favorites.length}
-                        </span>
-                      )}
-                    </button>
-                    
-                    <div className="relative">
-                      <select
-                        value={filters.category || 'all'}
-                        onChange={(e) => applyFilter('category', e.target.value)}
-                        className="appearance-none bg-gray-100 border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      >
-                        <option value="all">All Categories</option>
-                        {categories.map(cat => (
-                          <option key={cat} value={cat}>{cat}</option>
-                        ))}
-                      </select>
-                      <i className="fas fa-chevron-down absolute right-3 top-3 text-xs text-gray-500 pointer-events-none"></i>
-                    </div>
-                    
-                    <div className="relative">
-                      <select
-                        value={sort}
-                        onChange={(e) => setSort(e.target.value)}
-                        className="appearance-none bg-gray-100 border border-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      >
-                        <option value="default">Sort By</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
-                        <option value="newest">Newest First</option>
-                        <option value="rating">Highest Rated</option>
-                      </select>
-                      <i className="fas fa-chevron-down absolute right-3 top-3 text-xs text-gray-500 pointer-events-none"></i>
-                    </div>
-                  </div>
-                  
-                  <div className="md:hidden flex items-center">
-                    <button 
-                      onClick={() => setShowMobileSearch(true)}
-                      className="p-2 text-gray-600 hover:text-gray-900"
-                      aria-label="Search"
-                    >
-                      <i className="fas fa-search"></i>
-                    </button>
-                    <button 
-                      onClick={() => setShowMobileMenu(true)}
-                      className="p-2 text-gray-600 hover:text-gray-900 ml-2"
-                      aria-label="Menu"
-                    >
-                      <i className="fas fa-ellipsis-v"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </header>
-            
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-              {products.length === 0 && !searchQuery && Object.keys(filters).length === 0 ? (
-                <div className="text-center py-12">
-                  <i className="fas fa-exclamation-triangle text-yellow-500 text-5xl mb-4"></i>
-                  <h3 className="text-lg font-medium text-gray-700">Failed to Load Products</h3>
-                  <p className="text-gray-500 mt-2">Please try refreshing the page or check your connection.</p>
-                </div>
-              ) : (
-                <>
-                  {showHeroBanner && searchQuery === '' && Object.keys(filters).length === 0 && !selectedProduct && (
-                    <HeroBanner product={bannerProduct} onView={viewProduct} />
-                  )}
-                  {Object.keys(filters).length > 0 && (
-                    <ActiveFilters filters={filters} onRemoveFilter={removeFilter} />
-                  )}
-                  {searchQuery === '' && Object.keys(filters).length === 0 && !selectedProduct && (
-                    <>
-                      <section className="mb-12">
-                        <div className="flex items-center justify-between mb-6">
-                          <h2 className="text-2xl font-bold text-gray-800">Trending Now</h2>
-                          <button className="text-green-600 hover:text-green-800 text-sm font-medium">
-                            View All
-                          </button>
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                          {trendingProducts.map(product => (
-                            <ProductCard
-                              key={product.Id}
-                              product={product}
-                              onView={viewProduct}
-                              isFavorite={favorites.includes(product.Id)}
-                              onToggleFavorite={toggleFavoriteHandler}
-                            />
-                          ))}
-                        </div>
-                      </section>
-                      
-                      <section className="mb-12">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-6">Featured Products</h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                          {featuredProducts.map(product => (
-                            <ProductCard
-                              key={product.Id}
-                              product={product}
-                              onView={viewProduct}
-                              isFavorite={favorites.includes(product.Id)}
-                              onToggleFavorite={toggleFavoriteHandler}
-                            />
-                          ))}
-                        </div>
-                      </section>
-                    </>
-                  )}
-                  {(searchQuery !== '' || Object.keys(filters).length > 0) && (
-                    <section>
-                      <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                        {searchQuery ? `Search Results for "${searchQuery}"` : 'Filtered Products'}
-                      </h2>
-                      {filteredProducts.length === 0 ? (
-                        <div className="text-center py-12">
-                          <i className="fas fa-search text-gray-300 text-5xl mb-4"></i>
-                          <h3 className="text-lg font-medium text-gray-700">No products found</h3>
-                          <p className="text-gray-500 mt-2">Try adjusting your search or filter criteria</p>
-                          <button 
-                            onClick={() => {
-                              setSearchQuery('');
-                              setFilters({});
-                            }}
-                            className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-                          >
-                            Clear all
-                          </button>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            {paginatedProducts.map(product => (
-                              <ProductCard
-                                key={product.Id}
-                                product={product}
-                                onView={viewProduct}
-                                isFavorite={favorites.includes(product.Id)}
-                                onToggleFavorite={toggleFavoriteHandler}
-                              />
-                            ))}
-                          </div>
-                          {pageCount > 1 && (
-                            <div className="flex justify-center mt-8">
-                              <nav className="inline-flex rounded-md shadow">
-                                <button
-                                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                                  disabled={currentPage === 1}
-                                  className="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
-                                >
-                                  <i className="fas fa-chevron-left"></i>
-                                </button>
-                                {[...Array(Math.min(5, pageCount))].map((_, i) => {
-                                  let pageNum;
-                                  if (pageCount <= 5) {
-                                    pageNum = i + 1;
-                                  } else if (currentPage <= 3) {
-                                    pageNum = i + 1;
-                                  } else if (currentPage >= pageCount - 2) {
-                                    pageNum = pageCount - 4 + i;
-                                  } else {
-                                    pageNum = currentPage - 2 + i;
-                                  }
-                                  return (
-                                    <button
-                                      key={pageNum}
-                                      onClick={() => handlePageChange(pageNum)}
-                                      className={`px-4 py-2 border-t border-b border-gray-300 ${currentPage === pageNum ? 'bg-green-600 text-white' : 'bg-white text-gray-500 hover:bg-gray-50'}`}
-                                    >
-                                      {pageNum}
-                                    </button>
-                                  );
-                                })}
-                                <button
-                                  onClick={() => handlePageChange(Math.min(pageCount, currentPage + 1))}
-                                  disabled={currentPage === pageCount}
-                                  className="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
-                                >
-                                  <i className="fas fa-chevron-right"></i>
-                                </button>
-                              </nav>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </section>
-                  )}
-                </>
-              )}
-            </main>
-            
-            <MobileSearchBar
-              isOpen={showMobileSearch}
-              onClose={() => setShowMobileSearch(false)}
-              onSearch={handleSearch}
-            />
-            
-            <MobileMenu
-              isOpen={showMobileMenu}
-              onClose={() => setShowMobileMenu(false)}
-              categories={categories}
-              onFilter={applyFilter}
-              onSort={setSort}
-              onShowFavorites={() => setShowFavorites(true)}
-            />
-            
-            <FavoritesPanel
-              isOpen={showFavorites}
-              onClose={() => setShowFavorites(false)}
-              products={products}
-              favorites={favorites}
-              onView={viewProduct}
-              onToggleFavorite={toggleFavoriteHandler}
-            />
-            
-            <ProductModal
-              product={selectedProduct}
-              isOpen={!!selectedProduct}
-              onClose={() => {
-                setSelectedProduct(null);
-                window.location.hash = '';
-                setShowHeroBanner(true);
-              }}
-              isFavorite={favorites.includes(selectedProduct?.Id)}
-              onToggleFavorite={toggleFavoriteHandler}
-            />
-            
-            {showPopupBanner && (
-              <PopupBanner
-                product={popupProduct}
-                onClose={() => setShowPopupBanner(false)}
-                onView={viewProduct}
-              />
-            )}
-            
-            <footer className="bg-white border-t border-gray-200 mt-12">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">ToolPix Store</h3>
-                    <p className="text-gray-600">Your one-stop shop for digital products and tools.</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
-                    <ul className="space-y-2">
-                      <li><a href="#" className="text-gray-600 hover:text-green-600">Home</a></li>
-                      <li><a href="#" className="text-gray-600 hover:text-green-600">Products</a></li>
-                      <li><a href="#" className="text-gray-600 hover:text-green-600">Categories</a></li>
-                      <li><a href="#" className="text-gray-600 hover:text-green-600">Contact</a></li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact Us</h3>
-                    <p className="text-gray-600">Email: support@toolpix.com</p>
-                    <div className="flex space-x-4 mt-4">
-                      <a href="#" className="text-gray-600 hover:text-green-600"><i className="fab fa-facebook-f"></i></a>
-                      <a href="#" className="text-gray-600 hover:text-green-600"><i className="fab fa-twitter"></i></a>
-                      <a href="#" className="text-gray-600 hover:text-green-600"><i className="fab fa-instagram"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
-                  <p>© {new Date().getFullYear()} ToolPix Store. All rights reserved.</p>
-                </div>
-              </div>
-            </footer>
-          </>
-        )}
-      </div>
-    );
-  };
+        if (!Array.isArray(data)) {
+          throw new Error('Expected an array of products, but received: ' + JSON.stringify(data));
+        }
+        
+        const normalizedData = data.map(product => {
+          const originalPrice = Number(product.OriginalPrice) || 0;
+          const discountPrice = Number(product.DiscountPercentage) || originalPrice;
+          return {
+            ...product,
+            Id: String(product.Id || product.ID || `product-${Math.random().toString(36).substr(2, 9)}`),
+            Title: String(product.Title || ''),
+            Keywords: String(product.Keywords || ''),
+            ImageURLs: (product.ImageURLs || product.imageURLs || product.ImageUrl || product.imageUrl || '')
+              .split(',')
+              .map(url => url.trim())
+              .filter(url => url),
+            originalPrice: originalPrice,
+            currentPrice: discountPrice,
+            discountPercentage: originalPrice > 0 && discountPrice < originalPrice
+              ? ((originalPrice - discountPrice) / originalPrice * 100).toFixed(2)
+              : 0,
+            Timestamp: product.Timestamp ? new Date(product.Timestamp) : new Date(),
+            Rating: Math.min(5, Math.max(0, Number(product.Rating) || Math.random() * 4 + 1)),
+            Banner: product.Banner || false,
+            Pbanner: product.Pbanner || false
+          };
+        });
+        
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+          products: normalizedData,
+          timestamp: now
+        }));
+        
+        return normalizedData;
+      } catch (error) {
+        console.error('Fetch error:', error);
+        if (cachedData && Array.isArray(cachedData.products)) {
+          return cachedData.products;
+        }
+        return [];
+      }
+    }
 
-  // Component: Mobile Search Bar
-  const MobileSearchBar = ({ isOpen, onClose, onSearch }) => {
-    const [searchTerm, setSearchTerm] = React.useState('');
-    
-    if (!isOpen) return null;
-    
-    return (
-      <div className="fixed inset-0 bg-white z-40 p-4 flex flex-col">
-        <div className="flex items-center mb-4">
-          <button 
-            onClick={onClose}
-            className="mr-4 text-gray-600"
-            aria-label="Close search"
-          >
-            <i className="fas fa-arrow-left"></i>
-          </button>
-          <div className="relative flex-1">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                onSearch(e.target.value);
-              }}
-              placeholder="Search products..."
-              className="w-full py-3 px-4 pl-10 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              autoFocus
-            />
-            <i className="fas fa-search absolute left-3 top-3.5 text-gray-500"></i>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // Component: Mobile Menu
-  const MobileMenu = ({ isOpen, onClose, categories, onFilter, onSort, onShowFavorites }) => {
-    if (!isOpen) return null;
-    
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-end">
-        <div className="bg-white w-4/5 max-w-sm h-full overflow-y-auto slide-up">
-          <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Menu</h3>
-            <button 
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
-              aria-label="Close menu"
-            >
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
+    async function loadProducts() {
+      splashScreen.classList.remove('hidden');
+      app.classList.add('hidden');
+      errorState.classList.add('hidden');
+      
+      try {
+        const data = await fetchProducts();
+        products = data;
+        
+        if (products.length === 0) {
+          throw new Error('No products loaded');
+        }
+        
+        // Find banner product
+        bannerProduct = products.find(p => p.Banner === true) || null;
+        
+        // Set up hero banner
+        if (bannerProduct) {
+          heroBanner.classList.remove('hidden');
+          bannerImage.src = bannerProduct.ImageURLs[0] || PLACEHOLDER_IMAGE;
+          bannerImage.onerror = () => { bannerImage.src = PLACEHOLDER_IMAGE; };
+          bannerTitle.textContent = bannerProduct.Title;
+          bannerDescription.textContent = bannerProduct.Description;
+          bannerPrice.textContent = formatPrice(bannerProduct.currentPrice);
           
-          <div className="p-4">
-            <h4 className="font-medium text-gray-700 mb-2">Filter By</h4>
-            <div className="space-y-3">
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">Category</label>
-                <select
-                  onChange={(e) => onFilter('category', e.target.value)}
-                  className="w-full p-2 border rounded-lg focus:border-green-500 focus:ring focus:ring-green-200"
-                >
-                  <option value="all">All Categories</option>
-                  {categories.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-sm text-gray-600 mb-1">Price Range</label>
-                <select
-                  onChange={(e) => onFilter('price', e.target.value)}
-                  className="w-full p-2 border rounded-lg focus:border-green-500 focus:ring focus:ring-green-200"
-                >
-                  <option value="all">All Prices</option>
-                  <option value="0-10">Under $10</option>
-                  <option value="10-25">$10 - $25</option>
-                  <option value="25-50">$25 - $50</option>
-                  <option value="50-100">$50 - $100</option>
-                  <option value="100+">Over $100</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          
-          <div className="p-4 border-t border-gray-200">
-            <h4 className="font-medium text-gray-700 mb-2">Sort By</h4>
-            <div className="space-y-2">
-              <button 
-                onClick={() => onSort('default')}
-                className="w-full text-left p-2 hover:bg-gray-100 rounded-lg"
-              >
-                Default
-              </button>
-              <button 
-                onClick={() => onSort('price-low')}
-                className="w-full text-left p-2 hover:bg-gray-100 rounded-lg"
-              >
-                Price: Low to High
-              </button>
-              <button 
-                onClick={() => onSort('price-high')}
-                className="w-full text-left p-2 hover:bg-gray-100 rounded-lg"
-              >
-                Price: High to Low
-              </button>
-              <button 
-                onClick={() => onSort('newest')}
-                className="w-full text-left p-2 hover:bg-gray-100 rounded-lg"
-              >
-                Newest First
-              </button>
-              <button 
-                onClick={() => onSort('rating')}
-                className="w-full text-left p-2 hover:bg-gray-100 rounded-lg"
-              >
-                Highest Rated
-              </button>
-            </div>
-          </div>
-          
-          <div className="p-4 border-t border-gray-200">
-            <button 
-              onClick={() => {
-                onShowFavorites();
-                onClose();
-              }}
-              className="w-full flex items-center justify-between p-2 hover:bg-gray-100 rounded-lg"
-            >
-              <span>My Favorites</span>
-              <i className="fas fa-heart text-red-500"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
+          if (bannerProduct.discountPercentage > 0) {
+            bannerDiscount.textContent = `${bannerProduct.discountPercentage}% OFF`;
+            bannerDiscount.classList.remove('hidden');
+            bannerOriginalPrice.textContent = formatPrice(bannerProduct.originalPrice);
+            bannerOriginalPrice.classList.remove('hidden');
+          } else {
+            bannerDiscount.classList.add('hidden');
+            bannerOriginalPrice.classList.add('hidden');
+          }
+        } else {
+          heroBanner.classList.add('hidden');
+        }
+        
+        // Get categories
+        categories = [...new Set(products.map(p => p.Category).filter(c => c))];
+        
+        // Populate category filters
+        categoryFilter.innerHTML = '<option value="all">All Categories</option>' + 
+          categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        
+        mobileCategoryFilter.innerHTML = '<option value="all">All Categories</option>' + 
+          categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+        
+        // Set up trending and featured products
+        trendingProducts = products.length > 0 ? [...products]
+          .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
+          .slice(0, Math.min(8, products.length))
+          .sort(() => Math.random() - 0.5) : [];
+        
+        featuredProducts = products.length > 0 ? [...products]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, Math.min(8, products.length)) : [];
+        
+        // Get favorites
+        favorites = getFavorites();
+        updateFavoritesCount();
+        
+        // Check for popup banner
+        popupProduct = products.find(p => p.Pbanner === true) || null;
+        
+        // Initial render
+        filterProducts();
+        
+        // Hide splash screen and show app
+        splashScreen.classList.add('hidden');
+        app.classList.remove('hidden');
+        
+        // Check URL hash for product view
+        checkHash();
+      } catch (error) {
+        console.error('Error loading products:', error);
+        splashScreen.classList.add('hidden');
+        errorState.classList.remove('hidden');
+      }
+    }
 
-  // Component: Favorites Panel
-  const FavoritesPanel = ({ isOpen, onClose, products, favorites, onView, onToggleFavorite }) => {
-    if (!isOpen) return null;
-    
-    const favoriteProducts = products.filter(p => favorites.includes(p.Id));
-    
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-end">
-        <div className="bg-white w-full max-w-md h-full overflow-y-auto slide-up">
-          <div className="p-4 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white z-10">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <i className="fas fa-heart text-red-500"></i> My Favorites
-            </h3>
-            <button 
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
-              aria-label="Close favorites"
-            >
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
+    function checkHash() {
+      const productId = window.location.hash.replace('#', '');
+      if (productId) {
+        const product = products.find(p => p.Id === productId);
+        if (product) {
+          viewProduct(product);
+        } else {
+          history.replaceState(null, null, window.location.pathname + window.location.search);
+          // Show popup banner if not shown yet
+          if (!sessionStorage.getItem('bannerShown') && popupProduct) {
+            renderPopupBanner();
+            sessionStorage.setItem('bannerShown', 'true');
+          }
+        }
+      } else {
+        // Show popup banner if not shown yet
+        if (!sessionStorage.getItem('bannerShown') && popupProduct) {
+          renderPopupBanner();
+          sessionStorage.setItem('bannerShown', 'true');
+        }
+      }
+    }
+
+    // Event Listeners
+    window.addEventListener('DOMContentLoaded', () => {
+      // Set current year in footer
+      currentYear.textContent = new Date().getFullYear();
+      
+      // Load products
+      loadProducts();
+
+      // Hero banner click
+      heroBanner.addEventListener('click', () => {
+        if (bannerProduct) {
+          viewProduct(bannerProduct);
+        }
+      });
+      
+      // Debounced search input
+      let searchTimeout;
+      searchInput.addEventListener('input', () => {
+        clearSearch.classList.toggle('hidden', !searchInput.value);
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          filterProducts();
+        }, 300);
+      });
+      
+      clearSearch.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearch.classList.add('hidden');
+        filterProducts();
+      });
+      
+      // Category filter
+      categoryFilter.addEventListener('change', (e) => {
+        filters.category = e.target.value;
+        filterProducts();
+      });
+      
+      // Sort select
+      sortSelect.addEventListener('change', (e) => {
+        sort = e.target.value;
+        filterProducts();
+      });
+      
+      // Active filters
+      activeFilters.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-filter') || e.target.parentElement.classList.contains('remove-filter')) {
+          const button = e.target.classList.contains('remove-filter') ? e.target : e.target.parentElement;
+          const filterType = button.getAttribute('data-filter');
+          delete filters[filterType];
+          filterProducts();
+        } else if (e.target.classList.contains('remove-sort') || e.target.parentElement.classList.contains('remove-sort')) {
+          sort = 'default';
+          sortSelect.value = 'default';
+          filterProducts();
+        }
+      });
+      
+      clearAllFilters.addEventListener('click', () => {
+        filters = {};
+        sort = 'default';
+        sortSelect.value = 'default';
+        categoryFilter.value = 'all';
+        filterProducts();
+      });
+      
+      // Favorites button
+      favoritesButton.addEventListener('click', () => {
+        renderFavorites();
+        favoritesPanel.classList.remove('hidden');
+      });
+      
+      // Mobile search
+      mobileSearchButton.addEventListener('click', () => {
+        mobileSearch.classList.remove('hidden');
+      });
+      
+      closeMobileSearch.addEventListener('click', () => {
+        mobileSearch.classList.add('hidden');
+      });
+      
+      // Debounced mobile search input
+      let mobileSearchTimeout;
+      mobileSearchInput.addEventListener('input', () => {
+        clearMobileSearch.classList.toggle('hidden', !mobileSearchInput.value);
+        clearTimeout(mobileSearchTimeout);
+        mobileSearchTimeout = setTimeout(() => {
+          const query = mobileSearchInput.value.toLowerCase();
+          const filtered = products.filter(p => 
+            p.Title.toLowerCase().includes(query) || 
+            (p.Keywords && p.Keywords.toLowerCase().includes(query)) ||
+            p.Id.toLowerCase().includes(query)
+          );
           
-          <div className="p-4">
-            {favoriteProducts.length === 0 ? (
-              <div className="text-center py-10">
-                <i className="far fa-heart text-gray-300 text-5xl mb-4"></i>
-                <h4 className="text-lg font-medium text-gray-700">No favorites yet</h4>
-                <p className="text-gray-500 mt-2">Tap the heart icon on products to add them here</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-4">
-                {favoriteProducts.map(product => (
-                  <div key={product.Id} className="flex items-center border-b border-gray-100 pb-4">
-                    <div 
-                      className="w-16 h-16 rounded-lg overflow-hidden mr-4 cursor-pointer"
-                      onClick={() => onView(product)}
-                    >
-                      <img
-                        src={product.ImageURLs[0] || PLACEHOLDER_IMAGE}
-                        alt={product.Title}
-                        className="w-full h-full object-cover"
-                        onError={(e) => (e.target.src = PLACEHOLDER_IMAGE)}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h4 
-                        className="font-medium text-gray-800 cursor-pointer hover:text-green-600"
-                        onClick={() => onView(product)}
-                      >
-                        {product.Title}
-                      </h4>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-green-600 font-semibold">
-                          {formatPrice(product.currentPrice)}
-                        </span>
-                        <button 
-                          onClick={() => onToggleFavorite(product.Id)}
-                          className="text-red-500 hover:text-red-700"
-                          aria-label="Remove from favorites"
-                        >
-                          <i className="fas fa-trash-alt"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // Component: Active Filters
-  const ActiveFilters = ({ filters, onRemoveFilter }) => {
-    if (!filters || Object.keys(filters).length === 0) return null;
-    
-    return (
-      <div className="bg-white p-3 rounded-lg shadow-sm mb-6 flex flex-wrap gap-2">
-        {Object.entries(filters).map(([key, value]) => (
-          <div 
-            key={key} 
-            className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm flex items-center"
-          >
-            <span className="capitalize">{key}: {value}</span>
-            <button 
-              onClick={() => onRemoveFilter(key)}
-              className="ml-2 text-gray-500 hover:text-gray-700"
-              aria-label={`Remove ${key} filter`}
-            >
-              <i className="fas fa-times text-xs"></i>
-            </button>
-          </div>
-        ))}
-        <button 
-          onClick={() => onRemoveFilter('all')}
-          className="text-green-600 text-sm font-medium hover:text-green-800 ml-auto"
-        >
-          Clear all
-        </button>
-      </div>
-    );
-  };
-
-  ReactDOM.render(<App />, document.getElementById('root'));
+          if (filtered.length === 0) {
+            mobileSearchResults.innerHTML = '<p class="text-center text-gray-500">No products found</p>';
+          } else {
+            mobileSearchResults.innerHTML = '<div class="grid grid-cols-1 gap-4"></div>';
+            const container = mobileSearchResults.querySelector('div');
+            renderProducts(filtered, container);
+          }
+        }, 300);
+      });
+      
+      clearMobileSearch.addEventListener('click', () => {
+        mobileSearchInput.value = '';
+        clearMobileSearch.classList.add('hidden');
+        mobileSearchResults.innerHTML = '<p class="text-center text-gray-500">Search for products</p>';
+      });
+      
+      // Mobile menu
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.remove('hidden');
+      });
+      
+      closeMobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+      
+      // Mobile category filter
+      mobileCategoryFilter.addEventListener('change', (e) => {
+        filters.category = e.target.value;
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      // Mobile price filter
+      mobilePriceFilter.addEventListener('change', (e) => {
+        filters.price = e.target.value;
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      // Mobile sort buttons
+      sortDefault.addEventListener('click', () => {
+        sort = 'default';
+        sortSelect.value = 'default';
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      sortPriceLow.addEventListener('click', () => {
+        sort = 'price-low';
+        sortSelect.value = 'price-low';
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      sortPriceHigh.addEventListener('click', () => {
+        sort = 'price-high';
+        sortSelect.value = 'price-high';
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      sortDiscountHigh.addEventListener('click', () => {
+        sort = 'discount-high';
+        sortSelect.value = 'discount-high';
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      sortNewest.addEventListener('click', () => {
+        sort = 'newest';
+        sortSelect.value = 'newest';
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      sortRating.addEventListener('click', () => {
+        sort = 'rating';
+        sortSelect.value = 'rating';
+        filterProducts();
+        mobileMenu.classList.add('hidden');
+      });
+      
+      // Mobile favorites button
+      mobileFavoritesButton.addEventListener('click', () => {
+        renderFavorites();
+        mobileMenu.classList.add('hidden');
+        favoritesPanel.classList.remove('hidden');
+      });
+      
+      // Favorites panel
+      closeFavorites.addEventListener('click', () => {
+        favoritesPanel.classList.add('hidden');
+      });
+      
+      // Product modal close with hash removal and scroll preservation
+      closeProductModal.addEventListener('click', () => {
+        const scrollY = window.scrollY;
+        productModal.classList.add('hidden');
+        selectedProduct = null;
+        history.replaceState(null, null, window.location.pathname + window.location.search);
+        window.scrollTo(0, scrollY);
+      });
+      
+      // Popup banner
+      closePopupBanner.addEventListener('click', () => {
+        popupBanner.classList.add('hidden');
+      });
+      
+      popupContent.addEventListener('click', () => {
+        if (popupProduct) {
+          viewProduct(popupProduct);
+          popupBanner.classList.add('hidden');
+        }
+      });
+      
+      // Refresh buttons
+      refreshButton.addEventListener('click', () => {
+        window.location.reload();
+      });
+      
+      refreshButton2.addEventListener('click', () => {
+        window.location.reload();
+      });
+      
+      // Clear search/filters button
+      clearSearchFilter.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearch.classList.add('hidden');
+        filters = {};
+        sort = 'default';
+        sortSelect.value = 'default';
+        categoryFilter.value = 'all';
+        filterProducts();
+      });
+      
+      // Hash change
+      window.addEventListener('hashchange', checkHash);
+    });
   </script>
 </body>
 </html>

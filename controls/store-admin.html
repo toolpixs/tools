@@ -18,6 +18,8 @@
       --shadow: rgba(0,0,0,0.1);
       --radius-md: 12px;
       --transition: all 0.3s ease;
+      --banner-bg: #FFD700; /* Gold for Banner badge */
+      --pbanner-bg: #FF4500; /* OrangeRed for Pbanner badge */
     }
     body {
       font-family: 'Poppins', sans-serif;
@@ -47,6 +49,7 @@
       cursor: pointer;
       font-size: 1rem;
       margin-bottom: 2rem;
+      transition: var(--transition);
     }
     .add-btn:hover {
       background: var(--primary-dark);
@@ -75,6 +78,7 @@
     }
     .modal-content h2 {
       margin-bottom: 1rem;
+      font-size: 1.5rem;
     }
     .modal-content input, .modal-content textarea {
       width: 100%;
@@ -82,6 +86,7 @@
       margin-bottom: 1rem;
       border: 1px solid var(--border);
       border-radius: 4px;
+      font-size: 0.9rem;
     }
     .modal-content button {
       background: var(--primary);
@@ -91,6 +96,8 @@
       border-radius: 4px;
       cursor: pointer;
       margin-right: 1rem;
+      font-size: 0.9rem;
+      transition: var(--transition);
     }
     .modal-content button:hover {
       background: var(--primary-dark);
@@ -106,6 +113,7 @@
       font-size: 1.2rem;
       cursor: pointer;
       color: var(--text-light);
+      transition: var(--transition);
     }
     .close-modal:hover {
       color: var(--text);
@@ -121,6 +129,11 @@
       border-radius: var(--radius-md);
       box-shadow: 0 2px 8px var(--shadow);
       position: relative;
+      transition: var(--transition);
+    }
+    .product-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
     }
     .product-item img {
       width: 100%;
@@ -129,12 +142,17 @@
       object-fit: cover;
       border-radius: var(--radius-md);
     }
+    .product-item p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
     .three-dot-menu {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
       cursor: pointer;
       color: var(--text-light);
+      transition: var(--transition);
     }
     .three-dot-menu:hover {
       color: var(--text);
@@ -159,13 +177,52 @@
       text-align: left;
       color: var(--text);
       cursor: pointer;
+      font-size: 0.9rem;
     }
     .dropdown-menu button:hover {
       background: var(--bg);
     }
+    .delete-btn {
+      color: #dc2626;
+    }
+    .delete-btn:hover {
+      background: #fee2e2;
+    }
     .status {
       margin-top: 1rem;
       font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .badge {
+      position: absolute;
+      left: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 500;
+      z-index: 5;
+    }
+    .banner-badge {
+      background: var(--banner-bg);
+      top: 0.5rem;
+    }
+    .pbanner-badge {
+      background: var(--pbanner-bg);
+      top: 2.2rem; /* Adjusted to stack below banner-badge if both are present */
     }
   </style>
 </head>
@@ -185,10 +242,10 @@
           <input type="text" name="Category" placeholder="Category" required />
           <input type="text" name="Title" placeholder="Title" required />
           <textarea name="Description" placeholder="Description" required></textarea>
-          <input type="number" step="0.01" name="OriginalPrice" placeholder="Original Price" required />
-          <input type="number" step="0.01" name="DiscountPercentage" placeholder="Discount %" required />
+          <input type="number" step="0.01" name="OriginalPrice" placeholder="Original Price (INR)" required min="0" />
+          <input type="number" step="0.01" name="DiscountedPrice" placeholder="Discounted Price (INR)" min="0" />
           <input type="url" name="PurchaseLink" placeholder="Purchase Link" required />
-          <input type="text" name="Keywords" placeholder="Keywords" required />
+          <input type="text" name="Keywords" placeholder="Keywords (comma-separated)" required />
           <textarea name="Features" placeholder="Features (one per line)"></textarea>
           <label>Upload Image (leave blank to keep existing):</label>
           <input type="file" name="image" id="image" accept="image/*" />
@@ -199,24 +256,152 @@
         </form>
       </div>
     </div>
+    <div id="passwordModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closePasswordModal()">×</span>
+        <h2>Enter Admin Password</h2>
+        <input type="password" id="adminPassword" placeholder="Password" required />
+        <button onclick="savePassword()">Submit</button>
+        <div class="status" id="passwordStatus"></div>
+      </div>
+    </div>
+    <div id="passwordChangeModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closePasswordChangeModal()">×</span>
+        <h2>Change Password</h2>
+        <p>Current Password: <span id="currentPasswordDisplay"></span></p>
+        <input type="password" id="newPassword" placeholder="New Password" required />
+        <button onclick="changePassword()">Save</button>
+        <div class="status" id="passwordChangeStatus"></div>
+      </div>
+    </div>
+    <div id="incorrectPasswordModal" class="modal">
+      <div class="modal-content">
+        <h2>Password Incorrect</h2>
+        <p>Your current password is incorrect.</p>
+        <button onclick="showPasswordChangeModal()">Change Password</button>
+        <button class="cancel-btn" onclick="closeIncorrectPasswordModal()">Close</button>
+      </div>
+    </div>
+    <div id="loading" class="loader" style="display: block;"></div>
     <section id="productsList"></section>
   </div>
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmOLM1U4uH1jtQAxwGCxJKTH4su7zHpfryFd7j7EdEUmcGfKz16E5XREmczPdLQaVS/exec";
     const CLOUD_NAME = 'dokipk9pe';
     const UPLOAD_PRESET = 'unsigned_products';
+    const CURRENCY_CODE = 'INR';
+    const PLACEHOLDER_IMAGE = "https://placehold.co/600x400?text=ToolPix";
+
+    let adminPassword = localStorage.getItem('adminPassword');
+    if (!adminPassword) {
+      showPasswordModal();
+    } else {
+      fetchProducts().then(renderProducts);
+    }
+
+    function showPasswordModal() {
+      document.getElementById('passwordModal').style.display = 'flex';
+    }
+
+    function closePasswordModal() {
+      document.getElementById('passwordModal').style.display = 'none';
+    }
+
+    function savePassword() {
+      const passwordInput = document.getElementById('adminPassword').value;
+      if (passwordInput) {
+        localStorage.setItem('adminPassword', passwordInput);
+        adminPassword = passwordInput;
+        closePasswordModal();
+        fetchProducts().then(renderProducts);
+      } else {
+        document.getElementById('passwordStatus').textContent = '❌ Please enter a password.';
+      }
+    }
+
+    function showPasswordChangeModal() {
+      document.getElementById('currentPasswordDisplay').textContent = adminPassword;
+      document.getElementById('newPassword').value = '';
+      document.getElementById('passwordChangeStatus').textContent = '';
+      document.getElementById('passwordChangeModal').style.display = 'flex';
+      document.getElementById('incorrectPasswordModal').style.display = 'none';
+    }
+
+    function closePasswordChangeModal() {
+      document.getElementById('passwordChangeModal').style.display = 'none';
+    }
+
+    function changePassword() {
+      const newPasswordInput = document.getElementById('newPassword').value;
+      if (newPasswordInput) {
+        localStorage.setItem('adminPassword', newPasswordInput);
+        adminPassword = newPasswordInput;
+        closePasswordChangeModal();
+        alert('Password updated successfully. Please retry your action.');
+      } else {
+        document.getElementById('passwordChangeStatus').textContent = '❌ Please enter a new password.';
+      }
+    }
+
+    function showIncorrectPasswordModal() {
+      document.getElementById('incorrectPasswordModal').style.display = 'flex';
+    }
+
+    function closeIncorrectPasswordModal() {
+      document.getElementById('incorrectPasswordModal').style.display = 'none';
+    }
+
+    function formatPrice(price) {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: CURRENCY_CODE
+      }).format(price);
+    }
+
+    function calculateDiscountPercentage(originalPrice, discountedPrice) {
+      if (!originalPrice || !discountedPrice || discountedPrice >= originalPrice) return 0;
+      return ((originalPrice - discountedPrice) / originalPrice * 100).toFixed(2);
+    }
 
     async function fetchProducts() {
+      document.getElementById('loading').style.display = 'block';
       try {
         const response = await fetch(SCRIPT_URL);
         const data = await response.json();
+        document.getElementById('loading').style.display = 'none';
         if (Array.isArray(data)) {
-          return data;
+          return data.map(product => {
+            const originalPrice = Number(product.OriginalPrice) || 0;
+            const discountedPrice = Number(product.DiscountPercentage) || originalPrice;
+            const discountPercentage = calculateDiscountPercentage(originalPrice, discountedPrice);
+            return {
+              ...product,
+              ID: String(product.ID || product.Id || `product-${Math.random().toString(36).substr(2, 9)}`),
+              Title: String(product.Title || ''),
+              Category: String(product.Category || ''),
+              Description: String(product.Description || ''),
+              Keywords: String(product.Keywords || ''),
+              Features: String(product.Features || ''),
+              OriginalPrice: originalPrice,
+              DiscountedPrice: discountedPrice,
+              DiscountPercentage: discountPercentage,
+              currentPrice: discountedPrice,
+              PurchaseLink: String(product.PurchaseLink || ''),
+              ImageURLs: (product.ImageURLs || product.imageURLs || product.ImageUrl || product.imageUrl || '')
+                .split(',')
+                .map(url => url.trim())
+                .filter(url => url),
+              Banner: product.Banner || false,
+              Pbanner: product.Pbanner || false
+            };
+          });
         } else {
           throw new Error('Invalid data format');
         }
       } catch (err) {
         console.error('Error fetching products:', err);
+        document.getElementById('loading').style.display = 'none';
         return [];
       }
     }
@@ -224,19 +409,27 @@
     function renderProducts(products) {
       const productsList = document.getElementById('productsList');
       productsList.innerHTML = '';
+      if (products.length === 0) {
+        productsList.innerHTML = '<div class="loading">No products available.</div>';
+        return;
+      }
       products.forEach(product => {
-        const imageUrl = product.ImageURLs || 'https://via.placeholder.com/150';
+        const imageUrl = product.ImageURLs[0] || PLACEHOLDER_IMAGE;
         const item = document.createElement('div');
         item.classList.add('product-item');
         item.innerHTML = `
-          <img src="${imageUrl}" alt="${product.Title}">
+          ${product.Banner ? '<span class="badge banner-badge">Banner</span>' : ''}
+          ${product.Pbanner ? '<span class="badge pbanner-badge">Pbanner</span>' : ''}
+          <img src="${imageUrl}" alt="${product.Title}" onerror="this.src='${PLACEHOLDER_IMAGE}'">
           <h3>${product.Title}</h3>
-          <p>${product.Category} - $${product.OriginalPrice} (${product.DiscountPercentage}% off)</p>
+          <p>${product.Category}</p>
+          <p>${formatPrice(product.currentPrice)} ${product.DiscountPercentage > 0 ? `<span>(${formatPrice(product.OriginalPrice)} - ${product.DiscountPercentage}% off)</span>` : ''}</p>
           <i class="fas fa-ellipsis-v three-dot-menu" onclick="toggleDropdown('${product.ID}')"></i>
           <div class="dropdown-menu" id="dropdown-${product.ID}">
             <button onclick="editProduct('${product.ID}')"><i class="fas fa-edit"></i> Edit</button>
-            <button onclick="makeBanner('${product.ID}')"><i class="fas fa-star"></i> Make Banner</button>
-            <button onclick="makePbanner('${product.ID}')"><i class="fas fa-star"></i> Make Pbanner</button>
+            <button onclick="makeBanner('${product.ID}')"><i class="fas fa-star"></i> ${product.Banner ? 'Remove Banner' : 'Make Banner'}</button>
+            <button onclick="makePbanner('${product.ID}')"><i class="fas fa-star"></i> ${product.Pbanner ? 'Remove Pbanner' : 'Make Pbanner'}</button>
+            <button class="delete-btn" onclick="deleteProduct('${product.ID}')"><i class="fas fa-trash-alt"></i> Delete</button>
           </div>
         `;
         productsList.appendChild(item);
@@ -265,13 +458,17 @@
       formData.append('file', file);
       formData.append('upload_preset', UPLOAD_PRESET);
       formData.append('folder', 'unsigned_products');
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-        method: 'POST',
-        body: formData
-      });
-      const data = await res.json();
-      if (data.secure_url) return data.secure_url;
-      throw new Error('Image upload failed');
+      try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.secure_url) return data.secure_url;
+        throw new Error('Image upload failed');
+      } catch (err) {
+        throw new Error('Image upload failed: ' + err.message);
+      }
     }
 
     function openModal(mode, product = null) {
@@ -296,11 +493,11 @@
         form.Title.value = product.Title || '';
         form.Description.value = product.Description || '';
         form.OriginalPrice.value = product.OriginalPrice || '';
-        form.DiscountPercentage.value = product.DiscountPercentage || '';
+        form.DiscountedPrice.value = product.currentPrice || '';
         form.PurchaseLink.value = product.PurchaseLink || '';
         form.Keywords.value = product.Keywords || '';
         form.Features.value = product.Features || '';
-        document.getElementById('existingImageURLs').value = product.ImageURLs || '';
+        document.getElementById('existingImageURLs').value = product.ImageURLs.join(',') || '';
         imageInput.required = false;
       }
       document.getElementById('status').textContent = '';
@@ -327,6 +524,7 @@
         const formData = new FormData();
         formData.append('action', 'makeBanner');
         formData.append('ID', productId);
+        formData.append('password', adminPassword);
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           body: formData
@@ -335,6 +533,8 @@
         if (result.status === 'success') {
           alert('Banner updated successfully!');
           renderProducts(await fetchProducts());
+        } else if (result.message === 'Incorrect password') {
+          showIncorrectPasswordModal();
         } else {
           throw new Error(result.message);
         }
@@ -349,6 +549,7 @@
         const formData = new FormData();
         formData.append('action', 'makePbanner');
         formData.append('ID', productId);
+        formData.append('password', adminPassword);
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           body: formData
@@ -357,6 +558,34 @@
         if (result.status === 'success') {
           alert('Pbanner updated successfully!');
           renderProducts(await fetchProducts());
+        } else if (result.message === 'Incorrect password') {
+          showIncorrectPasswordModal();
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+      closeDropdowns();
+    };
+
+    window.deleteProduct = async function(productId) {
+      if (!confirm('Are you sure you want to delete this product?')) return;
+      try {
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('ID', productId);
+        formData.append('password', adminPassword);
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          alert('Product deleted successfully!');
+          renderProducts(await fetchProducts());
+        } else if (result.message === 'Incorrect password') {
+          showIncorrectPasswordModal();
         } else {
           throw new Error(result.message);
         }
@@ -373,6 +602,26 @@
       const action = formData.get('action');
       const imageFile = document.getElementById('image').files[0];
       let imageUrl = formData.get('ImageURLs');
+
+      formData.append('password', adminPassword);
+
+      const originalPrice = Number(formData.get('OriginalPrice'));
+      const discountedPrice = Number(formData.get('DiscountedPrice')) || originalPrice;
+      if (originalPrice < 0) {
+        statusEl.textContent = '❌ Original Price cannot be negative.';
+        return;
+      }
+      if (discountedPrice < 0) {
+        statusEl.textContent = '❌ Discounted Price cannot be negative.';
+        return;
+      }
+      if (discountedPrice > originalPrice) {
+        statusEl.textContent = '❌ Discounted Price cannot be greater than Original Price.';
+        return;
+      }
+
+      const discountPercentage = calculateDiscountPercentage(originalPrice, discountedPrice);
+      formData.set('DiscountPercentage', discountPercentage);
 
       try {
         if (imageFile) {
@@ -395,6 +644,8 @@
           statusEl.textContent = action === 'update' ? '✅ Product updated successfully!' : '✅ Product submitted successfully!';
           closeModal();
           renderProducts(await fetchProducts());
+        } else if (result.message === 'Incorrect password') {
+          showIncorrectPasswordModal();
         } else {
           throw new Error(result.message);
         }
@@ -409,12 +660,23 @@
       }
     });
 
-    fetchProducts()
-      .then(products => {
-        console.log('Products fetched:', products);
-        renderProducts(products);
-      })
-      .catch(err => console.error('Error fetching products:', err));
+    document.getElementById('passwordModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('passwordModal')) {
+        closePasswordModal();
+      }
+    });
+
+    document.getElementById('passwordChangeModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('passwordChangeModal')) {
+        closePasswordChangeModal();
+      }
+    });
+
+    document.getElementById('incorrectPasswordModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('incorrectPasswordModal')) {
+        closeIncorrectPasswordModal();
+      }
+    });
   </script>
 </body>
 </html>
