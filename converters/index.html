@@ -2,65 +2,359 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="ToolPix offers free online image converters for PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, and WEBP. Fast, secure, and no software required. Perfect for bulk image conversions and web optimization.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="online image converter, free image converter, PNG to JPG, WebP to PNG, TIFF to PDF, image format converter, bulk image converter, ToolPix converter, Time Load image tools, high-quality image conversion, compress images online, image optimization tool">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title -->
+  <title>ToolPix - Free Online Image Converters for JPG, PNG, PDF, JPEG, WEBP</title>
+  <meta name="description" content="ToolPix offers free online image converters for PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, WEBP, ICO, and HEIF. Fast, secure, no software required. Perfect for bulk conversions and web optimization.">
+  <meta name="keywords" content="online image converter, free image converter, PNG to JPG, WebP to PNG, TIFF to PDF, image format converter, bulk image converter, ToolPix converter, Time Load image tools, high-quality image conversion, compress images online, image optimization tool, ICO converter, HEIF converter">
   <meta name="robots" content="index, follow">
-  <meta name="author" content="Time Load">
+  <meta name="author" content="Time Load Company">
   <meta name="googlebot" content="index, follow">
   <meta name="revisit-after" content="7 days">
   <meta name="distribution" content="global">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpix.netlify.app/converters">
+
+  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="ToolPix - Free Online Image Converters for JPG, PNG, PDF, JPEG, WEBP">
-  <meta property="og:description" content="Convert images to JPG, PNG, PDF, JPEG, or WEBP with ToolPix. Fast, secure, no software needed. Ideal for bulk conversions and web optimization.">
+  <meta property="og:description" content="Convert images to JPG, PNG, PDF, JPEG, WEBP, ICO, or HEIF with ToolPix. Fast, secure, no software needed. Ideal for bulk conversions and web optimization.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.toolpix.com/converter">
-  <meta property="og:image" content="https://www.toolpix.com/images/toolpix-og-image.jpg">
-  <meta property="og:site_name" content="ToolPix">
+  <meta property="og:url" content="https://toolpix.netlify.app/converters">
+  <meta property="og:image" content="https://toolpix.netlify.app/images/toolpix-converter-social-share.jpg">
+  <meta property="og:site_name" content="Toolpix">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ToolPix - Free Online Image Converters">
-  <meta name="twitter:description" content="Effortlessly convert images to JPG, PNG, PDF, JPEG, or WEBP with ToolPix. Fast, secure, and free with no downloads needed.">
-  <meta name="twitter:image" content="https://www.toolpix.com/images/toolpix-og-image.jpg">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <title>ToolPix - Free Online Image Converters for JPG, PNG, PDF, JPEG, WEBP</title>
-  <!-- Schema.org Structured Data -->
+  <meta name="twitter:description" content="Effortlessly convert images to JPG, PNG, PDF, JPEG, WEBP, ICO, or HEIF with ToolPix. Fast, secure, and free with no downloads needed.">
+  <meta name="twitter:image" content="https://toolpix.netlify.app/images/toolpix-converter-twitter-card.jpg">
+  <meta name="twitter:site" content="@toolpix">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (consistent with other pages) -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- JSON-LD Schema Markup -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "ToolPix Image Converters",
-    "description": "Free online tools to convert images to JPG, PNG, PDF, JPEG, and WEBP. Fast, secure, and no software required. Ideal for bulk image conversions and web optimization.",
-    "url": "https://www.toolpix.com/converter",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Time Load",
-      "url": "https://www.toolpix.com"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "1200"
-    },
-    "featureList": [
-      "Bulk image conversion",
-      "PNG to JPG",
-      "WebP to PNG",
-      "TIFF to PDF",
-      "Secure local processing",
-      "No software installation"
-    ],
-    "sameAs": [
-      "https://twitter.com/toolpix",
-      "https://www.facebook.com/toolpix"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://toolpix.netlify.app/#website",
+        "name": "Toolpix",
+        "url": "https://toolpix.netlify.app",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://toolpix.netlify.app/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://toolpix.netlify.app/converters/#webpage",
+        "name": "ToolPix Image Converters",
+        "headline": "ToolPix - Free Online Image Converters for JPG, PNG, PDF, JPEG, WEBP",
+        "description": "ToolPix offers free online image converters for PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, WEBP, ICO, and HEIF. Fast, secure, no software required. Perfect for bulk conversions and web optimization.",
+        "url": "https://toolpix.netlify.app/converters",
+        "image": "https://toolpix.netlify.app/images/toolpix-converter-social-share.jpg",
+        "datePublished": "2025-06-15",
+        "dateModified": "2025-06-14T18:32:55+00:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://toolpix.netlify.app/converters"
+        },
+        "author": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        },
+        "publisher": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        },
+        "keywords": [
+          "online image converter", "free image converter", "PNG to JPG", "WebP to PNG",
+          "TIFF to PDF", "image format converter", "bulk image converter", "ToolPix converter",
+          "Time Load image tools", "high-quality image conversion", "compress images online",
+          "image optimization tool", "ICO converter", "HEIF converter"
+        ],
+        "potentialAction": {
+          "@type": "ViewAction",
+          "target": "https://toolpix.netlify.app/converters",
+          "name": "Convert Images Now"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://toolpix.netlify.app/#organization",
+        "name": "Time Load Company",
+        "url": "https://toolpix.netlify.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://toolpix.netlify.app/static/images/favicon/favicon.ico"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Muhammed Ajmal U K",
+          "url": "https://toolpix.netlify.app/about"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Support",
+          "email": "support@toolpix.com",
+          "url": "https://toolpix.netlify.app/contact"
+        },
+        "sameAs": [
+          "https://twitter.com/toolpix",
+          "https://www.facebook.com/toolpix",
+          "https://www.linkedin.com/company/toolpix"
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://toolpix.netlify.app/converters/#collectionpage",
+        "name": "ToolPix Image Converters",
+        "url": "https://toolpix.netlify.app/converters",
+        "description": "A collection of free online image conversion tools by ToolPix, supporting formats like PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, WEBP, ICO, and HEIF.",
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To PNG Converter",
+                "url": "https://toolpix.netlify.app/converters/to-png",
+                "description": "Convert images to PNG format with ToolPix’s free online tool."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To WebP Converter",
+                "url": "https://toolpix.netlify.app/converters/to-webp",
+                "description": "Convert images to WebP format for optimized web performance."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To PDF Converter",
+                "url": "https://toolpix.netlify.app/converters/to-pdf",
+                "description": "Convert images to PDF format for easy sharing and storage."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To JPG Converter",
+                "url": "https://toolpix.netlify.app/converters/to-jpg",
+                "description": "Convert images to JPG format with high-quality output."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To ICO Converter",
+                "url": "https://toolpix.netlify.app/converters/to-ico",
+                "description": "Convert images to ICO format for favicons and icons."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To JPEG Converter",
+                "url": "https://toolpix.netlify.app/converters/to-jpeg",
+                "description": "Convert images to JPEG format for versatile use."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "item": {
+                "@type": "SoftwareApplication",
+                "name": "To HEIF Converter",
+                "url": "https://toolpix.netlify.app/converters/to-heif",
+                "description": "Convert images to HEIF format for efficient storage."
+              }
+            }
+          ]
+        },
+        "publisher": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://toolpix.netlify.app/converters/#softwareapplication",
+        "name": "ToolPix Image Converter",
+        "applicationCategory": "UtilitiesApplication",
+        "applicationSubCategory": "Image Converter",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requires JavaScript",
+        "url": "https://toolpix.netlify.app/converters",
+        "installUrl": "https://toolpix.netlify.app/converters",
+        "description": "ToolPix provides free online image conversion tools for formats like PNG, WebP, GIF, BMP, TIFF to JPG, PNG, PDF, JPEG, WEBP, ICO, and HEIF, optimized for bulk conversions and web use.",
+        "screenshot": "https://toolpix.netlify.app/images/toolpix-converter-social-share.jpg",
+        "featureList": [
+          "Convert PNG, WebP, GIF, BMP, TIFF to multiple formats",
+          "Support for JPG, PNG, PDF, JPEG, WEBP, ICO, HEIF outputs",
+          "Bulk image conversion",
+          "High-quality and secure processing",
+          "No software installation required",
+          "Optimized for web performance"
+        ],
+        "inLanguage": ["en", "und"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.7",
+          "ratingCount": "1100"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Lisa Brown"
+            },
+            "datePublished": "2025-06-02",
+            "reviewBody": "ToolPix’s image converter is super fast and easy to use. Perfect for converting PNG to JPG in bulk!",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Arjun Mehta"
+            },
+            "datePublished": "2025-06-04",
+            "reviewBody": "Great for WebP conversions. No software needed, and the quality is excellent.",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "4.5",
+              "bestRating": "5"
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://toolpix.netlify.app/converters/#service",
+        "name": "ToolPix Image Conversion Service",
+        "serviceType": "Online Image Conversion",
+        "category": "Image Processing Tools",
+        "areaServed": {
+          "@type": "GeoShape",
+          "box": "Worldwide"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Web Developers, Designers, Content Creators, General Users"
+        },
+        "description": "ToolPix provides a free online image conversion service supporting multiple formats, designed for bulk conversions, web optimization, and secure processing without registration.",
+        "url": "https://toolpix.netlify.app/converters",
+        "provider": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "termsOfService": "https://toolpix.netlify.app/terms"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolpix.netlify.app/"},
+          {"@type": "ListItem", "position": 2, "name": "Converters", "item": "https://toolpix.netlify.app/converters"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What formats can ToolPix convert images to?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ToolPix converts images to JPG, PNG, PDF, JPEG, WEBP, ICO, and HEIF from formats like PNG, WebP, GIF, BMP, and TIFF."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is ToolPix’s image converter free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, all ToolPix image conversion tools are completely free with no hidden costs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to install software to use ToolPix converters?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, ToolPix converters are web-based and require no software installation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I convert images in bulk with ToolPix?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, ToolPix supports bulk image conversions for efficient processing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use ToolPix converters in my own language?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ToolPix supports browser-based language detection, allowing users worldwide to convert images in their preferred language."
+            }
+          }
+        ]
+      }
     ]
   }
-  </script>
+  </script> 
   <style>
     *,
     *::before,

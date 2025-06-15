@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D2K Airdrop - Buy Digital Products</title>
-  <meta name="description" content="D2K Airdrop offers a wide range of digital products and tools. Find the best deals and discounts on software, e-books, and more.">
+  <title>D2K Airdrop - Buy Gaming Products</title>
+  <meta name="description" content="D2K Airdrop offers a wide range of digital products and online deals of gaming products. ">
   <meta name="keywords" content="digital products, software, e-books, tools, discounts, deals">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     body {
@@ -111,11 +110,11 @@
           <div class="hidden md:flex flex-1 max-w-md mx-4">
             <div class="relative w-full">
               <input
-                type="text"
-                id="search-input"
-                placeholder="Search products..."
-                class="w-full pl-10 pr-10 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              />
+  type="text"
+  id="search-input"
+  placeholder="Search products..."
+  class="w-full pl-10 pr-10 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+>
               <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
               <button
                 id="clear-search"
@@ -215,13 +214,12 @@
       <!-- Hero Banner -->
       <div id="hero-banner" class="rounded-xl overflow-hidden mb-8 cursor-pointer hidden custom-shadow hover-scale">
   <div class="relative h-48 sm:h-64 md:h-80 lg:h-96">
-    <img id="banner-image" src="" alt="" class="w-full h-full object-cover">
+    <img id="banner-image" src="https://placehold.co/600x400?text=Toolpix" alt="Banner image" class="w-full h-full object-cover">
     <span id="banner-discount" class="absolute top-2 left-2 z-10 bg-white bg-opacity-80 text-orange-500 text-xs font-semibold px-2 py-1 rounded-full border border-orange-200 hidden">
       0% OFF
     </span>
   </div>
-  <div class="p-4 sm:p-6 bg-white">
-    <h2 id="banner-title" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2"></h2>
+  <div class="p-4 sm:p-6 bg-white"><h2 id="banner-title" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Featured Product</h2>
     <!--<p id="banner-description" class="text-sm md:text-base text-gray-600 mb-3 line-clamp-2"></p>-->
     <div class="flex items-center">
       <span id="banner-price" class="text-xl font-bold text-purple-600 mr-3"></span>
@@ -250,8 +248,7 @@
       </section>
       
       <!-- Search/Filter Results -->
-      <section id="search-results" class="hidden">
-        <h2 id="search-results-title" class="text-2xl font-bold text-gray-800 mb-6"></h2>
+      <section id="search-results" class="hidden"><h2 id="search-results-title" class="text-2xl font-bold text-gray-800 mb-6">Search Results</h2>
         <div id="search-results-empty" class="text-center py-12 hidden">
           <i class="fas fa-search text-gray-300 text-5xl mb-4"></i>
           <h3 class="text-lg font-medium text-gray-700">No Products Found</h3>
@@ -305,12 +302,12 @@
           <i class="fas fa-arrow-left"></i>
         </button>
         <div class="relative flex-1">
-          <input
-            type="text"
-            id="mobile-search-input"
-            placeholder="Search products..."
-            class="w-full py-3 px-4 pl-10 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
+<input
+  type="text"
+  id="mobile-search-input"
+  placeholder="Search products..."
+  class="w-full py-3 px-4 pl-10 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+>
           <i class="fas fa-search absolute left-3 top-3.5 text-gray-500"></i>
           <button
             id="clear-mobile-search"
@@ -465,12 +462,12 @@
       <div class="bg-white rounded-xl w-full max-w-md custom-shadow">
         <div class="relative">
           <img
-            id="popup-image"
-            src=""
-            alt=""
-            class="w-full h-48 object-cover rounded-t-xl"
-            onerror="this.src='https://placehold.co/600x400?text=Toolpix'"
-          />
+  id="popup-image"
+  src="https://placehold.co/600x400?text=Toolpix"
+  alt="Popup banner"
+  class="w-full h-48 object-cover rounded-t-xl"
+  onerror="this.src='https://placehold.co/600x400?text=Toolpix'"
+>
           <button 
             id="close-popup-banner"
             class="absolute top-2 right-2 p-2 bg-white bg-opacity-75 rounded-full text-gray-500 hover:text-gray-700 hover:bg-opacity-100 transition z-10"

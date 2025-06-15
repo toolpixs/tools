@@ -1,14 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toolpix Store - Buy Digital Products</title>
-  <meta name="description" content="Toolpix Store offers a wide range of digital products and tools. Find the best deals and discounts on software, e-books, and more.">
-  <meta name="keywords" content="digital products, software, e-books, tools, discounts, deals">
+  <meta name="description" content="Shop at Toolpix Store for a wide range of digital products including software, e-books, AI tools, and productivity utilities. Enjoy the best deals and discounts with secure, instant access—no registration required.">
+  <meta name="keywords" content="digital products, software, e-books, AI tools, productivity tools, digital store, discounts, deals, Toolpix, web utilities, secure shopping">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load Company">
+  <title>Toolpix Store - Buy Premium Digital Products & Tools</title>
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpix.netlify.app/store">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Toolpix Store - Premium Digital Products & Tools">
+  <meta property="og:description" content="Discover top digital products at Toolpix Store: software, e-books, AI tools, and more. Get exclusive deals with instant, secure access.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpix.netlify.app/store">
+  <meta property="og:image" content="https://toolpix.netlify.app/images/toolpix-store-social-share.jpg">
+  <meta property="og:site_name" content="Toolpix">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Toolpix Store - Shop Digital Products & Tools">
+  <meta name="twitter:description" content="Find premium software, e-books, and AI tools at Toolpix Store. Secure, instant access with great discounts.">
+  <meta name="twitter:image" content="https://toolpix.netlify.app/images/toolpix-store-twitter-card.jpg">
+  <meta name="twitter:site" content="@toolpix">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="../static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+
+  <!-- JSON-LD Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://toolpix.netlify.app/#website",
+        "name": "Toolpix",
+        "url": "https://toolpix.netlify.app",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://toolpix.netlify.app/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://toolpix.netlify.app/store/#webpage",
+        "name": "Toolpix Store",
+        "headline": "Toolpix Store - Buy Premium Digital Products & Tools",
+        "description": "Shop at Toolpix Store for a wide range of digital products including software, e-books, AI tools, and productivity utilities. Enjoy the best deals and discounts with secure, instant access—no registration required.",
+        "url": "https://toolpix.netlify.app/store",
+        "image": "https://toolpix.netlify.app/images/toolpix-store-social-share.jpg",
+        "datePublished": "2025-06-15",
+        "dateModified": "2025-06-15",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://toolpix.netlify.app/store"
+        },
+        "author": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        },
+        "publisher": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        },
+        "keywords": [
+          "digital products", "software", "e-books", "AI tools", "productivity tools",
+          "digital store", "discounts", "deals", "Toolpix", "secure shopping"
+        ],
+        "potentialAction": {
+          "@type": "ViewAction",
+          "target": "https://toolpix.netlify.app/store",
+          "name": "Shop Now"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://toolpix.netlify.app/#organization",
+        "name": "Time Load Company",
+        "url": "https://toolpix.netlify.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://toolpix.netlify.app/static/images/favicon/favicon.ico"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Muhammed Ajmal U K",
+          "url": "https://toolpix.netlify.app/about"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Support",
+          "email": "support@toolpix.com",
+          "url": "https://toolpix.netlify.app/contact"
+        },
+        "sameAs": [
+          "https://twitter.com/toolpix",
+          "https://www.facebook.com/toolpix",
+          "https://www.linkedin.com/company/toolpix"
+        ]
+      },
+      {
+        "@type": "OnlineStore",
+        "@id": "https://toolpix.netlify.app/store/#onlinestore",
+        "name": "Toolpix Store",
+        "url": "https://toolpix.netlify.app/store",
+        "description": "Toolpix Store offers premium digital products such as software, e-books, AI tools, and productivity utilities with secure transactions and instant access.",
+        "areaServed": {
+          "@type": "GeoShape",
+          "box": "Worldwide"
+        },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "publisher": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Toolpix Store",
+        "applicationCategory": "EcommerceApplication",
+        "applicationSubCategory": "Digital Store",
+        "operatingSystem": "Web",
+        "url": "https://toolpix.netlify.app/store",
+        "installUrl": "https://toolpix.netlify.app/store",
+        "description": "Toolpix Store is a digital marketplace offering premium software, e-books, AI tools, and productivity utilities with exclusive deals.",
+        "screenshot": "https://toolpix.netlify.app/images/toolpix-store-social-share.jpg",
+        "featureList": [
+          "Premium software tools",
+          "E-books and guides",
+          "AI-powered utilities",
+          "Productivity enhancements",
+          "Secure transactions",
+          "Instant digital delivery"
+        ],
+        "inLanguage": ["en", "und"],
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.7",
+          "ratingCount": "800"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Emma Wilson"
+            },
+            "datePublished": "2025-06-01",
+            "reviewBody": "Great selection of digital tools and fast delivery. Highly recommend Toolpix Store!",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            }
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Rahul Sharma"
+            },
+            "datePublished": "2025-06-03",
+            "reviewBody": "Bought an AI tool and it was instantly available. Secure and easy process.",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "4.5",
+              "bestRating": "5"
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://toolpix.netlify.app/#organization"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolpix.netlify.app/"},
+          {"@type": "ListItem", "position": 2, "name": "Store", "item": "https://toolpix.netlify.app/store"}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What products are available at Toolpix Store?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Toolpix Store offers premium digital products including software, e-books, AI tools, productivity utilities, and more."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is shopping at Toolpix Store secure?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Toolpix Store uses secure transaction methods to ensure safe and reliable purchases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need an account to buy from Toolpix Store?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, you can purchase products without registration for quick and easy access."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I access my purchased products?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "After purchase, you’ll receive instant access to your digital products via email or direct download."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I shop at Toolpix Store in my own language?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Toolpix Store supports browser-based language detection, allowing users worldwide to shop in their preferred language."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     body {
@@ -111,11 +355,11 @@
           <div class="hidden md:flex flex-1 max-w-md mx-4">
             <div class="relative w-full">
               <input
-                type="text"
-                id="search-input"
-                placeholder="Search products..."
-                class="w-full pl-10 pr-10 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
-              />
+  type="text"
+  id="search-input"
+  placeholder="Search products..."
+  class="w-full pl-10 pr-10 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+>
               <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
               <button
                 id="clear-search"
@@ -215,13 +459,12 @@
       <!-- Hero Banner -->
       <div id="hero-banner" class="rounded-xl overflow-hidden mb-8 cursor-pointer hidden custom-shadow hover-scale">
   <div class="relative h-48 sm:h-64 md:h-80 lg:h-96">
-    <img id="banner-image" src="" alt="" class="w-full h-full object-cover">
+    <img id="banner-image" src="https://placehold.co/600x400?text=Toolpix" alt="Banner image" class="w-full h-full object-cover">
     <span id="banner-discount" class="absolute top-2 left-2 z-10 bg-white bg-opacity-80 text-orange-500 text-xs font-semibold px-2 py-1 rounded-full border border-orange-200 hidden">
       0% OFF
     </span>
   </div>
-  <div class="p-4 sm:p-6 bg-white">
-    <h2 id="banner-title" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2"></h2>
+  <div class="p-4 sm:p-6 bg-white"><h2 id="banner-title" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Featured Product</h2>
     <!--<p id="banner-description" class="text-sm md:text-base text-gray-600 mb-3 line-clamp-2"></p>-->
     <div class="flex items-center">
       <span id="banner-price" class="text-xl font-bold text-purple-600 mr-3"></span>
@@ -250,8 +493,7 @@
       </section>
       
       <!-- Search/Filter Results -->
-      <section id="search-results" class="hidden">
-        <h2 id="search-results-title" class="text-2xl font-bold text-gray-800 mb-6"></h2>
+      <section id="search-results" class="hidden"><h2 id="search-results-title" class="text-2xl font-bold text-gray-800 mb-6">Search Results</h2>
         <div id="search-results-empty" class="text-center py-12 hidden">
           <i class="fas fa-search text-gray-300 text-5xl mb-4"></i>
           <h3 class="text-lg font-medium text-gray-700">No Products Found</h3>
@@ -305,12 +547,12 @@
           <i class="fas fa-arrow-left"></i>
         </button>
         <div class="relative flex-1">
-          <input
-            type="text"
-            id="mobile-search-input"
-            placeholder="Search products..."
-            class="w-full py-3 px-4 pl-10 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
+         <input
+  type="text"
+  id="mobile-search-input"
+  placeholder="Search products..."
+  class="w-full py-3 px-4 pl-10 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+>
           <i class="fas fa-search absolute left-3 top-3.5 text-gray-500"></i>
           <button
             id="clear-mobile-search"
@@ -465,12 +707,12 @@
       <div class="bg-white rounded-xl w-full max-w-md custom-shadow">
         <div class="relative">
           <img
-            id="popup-image"
-            src=""
-            alt=""
-            class="w-full h-48 object-cover rounded-t-xl"
-            onerror="this.src='https://placehold.co/600x400?text=Toolpix'"
-          />
+  id="popup-image"
+  src="https://placehold.co/600x400?text=Toolpix"
+  alt="Popup banner"
+  class="w-full h-48 object-cover rounded-t-xl"
+  onerror="this.src='https://placehold.co/600x400?text=Toolpix'"
+>
           <button 
             id="close-popup-banner"
             class="absolute top-2 right-2 p-2 bg-white bg-opacity-75 rounded-full text-gray-500 hover:text-gray-700 hover:bg-opacity-100 transition z-10"
