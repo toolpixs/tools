@@ -7,9 +7,8 @@
   <meta name="description" content="ToolPix offers 150+ free online tools including YouTube downloaders, image converters, PDF tools, AI utilities, productivity planners, code editors, and simple games. No registration required.">
   <meta name="keywords" content="youtube thumbnail downloader, youtube video downloader, image converter, PDF converter, AI tools, productivity tools, code editor, online games, free online tools">
 
-  <meta name="google-site-verification" content="tHkenP-OvVu8hp_ky61mxac0g0fwnQMkn_Ptc44MYIM" />
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://toolpix.netlify.app" />
+   
+  <link rel="canonical" href="https://toolpix.netlify.app">
   
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="ToolPix - Free Online YouTube, Image, AI & Productivity Tools">
@@ -2355,13 +2354,15 @@
       </div>
 
       <section class="search-container">
-        <div class="search">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" id="mainSearch" placeholder="Search for tools (e.g., YouTube Downloader, PNG to JPG, AI Image Generator)..." aria-label="Search tools">
-          <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
-          <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
-        </div>
-      </section>
+  <h2 class="visually-hidden">Tool Search</h2>
+  <div class="search">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" id="mainSearch" placeholder="Search for tools (e.g., YouTube Downloader, PNG to JPG, AI Image Generator)..." aria-label="Search tools">
+    <button type="button" id="clearSearch" aria-label="Clear search" style="display:none;"><i class="fas fa-times"></i></button>
+    <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
+  </div>
+</section>
+
 
       <section id="youtube-tools" class="featured-tools">
         <h2>YouTube Tools</h2>
@@ -2458,59 +2459,7 @@
         </div>
       </section>
 
-      <section id="ai-tools" class="featured-tools">
-        <h2>AI Tools</h2>
-        <div class="tools-grid">
-          <div class="tool-card ai-tool" data-name="AI Chat Assistant" data-category="AI Tools" data-keywords="chatbot assistant gpt ai">
-            <div class="icon"><i class="fas fa-comment"></i></div>
-            <h3>AI Chat Assistant</h3>
-            <p>Get instant answers to your questions with our powerful AI chatbot</p>
-            <a href="#" class="btn ai-tool-link">Chat Now</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Image Generator" data-category="AI Tools" data-keywords="generate image art ai dalle">
-            <div class="icon"><i class="fas fa-image"></i></div>
-            <h3>AI Image Generator</h3>
-            <p>Create stunning images from text descriptions with AI</p>
-            <a href="#" class="btn ai-tool-link">Generate Images</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Content Writer" data-category="AI Tools" data-keywords="write content article blog ai">
-            <div class="icon"><i class="fas fa-file-alt"></i></div>
-            <h3>AI Content Writer</h3>
-            <p>Generate high-quality articles, blogs, and marketing copy</p>
-            <a href="#" class="btn ai-tool-link">Write Content</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Code Generator" data-category="AI Tools" data-keywords="generate code programming ai">
-            <div class="icon"><i class="fas fa-code"></i></div>
-            <h3>AI Code Generator</h3>
-            <p>Generate code snippets in multiple programming languages</p>
-            <a href="#" class="btn ai-tool-link">Generate Code</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Music Generator" data-category="AI Tools" data-keywords="generate music audio ai">
-            <div class="icon"><i class="fas fa-music"></i></div>
-            <h3>AI Music Generator</h3>
-            <p>Create royalty-free music tracks for your projects</p>
-            <a href="#" class="btn ai-tool-link">Create Music</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Video Generator" data-category="AI Tools" data-keywords="generate video animation ai">
-            <div class="icon"><i class="fas fa-video"></i></div>
-            <h3>AI Video Generator</h3>
-            <p>Create short videos from text prompts with AI</p>
-            <a href="#" class="btn ai-tool-link">Generate Video</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Text Summarizer" data-category="AI Tools" data-keywords="summarize text article ai">
-            <div class="icon"><i class="fas fa-file-contract"></i></div>
-            <h3>AI Text Summarizer</h3>
-            <p>Summarize long articles and documents quickly</p>
-            <a href="#" class="btn ai-tool-link">Summarize Now</a>
-          </div>
-          <div class="tool-card ai-tool" data-name="AI Voice Generator" data-category="AI Tools" data-keywords="generate voice text-to-speech ai">
-            <div class="icon"><i class="fas fa-microphone"></i></div>
-            <h3>AI Voice Generator</h3>
-            <p>Convert text to natural-sounding speech in multiple voices</p>
-            <a href="#" class="btn ai-tool-link">Generate Voice</a>
-          </div>
-        </div>
-      </section>
+       
 
       <section id="converters" class="featured-tools">
         <h2>Image & File Converters</h2>
@@ -2998,11 +2947,12 @@
           <a href="./compilers/html" class="recent-tool code-tool">
             <div class="icon"><i class="fab fa-html5"></i></div>
             <h3>HTML Editor</h3>
-          </a>
-          <a href="./dev-tools/json-formatter" class="recent-tool">
-            <div class="icon">{}</i></div>
-            <h3>JSON Formatter</h3>
-          </a>
+          </a> 
+<a href="./dev-tools/json-formatter" class="recent-tool">
+  <div class="icon">{}<!-- or wrap this in a <span> if it's just text --></div>
+  <h3>JSON Formatter</h3>
+</a>
+
           <a href="./games/sudoku" class="recent-tool games-tool">
             <div class="icon"><i class="fas fa-th"></i></div>
             <h3>Sudoku</h3>
@@ -3321,7 +3271,8 @@
   <div class="modal" id="exploreModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modalCategoryTitle"></h2>
+        <h2 id="modalCategoryTitle">Loading category...</h2>
+
         <button class="close-btn" id="closeModal" aria-label="Close modal">×</button>
       </div>
       <div class="modal-search">
