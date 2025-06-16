@@ -1,5 +1,3 @@
 User-agent: *
-Disallow: https://toolpix.netlify.app/controls/
 Allow: /
-
 Sitemap: https://toolpix.netlify.app/sitemap.xml
