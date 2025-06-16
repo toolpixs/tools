@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Disclaimer - ToolPix</title>
-  <meta name="description" content="Read the ToolPix disclaimer for information on the use of our free online tools, services, and liabilities.">
-  <meta name="keywords" content="ToolPix disclaimer, Time Load, free online tools, legal notice, terms of use">
+  <title>Donate to ToolPix</title>
+  <meta name="description" content="Support ToolPix by donating to help us maintain and develop over 200 free online tools for creators, developers, and gamers.">
+  <meta name="keywords" content="donate ToolPix, support Time Load, free online tools, donations, crowdfunding">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Time Load Company">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://toolpix.netlify.app/disclaimer">
+  <link rel="canonical" href="https://toolpix.netlify.app/donate">
 
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Disclaimer - ToolPix">
-  <meta property="og:description" content="Understand the terms and limitations of using ToolPix's free online tools and services.">
+  <meta property="og:title" content="Donate to ToolPix">
+  <meta property="og:description" content="Help keep ToolPix's 200+ free tools running by making a donation. Support our mission to empower creators and developers.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://toolpix.netlify.app/disclaimer">
+  <meta property="og:url" content="https://toolpix.netlify.app/donate">
   <meta property="og:image" content="https://toolpix.netlify.app/images/toolpix-social-share.jpg">
   <meta property="og:site_name" content="ToolPix">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Disclaimer - ToolPix">
-  <meta name="twitter:description" content="Learn about the legal disclaimers for ToolPix's free tools and services.">
+  <meta name="twitter:title" content="Donate to ToolPix">
+  <meta name="twitter:description" content="Your donation helps ToolPix provide free online tools for everyone. Support us today!">
   <meta name="twitter:image" content="https://toolpix.netlify.app/images/toolpix-twitter-card.jpg">
   <meta name="twitter:site" content="@toolpix">
 
@@ -59,17 +59,17 @@
       },
       {
         "@type": "WebPage",
-        "@id": "https://toolpix.netlify.app/disclaimer/#webpage",
-        "name": "Disclaimer",
-        "headline": "ToolPix Disclaimer",
-        "description": "Read the legal disclaimer for using ToolPix's free online tools and services.",
-        "url": "https://toolpix.netlify.app/disclaimer",
+        "@id": "https://toolpix.netlify.app/donate/#webpage",
+        "name": "Donate to ToolPix",
+        "headline": "Support ToolPix with Your Donation",
+        "description": "Your donation helps ToolPix maintain and develop over 200 free online tools for creators, developers, and gamers.",
+        "url": "https://toolpix.netlify.app/donate",
         "image": "https://toolpix.netlify.app/images/toolpix-social-share.jpg",
-        "datePublished": "2025-06-16",
-        "dateModified": "2025-06-16",
+        "datePublished": "2025-06-15",
+        "dateModified": "2025-06-15",
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://toolpix.netlify.app/disclaimer"
+          "@id": "https://toolpix.netlify.app/donate"
         },
         "author": {
           "@id": "https://toolpix.netlify.app/#organization"
@@ -77,7 +77,7 @@
         "publisher": {
           "@id": "https://toolpix.netlify.app/#organization"
         },
-        "keywords": ["disclaimer", "ToolPix", "legal notice", "free online tools", "terms of use"]
+        "keywords": ["donate ToolPix", "support Time Load", "free online tools", "donations", "crowdfunding"]
       },
       {
         "@type": "Organization",
@@ -312,7 +312,7 @@
       color: var(--text-lighter);
     }
 
-    .disclaimer-section {
+    .donate-section {
       background: var(--card-bg);
       padding: 2rem;
       border-radius: var(--radius-md);
@@ -326,35 +326,62 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .disclaimer-section h1 {
+    .donate-section h1 {
       font-size: 2rem;
       color: var(--text);
       margin-bottom: 1rem;
     }
 
-    .disclaimer-section h2 {
+    .donate-section h2 {
       font-size: 1.5rem;
       color: var(--text);
       margin: 1.5rem 0 0.5rem;
     }
 
-    .disclaimer-section p {
+    .donate-section p {
       font-size: 1rem;
       color: var(--text-light);
       margin-bottom: 1rem;
       line-height: 1.8;
     }
 
-    .disclaimer-section ul {
-      list-style-type: disc;
-      padding-left: 1.5rem;
+    .donate-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .donate-card {
+      background: var(--primary-light);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+
+    .donate-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px var(--shadow-md);
+    }
+
+    .donate-card .icon {
+      font-size: 2.5rem;
+      color: var(--primary);
       margin-bottom: 1rem;
     }
 
-    .disclaimer-section ul li {
-      font-size: 1rem;
-      color: var(--text-light);
+    .donate-card h3 {
+      font-size: 1.2rem;
+      color: var(--text);
       margin-bottom: 0.5rem;
+    }
+
+    .donate-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
     }
 
     .btn {
@@ -377,6 +404,14 @@
       background: var(--primary-dark);
       transform: translateY(-2px);
       box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
     }
 
     footer {
@@ -483,16 +518,17 @@
     /* Responsive styles */
     @media (max-width: 768px) {
       main { padding: 1rem; }
-      .disclaimer-section { padding: 1.5rem; }
-      .disclaimer-section h1 { font-size: 1.8rem; }
-      .disclaimer-section h2 { font-size: 1.3rem; }
+      .donate-section { padding: 1.5rem; }
+      .donate-section h1 { font-size: 1.8rem; }
+      .donate-section h2 { font-size: 1.3rem; }
+      .donate-options { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 576px) {
       .header-container { padding: 1rem; }
       .logo { font-size: 1.5rem; }
-      .disclaimer-section h1 { font-size: 1.6rem; }
-      .disclaimer-section h2 { font-size: 1.2rem; }
+      .donate-section h1 { font-size: 1.6rem; }
+      .donate-section h2 { font-size: 1.2rem; }
       .footer-container { grid-template-columns: 1fr; }
     }
   </style>
@@ -526,63 +562,52 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <a href="./"><i class="fas fa-home"></i> Home</a>
       <span class="separator">/</span>
-      <span>Disclaimer</span>
+      <span>Donate</span>
     </nav>
 
-    <section class="disclaimer-section" aria-labelledby="disclaimer-heading">
-      <h1 id="disclaimer-heading">ToolPix Disclaimer</h1>
-      <p>Last Updated: June 16, 2025</p>
-      <p>Welcome to ToolPix, operated by Time Load Company. By accessing or using our website (<a href="https://toolpix.netlify.app">https://toolpix.netlify.app</a>) and our free online tools, you agree to the terms outlined in this disclaimer. Please read this disclaimer carefully.</p>
+    <section class="donate-section" aria-labelledby="donate-heading">
+      <h1 id="donate-heading">Support ToolPix</h1>
+      <p>ToolPix provides over <strong>200 free online tools</strong> to empower content creators, developers, students, and gamers worldwide. Your donation helps us cover server costs, develop new features, and keep our tools accessible to everyone without any paywalls or sign-ups.</p>
+      <p>Every contribution, big or small, makes a difference. Thank you for supporting our mission to simplify digital tasks and spark creativity!</p>
 
-      <h2>General Use</h2>
-      <p>ToolPix provides over 200 free online tools for content creators, developers, students, and gamers. These tools are offered "as is" for personal and professional use. While we strive to ensure accuracy and functionality, we do not guarantee that the tools will meet your specific requirements or produce error-free results.</p>
+      <h2>Choose a Donation Method</h2>
+      <div class="donate-options">
+        <div class="donate-card">
+          <div class="icon"><i class="fab fa-paypal"></i></div>
+          <h3>PayPal</h3>
+          <p>Donate securely using PayPal. Choose any amount that suits you.</p>
+          <a href="https://paypal.me/toolpix" target="_blank" rel="noopener" class="btn">Donate via PayPal</a>
+        </div>
+        <div class="donate-card">
+          <div class="icon"><i class="fab fa-bitcoin"></i></div>
+          <h3>Cryptocurrency</h3>
+          <p>Support us with Bitcoin (BTC) or Ethereum (ETH).</p>
+          <a href="#crypto-wallets" class="btn btn-secondary">View Wallet Addresses</a>
+        </div>
+      </div>
+
+      <h2>Cryptocurrency Wallet Addresses</h2>
+      <p>Send your crypto donation to the following addresses:</p>
       <ul>
-        <li>The use of our tools is at your own risk.</li>
-        <li>You are responsible for verifying the accuracy and suitability of any output generated by our tools.</li>
-        <li>We reserve the right to modify, suspend, or discontinue any tool or service at any time without prior notice.</li>
+        <li><strong>Bitcoin (BTC)</strong>: <code>bc1qexamplewalletaddress123</code></li>
+        <li><strong>Ethereum (ETH)</strong>: <code>0xExampleWalletAddress456</code></li>
       </ul>
+      <p><strong>Note</strong>: Please verify the wallet addresses before sending. Contact us if you need assistance.</p>
 
-      <h2>No Warranty</h2>
-      <p>ToolPix and its tools are provided without any warranties, express or implied, including but not limited to:</p>
+      <h2>Why Donate?</h2>
+      <p>Your support helps us:</p>
       <ul>
-        <li>Warranties of merchantability or fitness for a particular purpose.</li>
-        <li>Guarantees of uninterrupted or error-free operation.</li>
-        <li>Assurance that the tools will be free from viruses or other harmful components.</li>
+        <li>Maintain high-speed servers for seamless tool performance.</li>
+        <li>Develop new tools and improve existing ones.</li>
+        <li>Keep ToolPix 100% free and ad-light for all users.</li>
+        <li>Ensure secure and private processing of your data.</li>
       </ul>
-      <p>Time Load Company shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of or inability to use our tools or website.</p>
-
-      <h2>Third-Party Links and Services</h2>
-      <p>Our website may contain links to third-party websites or services (e.g., payment processors for donations, external resources). These links are provided for your convenience, and we do not endorse or assume responsibility for the content, accuracy, or practices of these third-party sites.</p>
-      <ul>
-        <li>Interactions with third-party services are at your own risk.</li>
-        <li>We recommend reviewing the terms and privacy policies of any third-party websites you visit.</li>
-      </ul>
-
-      <h2>User-Generated Content</h2>
-      <p>Some ToolPix tools allow users to upload or process data (e.g., images, PDFs). We do not claim ownership of user-generated content, but by using our tools, you grant us a limited license to process and store such data as necessary to provide the service.</p>
-      <ul>
-        <li>You are responsible for ensuring that any content you upload complies with applicable laws and does not infringe on third-party rights.</li>
-        <li>We may remove or refuse to process content that violates our <a href="./terms">Terms of Service</a> or applicable laws.</li>
-      </ul>
-
-      <h2>Limitation of Liability</h2>
-      <p>To the fullest extent permitted by law, Time Load Company, its affiliates, and employees shall not be liable for any damages, including but not limited to:</p>
-      <ul>
-        <li>Loss of data, profits, or business opportunities.</li>
-        <li>Damages resulting from reliance on tool outputs.</li>
-        <li>Issues arising from technical failures or downtime.</li>
-      </ul>
-
-      <h2>Changes to This Disclaimer</h2>
-      <p>We may update this disclaimer from time to time to reflect changes in our services or legal requirements. The "Last Updated" date at the top of this page indicates when the disclaimer was last revised. Continued use of our website after changes constitutes your acceptance of the updated disclaimer.</p>
 
       <h2>Contact Us</h2>
-      <p>If you have questions or concerns about this disclaimer, please contact us:</p>
-      <ul>
-        <li><i class="fas fa-envelope"></i> Email: <a href="mailto:info.toolpix@gmail.com">info.toolpix@gmail.com</a></li>
-        <li><i class="fas fa-map-marker-alt"></i> Location: Kannur, Kerala, India</li>
-      </ul>
-      <a href="./contact" class="btn"><i class="fas fa-envelope"></i> Get in Touch</a>
+      <p>Have questions about donating or want to discuss other ways to support ToolPix? Reach out to us!</p>
+      <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info.toolpix@gmail.com">info.toolpix@gmail.com</a></p>
+      <p><i class="fas fa-map-marker-alt"></i> Location: Kannur, Kerala, India</p>
+      <a href="./contact" class="btn">Get in Touch</a>
     </section>
   </main>
 
@@ -612,14 +637,13 @@
           <li><a href="./contact"><i class="fas fa-envelope"></i> Contact</a></li>
           <li><a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
           <li><a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-          <li><a href="./disclaimer" class="active"><i class="fas fa-exclamation-circle"></i> Disclaimer</a></li>
         </ul>
       </div>
       <div class="footer-links">
         <h3>Support</h3>
         <ul>
           <li><a href="./report-bug"><i class="fas fa-bug"></i> Report Bug</a></li>
-          <li><a href="./feature-request"><i class="fas fa-lightbulb"></i> Feature Request</a></li>
+          <li><a href="./feature-request"><i class="fas fa-lightbulb"></i> Request Feature</a></li>
           <li><a href="./faq"><i class="fas fa-question-circle"></i> FAQs</a></li>
           <li><a href="./help"><i class="fas fa-life-ring"></i> Help Center</a></li>
         </ul>
@@ -683,7 +707,7 @@
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.disclaimer-section').forEach(el => observer.observe(el));
+    document.querySelectorAll('.donate-section').forEach(el => observer.observe(el));
 
     window.addEventListener('resize', debounce(() => {
       if (window.innerWidth > 768) {

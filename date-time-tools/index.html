@@ -9,7 +9,7 @@
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://toolpix.netlify.app/time-date-tools" />
-  
+
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="Time & Date Tools - ToolPix">
   <meta property="og:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters. No sign-up needed.">
@@ -17,13 +17,13 @@
   <meta property="og:url" content="https://toolpix.netlify.app/time-date-tools">
   <meta property="og:image" content="https://toolpix.netlify.app/images/pixtime-social-share.jpg">
   <meta property="og:site_name" content="ToolPix">
-  
+
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Time & Date Tools - ToolPix">
   <meta name="twitter:description" content="Access free online tools for managing time and dates, including clocks, calendars, timers, and time zone converters.">
   <meta name="twitter:image" content="https://toolpix.netlify.app/images/pixtime-twitter-card.jpg">
-  
+
   <!-- Favicon -->
   <link rel="icon" href="./static/images/favicon/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="./static/images/favicon/apple-touch-icon.png">
@@ -33,10 +33,10 @@
 
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <!-- CSS -->
   <style>
     :root {
@@ -48,16 +48,6 @@
       --secondary-light: #e3f2fd;
       --accent: #FF5722;
       --accent-dark: #E64A19;
-      --ai-color: #9C27B0;
-      --ai-dark: #7B1FA2;
-      --code-color: #607D8B;
-      --code-dark: #455A64;
-      --youtube-color: #FF0000;
-      --youtube-dark: #CC0000;
-      --productivity-color: #673AB7;
-      --productivity-dark: #5E35B1;
-      --games-color: #FF9800;
-      --games-dark: #F57C00;
       --text: #333;
       --text-light: #666;
       --text-lighter: #888;
@@ -72,9 +62,10 @@
       --radius-md: 12px;
       --radius-lg: 16px;
       --transition: all 0.3s ease;
+      --icon-converter: #FFC107;
     }
 
-    html.dark-mode {
+    .dark-mode {
       --text: #f0f0f0;
       --text-light: #bbb;
       --text-lighter: #888;
@@ -89,39 +80,24 @@
       --secondary-light: #0d47a1;
     }
 
-    @media (prefers-color-scheme: dark) {
-      html:not(.dark-mode):not(.light-mode) {
-        --text: #f0f0f0;
-        --text-light: #bbb;
-        --text-lighter: #888;
-        --bg: #121212;
-        --card-bg: #1e1e1e;
-        --border: #333;
-        --border-light: #444;
-        --shadow: rgba(0,0,0,0.3);
-        --shadow-md: rgba(0,0,0,0.4);
-        --shadow-lg: rgba(0,0,0,0.5);
-        --primary-light: #1b5e20;
-        --secondary-light: #0d47a1;
-      }
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      line-height: 1.6;
     }
 
     header {
-      background-color: var(--primary);
+      background: var(--primary);
       padding: 1rem 2rem;
       color: white;
       box-shadow: 0 2px 5px var(--shadow);
@@ -149,42 +125,26 @@
     }
 
     .logo img {
-      height: 56px;
+      height: 36px;
       width: auto;
-    }
-
-    .header-left, .header-center, .header-right {
-      flex: 1;
-    }
-
-    .header-center { text-align: center; }
-
-    .header-right {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 0.5rem;
+      transition: var(--transition);
     }
 
     .header-title {
       color: white;
       font-size: 1.5rem;
       font-weight: 600;
+      margin: 0 auto;
     }
 
-    .burger-icon, .search-icon-btn {
+    .burger-icon {
       background: none;
       border: none;
       color: white;
       font-size: 24px;
       cursor: pointer;
       padding: 0.5rem;
-      line-height: 1;
       transition: var(--transition);
-    }
-
-    .burger-icon:hover, .search-icon-btn:hover {
-      color: var(--primary-light);
     }
 
     .sidebar {
@@ -200,7 +160,9 @@
       overflow-y: auto;
     }
 
-    .sidebar.open { left: 0; }
+    .sidebar.open {
+      left: 0;
+    }
 
     .sidebar nav {
       display: flex;
@@ -217,40 +179,17 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      font-size: 0.95rem;
     }
 
-    .sidebar a:hover { background: rgba(0,0,0,0.05); }
+    .sidebar a:hover {
+      background: var(--border-light);
+    }
 
     .sidebar a.active {
       font-weight: 600;
-      background: rgba(76, 175, 80, 0.1);
+      background: var(--primary-light);
       color: var(--primary);
-    }
-
-    .sidebar-dropdown {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      padding-left: 1.5rem;
-    }
-
-    .sidebar-dropdown a {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-
-    .sidebar-item.has-dropdown.active .sidebar-dropdown {
-      max-height: 500px;
-    }
-
-    .sidebar-item.has-dropdown > a::after {
-      content: '+';
-      margin-left: auto;
-      transition: var(--transition);
-    }
-
-    .sidebar-item.has-dropdown.active > a::after {
-      content: '-';
     }
 
     .sidebar-overlay {
@@ -273,46 +212,37 @@
 
     .main-container {
       display: flex;
+      max-width: 1400px;
       margin: 0 auto;
+      width: 100%;
+      flex: 1;
+      padding: 0 1rem;
     }
 
     main {
       flex: 1;
-      padding: 2rem;
-    }
-
-    .right-sidebar {
-      width: 350px;
       padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .btn {
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+    .intro-section {
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
-    .btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px var(--shadow);
+    .intro-section h1 {
+      font-size: 2.5rem;
+      color: var(--text);
+      margin-bottom: 1rem;
     }
 
-    .btn-secondary { background: var(--secondary); }
-    .btn-secondary:hover { background: var(--secondary-dark); }
+    .intro-section p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
     .search-container {
       margin-bottom: 2rem;
@@ -386,144 +316,94 @@
       display: none;
     }
 
-    .search button:hover { background: var(--primary-dark); }
+    .search button:hover {
+      background: var(--primary-dark);
+    }
 
-    .category-intro {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius-md);
-      box-shadow: 0 2px 8px var(--shadow);
+    .tools-section {
       margin-bottom: 2rem;
     }
 
-    .category-intro h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .tools-section h2 {
+      font-size: 1.8rem;
       color: var(--text);
-    }
-
-    .category-intro p {
-      color: var(--text-light);
-      font-size: 1.1rem;
-    }
-
-    .category {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius-md);
-      box-shadow: 0 2px 8px var(--shadow);
-      margin-bottom: 2rem;
-    }
-
-    .category h2 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: var(--text);
+      margin-bottom: 1.5rem;
     }
 
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-      padding-bottom: 1rem;
+      gap: 1.5rem;
     }
 
     .tool-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
       background: var(--card-bg);
-      padding: 1.5rem 1rem;
+      padding: 1.5rem;
       border-radius: var(--radius-md);
       text-align: center;
-      box-shadow: 0 1px 4px var(--shadow);
+      box-shadow: 0 2px 6px var(--shadow);
       transition: var(--transition);
       border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .tool-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 15px var(--shadow-md);
-      border-color: var(--primary);
     }
 
     .tool-card .icon {
       font-size: 2.5rem;
       margin-bottom: 1rem;
-      color: var(--primary);
+      color: var(--icon-converter);
     }
 
     .tool-card h3 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
-      font-weight: 500;
+      color: var(--text);
     }
 
     .tool-card p {
       font-size: 0.9rem;
       color: var(--text-light);
       margin-bottom: 1rem;
-      line-height: 1.5;
+      flex-grow: 1;
     }
 
     .tool-card .btn {
-      background: var(--secondary);
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
       width: 100%;
-    }
-
-    .tool-card .btn:hover { background: var(--secondary-dark); }
-
-    .widget {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius-md);
-      box-shadow: 0 2px 8px var(--shadow);
-    }
-
-    .widget h3 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-      color: var(--text);
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 0.5rem;
-    }
-
-    .widget-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .widget-list li {
-      margin-bottom: 0.75rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .widget-list li:last-child { border-bottom: none; }
-
-    .widget-list a {
-      color: var(--secondary);
+      font-size: 0.9rem;
+      padding: 0.5rem;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius-sm);
       text-decoration: none;
+      font-weight: 500;
       transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
-    .widget-list a:hover {
-      color: var(--secondary-dark);
-      text-decoration: underline;
+    .tool-card .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .tool-card:hover .icon {
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
     }
 
     footer {
       background: var(--card-bg);
-      color: var(--text);
-      padding: 2rem 1.5rem;
+      padding: 3rem 1.5rem;
       margin-top: 3rem;
       box-shadow: 0 -2px 5px var(--shadow);
     }
@@ -548,34 +428,20 @@
       margin-top: 0.5rem;
     }
 
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .social-links a {
-      color: var(--text-light);
-      font-size: 1.2rem;
-      transition: var(--transition);
-    }
-
-    .social-links a:hover { color: var(--primary); }
-
     .footer-links h3 {
-      margin-top: 0;
       margin-bottom: 1rem;
       font-size: 1.1rem;
-      font-weight: 600;
+      color: var(--text);
     }
 
     .footer-links ul {
       list-style: none;
       padding: 0;
-      margin: 0;
     }
 
-    .footer-links li { margin-bottom: 0.5rem; }
+    .footer-links li {
+      margin-bottom: 0.6rem;
+    }
 
     .footer-links a {
       color: var(--text-light);
@@ -587,7 +453,9 @@
       gap: 0.5rem;
     }
 
-    .footer-links a:hover { color: var(--primary); }
+    .footer-links a:hover {
+      color: var(--primary);
+    }
 
     .footer-bottom {
       text-align: center;
@@ -607,81 +475,237 @@
 
     .footer-bottom a:hover {
       color: var(--primary);
-      text-decoration: underline;
     }
 
-    /* Responsive Styles */
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 2px 10px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .dark-mode-toggle:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    /* Responsive styles */
     @media (max-width: 992px) {
-      .right-sidebar { display: none; }
-      .main-container { flex-direction: column; }
-      main { max-width: 100%; }
+      .main-container {
+        flex-direction: column;
+      }
     }
 
     @media (max-width: 768px) {
-      main { padding: 1rem; }
-      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .tool-card { padding: 1rem 0.75rem; }
-      .footer-container { grid-template-columns: 1fr 1fr; }
+      .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+      }
+
+      .tool-card {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+        border-radius: 0.5rem;
+      }
+
+      .tool-card .icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tool-card h3 {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .tool-card p {
+        font-size: 0.7rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tool-card .btn {
+        font-size: 0.7rem;
+        padding: 0.4rem;
+      }
+
+      main {
+        padding: 0.75rem 0.5rem;
+      }
+
+      .intro-section h1 {
+        font-size: 1.8rem;
+      }
+
+      .intro-section p {
+        font-size: 0.95rem;
+      }
     }
 
     @media (max-width: 576px) {
-      .header-container { padding: 1rem; }
-      .header-title { font-size: 1.2rem; }
-      .logo { font-size: 1.5rem; }
-      .tools-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-      .tool-card h3 { font-size: 1rem; }
-      .footer-container { grid-template-columns: 1fr; }
+      .header-container {
+        padding: 0.4rem;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+      }
+
+      .logo img {
+        height: 24px;
+      }
+
+      .header-title {
+        font-size: 1.1rem;
+      }
+
+      .burger-icon {
+        font-size: 18px;
+        padding: 0.25rem;
+      }
+
+      .sidebar {
+        width: 220px;
+        left: -220px;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .sidebar a {
+        font-size: 0.8rem;
+        padding: 0.45rem 0.7rem;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+
+      .tool-card {
+        padding: 0.4rem;
+      }
+
+      .tool-card .icon {
+        font-size: 1.3rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .tool-card h3 {
+        font-size: 0.8rem;
+      }
+
+      .tool-card p {
+        font-size: 0.65rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .tool-card .btn {
+        font-size: 0.65rem;
+        padding: 0.3rem;
+      }
     }
 
-    @media (min-width: 992px) {
-      .sidebar { left: 0; }
-      .main-container { margin-left: 280px; }
-      .burger-icon { display: none; }
-      .sidebar-overlay { display: none; }
+    @media (max-width: 480px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+
+      .tool-card {
+        padding: 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .tool-card .icon {
+        font-size: 1.4rem;
+      }
+
+      .tool-card h3 {
+        font-size: 0.85rem;
+      }
+
+      .tool-card p {
+        font-size: 0.7rem;
+      }
+
+      .tool-card .btn {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .tool-card {
+        padding: 0.4rem;
+        font-size: 0.7rem;
+      }
+
+      .tool-card .icon {
+        font-size: 1.2rem;
+      }
+
+      .tool-card h3 {
+        font-size: 0.8rem;
+      }
+
+      .tool-card p {
+        font-size: 0.65rem;
+      }
+
+      .tool-card .btn {
+        font-size: 0.65rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="header-container">
-      <div class="header-left">
-        <a href="../" class="logo">
-          <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36">
-        </a>
-      </div>
-      <div class="header-center">
-        <span class="header-title">TOOL PIX</span>
-      </div>
-      <div class="header-right">
-        <button class="search-icon-btn" aria-label="Search"><i class="fas fa-search"></i></button>
-        <button class="burger-icon" aria-label="Menu">☰</button>
-      </div>
+      <a href="../" class="logo">
+        <img src="../static/images/icon.png" alt="ToolPix Logo" width="120" height="36" loading="lazy">
+      </a>
+      <span class="header-title">TIME & DATE TOOLS</span>
+      <button class="burger-icon" aria-label="Toggle Menu">☰</button>
     </div>
-    <div class="sidebar">
-      <nav>
-        <a href="../"><i class="fas fa-home"></i> Home</a>
-        <div class="sidebar-item has-dropdown active">
-          <a href="#" class="active"><i class="fas fa-clock"></i> Time & Date Tools</a>
-          <div class="sidebar-dropdown">
-            <a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a>
-            <a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a>
-            <a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a>
-            <a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a>
-            <a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a>
-            <a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a>
-            <a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a>
-            <a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a>
-          </div>
-        </div>
-        <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
-      </nav>
-    </div>
-    <div class="sidebar-overlay"></div>
+    <nav class="sidebar" aria-label="Main Navigation">
+      <a href="../"><i class="fas fa-home"></i> Home</a>
+      <a href="../all-tools"><i class="fas fa-th"></i> All Tools</a>
+      <a href="../social-media-tools"><i class="fab fa-youtube"></i> YouTube Tools</a>
+      <a href="../editors"><i class="fas fa-edit"></i> Editors Tools</a>
+      <a href="../converters"><i class="fas fa-exchange-alt"></i> Converters</a>
+      <a href="../productivity-tools"><i class="fas fa-tasks"></i> Productivity</a>
+      <a href="../compilers"><i class="fas fa-code"></i> Code Tools</a>
+      <a href="../dev-tools"><i class="fas fa-laptop-code"></i> Developer</a>
+      <a href="../games"><i class="fas fa-gamepad"></i> Games</a>
+      <a href="../date-time-tools" class="active"><i class="fas fa-clock"></i> Time & Date</a>
+      <a href="../mathematical-tools"><i class="fas fa-calculator"></i> Math Tools</a>
+      <a href="../store"><i class="fas fa-store"></i> Store</a> 
+      <a href="../d2karmy"><i class="fas fa-store"></i> D2K Airdrop</a>
+    </nav>
+    <div class="sidebar-overlay" aria-hidden="true"></div>
   </header>
 
   <div class="main-container">
     <main>
-      <section class="category-intro">
+      <section class="intro-section">
         <h1>Time & Date Tools</h1>
         <p>Manage your time effectively with our suite of free online tools for clocks, calendars, time zones, timers, and date calculations. Ideal for scheduling, planning, and staying on track across different regions.</p>
       </section>
@@ -695,81 +719,60 @@
         </div>
       </section>
 
-      <section id="time-date-tools" class="category">
-        <h2>Time & Date Tools</h2>
-        <p>Access tools to track time, manage schedules, and coordinate across time zones.</p>
+      <section class="tools-section" aria-labelledby="time-date-tools">
+        <h2 id="time-date-tools">Time & Date Tools</h2>
         <div class="tools-grid">
-          <div class="tool-card" data-name="Digital Clock" data-category="Time & Date" data-keywords="clock time current">
+          <article class="tool-card" data-name="Digital Clock" data-category="Time & Date" data-keywords="clock time current">
             <div class="icon"><i class="fas fa-clock"></i></div>
             <h3>Digital Clock</h3>
             <p>Displays the current time in real-time.</p>
-            <a href="./digital-clock" class="btn" aria-label="Use Digital Clock tool">View Clock</a>
-          </div>
-          <div class="tool-card" data-name="Calendar" data-category="Time & Date" data-keywords="calendar date month year">
+            <a href="./digital-clock" class="btn" aria-label="Use Digital Clock tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="Calendar" data-category="Time & Date" data-keywords="calendar date month year">
             <div class="icon"><i class="fas fa-calendar"></i></div>
             <h3>Calendar</h3>
             <p>Interactive monthly calendar with navigation.</p>
-            <a href="./calendar" class="btn" aria-label="Use Calendar tool">View Calendar</a>
-          </div>
-          <div class="tool-card" data-name="World Clock" data-category="Time & Date" data-keywords="world clock time zones global time international time">
+            <a href="./calendar" class="btn" aria-label="Use Calendar tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="World Clock" data-category="Time & Date" data-keywords="world clock time zones global time international time">
             <div class="icon"><i class="fas fa-globe"></i></div>
             <h3>World Clock</h3>
             <p>View current time across multiple time zones.</p>
-            <a href="./world-clock" class="btn" aria-label="Use World Clock tool">Check Time Zones</a>
-          </div>
-          <div class="tool-card" data-name="Countdown Timer" data-category="Time & Date" data-keywords="countdown timer deadline event timer">
+            <a href="./world-clock" class="btn" aria-label="Use World Clock tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="Countdown Timer" data-category="Time & Date" data-keywords="countdown timer deadline event timer">
             <div class="icon"><i class="fas fa-hourglass-half"></i></div>
             <h3>Countdown Timer</h3>
             <p>Set timers for events, tasks, or deadlines.</p>
-            <a href="./countdown-timer" class="btn" aria-label="Use Countdown Timer tool">Start Countdown</a>
-          </div>
-          <div class="tool-card" data-name="Stopwatch" data-category="Time & Date" data-keywords="stopwatch timer elapsed time lap timer">
+            <a href="./countdown-timer" class="btn" aria-label="Use Countdown Timer tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="Stopwatch" data-category="Time & Date" data-keywords="stopwatch timer elapsed time lap timer">
             <div class="icon"><i class="fas fa-stopwatch"></i></div>
             <h3>Stopwatch</h3>
             <p>Measure elapsed time with lap functions.</p>
-            <a href="./stopwatch" class="btn" aria-label="Use Stopwatch tool">Start Stopwatch</a>
-          </div>
-          <div class="tool-card" data-name="Date Calculator" data-category="Time & Date" data-keywords="date calculator days between date difference time calculator">
+            <a href="./stopwatch" class="btn" aria-label="Use Stopwatch tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="Date Calculator" data-category="Time & Date" data-keywords="date calculator days between date difference time calculator">
             <div class="icon"><i class="fas fa-calculator"></i></div>
             <h3>Date Calculator</h3>
             <p>Calculate days between dates or add/subtract time.</p>
-            <a href="./date-calculator" class="btn" aria-label="Use Date Calculator tool">Calculate Now</a>
-          </div>
-          <div class="tool-card" data-name="Time Zone Converter" data-category="Time & Date" data-keywords="time zone converter schedule meeting time conversion global time">
+            <a href="./date-calculator" class="btn" aria-label="Use Date Calculator tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="Time Zone Converter" data-category="Time & Date" data-keywords="time zone converter schedule meeting time conversion global time">
             <div class="icon"><i class="fas fa-sync-alt"></i></div>
             <h3>Time Zone Converter</h3>
             <p>Convert times or schedule across time zones.</p>
-            <a href="./time-zone-converter" class="btn" aria-label="Use Time Zone Converter tool">Convert Time</a>
-          </div>
-          <div class="tool-card" data-name="Alarm Clock" data-category="Time & Date" data-keywords="alarm clock reminder notification alert">
+            <a href="./time-zone-converter" class="btn" aria-label="Use Time Zone Converter tool">Use Tool</a>
+          </article>
+          <article class="tool-card" data-name="Alarm Clock" data-category="Time & Date" data-keywords="alarm clock reminder notification alert">
             <div class="icon"><i class="fas fa-bell"></i></div>
             <h3>Alarm Clock</h3>
             <p>Set customizable alarms with notifications.</p>
-            <a href="./alarm-clock" class="btn" aria-label="Use Alarm Clock tool">Set Alarm</a>
-          </div>
+            <a href="./alarm-clock" class="btn" aria-label="Use Alarm Clock tool">Use Tool</a>
+          </article>
         </div>
       </section>
     </main>
-
-    <aside class="right-sidebar">
-      <div class="widget">
-        <h3>Trending Time & Date Tools</h3>
-        <ul class="widget-list">
-          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-        </ul>
-      </div>
-      <div class="widget">
-        <h3>Quick Tips</h3>
-        <ul class="widget-list">
-          <li>Use the World Clock to coordinate meetings across time zones.</li>
-          <li>Set a Countdown Timer to stay on track with deadlines.</li>
-          <li>Check the Date Calculator for planning future events.</li>
-        </ul>
-      </div>
-    </aside>
   </div>
 
   <footer>
@@ -777,27 +780,17 @@
       <div>
         <div class="footer-logo">
           <a href="../" class="logo">ToolPix</a>
-          <p>Free online tools for YouTube, images, productivity, code, and time management</p>
-        </div>
-        <div class="social-links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <p>200+ free online tools for YouTube, images, AI, productivity, coding, and games.</p>
         </div>
       </div>
       <div class="footer-links">
-        <h3>Time & Date Tools</h3>
+        <h3>Tools</h3>
         <ul>
-          <li><a href="./digital-clock"><i class="fas fa-clock"></i> Digital Clock</a></li>
-          <li><a href="./calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
-          <li><a href="./world-clock"><i class="fas fa-globe"></i> World Clock</a></li>
-          <li><a href="./countdown-timer"><i class="fas fa-hourglass-half"></i> Countdown Timer</a></li>
-          <li><a href="./stopwatch"><i class="fas fa-stopwatch"></i> Stopwatch</a></li>
-          <li><a href="./date-calculator"><i class="fas fa-calculator"></i> Date Calculator</a></li>
-          <li><a href="./time-zone-converter"><i class="fas fa-sync-alt"></i> Time Zone Converter</a></li>
-          <li><a href="./alarm-clock"><i class="fas fa-bell"></i> Alarm Clock</a></li>
+          <li><a href="../social-media-tools"><i class="fab fa-youtube"></i> YouTube Tools</a></li>
+          <li><a href="../converters"><i class="fas fa-exchange-alt"></i> Converters</a></li>
+          <li><a href="../productivity-tools"><i class="fas fa-tasks"></i> Productivity</a></li>
+          <li><a href="../games"><i class="fas fa-gamepad"></i> Online Games</a></li>
+          <li><a href="../store"><i class="fas fa-store"></i> Premium Store</a></li>
         </ul>
       </div>
       <div class="footer-links">
@@ -808,6 +801,15 @@
           <li><a href="../contact"><i class="fas fa-envelope"></i> Contact</a></li>
           <li><a href="../privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
           <li><a href="../terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="../report-bug"><i class="fas fa-bug"></i> Report Bug</a></li>
+          <li><a href="../feature-request"><i class="fas fa-lightbulb"></i> Request Feature</a></li>
+          <li><a href="../faq"><i class="fas fa-question-circle"></i> FAQs</a></li>
+          <li><a href="../help"><i class="fas fa-life-ring"></i> Help Center</a></li>
         </ul>
       </div>
     </div>
@@ -821,45 +823,33 @@
   </footer>
 
   <script>
+    const debounce = (func, wait) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    };
+
+    // Mobile menu toggle
+    const burgerIcon = document.querySelector('.burger-icon');
     const sidebar = document.querySelector('.sidebar');
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
-    const burgerIcon = document.querySelector('.burger-icon');
-    const searchIconBtn = document.querySelector('.search-icon-btn');
-    const searchContainer = document.querySelector('.search-container');
+    
+    const toggleSidebar = () => {
+      const isOpen = sidebar.classList.toggle('open');
+      sidebarOverlay.classList.toggle('active');
+      burgerIcon.textContent = isOpen ? '×' : '☰';
+      burgerIcon.setAttribute('aria-expanded', isOpen);
+    };
+
+    burgerIcon.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    // Search functionality
     const searchInput = document.getElementById('mainSearch');
     const searchButton = document.getElementById('searchButton');
     const clearSearchBtn = document.getElementById('clearSearch');
-
-    burgerIcon.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
-      sidebarOverlay.classList.toggle('active');
-      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
-      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
-    });
-
-    sidebarOverlay.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      sidebarOverlay.classList.remove('active');
-      burgerIcon.textContent = '☰';
-      document.body.style.overflow = 'auto';
-    });
-
-    searchIconBtn.addEventListener('click', () => {
-      const headerHeight = document.querySelector('header').offsetHeight;
-      const searchContainerTop = searchContainer.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: searchContainerTop - headerHeight - 20,
-        behavior: 'smooth'
-      });
-      setTimeout(() => searchInput.focus(), 500);
-    });
-
-    document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        item.parentElement.classList.toggle('active');
-      });
-    });
 
     const allTools = Array.from(document.querySelectorAll('.tool-card')).map(card => ({
       name: card.getAttribute('data-name'),
@@ -895,52 +885,34 @@
       if (e.key === 'Enter') performSearch(searchInput.value);
     });
 
+    // Dark mode toggle
     const darkModeToggle = document.createElement('button');
+    darkModeToggle.className = 'dark-mode-toggle';
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
     darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    darkModeToggle.style.position = 'fixed';
-    darkModeToggle.style.bottom = '20px';
-    darkModeToggle.style.right = '20px';
-    darkModeToggle.style.background = 'var(--primary)';
-    darkModeToggle.style.color = 'white';
-    darkModeToggle.style.border = 'none';
-    darkModeToggle.style.borderRadius = '50%';
-    darkModeToggle.style.width = '50px';
-    darkModeToggle.style.height = '50px';
-    darkModeToggle.style.cursor = 'pointer';
-    darkModeToggle.style.zIndex = '99';
-    darkModeToggle.style.boxShadow = '0 2px 10px var(--shadow)';
-    darkModeToggle.addEventListener('click', () => {
-      if (document.documentElement.classList.contains('dark-mode')) {
-        document.documentElement.classList.remove('dark-mode');
-        document.documentElement.classList.add('light-mode');
-        localStorage.setItem('theme', 'light');
-        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-      } else {
-        document.documentElement.classList.remove('light-mode');
-        document.documentElement.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
-        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-      }
-    });
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    const toggleDarkMode = () => {
+      const isDarkMode = document.documentElement.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+      darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      darkModeToggle.setAttribute('aria-label', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    };
+    darkModeToggle.addEventListener('click', debounce(toggleDarkMode, 100));
+    if (localStorage.getItem('darkMode') === 'true') {
       document.documentElement.classList.add('dark-mode');
       darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    } else if (savedTheme === 'light') {
-      document.documentElement.classList.add('light-mode');
-      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    } else {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark-mode');
-        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-      } else {
-        document.documentElement.classList.add('light-mode');
-        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-      }
+      darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
     }
-
     document.body.appendChild(darkModeToggle);
+
+    // Lazy-load animation observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.tool-card, .intro-section').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>

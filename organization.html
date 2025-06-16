@@ -3,8 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Time Load - Toolpix | Free Online Image & PDF Tools</title>
- 
+  <title>Time Load - ToolPix | About Us</title>
+  <meta name="description" content="Learn about Time Load, the creators of ToolPix, offering over 200 free online tools for image processing, PDF editing, AI utilities, and more.">
+  <meta name="keywords" content="Time Load, ToolPix, about us, free online tools, AI tools, image converters, PDF editors, privacy-focused tools">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Time Load Company">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://toolpix.netlify.app/organization">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="About Time Load - ToolPix">
+  <meta property="og:description" content="Discover Time Load, the creators of ToolPix, a platform with over 200 free tools for creators, developers, and students.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toolpix.netlify.app/organization">
+  <meta property="og:image" content="https://toolpix.netlify.app/images/toolpix-social-share.jpg">
+  <meta property="og:site_name" content="ToolPix">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Time Load - ToolPix">
+  <meta name="twitter:description" content="Learn about Time Load's mission to empower digital creativity with free, privacy-focused tools.">
+  <meta name="twitter:image" content="https://toolpix.netlify.app/images/toolpix-twitter-card.jpg">
+  <meta name="twitter:site" content="@toolpix">
+
+  <!-- Favicon -->
+  <link rel="icon" href="./static/images/favicon/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="./static/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./static/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./static/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="./static/images/favicon/site.webmanifest">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://toolpix.netlify.app/#organization",
+    "name": "Time Load Company",
+    "url": "https://toolpix.netlify.app",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://toolpix.netlify.app/static/images/favicon/favicon.ico"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Muhammed Ajmal U K",
+      "url": "https://toolpix.netlify.app/organization"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Support",
+      "email": "contact.timeload@gmail.com",
+      "url": "https://toolpix.netlify.app/contact"
+    },
+    "sameAs": [
+      "https://twitter.com/toolpix",
+      "https://www.facebook.com/toolpix",
+      "https://www.linkedin.com/company/toolpix"
+    ],
+    "description": "Time Load is the creator of ToolPix, a platform offering over 200 free online tools for image processing, PDF editing, AI utilities, productivity, and coding, all running client-side for privacy."
+  }
+  </script>
+
   <style>
     :root {
       --primary: #4CAF50;
@@ -171,7 +238,7 @@
 
     .dropdown-menu a:hover {
       background: var(--primary-light);
-      color: white;
+      color: var(--primary);
     }
 
     .dropdown-menu a i {
@@ -224,12 +291,12 @@
     }
 
     .sidebar a:hover {
-      background: rgba(0,0,0,0.05);
+      background: var(--border-light);
     }
 
     .sidebar a.active {
       font-weight: 600;
-      background: rgba(76, 175, 80, 0.1);
+      background: var(--primary-light);
       color: var(--primary);
     }
 
@@ -319,6 +386,12 @@
       padding: 2rem;
       border-radius: var(--radius-md);
       box-shadow: 0 2px 8px var(--shadow);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .organization-header {
@@ -377,7 +450,7 @@
     }
 
     .organization-contact {
-      background: rgba(76, 175, 80, 0.1);
+      background: var(--primary-light);
       padding: 1.5rem;
       border-radius: var(--radius-md);
       margin-top: 2rem;
@@ -501,6 +574,31 @@
       text-decoration: underline;
     }
 
+    .dark-mode-toggle {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 2px 10px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .dark-mode-toggle:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
     /* Responsive Styles */
     @media (max-width: 768px) {
       .desktop-nav { display: none; }
@@ -540,139 +638,112 @@
     }
   </style>
 </head>
-<body>
+<body itemscope itemtype="http://schema.org/WebPage">
   <header>
     <div class="header-container">
-      <a href="/" class="logo">
-        <img src="/static/images/logo.png" alt="Toolpix Logo" width="120" height="36">
+      <a href="./" class="logo" itemprop="url">
+        <img src="./static/images/icon.png" alt="ToolPix Logo" width="120" height="36" loading="lazy" itemprop="logo">
+        <span>ToolPix</span>
       </a>
-      <nav class="desktop-nav">
+      <nav class="desktop-nav" aria-label="Main Navigation">
         <div class="nav-item">
-          <a href="/"><i class="fas fa-home"></i> Home</a>
-        </div>
-        <div class="nav-item">
-          <a href="/converters"><i class="fas fa-exchange-alt"></i> Converters</a>
+          <a href="./all-tools"><i class="fas fa-th"></i> Tools</a>
           <div class="dropdown-menu">
-            <a href="/png-to-jpg"><i class="fas fa-image"></i> PNG to JPG</a>
-            <a href="/jpg-to-png"><i class="fas fa-image"></i> JPG to PNG</a>
-            <a href="/webp-to-jpg"><i class="fas fa-image"></i> WebP to JPG</a>
-            <a href="/jpg-to-pdf"><i class="fas fa-file-pdf"></i> JPG to PDF</a>
-            <a href="/pdf-to-jpg"><i class="fas fa-image"></i> PDF to JPG</a>
-            <a href="/all-converters"><i class="fas fa-exchange-alt"></i> All Converters</a>
+            <a href="./social-media-tools"><i class="fab fa-youtube"></i> YouTube Tools</a>
+            <a href="./editors"><i class="fas fa-edit"></i> Editors</a>
+            <a href="./converters"><i class="fas fa-exchange-alt"></i> Converters</a>
+            <a href="./productivity-tools"><i class="fas fa-tasks"></i> Productivity</a>
+            <a href="./compilers"><i class="fas fa-code"></i> Code Tools</a>
+            <a href="./dev-tools"><i class="fas fa-laptop-code"></i> Developer</a>
+            <a href="./games"><i class="fas fa-gamepad"></i> Games</a>
+            <a href="./date-time-tools"><i class="fas fa-clock"></i> Time & Date</a>
+            <a href="./mathematical-tools"><i class="fas fa-calculator"></i> Math Tools</a>
           </div>
         </div>
         <div class="nav-item">
-          <a href="/editors"><i class="fas fa-edit"></i> Editors</a>
-          <div class="dropdown-menu">
-            <a href="/image-editor"><i class="fas fa-crop-alt"></i> Image Editor</a>
-            <a href="/photo-enhancer"><i class="fas fa-magic"></i> Photo Enhancer</a>
-            <a href="/background-remover"><i class="fas fa-eraser"></i> Background Remover</a>
-            <a href="/watermark-remover"><i class="fas fa-water"></i> Watermark Remover</a>
-            <a href="/all-editors"><i class="fas fa-edit"></i> All Editors</a>
-          </div>
+          <a href="./store"><i class="fas fa-store"></i> Store</a>
         </div>
         <div class="nav-item">
-          <a href="/ai-tools"><i class="fas fa-robot"></i> AI Tools</a>
-          <div class="dropdown-menu">
-            <a href="/ai-image-generator"><i class="fas fa-paint-brush"></i> AI Image Generator</a>
-            <a href="/ai-photo-enhancer"><i class="fas fa-magic"></i> AI Photo Enhancer</a>
-            <a href="/ai-background-remover"><i class="fas fa-eraser"></i> AI Background Remover</a>
-            <a href="/ai-art-generator"><i class="fas fa-palette"></i> AI Art Generator</a>
-            <a href="/all-ai-tools"><i class="fas fa-robot"></i> All AI Tools</a>
-          </div>
+          <a href="./d2karmy"><i class="fas fa-store"></i> D2K Airdrop</a>
         </div>
         <div class="nav-item">
-          <a href="/code-tools"><i class="fas fa-code"></i> Code Tools</a>
-          <div class="dropdown-menu">
-            <a href="/html-editor"><i class="fab fa-html5"></i> HTML Editor</a>
-            <a href="/css-editor"><i class="fab fa-css3-alt"></i> CSS Editor</a>
-            <a href="/javascript-editor"><i class="fab fa-js"></i> JavaScript Editor</a>
-            <a href="/json-formatter"><i class="fas fa-brackets-curly"></i> JSON Formatter</a>
-            <a href="/all-code-tools"><i class="fas fa-code"></i> All Code Tools</a>
-          </div>
+          <a href="./organization" class="active"><i class="fas fa-building"></i> About</a>
         </div>
         <div class="nav-item">
-          <a href="/all-tools"><i class="fas fa-th"></i> All Tools</a>
+          <a href="./contact"><i class="fas fa-envelope"></i> Contact</a>
         </div>
       </nav>
-      <button class="burger-icon" aria-label="Menu">☰</button>
+      <button class="burger-icon" aria-label="Toggle Menu">☰</button>
     </div>
-    <div class="sidebar">
-      <nav>
-        <a href="/"><i class="fas fa-home"></i> Home</a>
-        <div class="sidebar-item has-dropdown">
-          <a href="/converters"><i class="fas fa-exchange-alt"></i> Converters</a>
-          <div class="sidebar-dropdown">
-            <a href="/png-to-jpg"><i class="fas fa-image"></i> PNG to JPG</a>
-            <a href="/jpg-to-png"><i class="fas fa-image"></i> JPG to PNG</a>
-            <a href="/webp-to-jpg"><i class="fas fa-image"></i> WebP to JPG</a>
-            <a href="/jpg-to-pdf"><i class="fas fa-file-pdf"></i> JPG to PDF</a>
-            <a href="/pdf-to-jpg"><i class="fas fa-image"></i> PDF to JPG</a>
-            <a href="/all-converters"><i class="fas fa-exchange-alt"></i> All Converters</a>
-          </div>
+    <nav class="sidebar" aria-label="Mobile Navigation">
+      <div class="sidebar-item">
+        <a href="./" class="active"><i class="fas fa-home"></i> Home</a>
+      </div>
+      <div class="sidebar-item has-dropdown">
+        <a href="./all-tools"><i class="fas fa-th"></i> Tools</a>
+        <div class="sidebar-dropdown">
+          <a href="./social-media-tools"><i class="fab fa-youtube"></i> YouTube Tools</a>
+          <a href="./editors"><i class="fas fa-edit"></i> Editors</a>
+          <a href="./converters"><i class="fas fa-exchange-alt"></i> Converters</a>
+          <a href="./productivity-tools"><i class="fas fa-tasks"></i> Productivity</a>
+          <a href="./compilers"><i class="fas fa-code"></i> Code Tools</a>
+          <a href="./dev-tools"><i class="fas fa-laptop-code"></i> Developer</a>
+          <a href="./games"><i class="fas fa-gamepad"></i> Games</a>
+          <a href="./date-time-tools"><i class="fas fa-clock"></i> Time & Date</a>
+          <a href="./mathematical-tools"><i class="fas fa-calculator"></i> Math Tools</a>
         </div>
-        <div class="sidebar-item has-dropdown">
-          <a href="/editors"><i class="fas fa-edit"></i> Editors</a>
-          <div class="sidebar-dropdown">
-            <a href="/image-editor"><i class="fas fa-crop-alt"></i> Image Editor</a>
-            <a href="/photo-enhancer"><i class="fas fa-magic"></i> Photo Enhancer</a>
-            <a href="/background-remover"><i class="fas fa-eraser"></i> Background Remover</a>
-            <a href="/watermark-remover"><i class="fas fa-water"></i> Watermark Remover</a>
-            <a href="/all-editors"><i class="fas fa-edit"></i> All Editors</a>
-          </div>
-        </div>
-        <div class="sidebar-item has-dropdown">
-          <a href="/ai-tools"><i class="fas fa-robot"></i> AI Tools</a>
-          <div class="sidebar-dropdown">
-            <a href="/ai-image-generator"><i class="fas fa-paint-brush"></i> AI Image Generator</a>
-            <a href="/ai-photo-enhancer"><i class="fas fa-magic"></i> AI Photo Enhancer</a>
-            <a href="/ai-background-remover"><i class="fas fa-eraser"></i> AI Background Remover</a>
-            <a href="/ai-art-generator"><i class="fas fa-palette"></i> AI Art Generator</a>
-            <a href="/all-ai-tools"><i class="fas fa-robot"></i> All AI Tools</a>
-          </div>
-        </div>
-        <div class="sidebar-item has-dropdown">
-          <a href="/code-tools"><i class="fas fa-code"></i> Code Tools</a>
-          <div class="sidebar-dropdown">
-            <a href="/html-editor"><i class="fab fa-html5"></i> HTML Editor</a>
-            <a href="/css-editor"><i class="fab fa-css3-alt"></i> CSS Editor</a>
-            <a href="/javascript-editor"><i class="fab fa-js"></i> JavaScript Editor</a>
-            <a href="/json-formatter"><i class="fas fa-brackets-curly"></i> JSON Formatter</a>
-            <a href="/all-code-tools"><i class="fas fa-code"></i> All Code Tools</a>
-          </div>
-        </div>
-        <a href="/all-tools"><i class="fas fa-th"></i> All Tools</a>
-        <a href="/privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-        <a href="/terms"><i class="fas fa-file-contract"></i> Terms</a>
-        <a href="/organization" class="active"><i class="fas fa-building"></i> About Time Load</a>
-      </nav>
-    </div>
-    <div class="sidebar-overlay"></div>
+      </div>
+      <div class="sidebar-item">
+        <a href="./store"><i class="fas fa-store"></i> Store</a>
+      </div>
+      <div class="sidebar-item">
+        <a href="./d2karmy"><i class="fas fa-store"></i> D2K Airdrop</a>
+      </div>
+      <div class="sidebar-item">
+        <a href="./organization"><i class="fas fa-building"></i> About</a>
+      </div>
+      <div class="sidebar-item">
+        <a href="./contact"><i class="fas fa-envelope"></i> Contact</a>
+      </div>
+      <div class="sidebar-item">
+        <a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+      </div>
+      <div class="sidebar-item">
+        <a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a>
+      </div>
+    </nav>
+    <div class="sidebar-overlay" aria-hidden="true"></div>
   </header>
 
   <main>
-    <div class="breadcrumbs">
-      <a href="/"><i class="fas fa-home"></i> Home</a>
+    <div class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <a href="./" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <i class="fas fa-home"></i> 
+        <span itemprop="name">Home</span>
+        <meta itemprop="position" content="1">
+      </a>
       <span class="separator">/</span>
-      <span>About Time Load</span>
+      <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <span itemprop="name">About Time Load</span>
+        <meta itemprop="position" content="2">
+      </span>
     </div>
     
-    <div class="organization-container">
+    <div class="organization-container" itemscope itemtype="http://schema.org/Organization">
       <div class="organization-header">
-        <h1>About Time Load</h1>
+        <h1 itemprop="name">About Time Load</h1>
         <p>Empowering Digital Creativity and Development</p>
       </div>
-      
       <div class="organization-content">
         <div class="organization-section">
           <h2>Who We Are</h2>
-          <p>Time Load is a unified platform for AI tools, compilers, converters, and futuristic utilities — designed to build tomorrow’s tech, today. We empower users worldwide by offering free, fast, and easy-to-use web tools that run entirely client-side, protecting user privacy and enhancing productivity without login or registration.</p>
+          <p itemprop="description">Time Load is the innovative force behind ToolPix, a platform offering over 200 free, client-side web tools for image processing, PDF editing, AI utilities, productivity, coding, and gaming. Our tools are designed to be fast, secure, and accessible without requiring login or registration, empowering users worldwide to bring their ideas to life.</p>
         </div>
         
         <div class="organization-section">
           <h2>Our Team</h2>
           <h3>Founder</h3>
-          <p>Muhammed Ajmal U K</p>
+          <p><span itemprop="founder" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Muhammed Ajmal U K</span></span></p>
         </div>
         
         <div class="organization-section">
@@ -699,84 +770,91 @@
         <div class="organization-contact">
           <h3>Contact Us</h3>
           <p>If you have any questions about Time Load or our tools, please reach out to us at:</p>
-          <p><i class="fas fa-envelope"></i> Email: <a href="mailto:contact.timeload@gmail.com">contact.timeload@gmail.com</a></p>
+          <p><i class="fas fa-envelope"></i> Email: <a href="mailto:contact.timeload@gmail.com" itemprop="email">contact.timeload@gmail.com</a></p>
         </div>
       </div>
     </div>
   </main>
 
-  <footer>
+  <footer itemscope itemtype="http://schema.org/WPFooter">
     <div class="footer-container">
       <div>
         <div class="footer-logo">
-          <a href="/" class="logo">Toolpix</a>
-          <p>Free online tools for images, PDFs, AI and code</p>
+          <a href="./" class="logo">ToolPix</a>
+          <p>Free online tools for images, PDFs, AI, and code</p>
         </div>
         <div class="social-links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/toolpix" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/toolpix" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/toolpix" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/toolpix" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
       <div class="footer-links">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="/all-tools"><i class="fas fa-th"></i> All Tools</a></li>
-          <li><a href="/organization"><i class="fas fa-building"></i> About Time Load</a></li>
-          <li><a href="/blog"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="./"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="./all-tools"><i class="fas fa-th"></i> All Tools</a></li>
+          <li><a href="./organization"><i class="fas fa-building"></i> About Time Load</a></li>
+          <li><a href="./blog"><i class="fas fa-blog"></i> Blog</a></li>
         </ul>
       </div>
       <div class="footer-links">
         <h3>Legal</h3>
         <ul>
-          <li><a href="/privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
-          <li><a href="/terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-          <li><a href="/cookies"><i class="fas fa-cookie"></i> Cookie Policy</a></li>
-          <li><a href="/dmca"><i class="fas fa-gavel"></i> DMCA</a></li>
+          <li><a href="./privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="./terms"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+          <li><a href="./cookies"><i class="fas fa-cookie"></i> Cookie Policy</a></li>
+          <li><a href="./dmca"><i class="fas fa-gavel"></i> DMCA</a></li>
         </ul>
       </div>
       <div class="footer-links">
         <h3>Support</h3>
         <ul>
-          <li><a href="/contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
-          <li><a href="/faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
-          <li><a href="/feedback"><i class="fas fa-comment-alt"></i> Feedback</a></li>
-          <li><a href="/donate"><i class="fas fa-heart"></i> Donate</a></li>
+          <li><a href="./contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
+          <li><a href="./faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+          <li><a href="./feedback"><i class="fas fa-comment-alt"></i> Feedback</a></li>
+          <li><a href="./donate"><i class="fas fa-heart"></i> Donate</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Toolpix. All rights reserved.</p>
-      <a href="/sitemap.xml">Sitemap</a>
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-      <a href="/contact">Contact Us</a>
+      <p>© <span itemprop="copyrightYear">2025</span> <span itemprop="copyrightHolder">ToolPix</span>. All rights reserved.</p>
+      <a href="./sitemap.xml">Sitemap</a>
+      <a href="./privacy">Privacy Policy</a>
+      <a href="./terms">Terms of Service</a>
+      <a href="./contact">Contact Us</a>
     </div>
   </footer>
 
+  <button class="dark-mode-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
   <script>
+    const debounce = (func, wait) => {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    };
+
     // Mobile menu toggle
     const burgerIcon = document.querySelector('.burger-icon');
     const sidebar = document.querySelector('.sidebar');
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
     
-    burgerIcon.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+    const toggleSidebar = () => {
+      const isOpen = sidebar.classList.toggle('open');
       sidebarOverlay.classList.toggle('active');
-      burgerIcon.textContent = sidebar.classList.contains('open') ? '×' : '☰';
-      burgerIcon.setAttribute('aria-expanded', sidebar.classList.contains('open'));
-      document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
-    });
-    
-    sidebarOverlay.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      sidebarOverlay.classList.remove('active');
-      burgerIcon.textContent = '☰';
-      burgerIcon.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = 'auto';
-    });
+      burgerIcon.textContent = isOpen ? '×' : '☰';
+      burgerIcon.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    };
+
+    burgerIcon.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
 
     // Sidebar dropdown functionality
     document.querySelectorAll('.sidebar-item.has-dropdown > a').forEach(item => {
@@ -791,10 +869,8 @@
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
-        
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           targetElement.scrollIntoView({
@@ -804,6 +880,21 @@
         }
       });
     });
+
+    // Dark mode toggle
+    const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    const toggleDarkMode = () => {
+      const isDarkMode = document.documentElement.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+      darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      darkModeToggle.setAttribute('aria-label', isDarkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    };
+    darkModeToggle.addEventListener('click', debounce(toggleDarkMode, 100));
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.documentElement.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+    }
 
     // Responsive adjustments
     function handleResize() {
@@ -815,8 +906,17 @@
         document.body.style.overflow = 'auto';
       }
     }
-    
     window.addEventListener('resize', handleResize);
+
+    // Lazy-load animation observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.organization-container').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
