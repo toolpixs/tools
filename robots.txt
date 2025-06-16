@@ -3,3 +3,13 @@ Disallow: /controls/
 Allow: /
 
 Sitemap: https://toolpix.netlify.app/sitemap.xml
+Sitemap: https://toolpix.netlify.app/sitemap-main.xml
+Sitemap: https://toolpix.netlify.app/sitemap-dev-tools.xml
+Sitemap: https://toolpix.netlify.app/sitemap-compilers.xml
+Sitemap: https://toolpix.netlify.app/sitemap-converters.xml
+Sitemap: https://toolpix.netlify.app/sitemap-date-time-tools.xml
+Sitemap: https://toolpix.netlify.app/sitemap-editors.xml
+Sitemap: https://toolpix.netlify.app/sitemap-games.xml
+Sitemap: https://toolpix.netlify.app/sitemap-mathematical-tools.xml
+Sitemap: https://toolpix.netlify.app/sitemap-productivity-tools.xml
+Sitemap: https://toolpix.netlify.app/sitemap-social-media-tools.xml
